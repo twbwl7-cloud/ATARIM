@@ -179,7 +179,7 @@ export function PinnedPillars() {
             style={{ scale: headlineScale, opacity: headlineOpacity }}
             className="relative z-20 max-w-lg text-center"
           >
-            <p className="text-xs tracking-[0.32em] text-sky-300/85">המערכת · A05</p>
+            <p className="text-xs tracking-[0.32em] text-sky-300/85">המערכת</p>
             <h2 className="display mt-3 text-[clamp(28px,3.5vw,52px)] leading-[1.1] text-ivory">
               חלל שקט.{" "}
               <span className="bg-gradient-to-l from-sky-300 via-[#c9a962] to-[#f0c6cf] bg-clip-text text-transparent">

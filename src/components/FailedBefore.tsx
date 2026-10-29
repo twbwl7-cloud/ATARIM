@@ -90,7 +90,7 @@ export function FailedBefore() {
       <div className="sticky top-0 hidden h-screen overflow-hidden md:block">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(240,198,207,0.06),transparent_50%)]" />
         <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-8">
-          <p className="text-xs tracking-[0.28em] text-pink">הכאב · P05 / P07</p>
+          <p className="text-xs tracking-[0.28em] text-pink">הכאב</p>
           <h2 className="display mt-4 max-w-3xl text-[clamp(28px,4vw,52px)] leading-[1.12] text-ivory">
             לפני שסוגרים עסקה —{" "}
             <span className="gold-text">מה כבר ניסיתם?</span>

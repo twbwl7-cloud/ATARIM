@@ -43,12 +43,14 @@ function StepCard({
   progress: MotionValue<number>;
   index: number;
 }) {
-  const start = 0.08 + index * 0.2;
-  const end = start + 0.16;
-  const opacity = useTransform(progress, [start, end, end + 0.35], [0, 1, 1]);
-  const y = useTransform(progress, [start, end], [80 + index * 12, index * 14]);
-  const scale = useTransform(progress, [start, end], [0.92, 1 - index * 0.015]);
-  const rotate = useTransform(progress, [start, end], [index % 2 === 0 ? -2.5 : 2.5, 0]);
+  // Keep all keyframe offsets strictly inside [0, 1]
+  const start = 0.06 + index * 0.18;
+  const mid = Math.min(start + 0.14, 0.92);
+  const hold = Math.min(mid + 0.08, 0.98);
+  const opacity = useTransform(progress, [start, mid, hold], [0, 1, 1]);
+  const y = useTransform(progress, [start, mid], [72 + index * 10, index * 12]);
+  const scale = useTransform(progress, [start, mid], [0.94, 1 - index * 0.012]);
+  const rotate = useTransform(progress, [start, mid], [index % 2 === 0 ? -2 : 2, 0]);
 
   return (
     <motion.article
@@ -72,7 +74,7 @@ export function CraftProcess() {
     offset: ["start start", "end end"],
   });
 
-  const rail = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const rail = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const headlineOpacity = useTransform(scrollYProgress, [0, 0.08, 0.9, 1], [1, 1, 0.5, 0.35]);
 
   return (
@@ -106,16 +108,16 @@ export function CraftProcess() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,169,98,0.06),transparent_55%)]" />
 
         {/* Progress rail */}
-        <div className="absolute start-8 top-1/2 h-48 w-px -translate-y-1/2 bg-white/10 lg:start-12">
+        <div className="absolute start-8 top-1/2 h-48 w-px -translate-y-1/2 overflow-hidden bg-white/10 lg:start-12">
           <motion.div
-            style={{ height: rail }}
-            className="w-full origin-top bg-gradient-to-b from-gold via-pink to-gold/40"
+            style={{ scaleY: rail, originY: 0 }}
+            className="h-full w-full bg-gradient-to-b from-gold via-pink to-gold/40"
           />
         </div>
 
         <div className="relative mx-auto h-full max-w-5xl px-8">
           <motion.div style={{ opacity: headlineOpacity }} className="absolute top-[12%] start-0 end-0 text-center">
-            <p className="text-xs tracking-[0.28em] text-gold">המלאכה · P13 / A05</p>
+            <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
             <h2 className="display mt-3 text-[clamp(28px,3.8vw,48px)] text-ivory">
               ארבעה שלבים.{" "}
               <span className="bg-gradient-to-l from-gold via-pink to-sky-300 bg-clip-text text-transparent">

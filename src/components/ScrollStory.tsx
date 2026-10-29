@@ -23,7 +23,7 @@ export function ScrollStory() {
     >
       <div className="mx-auto max-w-4xl">
         <div className="mb-8 flex items-center justify-between gap-4">
-          <p className="text-xs tracking-[0.28em] text-gold">למה זה חשוב · P07</p>
+          <p className="text-xs tracking-[0.28em] text-gold">למה זה חשוב</p>
           <div className="h-px w-24 overflow-hidden bg-white/10 md:w-40">
             <motion.div style={{ width: bar }} className="h-full bg-gradient-to-l from-gold to-pink" />
           </div>
