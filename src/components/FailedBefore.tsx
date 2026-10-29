@@ -40,7 +40,7 @@ function StrikeLine({
         <motion.span
           aria-hidden
           style={{ scaleX, originX: 1 }}
-          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold via-pink to-gold/40"
+          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-pink to-garnet/70"
         />
       </span>
     </motion.li>
@@ -61,7 +61,7 @@ export function FailedBefore() {
   return (
     <section
       ref={wrap}
-      className="relative z-10 h-[280vh] bg-[#050506] md:h-[260vh]"
+      className="section-void relative z-10 h-[280vh] md:h-[260vh]"
       aria-label="מה כבר ניסיתם"
     >
       {/* Mobile stack */}
@@ -88,12 +88,12 @@ export function FailedBefore() {
 
       {/* Desktop pinned scrub */}
       <div className="sticky top-0 hidden h-screen overflow-hidden md:block">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(240,198,207,0.06),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(212,168,181,0.09),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(122,46,58,0.1),transparent_45%)]" />
         <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-8">
           <p className="text-xs tracking-[0.28em] text-pink">הכאב</p>
           <h2 className="display mt-4 max-w-3xl text-[clamp(28px,4vw,52px)] leading-[1.12] text-ivory">
             לפני שסוגרים עסקה —{" "}
-            <span className="gold-text">מה כבר ניסיתם?</span>
+            <span className="luxury-gradient-text">מה כבר ניסיתם?</span>
           </h2>
 
           <ul className="mt-10 max-w-3xl">

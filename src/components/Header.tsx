@@ -20,7 +20,7 @@ export function Header() {
         >
           <span
             aria-hidden
-            className="grid h-9 w-9 place-items-center rounded-full border border-gold/40 bg-elevated/80 text-[11px] font-semibold tracking-[0.18em] text-gold shadow-[0_0_20px_rgba(212,175,103,0.15)]"
+            className="grid h-9 w-9 place-items-center rounded-full border border-gold/50 bg-elevated/90 text-[11px] font-semibold tracking-[0.18em] text-gold-bright shadow-[0_0_24px_rgba(201,161,91,0.22)]"
           >
             דט
           </span>

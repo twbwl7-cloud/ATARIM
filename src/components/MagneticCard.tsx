@@ -31,7 +31,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
   const springY = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
   const glowX = useMotionValue(50);
   const glowY = useMotionValue(40);
-  const glow = useMotionTemplate`radial-gradient(480px circle at ${glowX}% ${glowY}%, rgba(212,175,103,0.22), transparent 55%)`;
+  const glow = useMotionTemplate`radial-gradient(520px circle at ${glowX}% ${glowY}%, rgba(201,161,91,0.26), transparent 52%), radial-gradient(280px circle at ${glowX}% ${glowY}%, rgba(122,46,58,0.12), transparent 60%)`;
 
   const href = projectHref(project);
   const external = projectIsExternal(project);
@@ -89,7 +89,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
       onMouseLeave={onLeave}
       onClick={openProject}
       onKeyDown={onKeyDown}
-      className="group relative cursor-pointer overflow-hidden rounded-[1.5rem] border border-line bg-elevated/80 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.35)] md:p-7"
+      className="premium-panel group relative cursor-pointer overflow-hidden rounded-[1.5rem] p-6 md:p-7"
     >
       <motion.div
         aria-hidden

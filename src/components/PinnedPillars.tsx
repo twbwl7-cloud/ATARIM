@@ -123,18 +123,16 @@ export function PinnedPillars() {
   return (
     <section
       ref={wrap}
-      className="relative z-10 h-[360vh] bg-[#050506] md:h-[340vh]"
+      className="section-void relative z-10 h-[360vh] md:h-[340vh]"
       aria-label="עמודי תווך"
     >
       {/* Mobile: simple stack */}
       <div className="space-y-10 px-5 py-20 md:hidden">
         <div className="mb-12 text-center">
-          <p className="text-xs tracking-[0.28em] text-sky-300/80">המערכת</p>
+          <p className="text-xs tracking-[0.28em] text-platinum">המערכת</p>
           <h2 className="display mt-3 text-3xl text-ivory">
             חלל שקט.{" "}
-            <span className="bg-gradient-to-l from-sky-300 via-gold to-pink bg-clip-text text-transparent">
-              נוכחות קטלנית.
-            </span>
+            <span className="luxury-gradient-text">נוכחות קטלנית.</span>
           </h2>
           <p className="mt-3 text-sm text-white/50">
             חמש מילים שמחזיקות כל פרויקט שאני בונה ללקוח.
@@ -160,18 +158,18 @@ export function PinnedPillars() {
 
       {/* Desktop: pinned scrub */}
       <div className="sticky top-0 hidden h-screen overflow-hidden md:block">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(125,211,252,0.07),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,161,91,0.08),transparent_55%),radial-gradient(ellipse_at_70%_30%,rgba(122,46,58,0.08),transparent_50%)]" />
 
         {/* Expanding orbital ring — space presence */}
         <motion.div
           aria-hidden
           style={{ scale: ring, opacity: ringOpacity }}
-          className="pointer-events-none absolute start-1/2 top-1/2 h-[min(70vw,620px)] w-[min(70vw,620px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-300/20"
+          className="pointer-events-none absolute start-1/2 top-1/2 h-[min(70vw,620px)] w-[min(70vw,620px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-platinum/25"
         />
         <motion.div
           aria-hidden
           style={{ scale: ring, opacity: ringOpacity }}
-          className="pointer-events-none absolute start-1/2 top-1/2 h-[min(48vw,420px)] w-[min(48vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/15"
+          className="pointer-events-none absolute start-1/2 top-1/2 h-[min(48vw,420px)] w-[min(48vw,420px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-gold/25"
         />
 
         <div className="relative mx-auto flex h-full max-w-7xl items-center justify-center px-8">
@@ -179,12 +177,10 @@ export function PinnedPillars() {
             style={{ scale: headlineScale, opacity: headlineOpacity }}
             className="relative z-20 max-w-lg text-center"
           >
-            <p className="text-xs tracking-[0.32em] text-sky-300/85">המערכת</p>
+            <p className="text-xs tracking-[0.32em] text-platinum">המערכת</p>
             <h2 className="display mt-3 text-[clamp(28px,3.5vw,52px)] leading-[1.1] text-ivory">
               חלל שקט.{" "}
-              <span className="bg-gradient-to-l from-sky-300 via-[#c9a962] to-[#f0c6cf] bg-clip-text text-transparent">
-                נוכחות קטלנית.
-              </span>
+              <span className="luxury-gradient-text">נוכחות קטלנית.</span>
             </h2>
             <p className="mt-4 text-sm text-white/50 md:text-base">
               בזמן שגוללים — המסך נשאר. רק העקרונות נכנסים לחלל.

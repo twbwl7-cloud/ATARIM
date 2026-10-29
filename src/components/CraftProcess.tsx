@@ -55,7 +55,7 @@ function StepCard({
   return (
     <motion.article
       style={{ opacity, y, scale, rotate, zIndex: index + 1 }}
-      className="absolute inset-x-0 top-[28%] mx-auto w-full max-w-xl rounded-2xl border border-line bg-elevated/90 p-7 shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-md md:p-9"
+      className="premium-panel absolute inset-x-0 top-[28%] mx-auto w-full max-w-xl rounded-2xl p-7 backdrop-blur-md md:p-9"
     >
       <div className="flex items-start justify-between gap-4">
         <p className="text-[11px] tracking-[0.24em] text-gold">
@@ -82,7 +82,7 @@ export function CraftProcess() {
   return (
     <section
       ref={wrap}
-      className="relative z-10 h-[340vh] bg-[#070708] md:h-[320vh]"
+      className="section-void relative z-10 h-[340vh] md:h-[320vh]"
       aria-label="תהליך העבודה"
     >
       {/* Mobile */}
@@ -107,13 +107,13 @@ export function CraftProcess() {
 
       {/* Desktop pinned stack */}
       <div className="sticky top-0 hidden h-screen overflow-hidden md:block">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,169,98,0.06),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,161,91,0.08),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(122,46,58,0.08),transparent_50%)]" />
 
         {/* Progress rail */}
         <div className="absolute start-8 top-1/2 h-48 w-px -translate-y-1/2 overflow-hidden bg-white/10 lg:start-12">
           <motion.div
             style={{ scaleY: rail, originY: 0 }}
-            className="h-full w-full bg-gradient-to-b from-gold via-pink to-gold/40"
+            className="h-full w-full bg-gradient-to-b from-gold-bright via-pink to-garnet/60"
           />
         </div>
 
@@ -122,9 +122,7 @@ export function CraftProcess() {
             <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
             <h2 className="display mt-3 text-[clamp(28px,3.8vw,48px)] text-ivory">
               ארבעה שלבים.{" "}
-              <span className="bg-gradient-to-l from-gold via-pink to-sky-300 bg-clip-text text-transparent">
-                אפס קיצורי דרך.
-              </span>
+              <span className="luxury-gradient-text">אפס קיצורי דרך.</span>
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
               הגלילה נשארת. הכרטיסים נערמים — כמו תהליך אמיתי, לא מצגת.

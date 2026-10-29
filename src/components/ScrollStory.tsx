@@ -19,7 +19,7 @@ export function ScrollStory() {
   return (
     <section
       ref={ref}
-      className="relative z-10 border-y border-white/5 bg-[#070708] px-5 py-28 md:px-8 md:py-40"
+      className="section-void relative z-10 border-y border-line/30 px-5 py-28 md:px-8 md:py-40"
     >
       <div className="mx-auto max-w-4xl">
         <div className="mb-8 flex items-center justify-between gap-4">

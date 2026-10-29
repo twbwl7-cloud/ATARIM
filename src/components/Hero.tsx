@@ -14,10 +14,10 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function Hero() {
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-rich-black pt-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_75%_40%,rgba(212,175,103,0.08),transparent_55%),radial-gradient(ellipse_at_15%_85%,rgba(232,184,196,0.06),transparent_50%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_75%_40%,rgba(201,161,91,0.1),transparent_55%),radial-gradient(ellipse_at_15%_85%,rgba(212,168,181,0.08),transparent_50%),radial-gradient(ellipse_at_50%_100%,rgba(122,46,58,0.08),transparent_45%)]" />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold/40 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold-bright/50 to-transparent"
       />
       <HeroScene />
 
@@ -27,9 +27,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease }}
-            className="mb-5 inline-flex items-center gap-2 text-xs font-medium tracking-[0.24em] text-gold-bright/90 md:text-sm"
+            className="mb-5 inline-flex items-center gap-2 text-xs font-medium tracking-[0.24em] text-platinum md:text-sm"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_12px_rgba(212,175,103,0.8)]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_14px_rgba(201,161,91,0.9)]" />
             פיתוח חוויות · חלל דיגיטלי
           </motion.p>
 
@@ -40,7 +40,7 @@ export function Hero() {
             className="display text-4xl leading-[1.05] text-ivory sm:text-5xl md:text-7xl"
           >
             {site.name}
-            <span className="gold-text mt-4 block text-xl sm:text-2xl md:text-3xl">
+            <span className="luxury-gradient-text mt-4 block text-xl sm:text-2xl md:text-3xl">
               אתרים שנראים כמו יקום קטן — וסוגרים עסקאות
             </span>
           </motion.h1>
