@@ -12,25 +12,25 @@ const STEPS = [
     n: "01",
     title: "אבחון כאב",
     body: "מה באמת מונע המרה — לא מה שהמתחרים מעתיקים. מספרים אמיתיים בלבד.",
-    lever: "P17 · בהירות",
+    lever: "בהירות",
   },
   {
     n: "02",
     title: "רגע חתימה",
     body: "אלמנט אחד בלתי נשכח: גלילה נעוצה, מוצר 3D, או מילה שנדלקת. לא רעש — נוכחות.",
-    lever: "P05 · סקרנות",
+    lever: "סקרנות",
   },
   {
     n: "03",
     title: "בניית דימו",
     body: "POC חי בלי שרת — כדי שבפגישה תראו מוצר, לא מצגת. Awwwards-feeling, עברית RTL.",
-    lever: "P13 · רואים עבודה",
+    lever: "רואים עבודה",
   },
   {
     n: "04",
     title: "השקה שסוגרת",
     body: "מסלול ברור לוואטסאפ / תור / רכישה. בלי הבטחות מנופחות. בלי ספירות מזויפות.",
-    lever: "P15 · סמכות",
+    lever: "סמכות",
   },
 ];
 
@@ -58,7 +58,9 @@ function StepCard({
       className="absolute inset-x-0 top-[28%] mx-auto w-full max-w-xl rounded-2xl border border-line bg-elevated/90 p-7 shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-md md:p-9"
     >
       <div className="flex items-start justify-between gap-4">
-        <p className="text-[11px] tracking-[0.24em] text-gold">{step.lever}</p>
+        <p className="text-[11px] tracking-[0.24em] text-gold">
+          {step.lever.replace(/^P\d+\s*·\s*/, "")}
+        </p>
         <span className="display text-4xl text-white/10 md:text-5xl">{step.n}</span>
       </div>
       <h3 className="display mt-4 text-3xl text-ivory md:text-4xl">{step.title}</h3>
