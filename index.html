@@ -949,10 +949,15 @@ window.addEventListener('pointermove', (e) => {
   dot.classList.toggle('wide', !!wide);
 });
 
-/* Intro film */
+/* Intro film — only after splash finishes */
+let absBackstop = null;
+let revealTimer = null;
+
 function revealFromIntro(){
-  if (revealed) return;
+  if (revealed || !splashDone) return;
   revealed = true;
+  if (absBackstop) clearTimeout(absBackstop);
+  if (revealTimer) clearTimeout(revealTimer);
   intro.classList.add('closing');
   body.classList.remove('locked');
   docEl.style.overflow = '';
@@ -962,42 +967,29 @@ function revealFromIntro(){
     forceLayout();
     body.classList.add('revealed');
     intro.classList.add('gone');
-    setTimeout(() => intro.remove(), 700);
+    setTimeout(() => { if (intro.parentNode) intro.remove(); }, 700);
   }, 1000);
 }
 
-function setupFilm(){
+function armFilmPlayback(){
   film.muted = true;
   film.defaultMuted = true;
   film.playsInline = true;
   film.setAttribute('playsinline', '');
   film.setAttribute('webkit-playsinline', '');
-  film.src = FILM;
   film.playbackRate = 2;
   if (film.currentTime > 0.05) film.currentTime = 0;
 
-  let playFallback = null;
-  const absBackstop = setTimeout(() => revealFromIntro(), 14000);
+  absBackstop = setTimeout(() => revealFromIntro(), 14000);
 
   film.addEventListener('play', () => { film.playbackRate = 2; });
   film.addEventListener('playing', () => {
-    clearTimeout(playFallback);
-    const left = Math.max(300, ((film.duration - film.currentTime - 0.45) / 2) * 1000);
-    setTimeout(() => revealFromIntro(), left);
-  });
-  film.addEventListener('ended', () => revealFromIntro());
-  film.addEventListener('error', () => {
-    intro.classList.add('novideo');
-    markLoaded();
-    setTimeout(() => {
-      if (!splashDone) {
-        const waitSplash = setInterval(() => {
-          if (splashDone) { clearInterval(waitSplash); revealFromIntro(); }
-        }, 50);
-      } else revealFromIntro();
-    }, 1300);
-  });
-  film.addEventListener('loadeddata', () => markLoaded(), { once: true });
+    const dur = isFinite(film.duration) ? film.duration : 4;
+    const left = Math.max(300, ((dur - film.currentTime - 0.45) / 2) * 1000);
+    if (revealTimer) clearTimeout(revealTimer);
+    revealTimer = setTimeout(() => revealFromIntro(), left);
+  }, { once: true });
+  film.addEventListener('ended', () => revealFromIntro(), { once: true });
 
   const tryPlay = () => {
     const p = film.play();
@@ -1005,55 +997,94 @@ function setupFilm(){
   };
   tryPlay();
 
-  playFallback = setTimeout(() => {
-    if (!film.paused) return;
-    const unlock = () => { tryPlay(); window.removeEventListener('pointerdown', unlock); window.removeEventListener('keydown', unlock); window.removeEventListener('touchstart', unlock); };
+  setTimeout(() => {
+    if (revealed || !film.paused) return;
+    const unlock = () => {
+      tryPlay();
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+      window.removeEventListener('touchstart', unlock);
+    };
     window.addEventListener('pointerdown', unlock, { once: true });
     window.addEventListener('keydown', unlock, { once: true });
     window.addEventListener('touchstart', unlock, { once: true });
-    setTimeout(() => { if (film.paused) revealFromIntro(); }, 2600);
+    setTimeout(() => { if (!revealed && film.paused) revealFromIntro(); }, 2600);
   }, 100);
-
-  skip.addEventListener('click', () => revealFromIntro());
 }
+
+function preloadFilm(){
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      markLoaded();
+      resolve();
+    };
+    film.muted = true;
+    film.defaultMuted = true;
+    film.playsInline = true;
+    film.setAttribute('playsinline', '');
+    film.setAttribute('webkit-playsinline', '');
+    film.preload = 'auto';
+    film.addEventListener('loadeddata', finish, { once: true });
+    film.addEventListener('error', () => {
+      intro.classList.add('novideo');
+      finish();
+    }, { once: true });
+    film.src = FILM;
+    film.load();
+    setTimeout(finish, 8000);
+  });
+}
+
+skip.addEventListener('click', () => {
+  if (!splashDone) {
+    splash.classList.add('out');
+    splashDone = true;
+    if (splash.parentNode) splash.remove();
+  }
+  revealFromIntro();
+});
 
 async function boot(){
   docEl.style.overflow = 'hidden';
   buildSphere();
   lastW = innerWidth; lastH = innerHeight;
+  /* sphere + camera already running under the splash */
   requestAnimationFrame(frame);
-  // one sync frame already via rAF start
 
   const maxW = cardDecodeMax();
-  const jobs = SHOTS.map(async (s, i) => {
-    const url = await decodeThumb(s.id, i === N - 1 ? 160 : maxW);
+  const stillJobs = SHOTS.map(async (s, i) => {
+    const url = await decodeThumb(s.id, maxW);
     decoded[i] = url;
     cards[i].img.src = url;
     cards[i].img.onload = () => cards[i].img.classList.add('in');
     const gim = rows.children[i].querySelector('img');
     gim.src = url;
-    if (i === N - 1 || s.id === AVATAR_ID) {
-      avatar.src = await decodeThumb(AVATAR_ID, 160);
-    }
     markLoaded();
   });
+  const avatarJob = decodeThumb(AVATAR_ID, 160).then((url) => { avatar.src = url; });
+  const filmJob = preloadFilm();
 
-  setupFilm();
-  await Promise.all(jobs);
-
-  const minWait = Math.max(0, 1150 - (performance.now() - born));
-  const backstop = new Promise((r) => setTimeout(r, 9000));
   await Promise.race([
-    Promise.all([Promise.resolve(), new Promise((r) => setTimeout(r, minWait))]),
-    backstop
+    Promise.all([Promise.all(stillJobs), filmJob, avatarJob]),
+    new Promise((r) => setTimeout(r, 9000))
   ]);
-  // ensure min time even if assets slow — already raced with 9s
-  await new Promise((r) => setTimeout(r, Math.max(0, 1150 - (performance.now() - born))));
+  const remain = Math.max(0, 1150 - (performance.now() - born));
+  if (remain) await new Promise((r) => setTimeout(r, remain));
 
   bar.style.transform = 'scaleX(1)';
   splash.classList.add('out');
-  setTimeout(() => { splash.remove(); splashDone = true; }, 950);
-  try { film.play(); } catch (e) {}
+  await new Promise((r) => setTimeout(r, 600));
+  splashDone = true;
+  if (splash.parentNode) splash.remove();
+
+  if (intro.classList.contains('novideo')) {
+    setTimeout(() => revealFromIntro(), 1300);
+  } else {
+    armFilmPlayback();
+  }
 }
 
 window.addEventListener('resize', onResize);
