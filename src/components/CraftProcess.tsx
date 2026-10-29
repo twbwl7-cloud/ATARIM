@@ -59,7 +59,7 @@ function StepCard({
     >
       <div className="flex items-start justify-between gap-4">
         <p className="text-[11px] tracking-[0.24em] text-gold">
-          {step.lever.replace(/^P\d+\s*·\s*/, "")}
+          {step.lever}
         </p>
         <span className="display text-4xl text-white/10 md:text-5xl">{step.n}</span>
       </div>
