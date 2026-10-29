@@ -2,7 +2,8 @@
 
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import Link from "next/link";
-import { useRef, type MouseEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, type KeyboardEvent, type MouseEvent } from "react";
 import type { Project } from "@/lib/site";
 import { whatsappUrl } from "@/lib/site";
 
@@ -18,6 +19,7 @@ type Props = {
 };
 
 export function MagneticCard({ project, index = 0 }: Props) {
+  const router = useRouter();
   const ref = useRef<HTMLElement | null>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -26,6 +28,8 @@ export function MagneticCard({ project, index = 0 }: Props) {
   const glowX = useMotionValue(50);
   const glowY = useMotionValue(40);
   const glow = useMotionTemplate`radial-gradient(420px circle at ${glowX}% ${glowY}%, rgba(201,169,98,0.18), transparent 55%)`;
+
+  const demoHref = `/demo/${project.id}`;
 
   function onMove(e: MouseEvent<HTMLElement>) {
     const el = ref.current;
@@ -46,11 +50,23 @@ export function MagneticCard({ project, index = 0 }: Props) {
     glowY.set(40);
   }
 
-  const demoHref = `/demo/${project.id}`;
+  function openDemo() {
+    router.push(demoHref);
+  }
+
+  function onKeyDown(e: KeyboardEvent<HTMLElement>) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openDemo();
+    }
+  }
 
   return (
     <motion.article
       ref={ref}
+      role="link"
+      tabIndex={0}
+      aria-label={`לפתוח דימו חי: ${project.title}`}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
@@ -58,14 +74,10 @@ export function MagneticCard({ project, index = 0 }: Props) {
       style={{ x: springX, y: springY }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className="group relative overflow-hidden rounded-[1.35rem] border border-line bg-elevated/70 p-6 md:p-7"
+      onClick={openDemo}
+      onKeyDown={onKeyDown}
+      className="group relative cursor-pointer overflow-hidden rounded-[1.35rem] border border-line bg-elevated/70 p-6 md:p-7"
     >
-      <Link
-        href={demoHref}
-        className="absolute inset-0 z-20"
-        aria-label={`לפתוח דימו חי: ${project.title}`}
-      />
-
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -106,10 +118,14 @@ export function MagneticCard({ project, index = 0 }: Props) {
             ))}
           </div>
 
-          <div className="relative z-30 flex items-center justify-between gap-3 border-t border-line/50 pt-4">
-            <span className="text-xs text-muted transition group-hover:text-pink">
+          <div className="flex items-center justify-between gap-3 border-t border-line/50 pt-4">
+            <Link
+              href={demoHref}
+              onClick={(e) => e.stopPropagation()}
+              className="text-xs text-muted underline-offset-4 transition group-hover:text-pink group-hover:underline"
+            >
               לחצו לדימו חי · ריחוף חושף פרטים
-            </span>
+            </Link>
             <a
               href={whatsappUrl(
                 `היי דוד, התעניינתי בפרויקט בסגנון "${project.title}". אשמח להצעת מחיר.`,
@@ -117,7 +133,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-gold opacity-0 transition group-hover:opacity-100 hover:bg-gold hover:text-rich-black"
+              className="relative z-30 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-gold opacity-0 transition group-hover:opacity-100 hover:bg-gold hover:text-rich-black"
             >
               לשיחה
             </a>
