@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="rtl"
       className={`${heebo.variable} ${frank.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col overflow-x-hidden bg-[#070708] font-sans text-ivory">
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-rich-black font-sans text-ivory">
         <LenisProvider>
           <div className="noise" aria-hidden />
           <SiteChrome>{children}</SiteChrome>

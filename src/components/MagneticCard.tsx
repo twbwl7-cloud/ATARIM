@@ -4,13 +4,17 @@ import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-mot
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, type KeyboardEvent, type MouseEvent } from "react";
-import type { Project } from "@/lib/site";
-import { whatsappUrl } from "@/lib/site";
+import {
+  projectHref,
+  projectIsExternal,
+  whatsappUrl,
+  type Project,
+} from "@/lib/site";
 
 const accents = {
-  gold: "from-gold/25 via-transparent to-transparent",
-  pink: "from-pink/20 via-transparent to-transparent",
-  ivory: "from-ivory/15 via-transparent to-transparent",
+  gold: "from-gold/30 via-transparent to-transparent",
+  pink: "from-pink/25 via-transparent to-transparent",
+  ivory: "from-ivory/18 via-transparent to-transparent",
 } as const;
 
 type Props = {
@@ -27,9 +31,10 @@ export function MagneticCard({ project, index = 0 }: Props) {
   const springY = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
   const glowX = useMotionValue(50);
   const glowY = useMotionValue(40);
-  const glow = useMotionTemplate`radial-gradient(420px circle at ${glowX}% ${glowY}%, rgba(201,169,98,0.18), transparent 55%)`;
+  const glow = useMotionTemplate`radial-gradient(480px circle at ${glowX}% ${glowY}%, rgba(212,175,103,0.22), transparent 55%)`;
 
-  const demoHref = `/demo/${project.id}`;
+  const href = projectHref(project);
+  const external = projectIsExternal(project);
 
   function onMove(e: MouseEvent<HTMLElement>) {
     const el = ref.current;
@@ -50,14 +55,18 @@ export function MagneticCard({ project, index = 0 }: Props) {
     glowY.set(40);
   }
 
-  function openDemo() {
-    router.push(demoHref);
+  function openProject() {
+    if (external) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
+    router.push(href);
   }
 
   function onKeyDown(e: KeyboardEvent<HTMLElement>) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      openDemo();
+      openProject();
     }
   }
 
@@ -66,7 +75,11 @@ export function MagneticCard({ project, index = 0 }: Props) {
       ref={ref}
       role="link"
       tabIndex={0}
-      aria-label={`לפתוח דימו חי: ${project.title}`}
+      aria-label={
+        external
+          ? `לפתוח אתר חי: ${project.title}`
+          : `לפתוח דימו חי: ${project.title}`
+      }
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
@@ -74,9 +87,9 @@ export function MagneticCard({ project, index = 0 }: Props) {
       style={{ x: springX, y: springY }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      onClick={openDemo}
+      onClick={openProject}
       onKeyDown={onKeyDown}
-      className="group relative cursor-pointer overflow-hidden rounded-[1.35rem] border border-line bg-elevated/70 p-6 md:p-7"
+      className="group relative cursor-pointer overflow-hidden rounded-[1.5rem] border border-line bg-elevated/80 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_24px_60px_rgba(0,0,0,0.35)] md:p-7"
     >
       <motion.div
         aria-hidden
@@ -85,20 +98,24 @@ export function MagneticCard({ project, index = 0 }: Props) {
       />
       <div
         aria-hidden
-        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${accents[project.accent]} opacity-70`}
+        className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${accents[project.accent]} opacity-80`}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-l from-transparent via-gold/50 to-transparent opacity-70"
       />
 
-      <div className="relative z-10 flex h-full min-h-[240px] flex-col justify-between gap-6">
+      <div className="relative z-10 flex h-full min-h-[260px] flex-col justify-between gap-6">
         <div>
           <div className="flex items-start justify-between gap-3">
-            <p className="text-[11px] tracking-[0.18em] text-gold uppercase">
+            <p className="text-[11px] tracking-[0.2em] text-gold uppercase">
               {project.category}
             </p>
-            <span className="rounded-full border border-line px-2.5 py-1 text-[10px] text-muted">
+            <span className="rounded-full border border-line/90 bg-rich-black/50 px-2.5 py-1 text-[10px] text-muted">
               {project.client}
             </span>
           </div>
-          <h3 className="display mt-4 text-2xl text-ivory md:text-3xl">
+          <h3 className="display mt-4 text-2xl text-ivory md:text-[2rem]">
             {project.title}
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-muted md:text-[15px]">
@@ -111,21 +128,33 @@ export function MagneticCard({ project, index = 0 }: Props) {
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-full border border-line/80 bg-rich-black/40 px-2.5 py-1 text-[11px] text-ivory/80"
+                className="rounded-full border border-line/70 bg-rich-black/55 px-2.5 py-1 text-[11px] text-ivory/85"
               >
                 {tech}
               </span>
             ))}
           </div>
 
-          <div className="flex items-center justify-between gap-3 border-t border-line/50 pt-4">
-            <Link
-              href={demoHref}
-              onClick={(e) => e.stopPropagation()}
-              className="text-xs text-muted underline-offset-4 transition group-hover:text-pink group-hover:underline"
-            >
-              לחצו לדימו חי · ריחוף חושף פרטים
-            </Link>
+          <div className="flex items-center justify-between gap-3 border-t border-line/40 pt-4">
+            {external ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-xs text-muted underline-offset-4 transition group-hover:text-gold-bright group-hover:underline"
+              >
+                אתר חי · נפתח בחלון חדש
+              </a>
+            ) : (
+              <Link
+                href={href}
+                onClick={(e) => e.stopPropagation()}
+                className="text-xs text-muted underline-offset-4 transition group-hover:text-pink group-hover:underline"
+              >
+                לחצו לדימו חי · ריחוף חושף פרטים
+              </Link>
+            )}
             <a
               href={whatsappUrl(
                 `היי דוד, התעניינתי בפרויקט בסגנון "${project.title}". אשמח להצעת מחיר.`,
@@ -133,7 +162,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="relative z-30 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-gold opacity-0 transition group-hover:opacity-100 hover:bg-gold hover:text-rich-black"
+              className="relative z-30 rounded-full border border-gold/25 bg-gold/10 px-3 py-1.5 text-xs font-medium text-gold opacity-0 transition group-hover:opacity-100 hover:bg-gold hover:text-rich-black"
             >
               לשיחה
             </a>
@@ -141,7 +170,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 origin-right scale-x-0 bg-gradient-to-l from-gold via-pink to-transparent transition duration-500 group-hover:scale-x-100" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-right scale-x-0 bg-gradient-to-l from-gold-bright via-gold to-pink transition duration-500 group-hover:scale-x-100" />
     </motion.article>
   );
 }

@@ -24,8 +24,8 @@ export function WorkGrid({
         <p className="text-xs tracking-[0.22em] text-pink">{eyebrow}</p>
         <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">{title}</h2>
         <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
-          לחצו על כרטיס ונכנסים לדימו חי של האתר שבניתי — בלי שרת, עם תחושת מוצר
-          אמיתי. ריחוף מגנטי חושף את הפרטים.
+          לחצו על כרטיס ונכנסים לאתר חי — לולילק ו־Cookk באוויר, ושאר העבודות
+          כדימו פרימיום. ריחוף מגנטי חושף את הפרטים.
         </p>
       </div>
 

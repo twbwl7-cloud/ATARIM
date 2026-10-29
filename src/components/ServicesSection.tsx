@@ -5,9 +5,9 @@ import { services } from "@/lib/site";
 
 export function ServicesSection() {
   return (
-    <section className="relative z-10 border-y border-line/40 bg-elevated/30">
+    <section className="relative z-10 border-y border-line/35 bg-elevated/40">
       <div className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-24">
-        <p className="text-xs tracking-[0.22em] text-gold">שירותים</p>
+        <p className="text-xs tracking-[0.24em] text-gold">שירותים</p>
         <h2 className="display mt-3 max-w-xl text-3xl text-ivory md:text-5xl">
           מה נבנה יחד
         </h2>
@@ -19,10 +19,12 @@ export function ServicesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: i * 0.05, duration: 0.55 }}
-              className="glass rounded-2xl p-6 md:p-8"
+              className="premium-panel group rounded-2xl p-6 transition duration-300 hover:border-gold/45 md:p-8"
             >
-              <p className="text-sm text-pink">0{i + 1}</p>
-              <h3 className="display mt-3 text-2xl text-ivory">{service.title}</h3>
+              <p className="text-sm tracking-[0.16em] text-pink">0{i + 1}</p>
+              <h3 className="display mt-3 text-2xl text-ivory group-hover:text-gold-bright">
+                {service.title}
+              </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">
                 {service.body}
               </p>

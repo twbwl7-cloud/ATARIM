@@ -69,18 +69,18 @@ export const demos: DemoContent[] = [
       "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    slug: "boulangerie",
-    project: projects.find((p) => p.id === "boulangerie")!,
-    vibe: "חם · ריח של לחם · הזמנה מראש",
-    heroTitle: "בבוקר נאפה. בערב כבר מוזמן.",
+    slug: "cookk",
+    project: projects.find((p) => p.id === "cookk")!,
+    vibe: "חם · ריח של אפייה · הזמנה מראש",
+    heroTitle: "עוגה שנראית כמו אירוע.",
     heroSub:
-      "Boulangerie Noir — מאפיית בוטיק עם תפריט עשיר, הזמנות מראש, וויזואל שמרגיש חם כמו תנור.",
+      "Cookk — מותג עוגות בוטיק עם תפריט עשיר, הזמנות מראש, וויזואל חם שמריח כמו אפייה טרייה.",
     cta: "להזמנה להיום",
     proofLine: "תפריט חי · איסוף / משלוח · חוויית בוטיק",
     pillars: [
       { title: "תיאבון", body: "תמונות גדולות, כותרות קצרות, תחושת טריות בלי סטוק זול." },
-      { title: "קצב", body: "הזמנה מראש שמתאימה לבוקר עמוס — פחות תורים, יותר לחם." },
-      { title: "מותג", body: "שחור + זהב חם — בוטיק, לא רשת." },
+      { title: "קצב", body: "הזמנה מראש שמתאימה ללו״ז עמוס — פחות תורים, יותר עוגות." },
+      { title: "מותג", body: "חם ומדויק — בוטיק, לא רשת." },
     ],
     palette: {
       bg: "#1a120e",
@@ -90,7 +90,7 @@ export const demos: DemoContent[] = [
       surface: "#241a14",
     },
     image:
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1600&q=80",
   },
   {
     slug: "clinic-os",

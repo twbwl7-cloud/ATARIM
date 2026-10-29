@@ -20,7 +20,7 @@ export function Header() {
         >
           <span
             aria-hidden
-            className="grid h-9 w-9 place-items-center rounded-full border border-gold/35 bg-elevated/70 text-[11px] font-semibold tracking-[0.18em] text-gold"
+            className="grid h-9 w-9 place-items-center rounded-full border border-gold/40 bg-elevated/80 text-[11px] font-semibold tracking-[0.18em] text-gold shadow-[0_0_20px_rgba(212,175,103,0.15)]"
           >
             דט
           </span>
@@ -28,7 +28,7 @@ export function Header() {
             <span className="display text-lg text-ivory md:text-xl">
               {site.name}
             </span>
-            <span className="hidden text-[11px] text-muted sm:block">
+            <span className="hidden text-[11px] tracking-wide text-muted sm:block">
               פלטפורמות פרימיום · 3D
             </span>
           </span>
@@ -43,7 +43,7 @@ export function Header() {
                 href={item.href}
                 className={`rounded-full px-4 py-2 text-sm transition ${
                   active
-                    ? "bg-gold/15 text-gold-bright"
+                    ? "bg-gold/20 text-gold-bright"
                     : "text-muted hover:text-ivory"
                 }`}
               >
@@ -58,7 +58,7 @@ export function Header() {
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-full bg-gold px-4 py-2.5 text-sm font-semibold text-rich-black transition hover:bg-gold-bright sm:inline-flex"
+            className="btn-gold hidden rounded-full px-4 py-2.5 text-sm sm:inline-flex"
           >
             הצעת מחיר בוואטסאפ
           </a>
@@ -66,7 +66,7 @@ export function Header() {
             type="button"
             aria-expanded={open}
             aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-            className="grid h-11 w-11 place-items-center rounded-full border border-line bg-elevated/80 text-ivory md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full border border-line bg-elevated/85 text-ivory md:hidden"
             onClick={() => setOpen((v) => !v)}
           >
             <span className="sr-only">תפריט</span>
@@ -108,7 +108,7 @@ export function Header() {
                 href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 rounded-full bg-gold px-4 py-3 text-center text-sm font-semibold text-rich-black"
+                className="btn-gold mt-2 rounded-full px-4 py-3 text-center text-sm"
                 onClick={() => setOpen(false)}
               >
                 הצעת מחיר בוואטסאפ

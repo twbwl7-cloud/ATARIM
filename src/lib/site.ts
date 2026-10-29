@@ -27,6 +27,8 @@ export type Project = {
   stack: string[];
   accent: "gold" | "pink" | "ivory";
   featured?: boolean;
+  /** Live production URL — opens in a new tab instead of /demo/[id] */
+  liveUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -40,6 +42,19 @@ export const projects: Project[] = [
     stack: ["Next.js", "Tailwind", "Framer Motion"],
     accent: "pink",
     featured: true,
+    liveUrl: "https://tobol.vercel.app",
+  },
+  {
+    id: "cookk",
+    title: "Cookk",
+    client: "מותג עוגות בוטיק",
+    category: "עוגות · חוויית הזמנה",
+    summary:
+      "אתר פרימיום למותג עוגות — תפריט עשיר, הזמנות מראש, וויזואל חם שמריח כמו אפייה טרייה.",
+    stack: ["Next.js", "Tailwind", "GSAP"],
+    accent: "ivory",
+    featured: true,
+    liveUrl: "https://cookk.vercel.app/",
   },
   {
     id: "atelier-3d",
@@ -50,17 +65,6 @@ export const projects: Project[] = [
       "חנות פרימיום עם מוצר תלת־ממדי אינטראקטיבי, זום חומרי וזרימת רכישה מותאמת למותגי יוקרה.",
     stack: ["Next.js", "Three.js", "Node.js"],
     accent: "gold",
-    featured: true,
-  },
-  {
-    id: "boulangerie",
-    title: "Boulangerie Noir",
-    client: "מאפיית בוטיק",
-    category: "מיתוג · חוויית הזמנה",
-    summary:
-      "קונספט דיגיטלי למאפייה בוטיק — תפריט עשיר, הזמנות מראש, וויזואל חם שמריח כמו לחם טרי.",
-    stack: ["Next.js", "Tailwind", "GSAP"],
-    accent: "ivory",
     featured: true,
   },
   {
@@ -95,6 +99,14 @@ export const projects: Project[] = [
   },
 ];
 
+export function projectHref(project: Project) {
+  return project.liveUrl ?? `/demo/${project.id}`;
+}
+
+export function projectIsExternal(project: Project) {
+  return Boolean(project.liveUrl);
+}
+
 export const services = [
   {
     title: "אתרי תדמית וחנויות מותאמות",
@@ -106,7 +118,7 @@ export const services = [
   },
   {
     title: "מיתוג יוקרתי דיגיטלי",
-    body: "שפה ויזואלית לקליניקות אסתטיקה, מאפיות בוטיק ומותגי פרימיום.",
+    body: "שפה ויזואלית לקליניקות אסתטיקה, מותגי עוגות וחנויות פרימיום.",
   },
   {
     title: "פלטפורמות פרימיום מבוססות 3D",
