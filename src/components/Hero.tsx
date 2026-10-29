@@ -88,7 +88,7 @@ export function Hero() {
             <p className="mb-1 text-[11px] tracking-[0.18em] text-gold uppercase">
               לקוחות
             </p>
-            <p>קליניקות · עוגות · מסחר</p>
+            <p>קליניקות · עוגות · מספרות</p>
           </div>
           <div>
             <p className="mb-1 text-[11px] tracking-[0.18em] text-gold uppercase">

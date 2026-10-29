@@ -29,14 +29,17 @@ export type Project = {
   featured?: boolean;
   /** Live production URL — opens in a new tab instead of /demo/[id] */
   liveUrl?: string;
+  format?: string;
 };
 
+/** Live portfolio only — real sites clients can open */
 export const projects: Project[] = [
   {
     id: "lulilac",
     title: "לולילק",
     client: "קליניקת אסתטיקה",
     category: "מיתוג יוקרתי · אתר תדמית",
+    format: "פורמט תדמית · ספא דיגיטלי",
     summary:
       "אתר תדמית שקט ואלגנטי לקליניקת אסתטיקה — ניווט רך, גלריות מוצר ותחושת ספא דיגיטלית שמובילה לתור.",
     stack: ["Next.js", "Tailwind", "Framer Motion"],
@@ -49,6 +52,7 @@ export const projects: Project[] = [
     title: "Cookk",
     client: "מותג עוגות בוטיק",
     category: "עוגות · חוויית הזמנה",
+    format: "פורמט מסחר · תיאבון ויזואלי",
     summary:
       "אתר פרימיום למותג עוגות — תפריט עשיר, הזמנות מראש, וויזואל חם שמריח כמו אפייה טרייה.",
     stack: ["Next.js", "Tailwind", "GSAP"],
@@ -57,47 +61,94 @@ export const projects: Project[] = [
     liveUrl: "https://cookk.vercel.app/",
   },
   {
-    id: "atelier-3d",
-    title: "Atelier 3D Store",
-    client: "פלטפורמת E-commerce",
-    category: "חנויות תלת־ממד · מסחר",
+    id: "luxe-barber",
+    title: "לוקסי",
+    client: "מספרה בתיאום מראש",
+    category: "מספרה יוקרה · תור",
+    format: "פורמט מספרה · תיאום מראש",
     summary:
-      "חנות פרימיום עם מוצר תלת־ממדי אינטראקטיבי, זום חומרי וזרימת רכישה מותאמת למותגי יוקרה.",
-    stack: ["Next.js", "Three.js", "Node.js"],
+      "חוויית מספרה פרימיום — שקט, סכין, זהב. אתר תלת־ממדי שמוביל לתור בלי רעש ובלי תורים מיותרים.",
+    stack: ["React Three Fiber", "Next.js", "Motion"],
     accent: "gold",
     featured: true,
-  },
-  {
-    id: "clinic-os",
-    title: "ClinicOS",
-    client: "פלטפורמת קליניקות",
-    category: "מערכת · Back-end",
-    summary:
-      "שכבת שירות יציבה לניהול תורים, לקוחות ותוכן — Node.js ו-Java מאחורי ממשק שמרגיש יוקרתי.",
-    stack: ["Node.js", "Java", "PostgreSQL"],
-    accent: "gold",
-  },
-  {
-    id: "immersive-showroom",
-    title: "Immersive Showroom",
-    client: "מותג עיצוב",
-    category: "ממשק 3D · WebGL",
-    summary:
-      "חלל תצוגה בדפדפן: מצלמה חופשית, תאורה דרמטית וסיור מוצר בלי אפליקציה כבדה.",
-    stack: ["React Three Fiber", "Drei", "Next.js"],
-    accent: "pink",
-  },
-  {
-    id: "commerce-core",
-    title: "Commerce Core",
-    client: "סטארט־אפ מסחרי",
-    category: "E-commerce מתקדם",
-    summary:
-      "ארכיטקטורת חנות מותאמת אישית — קטלוג דינמי, קופה חלקה ואינטגרציות תשלום למותגים צומחים.",
-    stack: ["Next.js", "Node.js", "Stripe"],
-    accent: "gold",
+    liveUrl: "https://luxe-barber-v2.vercel.app",
   },
 ];
+
+/** Craft vocabulary — formats & elements from doks (playbooks + book) */
+export const formats = [
+  {
+    code: "F01",
+    title: "אתר תדמית יוקרתי",
+    body: "Hero אחד · מותג ראשון · מסלול ברור לתור / וואטסאפ.",
+    lever: "P16 · ההוכחה היא העיצוב",
+  },
+  {
+    code: "F02",
+    title: "מסחר חושי",
+    body: "תיאבון ויזואלי, תפריט חי, הזמנה מראש בלי חיכוך.",
+    lever: "P07 · סיפור שמעביר",
+  },
+  {
+    code: "F03",
+    title: "מספרה בתיאום",
+    body: "נוכחות קטלנית, 3D, תור מראש — בלי לוח עמוס.",
+    lever: "P15 · סמכות",
+  },
+  {
+    code: "F04",
+    title: "דימו מכירתי",
+    body: "POC חי בלי שרת — בפגישה רואים מוצר, לא מצגת.",
+    lever: "P13 · רואים עבודה",
+  },
+] as const;
+
+export const elements = [
+  {
+    code: "E01",
+    title: "גלילה נעוצה",
+    body: "המסך נשאר. העקרונות נכנסים לחלל.",
+  },
+  {
+    code: "E02",
+    title: "כדור מסתובב",
+    body: "אותות מהספר ומהמותג — בחלל אחד.",
+  },
+  {
+    code: "E03",
+    title: "כרטיס מגנטי",
+    body: "ריחוף חושף פרטים. לחיצה פותחת אתר חי.",
+  },
+  {
+    code: "E04",
+    title: "מילה שנדלקת",
+    body: "Word-ignite על גלילה — רגע אחד בלתי נשכח.",
+  },
+  {
+    code: "E05",
+    title: "Failed-before",
+    body: "מה שניסו ולא עבד — נחשף ומסומן.",
+  },
+  {
+    code: "E06",
+    title: "CTA יחיד",
+    body: "צבע אחד לפעולה. אפס רעש.",
+  },
+] as const;
+
+/** Signals orbiting the hero sphere — book + Luxe Barber */
+export const orbitSignals = [
+  { label: "חזון", source: "book" as const },
+  { label: "מלאכה", source: "book" as const },
+  { label: "סמכות", source: "book" as const },
+  { label: "בהירות", source: "book" as const },
+  { label: "לוקסי", source: "barber" as const },
+  { label: "תור מראש", source: "barber" as const },
+  { label: "סכין", source: "barber" as const },
+  { label: "שקט", source: "barber" as const },
+  { label: "זהב", source: "barber" as const },
+  { label: "נוכחות", source: "book" as const },
+] as const;
 
 export function projectHref(project: Project) {
   return project.liveUrl ?? `/demo/${project.id}`;
@@ -114,15 +165,15 @@ export const services = [
   },
   {
     title: "ממשקי אינטרנט תלת־ממדיים",
-    body: "WebGL ו-Three.js שמספרים את המוצר בתנועה, לא רק בתמונה.",
+    body: "WebGL ו-Three.js שמספרים את המוצר בתנועה — גם למספרות יוקרה.",
   },
   {
     title: "מיתוג יוקרתי דיגיטלי",
-    body: "שפה ויזואלית לקליניקות אסתטיקה, מותגי עוגות וחנויות פרימיום.",
+    body: "שפה לקליניקות, עוגות בוטיק ומספרות בתיאום מראש.",
   },
   {
     title: "פלטפורמות פרימיום מבוססות 3D",
-    body: "חוויות E-commerce מתקדמות שנבנות על Back-end יציב ו-Front-end חד.",
+    body: "חוויות שנבנות על Back-end יציב ו-Front-end חד.",
   },
 ] as const;
 

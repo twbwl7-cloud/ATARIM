@@ -27,7 +27,7 @@ export function AboutSection() {
         </motion.p>
         <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
           ההתמחות שלי: מותגי יוקרה שצריכים נוכחות דיגיטלית מדויקת — מקליניקות
-          אסתטיקה כמו &quot;לולילק&quot; ועד מותגי עוגות וחנויות 3D.
+          כמו &quot;לולילק&quot;, דרך עוגות בוטיק, ועד מספרות כמו &quot;לוקסי&quot;.
         </p>
       </div>
 

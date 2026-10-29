@@ -109,7 +109,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
         <div>
           <div className="flex items-start justify-between gap-3">
             <p className="text-[11px] tracking-[0.2em] text-gold uppercase">
-              {project.category}
+              {project.format ?? project.category}
             </p>
             <span className="rounded-full border border-line/90 bg-rich-black/50 px-2.5 py-1 text-[10px] text-muted">
               {project.client}

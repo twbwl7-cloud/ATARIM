@@ -11,7 +11,7 @@ type Props = {
 
 export function WorkGrid({
   items = projects,
-  title = "קטלוג עבודות נבחרות",
+  title = "אתרים חיים",
   eyebrow = "תיק עבודות",
   id = "work",
   limit,
@@ -21,11 +21,10 @@ export function WorkGrid({
   return (
     <section id={id} className="relative z-10 mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
       <div className="mb-10 max-w-2xl md:mb-14">
-        <p className="text-xs tracking-[0.22em] text-pink">{eyebrow}</p>
+        <p className="text-xs tracking-[0.24em] text-pink">{eyebrow}</p>
         <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">{title}</h2>
         <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
-          לחצו על כרטיס ונכנסים לאתר חי — לולילק ו־Cookk באוויר, ושאר העבודות
-          כדימו פרימיום. ריחוף מגנטי חושף את הפרטים.
+          רק אתרים באוויר. לולילק, Cookk ולוקסי — לחיצה פותחת את האתר החי.
         </p>
       </div>
 
