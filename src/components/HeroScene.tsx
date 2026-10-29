@@ -1,123 +1,126 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, MeshTransmissionMaterial } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 
-function LuxuryForm() {
-  const group = useRef<THREE.Group>(null);
+/** Compact orbital craft — small, space-void, not a giant jewelry blob */
+function OrbitalCore() {
+  const root = useRef<THREE.Group>(null);
   const ring = useRef<THREE.Mesh>(null);
-  const core = useRef<THREE.Mesh>(null);
+  const sat = useRef<THREE.Group>(null);
 
-  const gold = useMemo(
+  const hull = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#c9a962"),
-        metalness: 0.92,
-        roughness: 0.22,
-        envMapIntensity: 1.35,
+        color: new THREE.Color("#1a1c22"),
+        metalness: 0.85,
+        roughness: 0.35,
+        emissive: new THREE.Color("#0e1520"),
+        emissiveIntensity: 0.35,
       }),
     [],
   );
 
-  const pink = useMemo(
+  const accent = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#f0c6cf"),
-        metalness: 0.35,
-        roughness: 0.35,
-        emissive: new THREE.Color("#f0c6cf"),
-        emissiveIntensity: 0.08,
+        color: new THREE.Color("#c9a962"),
+        metalness: 1,
+        roughness: 0.18,
+        emissive: new THREE.Color("#c9a962"),
+        emissiveIntensity: 0.25,
+      }),
+    [],
+  );
+
+  const ice = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color("#9eb7c8"),
+        metalness: 0.4,
+        roughness: 0.25,
+        emissive: new THREE.Color("#6a8a9e"),
+        emissiveIntensity: 0.15,
       }),
     [],
   );
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    if (group.current) {
-      group.current.rotation.y = t * 0.18;
-      group.current.rotation.x = Math.sin(t * 0.22) * 0.12;
+    if (root.current) {
+      root.current.rotation.y = t * 0.22;
+      root.current.rotation.x = Math.sin(t * 0.35) * 0.08;
     }
-    if (ring.current) {
-      ring.current.rotation.z = t * 0.35;
-    }
-    if (core.current) {
-      core.current.rotation.y = -t * 0.4;
-    }
+    if (ring.current) ring.current.rotation.z = t * 0.55;
+    if (sat.current) sat.current.rotation.y = -t * 0.9;
   });
 
   return (
-    <Float speed={1.2} rotationIntensity={0.35} floatIntensity={0.55}>
-      <group ref={group} scale={1.15}>
-        <mesh ref={ring} rotation={[Math.PI / 2.4, 0.2, 0]}>
-          <torusGeometry args={[1.35, 0.045, 48, 180]} />
-          <primitive object={gold} attach="material" />
-        </mesh>
+    <group ref={root} scale={0.72} position={[0.15, 0.05, 0]}>
+      {/* core body */}
+      <mesh material={hull}>
+        <octahedronGeometry args={[0.38, 0]} />
+      </mesh>
+      <mesh material={accent} scale={0.42}>
+        <octahedronGeometry args={[0.38, 0]} />
+      </mesh>
 
-        <mesh rotation={[0.4, 0.6, 0.2]}>
-          <torusGeometry args={[1.05, 0.028, 32, 140]} />
-          <primitive object={pink} attach="material" />
-        </mesh>
+      {/* thin orbital ring */}
+      <mesh ref={ring} rotation={[Math.PI / 2.15, 0.25, 0]} material={accent}>
+        <torusGeometry args={[0.72, 0.012, 16, 96]} />
+      </mesh>
+      <mesh rotation={[1.1, 0.5, 0.4]} material={ice}>
+        <torusGeometry args={[0.55, 0.006, 12, 80]} />
+      </mesh>
 
-        <mesh ref={core}>
-          <icosahedronGeometry args={[0.72, 0]} />
-          <MeshTransmissionMaterial
-            backside
-            samples={6}
-            resolution={256}
-            thickness={1.2}
-            roughness={0.18}
-            chromaticAberration={0.04}
-            anisotropy={0.2}
-            distortion={0.15}
-            distortionScale={0.25}
-            temporalDistortion={0.08}
-            color="#f3eee6"
-            attenuationColor="#c9a962"
-            attenuationDistance={1.4}
-          />
+      {/* micro satellites */}
+      <group ref={sat}>
+        <mesh position={[0.95, 0.12, 0]} material={accent}>
+          <sphereGeometry args={[0.035, 16, 16]} />
         </mesh>
-
-        <mesh position={[0.95, 0.55, 0.4]}>
-          <sphereGeometry args={[0.07, 24, 24]} />
-          <primitive object={gold} attach="material" />
+        <mesh position={[-0.7, -0.25, 0.35]} material={ice}>
+          <sphereGeometry args={[0.022, 12, 12]} />
         </mesh>
-        <mesh position={[-0.8, -0.45, 0.55]}>
-          <sphereGeometry args={[0.045, 24, 24]} />
-          <primitive object={pink} attach="material" />
+        <mesh position={[0.2, 0.7, -0.4]} material={hull}>
+          <boxGeometry args={[0.04, 0.04, 0.04]} />
         </mesh>
       </group>
-    </Float>
+
+      {/* soft bloom stand-in */}
+      <pointLight position={[0.4, 0.3, 0.6]} intensity={0.55} color="#c9a962" distance={4} />
+      <pointLight position={[-0.5, -0.2, 0.4]} intensity={0.35} color="#8eb4c8" distance={3} />
+    </group>
   );
 }
 
-function Lights() {
+function VoidLights() {
   return (
     <>
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[4, 5, 2]} intensity={1.4} color="#fff4e0" />
-      <directionalLight position={[-3, -2, -4]} intensity={0.55} color="#f0c6cf" />
-      <pointLight position={[0, 0, 3]} intensity={0.8} color="#c9a962" />
+      <ambientLight intensity={0.15} />
+      <directionalLight position={[3, 4, 2]} intensity={0.9} color="#e8eef5" />
+      <directionalLight position={[-4, -1, -2]} intensity={0.35} color="#4a5a70" />
     </>
   );
 }
 
 export function HeroScene() {
   return (
-    <div className="absolute inset-0 -z-0 bg-[#070708]">
+    <div className="pointer-events-none absolute inset-y-0 end-[-8%] -z-0 w-[min(56vw,520px)] md:end-0">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(201,169,98,0.08),transparent_55%)]" />
       <Canvas
-        dpr={[1, 1.6]}
-        camera={{ position: [0, 0, 4.6], fov: 42 }}
-        gl={{ antialias: true, alpha: true, toneMappingExposure: 1.05 }}
+        dpr={[1, 1.5]}
+        camera={{ position: [0, 0, 3.2], fov: 40 }}
+        gl={{ antialias: true, alpha: true }}
         onCreated={({ gl }) => {
-          gl.setClearColor("#070708", 1);
+          gl.setClearColor("#000000", 0);
         }}
       >
         <Suspense fallback={null}>
-          <Lights />
-          <LuxuryForm />
-          <Environment preset="city" environmentIntensity={0.55} background={false} />
+          <VoidLights />
+          <Stars radius={40} depth={30} count={900} factor={2.2} saturation={0} fade speed={0.4} />
+          <OrbitalCore />
         </Suspense>
       </Canvas>
     </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Frank_Ruhl_Libre, Heebo } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { LenisProvider } from "@/components/LenisProvider";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -40,12 +41,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="rtl"
       className={`${heebo.variable} ${frank.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-[#070708] font-sans text-ivory">
-        <div className="noise" aria-hidden />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-[#070708] font-sans text-ivory">
+        <LenisProvider>
+          <div className="noise" aria-hidden />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </LenisProvider>
       </body>
     </html>
   );
