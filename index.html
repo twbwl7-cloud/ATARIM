@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>דוד טובול — פלטפורמות פרימיום</title>
+<meta name="description" content="דוד טובול — פיתוח חוויות אינטראקטיביות ופלטפורמות פרימיום. אתרי תדמית, חנויות 3D ומיתוג יוקרתי." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#000;
+  --ink:#f4f2ef;
+  --dim:#8c8783;
+  --line:rgba(244,242,239,.28);
+  --pad:clamp(14px, 2.6vw, 34px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --hw:min(56vw, 640px);
+  --persp:1150px;
+  --safe-top:env(safe-area-inset-top, 0px);
+  --safe-right:env(safe-area-inset-right, 0px);
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+  --safe-left:env(safe-area-inset-left, 0px);
+  --tap:44px;
+  --serif:"Playfair Display","Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+html{background:#000;scrollbar-gutter:stable}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  min-height:100vh;
+  min-height:100dvh;
+  overscroll-behavior-y:none;
+}
+body.locked{overflow:hidden;height:100vh;height:100dvh}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+a{-webkit-tap-highlight-color:transparent;color:inherit;text-decoration:none}
+
+#scrolltrack{height:116vh;pointer-events:none}
+#stage{
+  position:fixed;inset:0;z-index:10;
+  perspective:var(--persp);perspective-origin:50% 50%;
+  overflow:hidden;touch-action:none;
+}
+@media (pointer:coarse){#stage{touch-action:pan-y}}
+#world{
+  position:absolute;top:50%;left:50%;
+  width:0;height:0;
+  transform-style:preserve-3d;
+  will-change:transform;
+}
+#orb{
+  position:absolute;top:0;left:0;
+  width:0;height:0;
+  transform-style:preserve-3d;
+  opacity:1;
+  transform:none;
+}
+#headline{
+  position:absolute;top:0;left:0;
+  width:var(--hw);
+  margin-left:calc(var(--hw) / -2);
+  text-align:center;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(25px, 3.7vw, 55px);
+  line-height:1.06;
+  letter-spacing:-.005em;
+  color:#fff;
+  text-shadow:0 2px 34px rgba(0,0,0,.55);
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+#headline .inner{
+  position:absolute;top:0;left:0;
+  width:100%;
+  transform:translateY(-50%);
+}
+#headline .inner span{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(.42em);
+  filter:blur(7px);
+}
+body.revealed #headline .inner span{
+  opacity:1;transform:none;filter:blur(0);
+  transition:opacity 1.05s var(--ease), transform 1.15s var(--ease), filter 1.05s var(--ease);
+  transition-delay:calc(.9s + var(--i) * .085s);
+}
+
+.card{
+  position:absolute;top:0;left:0;
+  width:var(--cw,120px);
+  transform-style:preserve-3d;
+  cursor:pointer;
+}
+.card figure{
+  position:relative;width:100%;height:100%;
+  margin:0;overflow:hidden;border-radius:3px;background:#0a0a0a;
+  transition:transform .5s ease;
+}
+.card:hover figure{transform:scale(1.045)}
+.card img{width:100%;height:100%;object-fit:cover;opacity:0}
+.card img.in{opacity:1}
+body.revealed .card img{transition:opacity .8s ease-out}
+.card figure::after{
+  content:"";position:absolute;inset:0;
+  background:rgba(0,0,0,var(--d,0));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
+  border-radius:3px;pointer-events:none;
+}
+
+.vig{
+  position:fixed;inset:0;z-index:12;pointer-events:none;
+  background:radial-gradient(ellipse 88% 92% at 50% 50%, transparent 48%, rgba(0,0,0,.26) 80%, rgba(0,0,0,.72) 100%);
+  transition:opacity .6s ease;
+}
+body.gridview .vig, body.lit .vig{opacity:0}
+
+#grid{
+  position:fixed;inset:0;z-index:20;
+  overflow:auto;opacity:0;pointer-events:none;
+  padding:calc(var(--pad)*3.4) var(--pad) calc(var(--pad)*4);
+  background:#000;transition:opacity .6s ease;
+}
+body.gridview #grid{opacity:1;pointer-events:auto}
+body.gridview #stage{opacity:0;filter:blur(14px);pointer-events:none}
+.rows{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:clamp(10px,1.4vw,20px);
+  max-width:1680px;margin:0 auto;
+}
+#grid figure{
+  margin:0;aspect-ratio:3/2;border-radius:3px;background:#0b0b0b;cursor:pointer;
+  position:relative;overflow:hidden;
+}
+#grid img{width:100%;height:100%;object-fit:cover;opacity:.82;transition:transform .8s ease, opacity .8s ease}
+#grid figure:hover img{transform:scale(1.05);opacity:1}
+#grid figcaption{
+  position:absolute;left:0;right:0;bottom:0;
+  font-family:var(--serif);font-size:15px;font-weight:400;
+  padding:26px 14px 12px;
+  background:linear-gradient(transparent, rgba(0,0,0,.82));
+  opacity:0;transform:translateY(6px);transition:opacity .35s ease, transform .35s ease;
+}
+#grid figure:hover figcaption{opacity:1;transform:none}
+
+.chrome{opacity:0;transition:opacity 1.2s ease .15s, transform .6s ease}
+body.revealed .chrome{opacity:1}
+header.chrome{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:calc(var(--pad)*.8 + var(--safe-top)) calc(var(--pad) + var(--safe-right)) calc(var(--pad)*.35) calc(var(--pad) + var(--safe-left));
+  mix-blend-mode:difference;
+}
+body.menu-open header.chrome{z-index:90;mix-blend-mode:normal}
+a.wordmark{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(19px,2.1vw,27px);letter-spacing:.005em;line-height:1;
+  color:#fff;white-space:nowrap;
+}
+a.wordmark em{font-style:normal}
+body.menu-open a.wordmark{color:#f4f2ef}
+button#menuBtn.menu-btn{
+  display:flex;flex-direction:column;align-items:flex-end;gap:5px;
+  min-width:44px;min-height:44px;padding:8px 0 4px;
+}
+.menu-label{font-size:clamp(12px,1.25vw,15px);letter-spacing:.01em;color:#fff;transition:opacity .35s}
+body.menu-open .menu-label{opacity:0}
+.bars{position:relative;width:clamp(42px,4.4vw,62px);height:clamp(16px,2vw,22px);display:block}
+.bars i{position:absolute;left:0;right:0;top:50%;height:1px;background:#fff;transition:transform .35s var(--ease), width .35s var(--ease)}
+body.menu-open .bars i{background:#f4f2ef}
+.bars i:first-child{transform:translateY(-5px)}
+.bars i:last-child{width:clamp(34px,3.6vw,50px);transform:translateY(5px)}
+.menu-btn:hover .bars i:last-child{transform:translateY(5px) translateX(-8px)}
+body.menu-open .bars i:first-child{width:100%;transform:rotate(45deg)}
+body.menu-open .bars i:last-child{width:100%;transform:rotate(-45deg)}
+
+.bio.chrome{
+  position:fixed;left:calc(var(--pad) + var(--safe-left));bottom:calc(var(--pad) + var(--safe-bottom));
+  z-index:55;max-width:min(320px,46vw);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.bio .who{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+#avatar{width:52px;height:52px;border-radius:3px;object-fit:cover;filter:grayscale(.15)}
+.bio b{display:block;font-family:var(--serif);font-weight:400;font-size:19px;letter-spacing:.01em}
+.bio p{margin:0;font-size:12.5px;line-height:1.62;color:rgba(244,242,239,.72)}
+body.deep .bio, body.gridview .bio, body.lit .bio{opacity:0;transform:translateY(10px);pointer-events:none}
+
+.colophon.chrome{
+  position:fixed;right:calc(var(--pad) + var(--safe-right));bottom:calc(var(--pad) + var(--safe-bottom));
+  z-index:55;font-size:12.5px;color:rgba(244,242,239,.72);
+}
+body.gridview .colophon, body.lit .colophon{opacity:0;pointer-events:none}
+
+button#gridBtn.gridbtn{
+  position:fixed;left:calc(var(--pad) + var(--safe-left));bottom:calc(var(--pad) + var(--safe-bottom));
+  z-index:56;width:44px;height:44px;padding:5px;
+  display:grid;grid-template-columns:1fr 1fr;gap:4px;
+  opacity:0;transform:translateY(8px);pointer-events:none;
+  transition:opacity .5s ease, transform .5s ease;
+}
+body.deep .gridbtn, body.gridview .gridbtn{opacity:1;transform:none;pointer-events:auto}
+.gridbtn b{display:block;background:#f4f2ef;border-radius:2px;transition:transform .35s ease, background .35s ease}
+.gridbtn:hover b{background:#fff;transform:scale(.86)}
+body.gridview .gridbtn b:nth-child(1){transform:translate(3px,3px)}
+body.gridview .gridbtn b:nth-child(4){transform:translate(-3px,-3px)}
+
+.cue.chrome{
+  position:fixed;left:50%;bottom:calc(var(--pad) + var(--safe-bottom) + 4px);
+  transform:translateX(-50%);z-index:54;
+  display:flex;align-items:center;gap:10px;
+  font-size:10px;text-transform:uppercase;letter-spacing:.24em;
+  color:rgba(244,242,239,.42);white-space:nowrap;
+}
+.cue s{display:block;width:44px;height:1px;background:rgba(244,242,239,.28);overflow:hidden;text-decoration:none;position:relative}
+.cue s::after{
+  content:"";position:absolute;inset:0;background:#f4f2ef;
+  animation:sweep 2.6s ease infinite;
+}
+@keyframes sweep{
+  0%{transform:translateX(-100%)}
+  55%{transform:translateX(0)}
+  100%{transform:translateX(100%)}
+}
+body.deep .cue, body.gridview .cue, body.lit .cue{opacity:0;pointer-events:none}
+
+#menu{
+  position:fixed;inset:0;z-index:80;background:#050505;
+  display:grid;place-items:center;
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path .85s ease;
+  pointer-events:none;
+}
+body.menu-open #menu{clip-path:inset(0);pointer-events:auto}
+#menu nav{display:flex;flex-direction:column;gap:clamp(4px,1vw,10px);text-align:center}
+#menu a{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(34px,7.6vw,78px);line-height:1.08;color:#f4f2ef;
+  opacity:.55;transition:opacity .35s ease, letter-spacing .35s ease;
+}
+#menu a:hover{opacity:1;letter-spacing:.012em}
+#menu .addr{
+  position:absolute;
+  left:calc(var(--pad) + var(--safe-left));
+  right:calc(var(--pad) + var(--safe-right));
+  bottom:calc(var(--pad) + var(--safe-bottom));
+  font-size:12.5px;color:var(--dim);line-height:1.7;text-align:center;
+}
+
+#lit{
+  position:fixed;inset:0;z-index:90;
+  display:grid;place-items:center;
+  padding:clamp(56px,8vh,84px) var(--pad);
+  opacity:0;pointer-events:none;transition:opacity .42s ease;
+}
+body.lit #lit{opacity:1;pointer-events:auto}
+#lit .scrim{position:absolute;inset:0}
+#lit .plate{
+  position:relative;z-index:1;
+  width:min(72vw, 860px, (100vh - 230px) * 1.5);
+  transition:transform .62s var(--ease), opacity .42s ease;
+}
+#lit .shot{
+  position:relative;width:100%;aspect-ratio:3/2;border-radius:2px;background:#0b0b0b;
+  box-shadow:0 30px 90px rgba(0,0,0,.75);
+}
+#lit .shot img{width:100%;height:100%;object-fit:cover;border-radius:2px}
+#lit .close{
+  position:absolute;top:12px;right:14px;z-index:2;
+  font-size:12.5px;min-width:44px;min-height:44px;padding:10px 14px;
+  border:1px solid rgba(244,242,239,.78);border-radius:6px;
+  background:rgba(0,0,0,.35);color:#f4f2ef;
+}
+#lit .close:hover{border-color:#fff;background:rgba(0,0,0,.55)}
+#lit .meta{
+  display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);
+  gap:clamp(22px,3.2vw,48px);padding-top:16px;
+}
+#litTitle{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.15vw,32px);line-height:1.08;letter-spacing:-.01em}
+#litWhere{margin:0;font-size:13px;color:rgba(244,242,239,.62)}
+#litNote{margin:0;font-size:13.5px;line-height:1.55;color:rgba(244,242,239,.92)}
+
+#intro{
+  position:fixed;inset:0;z-index:200;background:#000;
+  display:grid;place-items:center;overflow:hidden;
+  transition:opacity .5s linear;
+}
+#intro.gone{opacity:0;pointer-events:none}
+#film{width:100%;height:100%;object-fit:cover}
+#intro .veil{position:absolute;inset:0;background:#000;opacity:0;transition:opacity 1.15s ease}
+#intro.closing .veil{opacity:1}
+#intro.closing #skip{opacity:0}
+#skip{
+  position:absolute;
+  right:calc(var(--pad) + var(--safe-right));
+  bottom:calc(var(--pad) + var(--safe-bottom));
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(244,242,239,.6);min-height:44px;padding:10px 18px;
+  border:1px solid rgba(244,242,239,.25);border-radius:999px;
+  backdrop-filter:blur(6px);transition:color .3s, border-color .3s, opacity .4s;
+}
+#skip:hover{color:#fff;border-color:rgba(255,255,255,.7)}
+#intro .fallback{
+  position:absolute;inset:0;opacity:0;
+  background:radial-gradient(circle at 50% 46%, #1a1420 0%, #0a080c 42%, #000 72%);
+}
+#intro.novideo .fallback{opacity:1}
+
+#splash{
+  position:fixed;inset:0;z-index:250;background:#000;
+  display:grid;place-items:center;align-content:center;gap:26px;
+  transition:opacity .6s ease;
+}
+#splash.out{opacity:0;pointer-events:none}
+#splash .mark{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(28px,4.4vw,52px);letter-spacing:.005em;color:#f4f2ef;
+  opacity:0;animation:riseIn 1.25s ease .15s forwards;margin:0;
+}
+#splash .mark em{font-style:normal}
+#splash .bar{width:clamp(120px,17vw,210px);height:1px;background:rgba(244,242,239,.16)}
+#splash .bar s{display:block;height:100%;background:#f4f2ef;transform:scaleX(0);transform-origin:left center;transition:transform .55s ease;text-decoration:none}
+#splash .tag{
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(244,242,239,.38);opacity:0;animation:riseIn .9s ease .7s forwards;margin:0;
+}
+@keyframes riseIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+
+#dot{
+  position:fixed;top:0;left:0;z-index:300;pointer-events:none;
+  width:19px;height:19px;margin:-9.5px 0 0 -9.5px;border-radius:50%;
+  background:rgba(214,212,209,.9);mix-blend-mode:difference;
+  border:1px solid transparent;
+  transition:width .35s ease, height .35s ease, margin .35s ease, background .35s ease, border-color .35s ease;
+  opacity:0;
+}
+#dot.on{opacity:1}
+#dot.wide{width:52px;height:52px;margin:-26px 0 0 -26px;background:rgba(244,242,239,.14);border-color:rgba(244,242,239,.75)}
+@media (hover:none),(pointer:coarse){#dot{display:none!important}}
+
+@media (max-width:900px){
+  .bio{max-width:min(420px, calc(100vw - var(--pad)*2 - var(--safe-left) - var(--safe-right)))}
+  .bio p{font-size:12px}
+  .colophon{font-size:11px}
+  #lit .meta{grid-template-columns:1fr;gap:10px;padding-top:14px}
+  #lit .plate{width:min(92vw, (100dvh - 220px) * 1.5)}
+  .rows{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  #grid{padding-top:calc(var(--pad)*2.8 + var(--safe-top))}
+}
+@media (max-width:768px){
+  .colophon{display:none}
+  .bio{max-width:calc(100vw - var(--pad)*2 - var(--safe-left) - var(--safe-right))}
+  #headline{font-size:clamp(22px, 6.4vw, 34px)}
+  #menu a{font-size:clamp(28px, 9vw, 54px)}
+  #menu .addr{font-size:11.5px}
+}
+@media (max-width:640px){
+  :root{--hw:min(84vw, 360px);--pad:clamp(12px, 4vw, 18px)}
+  #avatar{width:42px;height:42px}
+  .bio b{font-size:17px}
+  .bio p{font-size:11.5px;line-height:1.55}
+  .cue{display:none}
+  #lit{display:block;overflow:auto;padding:calc(52px + var(--safe-top)) calc(var(--pad) + var(--safe-right)) calc(var(--pad) + var(--safe-bottom)) calc(var(--pad) + var(--safe-left))}
+  #lit .plate{width:100%;max-width:560px;margin:0 auto}
+  #litTitle{font-size:clamp(20px,5.6vw,26px)}
+  #litNote{font-size:12.5px;line-height:1.58}
+  #lit .close{top:8px;right:8px}
+  .rows{grid-template-columns:1fr 1fr;gap:8px}
+  #grid figcaption{opacity:1;transform:none;font-size:13px}
+  #grid{padding:calc(var(--pad)*2.8 + var(--safe-top)) calc(var(--pad) + var(--safe-right)) calc(var(--pad)*3 + var(--safe-bottom)) calc(var(--pad) + var(--safe-left))}
+}
+@media (max-width:380px){
+  :root{--hw:min(88vw, 320px)}
+  .bio .who{gap:10px;margin-bottom:10px}
+  .bio p{display:none}
+  .rows{grid-template-columns:1fr}
+  #menu nav{gap:2px}
+  #menu a{font-size:clamp(24px,10vw,40px)}
+}
+@media (max-height:520px) and (orientation:landscape){
+  .bio,.colophon,.cue{display:none}
+  #headline{font-size:clamp(18px, 4.8vh, 28px)}
+  #lit{padding-top:calc(36px + var(--safe-top))}
+  #lit .meta{padding-top:10px}
+  #lit .plate{width:min(58vw, (100dvh - 80px) * 1.5)}
+  header.chrome{padding-top:calc(8px + var(--safe-top))}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.14s!important}
+}
+</style>
+</head>
+<body class="locked">
+<div id="scrolltrack" aria-hidden="true"></div>
+<div id="stage">
+  <div id="world">
+    <div id="orb"></div>
+    <h1 id="headline"><span class="inner"><span style="--i:0">בונה</span> <span style="--i:1">חוויות</span> <span style="--i:2">שנראות</span> <span style="--i:3">כמו</span> <span style="--i:4">יוקרה</span></span></h1>
+  </div>
+</div>
+<div class="vig" aria-hidden="true"></div>
+<div id="grid" aria-hidden="true"><div class="rows" id="rows"></div></div>
+
+<header class="chrome">
+  <a class="wordmark" href="#" aria-label="דוד טובול">דוד<em>טובול</em></a>
+  <button type="button" id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="פתח תפריט">
+    <span class="menu-label">תפריט</span>
+    <span class="bars" aria-hidden="true"><i></i><i></i></span>
+  </button>
+</header>
+
+<aside class="bio chrome">
+  <div class="who">
+    <img id="avatar" width="52" height="52" alt="דוד טובול" />
+    <b>דוד טובול</b>
+  </div>
+  <p>פיתוח חוויות אינטראקטיביות ופלטפורמות פרימיום. משלב Back-end יציב עם Front-end ו-3D — כדי לבנות אתרים שנראים כמו מותג יוקרה ועומדים בעומס.</p>
+</aside>
+
+<div class="colophon chrome">פורטפוליו 2026</div>
+
+<button type="button" id="gridBtn" class="gridbtn" aria-label="הצגת רשת">
+  <b></b><b></b><b></b><b></b>
+</button>
+
+<div class="cue chrome" aria-hidden="true"><s></s><span>גרור לסיבוב</span></div>
+
+<div id="menu" aria-hidden="true">
+  <nav>
+    <a href="#" data-grid>הארכיון</a>
+    <a href="#" data-close-menu data-about>הסיפור שלי</a>
+    <a href="#" data-close-menu>סטודיו</a>
+    <a href="#" data-close-menu data-contact>צור קשר</a>
+  </nav>
+  <p class="addr">תל אביב · ירושלים · מרחוק<br/>studio@tobol.dev · וואטסאפ להצעת מחיר</p>
+</div>
+
+<div id="lit" aria-hidden="true">
+  <div class="scrim" data-close></div>
+  <div class="plate" id="plate">
+    <div class="shot">
+      <img id="litImg" alt="" />
+      <button type="button" class="close" data-close>סגור</button>
+    </div>
+    <div class="meta">
+      <div>
+        <h2 id="litTitle"></h2>
+        <p class="where" id="litWhere"></p>
+      </div>
+      <p class="note" id="litNote"></p>
+    </div>
+  </div>
+</div>
+
+<div id="intro">
+  <video id="film" muted playsinline autoplay preload="auto" disablepictureinpicture></video>
+  <div class="veil"></div>
+  <div class="fallback" aria-hidden="true"></div>
+  <button type="button" class="skip" id="skip">דלג</button>
+</div>
+
+<div id="splash">
+  <p class="mark">דוד<em>טובול</em></p>
+  <div class="bar"><s id="bar"></s></div>
+  <p class="tag">פורטפוליו 2026</p>
+</div>
+
+<div id="dot" aria-hidden="true"></div>
+
+<script>
+const CDN='https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/';
+const FILM='https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260922_195107_ed3f055a-3a13-4a71-b743-e10310454246.mp4';
+const AVATAR_ID='hf_20260922_194417_a455843c-d8db-461c-8ef6-74a325d2472c';
+const SHOTS=[
+  {id:'hf_20260922_194349_26ffdbfd-ac5e-49e9-a07d-c06d3f7cb4cb',title:'לולילק',place:'קליניקת אסתטיקה · תל אביב',note:'אתר תדמית שקט לקליניקת אסתטיקה — ניווט רך, גלריות מוצר ותחושת ספא דיגיטלית שמובילה לתור. נבנה ב-Next.js עם תנועה מדויקת.',tall:false},
+  {id:'hf_20260922_194350_5546ea3d-6336-42c7-a59f-06165c5802be',title:'Atelier 3D',place:'פלטפורמת E-commerce · בינלאומי',note:'חנות פרימיום עם מוצר תלת־ממדי אינטראקטיבי. הלקוח מסובב, מתקרב ומרגיש את החומר לפני הרכישה.',tall:false},
+  {id:'hf_20260922_194349_b4533691-cb49-41d4-b56c-51f0fdcbe250',title:'Boulangerie Noir',place:'מאפיית בוטיק · ירושלים',note:'קונספט דיגיטלי למאפייה בוטיק — תפריט עשיר, הזמנות מראש, וויזואל חם שמריח כמו לחם טרי.',tall:false},
+  {id:'hf_20260922_194349_e588abd3-1bfa-4918-894f-05632cc51ccc',title:'ClinicOS',place:'מערכת לקליניקות · Back-end',note:'שכבת שירות יציבה לניהול תורים ולקוחות — Node.js ו-Java מאחורי ממשק שמרגיש יוקרתי.',tall:false},
+  {id:'hf_20260922_194350_28d92c80-de66-41cb-911e-b3b44aebe1f5',title:'Immersive Showroom',place:'מותג עיצוב · WebGL',note:'חלל תצוגה בדפדפן: מצלמה חופשית, תאורה דרמטית וסיור מוצר בלי אפליקציה כבדה.',tall:false},
+  {id:'hf_20260922_194349_04e89718-4214-4aff-bac5-490462bbfe2f',title:'Commerce Core',place:'סטארט־אפ מסחרי',note:'ארכיטקטורת חנות מותאמת — קטלוג דינמי, קופה חלקה ואינטגרציות תשלום למותגים צומחים.',tall:false},
+  {id:'hf_20260922_194417_2c031e22-2fad-4c81-a544-83cd6bba1c33',title:'מיתוג יוקרה',place:'קליניקות ומאפיות',note:'שפה ויזואלית שמדברת למותגי פרימיום: שחור עשיר, זהב, ונשימה בין אלמנטים.',tall:false},
+  {id:'hf_20260922_194349_a39c3226-7848-4b15-b840-98ad8aec467b',title:'ממשקי 3D',place:'React Three Fiber',note:'WebGL שמספר את המוצר בתנועה — לא רק בתמונה. חוויה שנשארת בראש.',tall:false},
+  {id:'hf_20260922_194417_555e4d90-f35f-4a1a-8c75-def1e8b71988',title:'Mobile-First RTL',place:'עברית מהיום הראשון',note:'כל פיקסל נבנה מימין לשמאל. נוחות קריאה וביצועים בטלפון הם נקודת ההתחלה, לא תוספת.',tall:false},
+  {id:'hf_20260922_194417_e525a243-03c8-454b-83b4-60f541baf70a',title:'ביקורת · נועה כ.',place:'מייסדת קליניקה',note:'״דוד בנה לנו אתר שנשמע כמו הקליניקה שלנו — שקט, מדויק, ויוקרתי בלי צעקה. התורים עלו בתוך שבועיים.״',tall:false},
+  {id:'hf_20260922_194349_ec830e6f-b8e6-4569-8540-ee7f33902c53',title:'ביקורת · יובל ר.',place:'בעלים · מאפיית בוטיק',note:'״סוף סוף האתר מריח כמו המאפייה. ההזמנות אונליין עובדות, והעיצוב מרגיש בעבודת יד.״',tall:false},
+  {id:'hf_20260922_194417_35a9af5f-bd07-45a7-bb73-08b47d19d530',title:'ביקורת · Maya L.',place:'Creative Director',note:'״ה-3D לא היה גימיק — הוא סיפר את המוצר. הלקוחות הבינו את האיכות לפני השיחה הראשונה.״',tall:false},
+  {id:'hf_20260922_194416_30e307a9-1265-45c3-a1a0-5c6fa5bb9f8d',title:'ביקורת · איתי ש.',place:'Founder · Commerce',note:'״קיבלנו פלטפורמה שנראית יוקרה ועומדת בעומס. Back-end יציב, Front-end חד.״',tall:false},
+  {id:'hf_20260922_194417_ff5cb9f8-8eed-4bfb-bb08-11256da92eae',title:'הדרך לכאן',place:'האוניברסיטה הפתוחה',note:'סטודנט למדעי המחשב עם מיקוד במערכות נבונות. התחלתי מקוד יבש — ואז הבנתי שיופי בלי ארכיטקטורה לא מחזיק.',tall:false},
+  {id:'hf_20260922_194418_1d9bff4a-4971-4944-9e49-d72e755ceeb0',title:'למה אתרים',place:'מקוד לחוויה',note:'גיליתי שבניית אתרים היא המקום שבו לוגיקה פוגשת רגש. אפשר לבנות מערכת חכמה שנראית כמו מותג יוקרה.',tall:false},
+  {id:'hf_20260922_194349_75e53821-0807-4ebc-992d-34bae0ec2ce6',title:'Next.js + Node',place:'סטאק יומיומי',note:'Front-end מתקדם ב-Next.js ו-Tailwind. Back-end ב-Node.js ו-Java. שלושה ממדים כשצריך — לא כשרוצים להרשים.',tall:false},
+  {id:'hf_20260922_194417_5a227847-3796-4438-805d-7e66e9538205',title:'תהליך עבודה',place:'מקונספט להשקה',note:'שיחה קצרה בוואטסאפ, אפיון ויזואלי, פרוטוטיפ, ואז בנייה יציבה. בלי הפתעות בסוף הדרך.',tall:false},
+  {id:'hf_20260922_194350_b49aa67e-0401-4029-af4f-f6ac3ee83398',title:'מה אני מוכר',place:'פלטפורמות פרימיום',note:'השירות המרכזי: פלטפורמות מבוססות 3D וחוויות E-commerce מתקדמות למותגים שרוצים להיראות כמו יוקרה.',tall:false},
+  {id:'hf_20260922_194349_89b82779-3a46-4c55-b7c5-f4a0fd955874',title:'למי זה מתאים',place:'קליניקות · בוטיק · מסחר',note:'התמחות בקליניקות אסתטיקה, מאפיות בוטיק, ומותגי יוקרה שצריכים נוכחות דיגיטלית מדויקת.',tall:false},
+  {id:'hf_20260922_194416_47e18c62-253a-42e1-97a9-9e5f6a6b8d59',title:'מאחורי הקלעים',place:'סטודיו · עבודה',note:'כל פרויקט מתחיל בשקט — לפני הקוד. להבין את המותג, ואז לבנות מערכת שלא מתנשמת חזק מדי.',tall:true},
+  {id:'hf_20260922_194417_a455843c-d8db-461c-8ef6-74a325d2472c',title:'דוד טובול',place:'פיתוח חוויות אינטראקטיביות',note:'מי שמחזיק את המצלמה הדיגיטלית — בונה את האתרים, את ה-3D, ואת השיחה הראשונה עם הלקוח בוואטסאפ.',tall:false},
+];
+
+const body = document.body;
+const docEl = document.documentElement;
+const orb = document.getElementById('orb');
+const world = document.getElementById('world');
+const headline = document.getElementById('headline');
+const stage = document.getElementById('stage');
+const film = document.getElementById('film');
+const intro = document.getElementById('intro');
+const splash = document.getElementById('splash');
+const bar = document.getElementById('bar');
+const skip = document.getElementById('skip');
+const gridBtn = document.getElementById('gridBtn');
+const rows = document.getElementById('rows');
+const lit = document.getElementById('lit');
+const plate = document.getElementById('plate');
+const litImg = document.getElementById('litImg');
+const litTitle = document.getElementById('litTitle');
+const litWhere = document.getElementById('litWhere');
+const litNote = document.getElementById('litNote');
+const menuBtn = document.getElementById('menuBtn');
+const menu = document.getElementById('menu');
+const avatar = document.getElementById('avatar');
+const dot = document.getElementById('dot');
+
+const N = SHOTS.length;
+const GA = Math.PI * (3 - Math.sqrt(5));
+const units = [];
+const cards = [];
+const decoded = new Array(N);
+let R = 200, cw = 100;
+let spin = 0, tilt = -4, camZ = 0, camZTarget = 0;
+let dragX = 0, dragY = 0, velX = 0, velY = 0;
+const pitchLimit = 32;
+let focused = -1;
+let dragging = false, pointerId = null, startPX = 0, startPY = 0, lastPX = 0, lastPY = 0;
+let downCard = null, moved = 0, touchArmed = false, touchCaptured = false;
+let litToken = 0, litSource = null, gridOn = false;
+let lastW = 0, lastH = 0;
+let loadedCount = 0;
+const totalAssets = N + 1;
+const born = performance.now();
+let splashDone = false, revealed = false;
+let mx = 0, my = 0, dx = 0, dy = 0, dotOn = false;
+
+function thumbURL(id){ return CDN + id + '_min.webp'; }
+function fullURL(id){ return CDN + id + '.png'; }
+
+function cardDecodeMax(){
+  const w = innerWidth;
+  if (w <= 380) return 420;
+  if (w <= 640) return 520;
+  if (w <= 900) return 640;
+  return 760;
+}
+
+function progress(){
+  const t = Math.min(1, loadedCount / totalAssets);
+  bar.style.transform = 'scaleX(' + t + ')';
+}
+
+function markLoaded(){
+  loadedCount++;
+  progress();
+}
+
+async function decodeThumb(id, maxW){
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        if (!img.naturalWidth || img.naturalWidth <= maxW) {
+          resolve(thumbURL(id));
+          return;
+        }
+        const scale = maxW / img.naturalWidth;
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.naturalWidth * scale);
+        c.height = Math.round(img.naturalHeight * scale);
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0, c.width, c.height);
+        c.toBlob((blob) => {
+          if (!blob) { resolve(thumbURL(id)); return; }
+          resolve(URL.createObjectURL(blob));
+        }, 'webp', 0.88);
+      } catch (e) {
+        resolve(thumbURL(id));
+      }
+    };
+    img.onerror = () => resolve(thumbURL(id));
+    img.src = thumbURL(id);
+  });
+}
+
+function layoutMetrics(){
+  const w = innerWidth, h = innerHeight;
+  let hr = 0.46, wr = 0.58, floor = 155, scale = 0.47;
+  if (w <= 380) { hr = 0.38; wr = 0.48; floor = 108; scale = 0.44; }
+  else if (w <= 640) { hr = 0.42; wr = 0.52; floor = 120; scale = 0.46; }
+  R = Math.max(floor, Math.min(480, h * hr, w * wr));
+  cw = Math.round(Math.max(72, R * scale));
+  let persp = 1150;
+  if (w <= 380) persp = 620;
+  else if (w <= 640) persp = 760;
+  else if (w <= 900) persp = 920;
+  docEl.style.setProperty('--persp', persp + 'px');
+  docEl.style.setProperty('--cw', cw + 'px');
+}
+
+function buildSphere(){
+  layoutMetrics();
+  orb.innerHTML = '';
+  rows.innerHTML = '';
+  cards.length = 0;
+  units.length = 0;
+  for (let i = 0; i < N; i++) {
+    const y = 1 - (i / (N - 1)) * 2;
+    const rad = Math.sqrt(Math.max(0, 1 - y * y));
+    const theta = i * GA;
+    const x = Math.cos(theta) * rad;
+    const z = Math.sin(theta) * rad;
+    const lat = Math.asin(y) * 180 / Math.PI;
+    const lon = Math.atan2(x, z) * 180 / Math.PI;
+    units.push({ x, y, z });
+
+    const shot = SHOTS[i];
+    const card = document.createElement('div');
+    card.className = 'card' + (shot.tall ? ' tall' : '');
+    card.dataset.idx = String(i);
+    const fig = document.createElement('figure');
+    const im = document.createElement('img');
+    im.alt = shot.title;
+    fig.appendChild(im);
+    card.appendChild(fig);
+    orb.appendChild(card);
+    cards.push({ el: card, img: im, lon, lat, x, y, z, lastOp: -1, lastD: -1 });
+
+    const gfig = document.createElement('figure');
+    gfig.dataset.idx = String(i);
+    const gim = document.createElement('img');
+    gim.alt = shot.title;
+    const cap = document.createElement('figcaption');
+    cap.textContent = shot.title;
+    gfig.appendChild(gim);
+    gfig.appendChild(cap);
+    rows.appendChild(gfig);
+    gfig.addEventListener('click', () => openLit(i, gfig));
+  }
+  applyCardLayout();
+}
+
+function applyCardLayout(){
+  layoutMetrics();
+  for (let i = 0; i < N; i++) {
+    const c = cards[i];
+    const tall = SHOTS[i].tall;
+    const h = tall ? cw * 1.25 : cw / 1.5;
+    const ml = -cw / 2;
+    const mt = tall ? cw * -0.625 : -cw / 3;
+    c.el.style.width = cw + 'px';
+    c.el.style.height = h + 'px';
+    c.el.style.marginLeft = ml + 'px';
+    c.el.style.marginTop = mt + 'px';
+    c.el.style.transform =
+      'translate3d(' + (c.x * R) + 'px,' + (-c.y * R) + 'px,' + (c.z * R) + 'px) rotateY(' + c.lon + 'deg) rotateX(' + c.lat + 'deg)';
+  }
+}
+
+function rotY(v, a){
+  const s = Math.sin(a), c = Math.cos(a);
+  return { x: v.x * c + v.z * s, y: v.y, z: -v.x * s + v.z * c };
+}
+function rotX(v, a){
+  const s = Math.sin(a), c = Math.cos(a);
+  return { x: v.x, y: v.y * c - v.z * s, z: v.y * s + v.z * c };
+}
+
+function frame(){
+  if (!dragging && focused < 0) {
+    dragX += velX; dragY += velY;
+    velX *= 0.94; velY *= 0.94;
+    if (Math.abs(velX) < 0.002) velX = 0;
+    if (Math.abs(velY) < 0.002) velY = 0;
+  }
+  let pitch = tilt + dragY;
+  if (pitch > pitchLimit) { pitch = pitchLimit; dragY = pitchLimit - tilt; velY = 0; }
+  if (pitch < -pitchLimit) { pitch = -pitchLimit; dragY = -pitchLimit - tilt; velY = 0; }
+
+  const maxScroll = innerHeight * 0.16;
+  if (scrollY > maxScroll) scrollTo(0, maxScroll);
+  const p = Math.max(0, Math.min(1, scrollY / (innerHeight * 0.16)));
+  camZTarget = p * Math.min(64, R * 0.12);
+  camZ += (camZTarget - camZ) * 0.075;
+
+  const sx = tilt + dragY;
+  const sy = spin + dragX;
+  world.style.transform = 'translateZ(' + camZ + 'px) rotateY(' + sy + 'deg) rotateX(' + sx + 'deg)';
+  headline.style.transform = 'rotateX(' + (-sx) + 'deg) rotateY(' + (-sy) + 'deg) translateZ(' + (R * 0.62) + 'px)';
+  headline.style.opacity = String(Math.max(0, 1 - p * 0.55));
+
+  body.classList.toggle('deep', p > 0.12);
+
+  const yaw = sy * Math.PI / 180;
+  const pit = sx * Math.PI / 180;
+  const persp = parseFloat(getComputedStyle(docEl).getPropertyValue('--persp')) || 1150;
+  const near = persp * 0.66;
+
+  for (let i = 0; i < N; i++) {
+    let v = units[i];
+    v = rotY(v, yaw);
+    v = rotX(v, pit);
+    const zf = v.z;
+    const base = 0.14 + 0.86 * Math.pow((zf + 1) / 2, 0.85);
+    const shade = 1 - Math.min(1, p * 1.6);
+    let dim = shade * (1 - base);
+    const absZ = zf * R + camZ;
+    let fade = 1;
+    if (absZ > near) fade = Math.max(0, 1 - (absZ - near) / 190);
+    if (focused >= 0) {
+      dim = Math.min(1, dim + 0.78);
+      if (i === focused) fade = 0;
+    }
+    const c = cards[i];
+    if (c.lastOp !== fade) { c.el.style.opacity = String(fade); c.lastOp = fade; }
+    if (c.lastD !== dim) { c.el.style.setProperty('--d', String(dim)); c.lastD = dim; }
+  }
+
+  if (dotOn) {
+    dx += (mx - dx) * 0.2;
+    dy += (my - dy) * 0.2;
+    dot.style.transform = 'translate3d(' + dx + 'px,' + dy + 'px,0)';
+  }
+  requestAnimationFrame(frame);
+}
+
+function forceLayout(){
+  applyCardLayout();
+  // sync + rAF
+  applyCardLayout();
+  requestAnimationFrame(() => applyCardLayout());
+}
+
+function onResize(){
+  const w = innerWidth, h = innerHeight;
+  if (Math.abs(w - lastW) < 20 && Math.abs(h - lastH) < 20) return;
+  lastW = w; lastH = h;
+  forceLayout();
+}
+
+/* Pointer drag */
+stage.addEventListener('pointerdown', (e) => {
+  if (focused >= 0 || gridOn || body.classList.contains('menu-open')) return;
+  downCard = e.target.closest('.card');
+  startPX = lastPX = e.clientX;
+  startPY = lastPY = e.clientY;
+  moved = 0;
+  touchArmed = e.pointerType === 'touch';
+  touchCaptured = false;
+  if (e.pointerType !== 'touch') {
+    dragging = true;
+    pointerId = e.pointerId;
+    stage.setPointerCapture(e.pointerId);
+    velX = velY = 0;
+  } else {
+    dragging = false;
+    pointerId = e.pointerId;
+  }
+});
+
+stage.addEventListener('pointermove', (e) => {
+  if (pointerId !== e.pointerId) return;
+  const dxp = e.clientX - lastPX;
+  const dyp = e.clientY - lastPY;
+  lastPX = e.clientX; lastPY = e.clientY;
+  const total = Math.hypot(e.clientX - startPX, e.clientY - startPY);
+  moved = total;
+
+  if (touchArmed && !touchCaptured) {
+    if (total < 10) return;
+    const vx = Math.abs(e.clientX - startPX);
+    const vy = Math.abs(e.clientY - startPY);
+    if (vy > vx * 1.15) {
+      pointerId = null;
+      touchArmed = false;
+      return;
+    }
+    touchCaptured = true;
+    dragging = true;
+    stage.setPointerCapture(e.pointerId);
+    velX = velY = 0;
+  }
+  if (!dragging) return;
+  dragX += dxp * 0.13;
+  dragY -= dyp * 0.13;
+  velX = dxp * 0.13;
+  velY = -dyp * 0.13;
+});
+
+function endPointer(e){
+  if (pointerId !== e.pointerId) return;
+  const slop = matchMedia('(pointer:coarse)').matches ? 14 : 6;
+  const wasDrag = dragging && moved > slop;
+  dragging = false;
+  touchArmed = false;
+  touchCaptured = false;
+  pointerId = null;
+  if (!wasDrag && downCard && moved <= slop) {
+    const idx = +downCard.dataset.idx;
+    openLit(idx, downCard);
+  }
+  downCard = null;
+}
+stage.addEventListener('pointerup', endPointer);
+stage.addEventListener('pointercancel', endPointer);
+
+/* Lightbox FLIP */
+function openLit(idx, sourceEl){
+  if (idx < 0 || idx >= N) return;
+  focused = idx;
+  litSource = sourceEl;
+  const shot = SHOTS[idx];
+  litTitle.textContent = shot.title;
+  litWhere.textContent = shot.place;
+  litNote.textContent = shot.note;
+  const token = ++litToken;
+  litImg.src = decoded[idx] || thumbURL(shot.id);
+  body.classList.add('lit');
+  body.style.overflow = 'hidden';
+  lit.setAttribute('aria-hidden', 'false');
+
+  requestAnimationFrame(() => {
+    const from = sourceEl.getBoundingClientRect();
+    const to = plate.getBoundingClientRect();
+    const dx0 = from.left + from.width / 2 - (to.left + to.width / 2);
+    const dy0 = from.top + from.height / 2 - (to.top + to.height / 2);
+    const sc = Math.max(0.04, from.width / to.width);
+    plate.style.transition = 'none';
+    plate.style.transform = 'translate(' + dx0 + 'px,' + dy0 + 'px) scale(' + sc + ')';
+    plate.style.opacity = '0';
+    plate.getBoundingClientRect();
+    plate.style.transition = '';
+    plate.style.transform = '';
+    plate.style.opacity = '';
+  });
+
+  const full = new Image();
+  full.onload = () => { if (token === litToken) litImg.src = full.src; };
+  full.src = fullURL(shot.id);
+}
+
+function closeLit(){
+  if (!body.classList.contains('lit')) return;
+  const src = litSource;
+  focused = -1;
+  body.classList.remove('lit');
+  lit.setAttribute('aria-hidden', 'true');
+  if (!gridOn) body.style.overflow = '';
+  if (src) {
+    const from = plate.getBoundingClientRect();
+    const to = src.getBoundingClientRect();
+    const dx0 = to.left + to.width / 2 - (from.left + from.width / 2);
+    const dy0 = to.top + to.height / 2 - (from.top + from.height / 2);
+    const sc = Math.max(0.04, to.width / from.width);
+    plate.style.transform = 'translate(' + dx0 + 'px,' + dy0 + 'px) scale(' + sc + ')';
+    plate.style.opacity = '0';
+  } else {
+    plate.style.opacity = '0';
+  }
+  setTimeout(() => {
+    plate.style.transition = 'none';
+    plate.style.transform = '';
+    plate.style.opacity = '';
+    plate.getBoundingClientRect();
+    plate.style.transition = '';
+  }, 640);
+}
+
+lit.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeLit));
+
+/* Grid / menu */
+gridBtn.addEventListener('click', () => {
+  gridOn = !gridOn;
+  body.classList.toggle('gridview', gridOn);
+  document.getElementById('grid').setAttribute('aria-hidden', gridOn ? 'false' : 'true');
+  if (gridOn) body.style.overflow = 'hidden';
+  else if (!body.classList.contains('lit')) body.style.overflow = '';
+});
+
+menuBtn.addEventListener('click', () => {
+  const open = !body.classList.contains('menu-open');
+  body.classList.toggle('menu-open', open);
+  menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+});
+
+menu.querySelectorAll('a').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    body.classList.remove('menu-open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menu.setAttribute('aria-hidden', 'true');
+    if (a.hasAttribute('data-grid')) {
+      gridOn = true;
+      body.classList.add('gridview');
+      document.getElementById('grid').setAttribute('aria-hidden', 'false');
+      body.style.overflow = 'hidden';
+    }
+    if (a.hasAttribute('data-about')) openLit(13, cards[13].el);
+    if (a.hasAttribute('data-contact')) {
+      window.open('https://wa.me/972500000000?text=' + encodeURIComponent('היי דוד, אשמח להצעת מחיר על פלטפורמה פרימיום.'), '_blank');
+    }
+  });
+});
+
+document.querySelector('.wordmark').addEventListener('click', (e) => {
+  e.preventDefault();
+  scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (body.classList.contains('lit')) closeLit();
+    else if (body.classList.contains('menu-open')) {
+      body.classList.remove('menu-open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    } else if (gridOn) {
+      gridOn = false;
+      body.classList.remove('gridview');
+      body.style.overflow = '';
+    }
+  }
+});
+
+/* Cursor */
+window.addEventListener('pointermove', (e) => {
+  if (matchMedia('(hover:none), (pointer:coarse)').matches) return;
+  mx = e.clientX; my = e.clientY;
+  if (!dotOn) { dotOn = true; dx = mx; dy = my; dot.classList.add('on'); }
+  const t = e.target;
+  const wide = t.closest && t.closest('.card, a, button, #grid figure');
+  dot.classList.toggle('wide', !!wide);
+});
+
+/* Intro film */
+function revealFromIntro(){
+  if (revealed) return;
+  revealed = true;
+  intro.classList.add('closing');
+  body.classList.remove('locked');
+  docEl.style.overflow = '';
+  forceLayout();
+  requestAnimationFrame(() => forceLayout());
+  setTimeout(() => {
+    forceLayout();
+    body.classList.add('revealed');
+    intro.classList.add('gone');
+    setTimeout(() => intro.remove(), 700);
+  }, 1000);
+}
+
+function setupFilm(){
+  film.muted = true;
+  film.defaultMuted = true;
+  film.playsInline = true;
+  film.setAttribute('playsinline', '');
+  film.setAttribute('webkit-playsinline', '');
+  film.src = FILM;
+  film.playbackRate = 2;
+  if (film.currentTime > 0.05) film.currentTime = 0;
+
+  let playFallback = null;
+  const absBackstop = setTimeout(() => revealFromIntro(), 14000);
+
+  film.addEventListener('play', () => { film.playbackRate = 2; });
+  film.addEventListener('playing', () => {
+    clearTimeout(playFallback);
+    const left = Math.max(300, ((film.duration - film.currentTime - 0.45) / 2) * 1000);
+    setTimeout(() => revealFromIntro(), left);
+  });
+  film.addEventListener('ended', () => revealFromIntro());
+  film.addEventListener('error', () => {
+    intro.classList.add('novideo');
+    markLoaded();
+    setTimeout(() => {
+      if (!splashDone) {
+        const waitSplash = setInterval(() => {
+          if (splashDone) { clearInterval(waitSplash); revealFromIntro(); }
+        }, 50);
+      } else revealFromIntro();
+    }, 1300);
+  });
+  film.addEventListener('loadeddata', () => markLoaded(), { once: true });
+
+  const tryPlay = () => {
+    const p = film.play();
+    if (p && p.catch) p.catch(() => {});
+  };
+  tryPlay();
+
+  playFallback = setTimeout(() => {
+    if (!film.paused) return;
+    const unlock = () => { tryPlay(); window.removeEventListener('pointerdown', unlock); window.removeEventListener('keydown', unlock); window.removeEventListener('touchstart', unlock); };
+    window.addEventListener('pointerdown', unlock, { once: true });
+    window.addEventListener('keydown', unlock, { once: true });
+    window.addEventListener('touchstart', unlock, { once: true });
+    setTimeout(() => { if (film.paused) revealFromIntro(); }, 2600);
+  }, 100);
+
+  skip.addEventListener('click', () => revealFromIntro());
+}
+
+async function boot(){
+  docEl.style.overflow = 'hidden';
+  buildSphere();
+  lastW = innerWidth; lastH = innerHeight;
+  requestAnimationFrame(frame);
+  // one sync frame already via rAF start
+
+  const maxW = cardDecodeMax();
+  const jobs = SHOTS.map(async (s, i) => {
+    const url = await decodeThumb(s.id, i === N - 1 ? 160 : maxW);
+    decoded[i] = url;
+    cards[i].img.src = url;
+    cards[i].img.onload = () => cards[i].img.classList.add('in');
+    const gim = rows.children[i].querySelector('img');
+    gim.src = url;
+    if (i === N - 1 || s.id === AVATAR_ID) {
+      avatar.src = await decodeThumb(AVATAR_ID, 160);
+    }
+    markLoaded();
+  });
+
+  setupFilm();
+  await Promise.all(jobs);
+
+  const minWait = Math.max(0, 1150 - (performance.now() - born));
+  const backstop = new Promise((r) => setTimeout(r, 9000));
+  await Promise.race([
+    Promise.all([Promise.resolve(), new Promise((r) => setTimeout(r, minWait))]),
+    backstop
+  ]);
+  // ensure min time even if assets slow — already raced with 9s
+  await new Promise((r) => setTimeout(r, Math.max(0, 1150 - (performance.now() - born))));
+
+  bar.style.transform = 'scaleX(1)';
+  splash.classList.add('out');
+  setTimeout(() => { splash.remove(); splashDone = true; }, 950);
+  try { film.play(); } catch (e) {}
+}
+
+window.addEventListener('resize', onResize);
+window.addEventListener('orientationchange', () => setTimeout(onResize, 220));
+if (window.visualViewport) {
+  visualViewport.addEventListener('resize', onResize);
+  visualViewport.addEventListener('scroll', onResize);
+}
+
+boot();
+</script>
+</body>
+</html>
