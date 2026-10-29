@@ -1,28 +1,35 @@
-# Halora
+# דוד טובול — פורטפוליו פרימיום
 
-One-screen landing hero for the Halora wellness smart ring — calm sage editorial, frosted metric cards, and a soft looping product film.
+אתר קטלוג / תיק עבודות בעברית (RTL) לפיתוח חוויות אינטראקטיביות ופלטפורמות פרימיום.
 
-Plain HTML, CSS, and vanilla JS. No framework, no build step.
+## סטאק
 
-## Run locally
+- **Next.js** (App Router) + **Tailwind CSS**
+- **React Three Fiber** / Three.js — Hero תלת־ממדי
+- **Framer Motion** — אנימציות ומגנטיות בכרטיסים
+- Mobile-first · Hebrew RTL · CTA לוואטסאפ
+
+## הרצה מקומית
 
 ```bash
-python3 -m http.server 43127
+npm install
+cp .env.example .env.local   # ועדכנו מספר וואטסאפ
+npm run dev -- --port 43128 --hostname 127.0.0.1
 ```
 
-Open [http://127.0.0.1:43127](http://127.0.0.1:43127).
+פתחו [http://127.0.0.1:43128](http://127.0.0.1:43128).
 
-## What’s on the page
+## מבנה
 
-- Artboard scale: every stage size is a 2048×1152 reference pixel × `--s`
-- Product still + muted looping video of the same shot (crossfade loop, fade-in when ready)
-- Header with Halora mark, nav, Cart, and Shop the Ring
-- Left copy + CTA; right glass metric cards (Sleep / Calories / HRV)
-- Entrance via the Web Animations API (cancelled after finish so authored styles remain)
-- Responsive landscape grid, portrait stack, and burger menu under 820px
-- `prefers-reduced-motion`: no entrance, no transitions, no video
+| נתיב | תוכן |
+|------|------|
+| `/` | Hero 3D, שירותים, גריד עבודות, אודות, צור קשר |
+| `/portfolio` | קטלוג כרטיסים מלא |
+| `/about` | גישה טכנולוגית ועיצובית |
+| `/contact` | CTA לוואטסאפ |
 
-## Files
+כפתור וואטסאפ צף נשאר זמין בכל העמודים בלי להסתיר תוכן קריטי.
 
-- `index.html` — page, styles, and behaviour
-- `halora-hero.png` — first frame of the product film (sage wall, hand, rose-gold ring)
+## עיצוב
+
+רקע **Rich Black**, נגיעות **זהב**, והדגשות עדינות של **Baby Pink** — שפה למותגי יוקרה.
