@@ -1,0 +1,139 @@
+"use client";
+
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { useRef } from "react";
+
+/**
+ * Stacking craft process — pinned scrub (A05) + effort illusion (P13) + authority (P15).
+ * Cards stack into the viewport while the page background holds.
+ */
+const STEPS = [
+  {
+    n: "01",
+    title: "אבחון כאב",
+    body: "מה באמת מונע המרה — לא מה שהמתחרים מעתיקים. מספרים אמיתיים בלבד.",
+    lever: "P17 · בהירות",
+  },
+  {
+    n: "02",
+    title: "רגע חתימה",
+    body: "אלמנט אחד בלתי נשכח: גלילה נעוצה, מוצר 3D, או מילה שנדלקת. לא רעש — נוכחות.",
+    lever: "P05 · סקרנות",
+  },
+  {
+    n: "03",
+    title: "בניית דימו",
+    body: "POC חי בלי שרת — כדי שבפגישה תראו מוצר, לא מצגת. Awwwards-feeling, עברית RTL.",
+    lever: "P13 · רואים עבודה",
+  },
+  {
+    n: "04",
+    title: "השקה שסוגרת",
+    body: "מסלול ברור לוואטסאפ / תור / רכישה. בלי הבטחות מנופחות. בלי ספירות מזויפות.",
+    lever: "P15 · סמכות",
+  },
+];
+
+function StepCard({
+  step,
+  progress,
+  index,
+}: {
+  step: (typeof STEPS)[number];
+  progress: MotionValue<number>;
+  index: number;
+}) {
+  const start = 0.08 + index * 0.2;
+  const end = start + 0.16;
+  const opacity = useTransform(progress, [start, end, end + 0.35], [0, 1, 1]);
+  const y = useTransform(progress, [start, end], [80 + index * 12, index * 14]);
+  const scale = useTransform(progress, [start, end], [0.92, 1 - index * 0.015]);
+  const rotate = useTransform(progress, [start, end], [index % 2 === 0 ? -2.5 : 2.5, 0]);
+
+  return (
+    <motion.article
+      style={{ opacity, y, scale, rotate, zIndex: index + 1 }}
+      className="absolute inset-x-0 top-[28%] mx-auto w-full max-w-xl rounded-2xl border border-line bg-elevated/90 p-7 shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-md md:p-9"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <p className="text-[11px] tracking-[0.24em] text-gold">{step.lever}</p>
+        <span className="display text-4xl text-white/10 md:text-5xl">{step.n}</span>
+      </div>
+      <h3 className="display mt-4 text-3xl text-ivory md:text-4xl">{step.title}</h3>
+      <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">{step.body}</p>
+    </motion.article>
+  );
+}
+
+export function CraftProcess() {
+  const wrap = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: wrap,
+    offset: ["start start", "end end"],
+  });
+
+  const rail = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.08, 0.9, 1], [1, 1, 0.5, 0.35]);
+
+  return (
+    <section
+      ref={wrap}
+      className="relative z-10 h-[340vh] bg-[#070708] md:h-[320vh]"
+      aria-label="תהליך העבודה"
+    >
+      {/* Mobile */}
+      <div className="space-y-6 px-5 py-20 md:hidden">
+        <div>
+          <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
+          <h2 className="display mt-3 text-3xl text-ivory">איך נבנה פרויקט שסוגר</h2>
+        </div>
+        {STEPS.map((s) => (
+          <div
+            key={s.n}
+            className="rounded-2xl border border-line bg-elevated/60 p-6"
+          >
+            <p className="text-[11px] tracking-[0.2em] text-gold">{s.lever}</p>
+            <h3 className="display mt-3 text-2xl text-ivory">
+              {s.n} · {s.title}
+            </h3>
+            <p className="mt-3 text-sm text-muted">{s.body}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop pinned stack */}
+      <div className="sticky top-0 hidden h-screen overflow-hidden md:block">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,169,98,0.06),transparent_55%)]" />
+
+        {/* Progress rail */}
+        <div className="absolute start-8 top-1/2 h-48 w-px -translate-y-1/2 bg-white/10 lg:start-12">
+          <motion.div
+            style={{ height: rail }}
+            className="w-full origin-top bg-gradient-to-b from-gold via-pink to-gold/40"
+          />
+        </div>
+
+        <div className="relative mx-auto h-full max-w-5xl px-8">
+          <motion.div style={{ opacity: headlineOpacity }} className="absolute top-[12%] start-0 end-0 text-center">
+            <p className="text-xs tracking-[0.28em] text-gold">המלאכה · P13 / A05</p>
+            <h2 className="display mt-3 text-[clamp(28px,3.8vw,48px)] text-ivory">
+              ארבעה שלבים.{" "}
+              <span className="bg-gradient-to-l from-gold via-pink to-sky-300 bg-clip-text text-transparent">
+                אפס קיצורי דרך.
+              </span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
+              הגלילה נשארת. הכרטיסים נערמים — כמו תהליך אמיתי, לא מצגת.
+            </p>
+          </motion.div>
+
+          <div className="relative h-full">
+            {STEPS.map((step, i) => (
+              <StepCard key={step.n} step={step} progress={scrollYProgress} index={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

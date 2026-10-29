@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
+import Link from "next/link";
 import { useRef, type MouseEvent } from "react";
 import type { Project } from "@/lib/site";
 import { whatsappUrl } from "@/lib/site";
@@ -45,6 +46,8 @@ export function MagneticCard({ project, index = 0 }: Props) {
     glowY.set(40);
   }
 
+  const demoHref = `/demo/${project.id}`;
+
   return (
     <motion.article
       ref={ref}
@@ -57,6 +60,12 @@ export function MagneticCard({ project, index = 0 }: Props) {
       onMouseLeave={onLeave}
       className="group relative overflow-hidden rounded-[1.35rem] border border-line bg-elevated/70 p-6 md:p-7"
     >
+      <Link
+        href={demoHref}
+        className="absolute inset-0 z-20"
+        aria-label={`לפתוח דימו חי: ${project.title}`}
+      />
+
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -97,9 +106,9 @@ export function MagneticCard({ project, index = 0 }: Props) {
             ))}
           </div>
 
-          <div className="flex items-center justify-between gap-3 border-t border-line/50 pt-4">
+          <div className="relative z-30 flex items-center justify-between gap-3 border-t border-line/50 pt-4">
             <span className="text-xs text-muted transition group-hover:text-pink">
-              ריחוף חושף פרטים · מוכן לשיחה
+              לחצו לדימו חי · ריחוף חושף פרטים
             </span>
             <a
               href={whatsappUrl(
@@ -107,6 +116,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
               )}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-gold opacity-0 transition group-hover:opacity-100 hover:bg-gold hover:text-rich-black"
             >
               לשיחה
@@ -115,7 +125,6 @@ export function MagneticCard({ project, index = 0 }: Props) {
         </div>
       </div>
 
-      {/* faux short “preview reel” strip on hover */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 origin-right scale-x-0 bg-gradient-to-l from-gold via-pink to-transparent transition duration-500 group-hover:scale-x-100" />
     </motion.article>
   );

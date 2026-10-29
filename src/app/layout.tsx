@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Frank_Ruhl_Libre, Heebo } from "next/font/google";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { LenisProvider } from "@/components/LenisProvider";
-import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { SiteChrome } from "@/components/SiteChrome";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -44,10 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col overflow-x-hidden bg-[#070708] font-sans text-ivory">
         <LenisProvider>
           <div className="noise" aria-hidden />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <WhatsAppFloat />
+          <SiteChrome>{children}</SiteChrome>
         </LenisProvider>
       </body>
     </html>
