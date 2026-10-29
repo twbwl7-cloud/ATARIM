@@ -11,13 +11,13 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <WorkGrid />
       <FailedBefore />
       <div id="pillars">
         <PinnedPillars />
       </div>
       <ScrollStory />
       <FormatsElements />
-      <WorkGrid title="שלושה אתרים חיים" />
       <AboutSection />
       <ContactSection />
     </>

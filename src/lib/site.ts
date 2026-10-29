@@ -136,20 +136,6 @@ export const elements = [
   },
 ] as const;
 
-/** Signals orbiting the hero sphere — book + Luxe Barber */
-export const orbitSignals = [
-  { label: "חזון", source: "book" as const },
-  { label: "מלאכה", source: "book" as const },
-  { label: "סמכות", source: "book" as const },
-  { label: "בהירות", source: "book" as const },
-  { label: "לוקסי", source: "barber" as const },
-  { label: "תור מראש", source: "barber" as const },
-  { label: "סכין", source: "barber" as const },
-  { label: "שקט", source: "barber" as const },
-  { label: "זהב", source: "barber" as const },
-  { label: "נוכחות", source: "book" as const },
-] as const;
-
 export function projectHref(project: Project) {
   return project.liveUrl ?? `/demo/${project.id}`;
 }

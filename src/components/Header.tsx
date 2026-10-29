@@ -20,21 +20,14 @@ export function Header() {
         >
           <span
             aria-hidden
-            className="grid h-9 w-9 place-items-center rounded-full border border-gold/50 bg-elevated/90 text-[11px] font-semibold tracking-[0.18em] text-gold-bright shadow-[0_0_24px_rgba(201,161,91,0.22)]"
+            className="grid h-8 w-8 place-items-center rounded-full border border-gold/40 text-[10px] font-semibold tracking-[0.16em] text-gold"
           >
             דט
           </span>
-          <span className="flex flex-col leading-tight">
-            <span className="display text-lg text-ivory md:text-xl">
-              {site.name}
-            </span>
-            <span className="hidden text-[11px] tracking-wide text-muted sm:block">
-              פלטפורמות פרימיום · 3D
-            </span>
-          </span>
+          <span className="display text-lg text-ivory md:text-xl">{site.name}</span>
         </Link>
 
-        <nav className="glass hidden items-center gap-1 rounded-full px-2 py-1.5 md:flex">
+        <nav className="hidden items-center gap-1 md:flex">
           {nav.map((item) => {
             const active = pathname === item.href;
             return (
@@ -42,9 +35,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={`rounded-full px-4 py-2 text-sm transition ${
-                  active
-                    ? "bg-gold/20 text-gold-bright"
-                    : "text-muted hover:text-ivory"
+                  active ? "text-gold-bright" : "text-muted hover:text-ivory"
                 }`}
               >
                 {item.label}
@@ -55,31 +46,24 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <a
-            href={whatsappUrl()}
+            href={whatsappUrl("היי דוד, אשמח לבקש הדמיה בחינם.")}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-gold hidden rounded-full px-4 py-2.5 text-sm sm:inline-flex"
           >
-            הצעת מחיר בוואטסאפ
+            לבקשת הדמיה בחינם
           </a>
           <button
             type="button"
             aria-expanded={open}
             aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-            className="grid h-11 w-11 place-items-center rounded-full border border-line bg-elevated/85 text-ivory md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-ivory md:hidden"
             onClick={() => setOpen((v) => !v)}
           >
-            <span className="sr-only">תפריט</span>
             <span className="flex w-4 flex-col gap-1.5">
-              <span
-                className={`h-px w-full bg-ivory transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
-              />
-              <span
-                className={`h-px w-full bg-ivory transition ${open ? "opacity-0" : ""}`}
-              />
-              <span
-                className={`h-px w-full bg-ivory transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
-              />
+              <span className={`h-px w-full bg-ivory transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`} />
+              <span className={`h-px w-full bg-ivory transition ${open ? "opacity-0" : ""}`} />
+              <span className={`h-px w-full bg-ivory transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
             </span>
           </button>
         </div>
@@ -105,13 +89,13 @@ export function Header() {
                 </Link>
               ))}
               <a
-                href={whatsappUrl()}
+                href={whatsappUrl("היי דוד, אשמח לבקש הדמיה בחינם.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-gold mt-2 rounded-full px-4 py-3 text-center text-sm"
                 onClick={() => setOpen(false)}
               >
-                הצעת מחיר בוואטסאפ
+                לבקשת הדמיה בחינם
               </a>
             </div>
           </motion.div>

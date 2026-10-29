@@ -23,20 +23,19 @@ export function ContactSection() {
         <div className="relative max-w-2xl">
           <p className="text-xs tracking-[0.24em] text-gold">צור קשר</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-            בואו נפתח שיחה קצרה — ונבנה משהו שלא שוכחים
+            המתחרים כבר נראים יותר מקצועיים ממך ברשת?
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-muted md:text-base">
-            הפעולה הכי מדויקת: הודעת וואטסאפ. תקבלו חזרה מהירה עם כיוון ראשוני
-            והצעת מחיר מותאמת.
+            שלוש שאלות קצרות בוואטסאפ — ואני חוזר עם כיוון והצעה. בלי התחייבות.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href={whatsappUrl()}
+              href={whatsappUrl("היי דוד, אשמח לבקש הדמיה בחינם לאתר של העסק שלי.")}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-gold rounded-full px-7 py-3.5 text-sm"
             >
-              שלחו הודעה בוואטסאפ
+              לבקשת הדמיה בחינם
             </a>
             <a
               href={`mailto:${site.email}`}

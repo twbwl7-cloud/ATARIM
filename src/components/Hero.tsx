@@ -13,95 +13,74 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   return (
-    <section className="relative isolate min-h-[100svh] overflow-hidden bg-rich-black pt-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_75%_40%,rgba(201,161,91,0.1),transparent_55%),radial-gradient(ellipse_at_15%_85%,rgba(212,168,181,0.08),transparent_50%),radial-gradient(ellipse_at_50%_100%,rgba(122,46,58,0.08),transparent_45%)]" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-gold-bright/50 to-transparent"
-      />
+    <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#0a1220] pt-24">
       <HeroScene />
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-6rem)] max-w-7xl flex-col justify-center gap-10 px-5 pb-16 md:px-8 md:pb-20">
-        <div className="max-w-xl md:max-w-[36rem]">
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease }}
-            className="mb-5 inline-flex items-center gap-2 text-xs font-medium tracking-[0.24em] text-platinum md:text-sm"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_14px_rgba(201,161,91,0.9)]" />
-            פיתוח חוויות · חלל דיגיטלי
-          </motion.p>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.06, ease }}
-            className="display text-4xl leading-[1.05] text-ivory sm:text-5xl md:text-7xl"
-          >
-            {site.name}
-            <span className="luxury-gradient-text mt-4 block text-xl sm:text-2xl md:text-3xl">
-              אתרים שנראים כמו יקום קטן — וסוגרים עסקאות
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.16, ease }}
-            className="mt-6 max-w-lg text-base leading-relaxed text-muted md:text-lg"
-          >
-            פלטפורמות פרימיום, ממשקי 3D ומיתוג יוקרתי — בנויים כך שהלקוח שלך
-            מרגיש את האיכות לפני השיחה הראשונה.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.26, ease }}
-            className="mt-9 flex flex-wrap items-center gap-3"
-          >
-            <a
-              href={whatsappUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold rounded-full px-7 py-3.5 text-sm active:scale-[0.97]"
+      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-6rem)] max-w-7xl flex-col justify-between px-5 pb-10 md:px-8 md:pb-14">
+        <div className="flex flex-1 flex-col justify-center">
+          <div className="max-w-xl md:max-w-[34rem]">
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease }}
+              className="mb-6 text-xs tracking-[0.22em] text-platinum md:text-sm"
             >
-              בואו נדבר בוואטסאפ
-            </a>
-            <a
-              href="#work"
-              className="btn-ghost rounded-full px-7 py-3.5 text-sm"
+              {site.name} · סטודיו לאתרים פרימיום
+            </motion.p>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 36 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.05, ease }}
+              className="display text-[clamp(2.6rem,7vw,4.75rem)] leading-[1.02] text-ivory"
             >
-              לצפות בעבודות חיות
-            </a>
-          </motion.div>
+              העסק שלך{" "}
+              <span className="gold-text">חזק.</span>
+              <br />
+              האתר עדיין לא.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.14, ease }}
+              className="mt-6 max-w-md text-base leading-relaxed text-muted md:text-lg"
+            >
+              אתר שנראה כמו המובילים בתחום — עם דימו חי של העמוד שלך לפני
+              שמחליטים, בלי התחייבות.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.22, ease }}
+              className="mt-9 flex flex-wrap items-center gap-3"
+            >
+              <a
+                href={whatsappUrl(
+                  "היי דוד, אשמח לבקש הדמיה בחינם לאתר של העסק שלי.",
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold rounded-full px-7 py-3.5 text-sm active:scale-[0.97]"
+              >
+                לבקשת הדמיה בחינם
+              </a>
+              <a href="#work" className="btn-ghost rounded-full px-6 py-3.5 text-sm">
+                עבודות שאפשר להיכנס אליהן
+              </a>
+            </motion.div>
+          </div>
         </div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.85, duration: 1 }}
-          className="flex flex-wrap gap-8 border-t border-line/50 pt-6 text-xs text-muted md:gap-12 md:text-sm"
+          transition={{ delay: 0.9, duration: 0.8 }}
+          className="flex flex-col items-center gap-2 pt-8 text-[11px] tracking-[0.28em] text-muted"
         >
-          <div>
-            <p className="mb-1 text-[11px] tracking-[0.18em] text-gold uppercase">
-              לקוחות
-            </p>
-            <p>קליניקות · עוגות · מספרות</p>
-          </div>
-          <div>
-            <p className="mb-1 text-[11px] tracking-[0.18em] text-gold uppercase">
-              חתימה
-            </p>
-            <p>גלילה מקובעת · 3D · המרה</p>
-          </div>
-          <div>
-            <p className="mb-1 text-[11px] tracking-[0.18em] text-gold uppercase">
-              סטאק
-            </p>
-            <p>Next.js · Three.js · Node · Java</p>
-          </div>
+          <span>גללו</span>
+          <span className="h-10 w-px bg-gradient-to-b from-gold/70 to-transparent" />
         </motion.div>
       </div>
     </section>
