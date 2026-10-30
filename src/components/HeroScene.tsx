@@ -134,6 +134,19 @@ function ProceduralNebulaOrb({ intensity }: { intensity: MotionValue<number> }) 
       }),
     [],
   );
+  const cyanMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color("#3cb8ff"),
+        emissive: new THREE.Color("#3cb8ff"),
+        emissiveIntensity: 0.6,
+        metalness: 0.85,
+        roughness: 0.22,
+        transparent: true,
+        opacity: 0.75,
+      }),
+    [],
+  );
 
   useMotionValueEvent(intensity, "change", (v) => {
     glow.current = v;
