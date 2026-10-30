@@ -68,7 +68,7 @@ function PlungeStage({
 
       <motion.p
         style={{ opacity: hintOpacity }}
-        className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.3em] text-muted"
+        className="absolute bottom-14 left-1/2 z-10 -translate-x-1/2 pb-[env(safe-area-inset-bottom)] text-[11px] tracking-[0.3em] text-muted md:bottom-12"
       >
         גללו לכניסה
       </motion.p>
