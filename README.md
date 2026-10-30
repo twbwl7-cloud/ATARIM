@@ -5,7 +5,7 @@
 ## סטאק
 
 - **Next.js** (App Router) + **Tailwind CSS**
-- **React Three Fiber** / Three.js — Hero תלת־ממדי
+- **React Three Fiber** / Three.js — Hero MacBook Pro (ProledXDR) עם כניסה למסך
 - **Framer Motion** + **Lenis** — גלילה נעוצה, מגנטיות, word-ignite
 - Mobile-first · Hebrew RTL · CTA לוואטסאפ
 
