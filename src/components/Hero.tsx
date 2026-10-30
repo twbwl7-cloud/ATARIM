@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -11,9 +11,14 @@ import {
 } from "framer-motion";
 import { whatsappUrl } from "@/lib/site";
 
+const HeroScene = dynamic(
+  () => import("@/components/HeroScene").then((m) => m.HeroScene),
+  { ssr: false, loading: () => null },
+);
+
 /**
- * Signature hero — pinned plunge into the David Tubul emblem.
- * Screen stays. Symbol grows. You enter the spiral. Next section opens.
+ * Pinned plunge into a living 3D emblem that shares the hero void —
+ * no separate “sticker” plate. Optical depth + scroll entry.
  */
 function PlungeStage({
   progress,
@@ -22,71 +27,27 @@ function PlungeStage({
   progress: MotionValue<number>;
   reduce: boolean;
 }) {
-  const intensityRaw = useTransform(progress, [0.06, 0.9], [0, 1]);
+  const intensityRaw = useTransform(progress, [0.05, 0.9], [0, 1]);
   const intensity = useSpring(intensityRaw, {
-    stiffness: 70,
-    damping: 28,
-    mass: 0.5,
+    stiffness: 65,
+    damping: 26,
+    mass: 0.55,
   });
 
-  const emblemScale = useTransform(
-    reduce ? intensityRaw : intensity,
-    [0, 1],
-    [1, 8.5],
-  );
-  const emblemOpacity = useTransform(progress, [0.88, 1], [1, 0.15]);
-  const glow = useTransform(
-    reduce ? intensityRaw : intensity,
-    [0, 1],
-    [0.35, 1.1],
-  );
-
-  const textOpacity = useTransform(progress, [0, 0.1, 0.26], [1, 0.8, 0]);
-  const textY = useTransform(progress, [0, 0.28], [0, -48]);
-  const hintOpacity = useTransform(progress, [0, 0.08, 0.2], [1, 0.45, 0]);
-  const veilOpacity = useTransform(progress, [0.7, 0.88, 1], [0, 0.45, 1]);
+  const textOpacity = useTransform(progress, [0, 0.1, 0.24], [1, 0.75, 0]);
+  const textY = useTransform(progress, [0, 0.28], [0, -56]);
+  const hintOpacity = useTransform(progress, [0, 0.08, 0.18], [1, 0.4, 0]);
+  const veilOpacity = useTransform(progress, [0.72, 0.9, 1], [0, 0.4, 1]);
 
   return (
     <div className="relative h-screen overflow-hidden bg-[#050a14]">
-      {/* atmospheric code field */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(40,120,200,0.18),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(212,168,75,0.1),transparent_50%)]"
-      />
-
-      <motion.div
-        style={{
-          scale: emblemScale,
-          opacity: emblemOpacity,
-        }}
-        className="absolute inset-0 z-[1] flex items-center justify-center will-change-transform"
-      >
-        <motion.div
-          style={{ opacity: glow }}
-          className="relative h-[min(70vw,520px)] w-[min(70vw,520px)]"
-        >
-          <div className="absolute inset-[-30%] animate-pulse rounded-full bg-[radial-gradient(circle,rgba(56,180,255,0.5)_0%,rgba(240,200,106,0.22)_34%,transparent_66%)] blur-3xl" />
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 56, ease: "linear", repeat: Infinity }}
-            className="absolute inset-[4%] overflow-hidden rounded-full"
-          >
-            <Image
-              src="/brand/emblem.png"
-              alt=""
-              fill
-              priority
-              unoptimized
-              sizes="(max-width: 768px) 70vw, 520px"
-              className="object-cover drop-shadow-[0_0_70px_rgba(56,180,255,0.7)]"
-            />
-          </motion.div>
-        </motion.div>
-      </motion.div>
+      <div className="absolute inset-0 z-0">
+        <HeroScene intensity={reduce ? intensityRaw : intensity} />
+      </div>
 
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-[18vh] text-center md:pb-[16vh]"
+        className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-[17vh] text-center md:pb-[15vh]"
       >
         <h1 className="display max-w-3xl text-[clamp(2.1rem,5.5vw,3.8rem)] leading-[1.08] text-ivory">
           נכנסים לחוויה.
@@ -94,7 +55,7 @@ function PlungeStage({
           <span className="gold-text">לא לדף עוד.</span>
         </h1>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-muted md:text-base">
-          גללו לאט — הסמל נשאר, ואתם נכנסים פנימה.
+          גללו לאט — הסמל יוצא מהמסך, ואתם נכנסים פנימה.
         </p>
         <div className="pointer-events-auto mt-7 flex flex-wrap items-center justify-center gap-3">
           <a
@@ -121,7 +82,7 @@ function PlungeStage({
       <motion.div
         aria-hidden
         style={{ opacity: veilOpacity }}
-        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(40,140,210,0.4)_0%,rgba(5,10,20,0.95)_38%,#050a14_68%)]"
+        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(40,140,210,0.35)_0%,rgba(5,10,20,0.95)_40%,#050a14_70%)]"
       />
     </div>
   );
@@ -147,15 +108,6 @@ export function Hero() {
   if (reduce) {
     return (
       <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[#050a14] px-5 pt-24 text-center">
-        <div className="relative mb-8 h-48 w-48">
-          <Image
-            src="/brand/emblem.png"
-            alt="David Tubul"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
         <h1 className="display text-4xl text-ivory md:text-5xl">
           נכנסים לחוויה.
           <br />
@@ -174,7 +126,7 @@ export function Hero() {
   }
 
   return (
-    <section ref={ref} className="relative h-[280vh] bg-[#050a14]">
+    <section ref={ref} className="relative h-[300vh] bg-[#050a14]">
       <div className="sticky top-0 h-screen">
         <PlungeStage progress={scrollYProgress} reduce={false} />
       </div>
