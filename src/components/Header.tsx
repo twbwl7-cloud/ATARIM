@@ -46,12 +46,12 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <a
-            href={whatsappUrl("היי דוד, אשמח לבקש הדמיה בחינם.")}
+            href={whatsappUrl("היי דוד, אשמח לקבוע שיחת היכרות רשמית.")}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-gold hidden rounded-full px-4 py-2.5 text-sm sm:inline-flex"
           >
-            לבקשת הדמיה בחינם
+            קביעת שיחה
           </a>
           <button
             type="button"
@@ -89,13 +89,13 @@ export function Header() {
                 </Link>
               ))}
               <a
-                href={whatsappUrl("היי דוד, אשמח לבקש הדמיה בחינם.")}
+                href={whatsappUrl("היי דוד, אשמח לקבוע שיחת היכרות רשמית.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-gold mt-2 rounded-full px-4 py-3 text-center text-sm"
                 onClick={() => setOpen(false)}
               >
-                לבקשת הדמיה בחינם
+                קביעת שיחה
               </a>
             </div>
           </motion.div>
