@@ -41,15 +41,15 @@ function PlungeStage({
 
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-5 pt-10 text-center"
+        className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-[16vh] text-center md:pb-[14vh]"
       >
-        <h1 className="display max-w-3xl text-[clamp(2.2rem,6vw,4.2rem)] leading-[1.05] text-ivory">
+        <h1 className="display max-w-3xl text-[clamp(2.2rem,6vw,4rem)] leading-[1.05] text-ivory">
           נכנסים לחוויה.
           <br />
           <span className="gold-text">לא לדף עוד.</span>
         </h1>
         <p className="mt-5 max-w-md text-sm leading-relaxed text-muted md:text-base">
-          גללו לאט — המסך נשאר, והעולם נפתח מולכם.
+          הזיזו את העכבר — הסמל יוצא מהמסך. גללו — נכנסים פנימה.
         </p>
         <div className="pointer-events-auto mt-8 flex flex-wrap items-center justify-center gap-3">
           <a
