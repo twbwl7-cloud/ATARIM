@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { nav, site, whatsappUrl } from "@/lib/site";
+import { nav, whatsappUrl } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
@@ -12,19 +13,24 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 md:px-8 md:py-4">
+        {/* RTL: right side = brand */}
         <Link
           href="/"
-          className="group flex items-center gap-3"
+          className="group relative flex shrink-0 items-center"
           onClick={() => setOpen(false)}
+          aria-label="David Tubul — דף הבית"
         >
-          <span
-            aria-hidden
-            className="grid h-8 w-8 place-items-center rounded-full border border-gold/40 text-[10px] font-semibold tracking-[0.16em] text-gold"
-          >
-            דט
+          <span className="relative block h-9 w-[148px] sm:h-10 sm:w-[180px] md:h-11 md:w-[210px]">
+            <Image
+              src="/brand/wordmark-name.png"
+              alt="DAVID TUBUL"
+              fill
+              priority
+              sizes="210px"
+              className="object-contain object-right drop-shadow-[0_0_12px_rgba(212,168,75,0.25)]"
+            />
           </span>
-          <span className="display text-lg text-ivory md:text-xl">{site.name}</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -61,9 +67,15 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
           >
             <span className="flex w-4 flex-col gap-1.5">
-              <span className={`h-px w-full bg-ivory transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`} />
-              <span className={`h-px w-full bg-ivory transition ${open ? "opacity-0" : ""}`} />
-              <span className={`h-px w-full bg-ivory transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`} />
+              <span
+                className={`h-px w-full bg-ivory transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+              />
+              <span
+                className={`h-px w-full bg-ivory transition ${open ? "opacity-0" : ""}`}
+              />
+              <span
+                className={`h-px w-full bg-ivory transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+              />
             </span>
           </button>
         </div>

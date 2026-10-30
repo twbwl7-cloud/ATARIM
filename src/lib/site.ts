@@ -1,7 +1,8 @@
 export const site = {
-  name: "דוד טובול",
-  tagline: "פיתוח חוויות אינטראקטיביות ופלטפורמות פרימיום",
-  short: "דוד טובול",
+  name: "David Tubul",
+  nameHe: "דוד טובול",
+  tagline: "Web Development & Digital Experience",
+  short: "David Tubul",
   /** מספר וואטסאפ בפורמט בינלאומי ללא + או מקפים — עדכנו ב-.env */
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||

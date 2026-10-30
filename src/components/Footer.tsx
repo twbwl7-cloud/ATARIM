@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="relative z-10 border-t border-line/50 bg-rich-black">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-12 md:flex-row md:items-end md:justify-between md:px-8">
         <div className="max-w-md">
-          <p className="display text-2xl text-ivory md:text-3xl">{site.name}</p>
+          <p className="display text-2xl text-ivory md:text-3xl">{site.nameHe ?? site.name}</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">{site.tagline}</p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted">
