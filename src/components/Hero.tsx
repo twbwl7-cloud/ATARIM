@@ -67,7 +67,7 @@ export function Hero() {
                 לבקשת הדמיה בחינם
               </a>
               <a href="#work" className="btn-ghost rounded-full px-6 py-3.5 text-sm">
-                עבודות שאפשר להיכנס אליהן
+                גללו לגלגל העבודות
               </a>
             </motion.div>
           </div>

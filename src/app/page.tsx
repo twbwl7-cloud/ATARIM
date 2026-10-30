@@ -5,13 +5,13 @@ import { FormatsElements } from "@/components/FormatsElements";
 import { Hero } from "@/components/Hero";
 import { PinnedPillars } from "@/components/PinnedPillars";
 import { ScrollStory } from "@/components/ScrollStory";
-import { WorkGrid } from "@/components/WorkGrid";
+import { WorkWheel } from "@/components/WorkWheel";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <WorkGrid />
+      <WorkWheel />
       <FailedBefore />
       <div id="pillars">
         <PinnedPillars />
