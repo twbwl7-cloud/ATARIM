@@ -38,10 +38,11 @@ export function ContactSection() {
               קביעת שיחת היכרות
             </a>
             <a
-              href={`mailto:${site.email}`}
+              href={`tel:+${site.whatsapp}`}
               className="btn-ghost rounded-full px-7 py-3.5 text-sm"
+              dir="ltr"
             >
-              {site.email}
+              {site.phoneDisplay}
             </a>
           </div>
         </div>

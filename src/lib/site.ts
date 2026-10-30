@@ -6,7 +6,8 @@ export const site = {
   /** מספר וואטסאפ בפורמט בינלאומי ללא + או מקפים — עדכנו ב-.env */
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
-    "972500000000",
+    "972523182032",
+  phoneDisplay: "052-318-2032",
   email: "hello@tobol.dev",
   university: "האוניברסיטה הפתוחה",
   focus: "מדעי המחשב · יישומי מערכות נבונות",

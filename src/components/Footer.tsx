@@ -20,6 +20,13 @@ export function Footer() {
             </Link>
           ))}
           <a
+            href={`tel:+${site.whatsapp}`}
+            className="transition hover:text-gold-bright"
+            dir="ltr"
+          >
+            {site.phoneDisplay}
+          </a>
+          <a
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
