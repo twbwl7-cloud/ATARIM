@@ -191,32 +191,32 @@ function ProceduralNebulaOrb({ intensity }: { intensity: MotionValue<number> }) 
           <sphereGeometry args={[0.85, 64, 64]} />
         </mesh>
 
-        {/* equatorial metal band */}
-        <mesh ref={band} rotation={[0, 0, 0]} material={metalMat}>
-          <torusGeometry args={[0.86, 0.07, 24, 80]} />
+        {/* equatorial metal band (pokeball seam) */}
+        <mesh ref={band} rotation={[Math.PI / 2, 0, 0]} material={metalMat}>
+          <torusGeometry args={[0.86, 0.065, 24, 96]} />
         </mesh>
         {/* star windows on band */}
-        {[-1.2, -0.4, 0.4, 1.2].map((a, i) => (
+        {[-1.4, -0.7, 0, 0.7, 1.4].map((a, i) => (
           <mesh
             key={i}
-            position={[Math.sin(a) * 0.86, 0, Math.cos(a) * 0.86]}
+            position={[Math.sin(a) * 0.865, 0, Math.cos(a) * 0.865]}
             rotation={[0, a, 0]}
             material={goldMat}
           >
-            <boxGeometry args={[0.12, 0.08, 0.02]} />
+            <boxGeometry args={[0.11, 0.07, 0.025]} />
           </mesh>
         ))}
 
-        {/* center button rings + vortex */}
-        <group position={[0, 0, 0.82]}>
-          <mesh material={buttonMat}>
-            <cylinderGeometry args={[0.22, 0.22, 0.06, 48]} />
+        {/* center button + purple vortex — facing camera */}
+        <group position={[0, 0, 0.86]}>
+          <mesh rotation={[Math.PI / 2, 0, 0]} material={buttonMat}>
+            <cylinderGeometry args={[0.2, 0.2, 0.05, 48]} />
           </mesh>
-          <mesh position={[0, 0.02, 0]} material={metalMat}>
-            <torusGeometry args={[0.16, 0.018, 16, 48]} />
+          <mesh position={[0, 0, 0.02]} material={metalMat}>
+            <torusGeometry args={[0.15, 0.016, 16, 48]} />
           </mesh>
-          <mesh position={[0, 0.035, 0]} rotation={[Math.PI / 2, 0, 0]} material={vortexMat}>
-            <circleGeometry args={[0.1, 48]} />
+          <mesh position={[0, 0, 0.035]} material={vortexMat}>
+            <circleGeometry args={[0.09, 48]} />
           </mesh>
         </group>
 
