@@ -162,16 +162,16 @@ function IllusionPearl({ intensity }: { intensity: MotionValue<number> }) {
           <sphereGeometry args={[0.72, 48, 48, 0, Math.PI * 2, 0, Math.PI / 2]} />
         </mesh>
 
-        {/* brand spiral — the “pearl” core */}
-        <group ref={inner} position={[0, 0.08, 0.08]}>
+        {/* brand spiral — replaces the white pearl as the living core */}
+        <group ref={inner} position={[0, 0.16, 0.12]}>
           <mesh ref={face} material={faceMat}>
-            <circleGeometry args={[0.48, 64]} />
+            <circleGeometry args={[0.58, 96]} />
           </mesh>
         </group>
 
-        {/* glass pearl shell — optical depth */}
-        <mesh material={glassMat} position={[0, 0.1, 0.05]} scale={0.95}>
-          <sphereGeometry args={[0.55, 64, 64]} />
+        {/* glass pearl shell — optical depth around the spiral */}
+        <mesh material={glassMat} position={[0, 0.16, 0.1]}>
+          <sphereGeometry args={[0.62, 64, 64]} />
         </mesh>
 
         {/* parallax rings — leap toward you */}
