@@ -12,12 +12,9 @@ import {
 } from "framer-motion";
 import {
   projectHref,
-  projectIsExternal,
   projects,
-  type Project,
 } from "@/lib/site";
 
-const RADIUS = 420;
 const ANGLE = 360 / projects.length;
 
 const PREVIEWS: Record<string, string> = {
@@ -27,7 +24,6 @@ const PREVIEWS: Record<string, string> = {
 };
 
 function nearestIndex(rotationDeg: number) {
-  // Front face is at rotation ≈ -i * ANGLE (card faces camera when group.rotateY + i*ANGLE ≡ 0)
   const normalized = ((-rotationDeg % 360) + 360) % 360;
   return Math.round(normalized / ANGLE) % projects.length;
 }
@@ -37,11 +33,13 @@ function WheelCard({
   index,
   active,
   rotation,
+  radius,
 }: {
   project: Project;
   index: number;
   active: boolean;
   rotation: MotionValue<number>;
+  radius: number;
 }) {
   const preview = PREVIEWS[project.id];
 
@@ -57,14 +55,12 @@ function WheelCard({
     return dist < 40 ? 1.05 : dist < 100 ? 0.92 : 0.78;
   });
 
-  // Visual only inside 3D — hit-testing on rotated faces is unreliable.
-  // Clicks go through a flat overlay on the active project (see WorkWheel).
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute top-1/2 left-1/2 h-[min(52vh,380px)] w-[min(72vw,280px)] -translate-x-1/2 -translate-y-1/2 md:h-[min(58vh,440px)] md:w-[300px]"
+      className="pointer-events-none absolute top-1/2 left-1/2 h-[min(48vh,320px)] w-[min(78vw,240px)] -translate-x-1/2 -translate-y-1/2 sm:h-[min(52vh,380px)] sm:w-[min(72vw,280px)] md:h-[min(58vh,440px)] md:w-[300px]"
       style={{
-        transform: `rotateY(${index * ANGLE}deg) translateZ(${RADIUS}px)`,
+        transform: `rotateY(${index * ANGLE}deg) translateZ(${radius}px)`,
         transformStyle: "preserve-3d",
       }}
     >
@@ -83,7 +79,7 @@ function WheelCard({
               alt=""
               fill
               className="object-cover object-top contrast-[1.05] saturate-[1.15]"
-              sizes="300px"
+              sizes="(max-width: 768px) 78vw, 300px"
               priority={index === 0}
               quality={92}
             />
@@ -93,10 +89,10 @@ function WheelCard({
 
         <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
           <p className="text-[10px] tracking-[0.2em] text-gold-bright">{project.client}</p>
-          <p className="display mt-1 text-2xl text-ivory md:text-3xl">{project.title}</p>
+          <p className="display mt-1 text-xl text-ivory sm:text-2xl md:text-3xl">{project.title}</p>
           <p className="mt-2 line-clamp-2 text-xs text-platinum md:text-sm">{project.summary}</p>
           <span
-            className={`mt-4 inline-flex items-center gap-2 text-sm font-medium ${
+            className={`mt-3 inline-flex items-center gap-2 text-sm font-medium sm:mt-4 ${
               active ? "text-gold-bright" : "text-platinum"
             }`}
           >
@@ -112,59 +108,15 @@ function openLive(href: string) {
   window.open(href, "_blank", "noopener,noreferrer");
 }
 
-function MobileStack() {
-  return (
-    <div className="space-y-6 px-5 py-16 md:hidden">
-      <div>
-        <p className="text-xs tracking-[0.22em] text-gold">01 · הוכחה חיה</p>
-        <h2 className="display mt-3 text-3xl text-ivory">גלגל העבודות</h2>
-        <p className="mt-3 text-sm text-muted">
-          לולילק · Cookk · לוקסי — לחצו ונכנסים לאתר החי.
-        </p>
-      </div>
-      {projects.map((project) => {
-        const href = projectHref(project);
-        const external = projectIsExternal(project);
-        const preview = PREVIEWS[project.id];
-        return (
-          <a
-            key={project.id}
-            href={href}
-            target={external ? "_blank" : undefined}
-            rel={external ? "noopener noreferrer" : undefined}
-            className="block overflow-hidden rounded-2xl border border-gold/25 bg-elevated"
-          >
-            <div className="relative aspect-[4/3]">
-              {preview ? (
-                <Image
-                  src={preview}
-                  alt={project.title}
-                  fill
-                  className="object-cover object-top"
-                  sizes="100vw"
-                />
-              ) : null}
-            </div>
-            <div className="p-4">
-              <p className="display text-xl text-ivory">{project.title}</p>
-              <p className="mt-1 text-sm text-muted">{project.client}</p>
-              <p className="mt-3 text-sm text-gold">← כניסה לאתר החי</p>
-            </div>
-          </a>
-        );
-      })}
-    </div>
-  );
-}
-
 /**
- * Pinned work wheel — screen stays, wheel turns (A05 scrub).
- * Three live sites orbit; front card opens the production URL.
+ * Pinned work wheel — same experience on phone and desktop.
+ * Screen stays, wheel turns; front card opens the live site.
  */
 export function WorkWheel() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [reduce, setReduce] = useState(false);
+  const [radius, setRadius] = useState(420);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -174,12 +126,24 @@ export function WorkWheel() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  useEffect(() => {
+    const sync = () => {
+      const w = window.innerWidth;
+      if (w < 480) setRadius(260);
+      else if (w < 768) setRadius(320);
+      else if (w < 1024) setRadius(380);
+      else setRadius(420);
+    };
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  // Full revolution across pin — each site gets a clear front moment
   const rawRotate = useTransform(scrollYProgress, [0.05, 0.92], [0, -ANGLE * projects.length]);
   const rotation = useSpring(rawRotate, { stiffness: 90, damping: 28, mass: 0.4 });
 
@@ -195,34 +159,30 @@ export function WorkWheel() {
 
   return (
     <section id="work" ref={ref} className="relative bg-[#070e18]">
-      {/* Mobile: no pin */}
-      <MobileStack />
-
-      {/* Desktop pinned wheel */}
-      <div className="relative hidden h-[340vh] md:block">
-        <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+      <div className="relative h-[280vh] sm:h-[320vh] md:h-[340vh]">
+        <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(60,184,255,0.2),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(224,180,90,0.14),transparent_50%),radial-gradient(circle_at_70%_40%,rgba(120,90,200,0.16),transparent_45%)]"
           />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl items-end justify-between px-8 pt-24">
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 pt-20 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
               <p className="text-xs tracking-[0.22em] text-gold">01 · הוכחה חיה</p>
-              <h2 className="display mt-3 text-4xl text-ivory lg:text-5xl">
+              <h2 className="display mt-2 text-3xl text-ivory sm:mt-3 sm:text-4xl lg:text-5xl">
                 גלגל העבודות
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
+              <p className="mt-2 text-sm leading-relaxed text-muted sm:mt-3">
                 המסך נשאר. הגלגל מסתובב. שלושה אתרים חיים — עוגות, אסתטיקה,
                 מספרה.
               </p>
             </div>
 
-            <div className="max-w-xs text-left">
+            <div className="max-w-xs text-start md:text-left">
               <p className="text-[11px] tracking-[0.2em] text-gold">
                 {String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
               </p>
-              <p className="display mt-2 text-3xl text-ivory">{current.title}</p>
+              <p className="display mt-1 text-2xl text-ivory sm:mt-2 sm:text-3xl">{current.title}</p>
               <p className="mt-1 text-sm text-muted">{current.client}</p>
               <a
                 href={projectHref(current)}
@@ -232,7 +192,7 @@ export function WorkWheel() {
                   e.preventDefault();
                   openLive(projectHref(current));
                 }}
-                className="btn-gold relative z-30 mt-5 inline-flex rounded-full px-5 py-2.5 text-sm"
+                className="btn-gold relative z-30 mt-3 inline-flex rounded-full px-5 py-2.5 text-sm sm:mt-5"
               >
                 כניסה ל{current.title}
               </a>
@@ -240,19 +200,17 @@ export function WorkWheel() {
           </div>
 
           <div className="relative z-10 flex flex-1 items-center justify-center">
-            {/* gold orbit rings */}
             <motion.div
               style={{ scale: ringScale }}
-              className="pointer-events-none absolute h-[min(70vh,520px)] w-[min(70vh,520px)] rounded-full border border-gold/20"
+              className="pointer-events-none absolute h-[min(58vh,420px)] w-[min(58vh,420px)] rounded-full border border-gold/20 sm:h-[min(70vh,520px)] sm:w-[min(70vh,520px)]"
             />
             <motion.div
               style={{ scale: ringScale }}
-              className="pointer-events-none absolute h-[min(82vh,620px)] w-[min(82vh,620px)] rounded-full border border-white/5"
+              className="pointer-events-none absolute h-[min(70vh,520px)] w-[min(70vh,520px)] rounded-full border border-white/5 sm:h-[min(82vh,620px)] sm:w-[min(82vh,620px)]"
             />
-            <div className="pointer-events-none absolute h-[min(58vh,430px)] w-[min(58vh,430px)] rounded-full border border-gold/10" />
 
             <div
-              className="relative h-[min(62vh,480px)] w-full max-w-5xl"
+              className="relative h-[min(52vh,400px)] w-full max-w-5xl sm:h-[min(62vh,480px)]"
               style={{ perspective: "1400px", perspectiveOrigin: "50% 50%" }}
             >
               <motion.div
@@ -269,11 +227,11 @@ export function WorkWheel() {
                     index={i}
                     active={i === active}
                     rotation={rotation}
+                    radius={radius}
                   />
                 ))}
               </motion.div>
 
-              {/* Flat hit target over the front card — reliable vs CSS 3D faces */}
               <a
                 href={projectHref(current)}
                 target="_blank"
@@ -283,16 +241,19 @@ export function WorkWheel() {
                   openLive(projectHref(current));
                 }}
                 aria-label={`כניסה לאתר ${current.title}`}
-                className="absolute top-1/2 left-1/2 z-20 h-[min(58vh,440px)] w-[300px] -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+                className="absolute top-1/2 left-1/2 z-20 h-[min(48vh,320px)] w-[min(78vw,240px)] -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold sm:h-[min(52vh,380px)] sm:w-[min(72vw,280px)] md:h-[min(58vh,440px)] md:w-[300px]"
               />
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-8 pb-8">
-            <motion.p style={{ opacity: hintOpacity }} className="text-xs tracking-[0.24em] text-muted">
-              גללו — הגלגל זז, המסך נשאר
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-5 pb-6 sm:px-6 sm:pb-8 md:px-8">
+            <motion.p
+              style={{ opacity: hintOpacity }}
+              className="text-[10px] tracking-[0.18em] text-muted sm:text-xs sm:tracking-[0.24em]"
+            >
+              גללו — הגלגל זז
             </motion.p>
-            <div className="h-px w-40 overflow-hidden bg-white/10">
+            <div className="h-px min-w-0 flex-1 overflow-hidden bg-white/10 sm:w-40 sm:flex-none">
               <motion.div style={{ width: progressWidth }} className="h-full bg-gold" />
             </div>
             <div className="flex gap-2">

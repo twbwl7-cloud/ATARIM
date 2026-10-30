@@ -24,7 +24,7 @@ export function FreeDemo() {
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
-        className="premium-panel relative overflow-hidden rounded-[1.85rem] px-6 py-12 md:px-12 md:py-16"
+        className="premium-panel relative overflow-hidden rounded-[1.5rem] px-5 py-10 sm:rounded-[1.85rem] sm:px-6 sm:py-12 md:px-12 md:py-16"
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(680px_circle_at_12%_18%,rgba(212,175,103,0.14),transparent_48%),radial-gradient(520px_circle_at_88%_80%,rgba(90,140,220,0.12),transparent_45%)]" />
         <div

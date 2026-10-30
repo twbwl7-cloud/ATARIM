@@ -13,14 +13,14 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-3 md:gap-4 md:px-8 md:py-3.5">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:px-5 md:gap-4 md:px-8 md:py-3.5">
         <Link
           href="/"
-          className="group relative flex shrink-0 items-center gap-2.5"
+          className="group relative flex shrink-0 items-center gap-2 sm:gap-2.5"
           onClick={() => setOpen(false)}
           aria-label="David Tubul — דף הבית"
         >
-          <span className="relative hidden h-11 w-11 shrink-0 sm:block md:h-12 md:w-12">
+          <span className="relative h-9 w-9 shrink-0 sm:h-11 sm:w-11 md:h-12 md:w-12">
             <Image
               src="/brand/emblem.png"
               alt=""
@@ -30,9 +30,8 @@ export function Header() {
               className="object-contain drop-shadow-[0_0_20px_rgba(56,180,255,0.65)]"
             />
           </span>
-          {/* CSS wordmark — never clips like a cropped PNG */}
           <span
-            className="select-none text-[15px] font-semibold tracking-[0.14em] uppercase sm:text-base md:text-lg"
+            className="select-none text-[13px] font-semibold tracking-[0.12em] uppercase sm:text-[15px] sm:tracking-[0.14em] md:text-lg"
             style={{
               background: "var(--metal-gold)",
               WebkitBackgroundClip: "text",
@@ -67,7 +66,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/#free-demo"
-            className="btn-gold hidden rounded-full px-4 py-2.5 text-sm sm:inline-flex"
+            className="btn-gold inline-flex rounded-full px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
             onClick={() => setOpen(false)}
           >
             דוגמא בחינם
@@ -76,7 +75,7 @@ export function Header() {
             type="button"
             aria-expanded={open}
             aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-ivory md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-ivory sm:h-11 sm:w-11 md:hidden"
             onClick={() => setOpen((v) => !v)}
           >
             <span className="flex w-4 flex-col gap-1.5">
@@ -100,7 +99,7 @@ export function Header() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="glass mx-5 overflow-hidden rounded-2xl p-4 md:hidden"
+            className="glass mx-4 overflow-hidden rounded-2xl p-4 sm:mx-5 md:hidden"
           >
             <div className="flex flex-col gap-1">
               {nav.map((item) => (
@@ -113,13 +112,6 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/#free-demo"
-                className="btn-gold mt-2 rounded-full px-4 py-3 text-center text-sm"
-                onClick={() => setOpen(false)}
-              >
-                דוגמא בחינם
-              </Link>
             </div>
           </motion.div>
         )}

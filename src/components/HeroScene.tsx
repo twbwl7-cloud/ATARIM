@@ -123,6 +123,14 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     const mx = mouse.current.x;
     const my = mouse.current.y;
 
+    // Portrait phones: pull back + shrink so the full open MacBook matches desktop framing
+    const aspect = state.viewport.aspect || 1;
+    const narrow = aspect < 0.85;
+    const camZ0 = narrow ? 5.4 : 3.6;
+    const camY0 = narrow ? 1.55 : 1.35;
+    const modelScale = narrow ? 0.72 : 1;
+    const modelY = narrow ? 0.22 : -0.15;
+
     screenMat.uniforms.uTime.value = t;
     screenMat.uniforms.uGlow.value = g;
 
@@ -130,17 +138,16 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
       root.current.rotation.y = mx * 0.28 + Math.sin(t * 0.25) * 0.04;
       root.current.rotation.x = -0.22 - my * 0.08 + Math.sin(t * 0.35) * 0.015;
       root.current.rotation.z = mx * -0.02;
-      const breath = 1 + Math.sin(t * 0.95) * 0.008 + g * 0.1;
+      const breath = modelScale * (1 + Math.sin(t * 0.95) * 0.008 + g * 0.1);
       root.current.scale.setScalar(breath);
-      root.current.position.y = -0.15 + Math.sin(t * 0.8) * 0.025;
+      root.current.position.y = modelY + Math.sin(t * 0.8) * 0.025;
       root.current.position.z = g * 0.5;
     }
 
-    // product-shot framing → plunge into the XDR screen
-    state.camera.position.z = THREE.MathUtils.lerp(3.6, 0.45, g);
+    state.camera.position.z = THREE.MathUtils.lerp(camZ0, narrow ? 0.7 : 0.45, g);
     state.camera.position.x = mx * 0.18 * (1 - g * 0.75);
-    state.camera.position.y = 1.35 + my * 0.1 * (1 - g * 0.6) - g * 0.15;
-    state.camera.lookAt(0, 0.45 + g * 0.35, root.current?.position.z ?? 0);
+    state.camera.position.y = camY0 + my * 0.1 * (1 - g * 0.6) - g * 0.15;
+    state.camera.lookAt(0, (narrow ? 0.55 : 0.45) + g * 0.35, root.current?.position.z ?? 0);
   });
 
   // Product-shot proportions — open lid built in XZ (closed), then hinged open
@@ -290,19 +297,24 @@ function GlbMacbook({
     mouse.current.y = THREE.MathUtils.lerp(mouse.current.y, state.pointer.y, 0.06);
     const mx = mouse.current.x;
     const my = mouse.current.y;
+    const aspect = state.viewport.aspect || 1;
+    const narrow = aspect < 0.85;
+    const camZ0 = narrow ? 5.4 : 3.6;
+    const camY0 = narrow ? 1.5 : 1.3;
+    const modelScale = narrow ? 0.72 : 1;
 
     if (root.current) {
       root.current.rotation.y = mx * 0.28 + Math.sin(t * 0.22) * 0.04;
       root.current.rotation.x = -0.2 - my * 0.08;
-      root.current.scale.setScalar(1 + Math.sin(t * 0.9) * 0.008 + g * 0.1);
+      root.current.scale.setScalar(modelScale * (1 + Math.sin(t * 0.9) * 0.008 + g * 0.1));
       root.current.position.z = g * 0.5;
-      root.current.position.y = -0.12;
+      root.current.position.y = narrow ? 0.2 : -0.12;
     }
 
-    state.camera.position.z = THREE.MathUtils.lerp(3.6, 0.42, g);
+    state.camera.position.z = THREE.MathUtils.lerp(camZ0, narrow ? 0.65 : 0.42, g);
     state.camera.position.x = mx * 0.16 * (1 - g * 0.75);
-    state.camera.position.y = 1.3 + my * 0.09 * (1 - g * 0.6) - g * 0.12;
-    state.camera.lookAt(0, 0.42 + g * 0.3, root.current?.position.z ?? 0);
+    state.camera.position.y = camY0 + my * 0.09 * (1 - g * 0.6) - g * 0.12;
+    state.camera.lookAt(0, (narrow ? 0.5 : 0.42) + g * 0.3, root.current?.position.z ?? 0);
   });
 
   return (
