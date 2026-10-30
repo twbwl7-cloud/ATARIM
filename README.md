@@ -25,7 +25,8 @@ npm run dev
 
 | נתיב | תוכן |
 |------|------|
-| `/` | Hero 3D, **גלגל עבודות נעוץ** (לולילק · Cookk · לוקסי), failed-before, עמודי תווך, מלאכה |
+| `/` | Hero MacBook 3D (plunge למסך), **גלגל עבודות נעוץ** (לולילק · Cookk · לוקסי), תהליך, למה נדיר |
+| `public/models/` | שימו כאן `MacbookProProledXDR4K.glb` מה־zip של Sketchfab — ה־Hero מחליף אוטומטית |
 | `/demo/[slug]` | דימו חי לכל פרויקט (POC בלי שרת, noindex) |
 | `/portfolio` | קטלוג כרטיסים מלא |
 | `/about` | גישה טכנולוגית ועיצובית |
