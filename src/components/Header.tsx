@@ -21,14 +21,14 @@ export function Header() {
           onClick={() => setOpen(false)}
           aria-label="David Tubul — דף הבית"
         >
-          <span className="relative block h-9 w-[148px] sm:h-10 sm:w-[180px] md:h-11 md:w-[210px]">
+          <span className="relative block h-10 w-[200px] sm:h-11 sm:w-[240px] md:h-12 md:w-[280px]">
             <Image
-              src="/brand/wordmark-name.png"
+              src="/brand/header-logo.png"
               alt="DAVID TUBUL"
               fill
               priority
-              sizes="210px"
-              className="object-contain object-right drop-shadow-[0_0_12px_rgba(212,168,75,0.25)]"
+              sizes="280px"
+              className="object-contain object-right drop-shadow-[0_0_14px_rgba(60,160,220,0.35)]"
             />
           </span>
         </Link>
