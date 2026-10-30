@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, useTexture } from "@react-three/drei";
+import { Billboard, Environment, Float, useTexture } from "@react-three/drei";
 import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { MotionValue } from "framer-motion";
@@ -156,22 +156,24 @@ function IllusionPearl({ intensity }: { intensity: MotionValue<number> }) {
         <mesh
           material={cradleMat}
           rotation={[Math.PI / 2.35, 0.12, 0.08]}
-          position={[0, -0.32, 0]}
-          scale={[1.2, 1.2, 0.55]}
+          position={[0, -0.38, -0.05]}
+          scale={[1.05, 1.05, 0.5]}
         >
           <sphereGeometry args={[0.72, 48, 48, 0, Math.PI * 2, 0, Math.PI / 2]} />
         </mesh>
 
-        {/* brand spiral — replaces the white pearl as the living core */}
-        <group ref={inner} position={[0, 0.16, 0.12]}>
-          <mesh ref={face} material={faceMat}>
-            <circleGeometry args={[0.58, 96]} />
-          </mesh>
+        {/* brand spiral — always faces camera (pearl core) */}
+        <group ref={inner} position={[0, 0.22, 0.2]}>
+          <Billboard follow>
+            <mesh ref={face} material={faceMat}>
+              <circleGeometry args={[0.62, 96]} />
+            </mesh>
+          </Billboard>
         </group>
 
-        {/* glass pearl shell — optical depth around the spiral */}
-        <mesh material={glassMat} position={[0, 0.16, 0.1]}>
-          <sphereGeometry args={[0.62, 64, 64]} />
+        {/* glass pearl shell around the spiral */}
+        <mesh material={glassMat} position={[0, 0.22, 0.15]}>
+          <sphereGeometry args={[0.68, 64, 64]} />
         </mesh>
 
         {/* parallax rings — leap toward you */}
