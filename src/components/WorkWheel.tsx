@@ -13,6 +13,7 @@ import {
 import {
   projectHref,
   projects,
+  type Project,
 } from "@/lib/site";
 
 const ANGLE = 360 / projects.length;
