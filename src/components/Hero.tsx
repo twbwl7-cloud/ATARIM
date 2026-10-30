@@ -63,17 +63,24 @@ function PlungeStage({
       >
         <motion.div
           style={{ opacity: glow }}
-          className="relative h-[min(62vw,460px)] w-[min(62vw,460px)]"
+          className="relative h-[min(70vw,520px)] w-[min(70vw,520px)]"
         >
-          <div className="absolute inset-[-22%] rounded-full bg-[radial-gradient(circle,rgba(56,160,220,0.4)_0%,rgba(212,168,75,0.14)_38%,transparent_68%)] blur-2xl" />
-          <Image
-            src="/brand/emblem.png"
-            alt=""
-            fill
-            priority
-            sizes="(max-width: 768px) 70vw, 460px"
-            className="object-contain drop-shadow-[0_0_50px_rgba(60,160,220,0.55)]"
-          />
+          <div className="absolute inset-[-30%] animate-pulse rounded-full bg-[radial-gradient(circle,rgba(56,180,255,0.5)_0%,rgba(240,200,106,0.22)_34%,transparent_66%)] blur-3xl" />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 56, ease: "linear", repeat: Infinity }}
+            className="absolute inset-[4%] overflow-hidden rounded-full"
+          >
+            <Image
+              src="/brand/emblem.png"
+              alt=""
+              fill
+              priority
+              unoptimized
+              sizes="(max-width: 768px) 70vw, 520px"
+              className="object-cover drop-shadow-[0_0_70px_rgba(56,180,255,0.7)]"
+            />
+          </motion.div>
         </motion.div>
       </motion.div>
 

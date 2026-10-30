@@ -6,48 +6,49 @@
   deep navy void · warm ivory · liquid gold accent (one CTA color)
 */
 :root {
-  --rich-black: #0a1220;
-  --rich-black-elevated: #101a2c;
-  --rich-black-soft: #162238;
-  --void: #070e18;
+  --rich-black: #060b16;
+  --rich-black-elevated: #0e1730;
+  --rich-black-soft: #152244;
+  --void: #040812;
 
-  --gold: #d4a84b;
-  --gold-bright: #f0c86a;
-  --gold-dim: #9a752e;
-  --gold-deep: #6b501c;
+  --gold: #e0b45a;
+  --gold-bright: #ffe08a;
+  --gold-dim: #a87a2e;
+  --gold-deep: #6f4f18;
 
-  --rose-gold: #c9a08a;
-  --platinum: #c9d0dc;
-  --platinum-dim: #8490a3;
+  --rose-gold: #e0b09a;
+  --platinum: #e4eaf4;
+  --platinum-dim: #9aa8bc;
 
-  --baby-pink: #c9b0bc;
-  --baby-pink-soft: rgba(201, 176, 188, 0.1);
+  --baby-pink: #e0b8c6;
+  --baby-pink-soft: rgba(224, 184, 198, 0.14);
 
-  --garnet: #5c3d55;
-  --garnet-soft: rgba(92, 61, 85, 0.2);
+  --garnet: #7a4060;
+  --garnet-soft: rgba(122, 64, 96, 0.22);
 
-  --teal-glow: rgba(56, 140, 140, 0.22);
-  --violet-glow: rgba(90, 70, 140, 0.18);
+  --cyan: #3cb8ff;
+  --teal-glow: rgba(60, 184, 255, 0.28);
+  --violet-glow: rgba(120, 90, 200, 0.22);
 
-  --ivory: #efe9de;
-  --muted: #9aa3b2;
-  --line: rgba(212, 168, 75, 0.28);
-  --line-soft: rgba(239, 233, 222, 0.08);
+  --ivory: #f7f1e6;
+  --muted: #a8b3c6;
+  --line: rgba(224, 180, 90, 0.38);
+  --line-soft: rgba(247, 241, 230, 0.1);
 
   --surface-shine: linear-gradient(
     148deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(212, 168, 75, 0.06) 40%,
-    rgba(56, 140, 140, 0.04) 100%
+    rgba(255, 255, 255, 0.09) 0%,
+    rgba(224, 180, 90, 0.1) 38%,
+    rgba(60, 184, 255, 0.07) 100%
   );
 
   --metal-gold: linear-gradient(
     120deg,
-    #f5dfa0 0%,
-    #f0c86a 22%,
-    #d4a84b 52%,
-    #a67c2e 78%,
-    #e8c468 100%
+    #fff0b8 0%,
+    #ffe08a 18%,
+    #e0b45a 48%,
+    #b8862e 72%,
+    #f5d478 100%
   );
 
   --background: var(--rich-black);
@@ -90,12 +91,12 @@ body {
 }
 
 body {
-  background-color: #0a1220;
+  background-color: #060b16;
   background-image:
-    radial-gradient(900px 600px at 35% 40%, rgba(56, 140, 140, 0.12), transparent 55%),
-    radial-gradient(700px 500px at 70% 55%, rgba(90, 70, 140, 0.1), transparent 50%),
-    radial-gradient(1000px 700px at 50% -10%, rgba(212, 168, 75, 0.06), transparent 45%),
-    linear-gradient(180deg, #0a1220 0%, #0c1626 50%, #0a1220 100%);
+    radial-gradient(920px 620px at 32% 38%, rgba(60, 184, 255, 0.16), transparent 55%),
+    radial-gradient(760px 540px at 72% 58%, rgba(120, 90, 200, 0.14), transparent 52%),
+    radial-gradient(1100px 720px at 50% -8%, rgba(224, 180, 90, 0.12), transparent 46%),
+    linear-gradient(180deg, #060b16 0%, #0a1430 48%, #060b16 100%);
   font-family: var(--font-heebo), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -156,9 +157,10 @@ a {
   color: #120e06;
   font-weight: 600;
   box-shadow:
-    0 0 0 1px rgba(240, 200, 106, 0.3),
-    0 0 28px rgba(212, 168, 75, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    0 0 0 1px rgba(255, 224, 138, 0.4),
+    0 0 34px rgba(224, 180, 90, 0.48),
+    0 0 60px rgba(60, 184, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
   transition:
     transform 0.2s ease,
     filter 0.2s ease,
@@ -166,11 +168,12 @@ a {
 }
 
 .btn-gold:hover {
-  filter: brightness(1.06);
+  filter: brightness(1.08);
   box-shadow:
-    0 0 0 1px rgba(240, 200, 106, 0.45),
-    0 0 36px rgba(212, 168, 75, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 0 0 1px rgba(255, 224, 138, 0.55),
+    0 0 44px rgba(224, 180, 90, 0.55),
+    0 0 70px rgba(60, 184, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .btn-ghost {

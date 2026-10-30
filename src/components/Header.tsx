@@ -13,34 +13,36 @@ export function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 md:px-8 md:py-4">
-        {/* RTL: right side = brand */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-3 md:gap-4 md:px-8 md:py-3.5">
         <Link
           href="/"
-          className="group relative flex shrink-0 items-center"
+          className="group relative flex shrink-0 items-center gap-2.5"
           onClick={() => setOpen(false)}
           aria-label="David Tubul — דף הבית"
         >
-          <span className="relative flex h-11 items-center gap-2.5 md:h-12">
-            <span className="relative hidden h-10 w-10 shrink-0 sm:block md:h-11 md:w-11">
-              <Image
-                src="/brand/emblem.png"
-                alt=""
-                fill
-                sizes="44px"
-                className="object-contain drop-shadow-[0_0_12px_rgba(60,160,220,0.45)]"
-              />
-            </span>
-            <span className="relative block h-7 w-[150px] sm:h-8 sm:w-[180px] md:h-9 md:w-[220px]">
-              <Image
-                src="/brand/wordmark-name.png"
-                alt="DAVID TUBUL"
-                fill
-                priority
-                sizes="220px"
-                className="object-contain object-right"
-              />
-            </span>
+          <span className="relative hidden h-11 w-11 shrink-0 sm:block md:h-12 md:w-12">
+            <Image
+              src="/brand/emblem.png"
+              alt=""
+              fill
+              sizes="48px"
+              unoptimized
+              className="object-contain drop-shadow-[0_0_20px_rgba(56,180,255,0.65)]"
+            />
+          </span>
+          {/* CSS wordmark — never clips like a cropped PNG */}
+          <span
+            className="select-none text-[15px] font-semibold tracking-[0.14em] uppercase sm:text-base md:text-lg"
+            style={{
+              background: "var(--metal-gold)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 0 10px rgba(224,180,90,0.35))",
+            }}
+          >
+            David Tubul
           </span>
         </Link>
 

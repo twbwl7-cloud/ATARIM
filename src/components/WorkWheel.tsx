@@ -70,32 +70,33 @@ function WheelCard({
     >
       <motion.div
         style={{ opacity, scale }}
-        className={`relative h-full w-full overflow-hidden rounded-2xl border transition-[box-shadow] duration-300 ${
+        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] transition-[box-shadow,filter] duration-300 ${
           active
-            ? "border-gold/55 shadow-[0_0_60px_rgba(212,168,75,0.28)]"
-            : "border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+            ? "shadow-[0_0_50px_rgba(56,180,255,0.22),0_28px_70px_rgba(0,0,0,0.55)] ring-1 ring-gold-bright/50"
+            : "shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
         }`}
       >
-        <div className="absolute inset-0 bg-[#101a2c]">
+        <div className="absolute inset-0 bg-[#0c1524]">
           {preview ? (
             <Image
               src={preview}
               alt=""
               fill
-              className="object-cover object-top"
+              className="object-cover object-top contrast-[1.05] saturate-[1.15]"
               sizes="300px"
               priority={index === 0}
+              quality={92}
             />
           ) : null}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a1220] via-[#0a1220]/35 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050a14]/95 via-[#050a14]/25 to-transparent" />
         </div>
 
         <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-          <p className="text-[10px] tracking-[0.2em] text-gold">{project.client}</p>
+          <p className="text-[10px] tracking-[0.2em] text-gold-bright">{project.client}</p>
           <p className="display mt-1 text-2xl text-ivory md:text-3xl">{project.title}</p>
-          <p className="mt-2 line-clamp-2 text-xs text-muted md:text-sm">{project.summary}</p>
+          <p className="mt-2 line-clamp-2 text-xs text-platinum md:text-sm">{project.summary}</p>
           <span
-            className={`mt-4 inline-flex items-center gap-2 text-sm ${
+            className={`mt-4 inline-flex items-center gap-2 text-sm font-medium ${
               active ? "text-gold-bright" : "text-platinum"
             }`}
           >
@@ -202,7 +203,7 @@ export function WorkWheel() {
         <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(56,140,140,0.14),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(212,168,75,0.08),transparent_50%),radial-gradient(circle_at_70%_40%,rgba(90,70,140,0.12),transparent_45%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(60,184,255,0.2),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(224,180,90,0.14),transparent_50%),radial-gradient(circle_at_70%_40%,rgba(120,90,200,0.16),transparent_45%)]"
           />
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl items-end justify-between px-8 pt-24">
