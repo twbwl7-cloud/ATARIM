@@ -23,19 +23,26 @@ export function ContactSection() {
         <div className="relative max-w-2xl">
           <p className="text-xs tracking-[0.24em] text-gold">צור קשר</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-            קובעים שיחת היכרות — ומתחילים נכון
+            דוגמא בחינם — או שיחת היכרות
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-muted md:text-base">
-            פנייה · שיחה · הדמיה · בנייה · עלייה לאוויר. בלי התחייבות בשלב הראשון.
+            רוצים לראות כיוון לפני שמשלמים? מבקשים דוגמא מותאמת. מוכנים לדבר —
+            קובעים שיחה. בלי התחייבות בשלב הראשון.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#free-demo"
+              className="btn-gold rounded-full px-7 py-3.5 text-sm"
+            >
+              דוגמא בחינם למה שאתם רוצים
+            </a>
             <a
               href={whatsappUrl("היי דוד, אשמח לקבוע שיחת היכרות רשמית.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold rounded-full px-7 py-3.5 text-sm"
+              className="btn-ghost rounded-full px-7 py-3.5 text-sm"
             >
-              קביעת שיחת היכרות
+              קביעת שיחה
             </a>
             <a
               href={`tel:+${site.whatsapp}`}

@@ -9,8 +9,6 @@ import {
   useSpring,
   type MotionValue,
 } from "framer-motion";
-import { whatsappUrl } from "@/lib/site";
-
 const HeroScene = dynamic(
   () => import("@/components/HeroScene").then((m) => m.HeroScene),
   { ssr: false, loading: () => null },
@@ -53,12 +51,10 @@ function PlungeStage({
         </p>
         <div className="pointer-events-auto mt-6 flex flex-wrap items-center justify-center gap-3">
           <a
-            href={whatsappUrl("היי דוד, אשמח לקבוע שיחת היכרות רשמית.")}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#free-demo"
             className="btn-gold rounded-full px-7 py-3.5 text-sm"
           >
-            קביעת שיחת היכרות
+            דוגמא בחינם למה שאתם רוצים
           </a>
           <a href="#work" className="btn-ghost rounded-full px-6 py-3.5 text-sm">
             לעבודות החיות
@@ -107,13 +103,8 @@ export function Hero() {
           <br />
           <span className="gold-text">לא לדף עוד.</span>
         </h1>
-        <a
-          href={whatsappUrl("היי דוד, אשמח לקבוע שיחת היכרות רשמית.")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-gold mt-8 rounded-full px-7 py-3.5 text-sm"
-        >
-          קביעת שיחת היכרות
+        <a href="#free-demo" className="btn-gold mt-8 rounded-full px-7 py-3.5 text-sm">
+          דוגמא בחינם למה שאתם רוצים
         </a>
       </section>
     );

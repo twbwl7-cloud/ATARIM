@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { nav, whatsappUrl } from "@/lib/site";
+import { nav } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
@@ -48,7 +48,8 @@ export function Header() {
 
         <nav className="hidden items-center gap-1 md:flex">
           {nav.map((item) => {
-            const active = pathname === item.href;
+            const pathOnly = item.href.split("#")[0] || "/";
+            const active = !item.href.includes("#") && pathname === pathOnly;
             return (
               <Link
                 key={item.href}
@@ -64,14 +65,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href={whatsappUrl("היי דוד, אשמח לקבוע שיחת היכרות רשמית.")}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/#free-demo"
             className="btn-gold hidden rounded-full px-4 py-2.5 text-sm sm:inline-flex"
+            onClick={() => setOpen(false)}
           >
-            קביעת שיחה
-          </a>
+            דוגמא בחינם
+          </Link>
           <button
             type="button"
             aria-expanded={open}
@@ -113,15 +113,13 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
-              <a
-                href={whatsappUrl("היי דוד, אשמח לקבוע שיחת היכרות רשמית.")}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/#free-demo"
                 className="btn-gold mt-2 rounded-full px-4 py-3 text-center text-sm"
                 onClick={() => setOpen(false)}
               >
-                קביעת שיחה
-              </a>
+                דוגמא בחינם
+              </Link>
             </div>
           </motion.div>
         )}

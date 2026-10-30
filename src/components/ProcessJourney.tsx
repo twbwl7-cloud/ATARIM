@@ -114,22 +114,30 @@ export function ProcessJourney() {
         <div className="mt-16 flex flex-col items-start gap-4 border-t border-white/10 pt-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="display text-xl text-ivory md:text-2xl">
-              מוכנים לשלב הראשון?
+              רוצים קודם לראות דוגמא?
             </p>
             <p className="mt-2 text-sm text-muted">
-              קובעים שיחה · בלי התחייבות · האתר והקוד על שמכם
+              דוגמא בחינם למה שאתם רוצים · בלי התחייבות · ממשיכים רק אם מדויק
             </p>
           </div>
-          <a
-            href={whatsappUrl(
-              "היי דוד, אשמח לקבוע שיחת היכרות רשמית ולשמוע על התהליך עד עלייה לאוויר.",
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold shrink-0 rounded-full px-7 py-3.5 text-sm"
-          >
-            קביעת שיחת היכרות
-          </a>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="#free-demo"
+              className="btn-gold shrink-0 rounded-full px-7 py-3.5 text-sm"
+            >
+              דוגמא בחינם
+            </a>
+            <a
+              href={whatsappUrl(
+                "היי דוד, אשמח לקבוע שיחת היכרות רשמית ולשמוע על התהליך עד עלייה לאוויר.",
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost shrink-0 rounded-full px-7 py-3.5 text-sm"
+            >
+              קביעת שיחה
+            </a>
+          </div>
         </div>
       </div>
     </section>

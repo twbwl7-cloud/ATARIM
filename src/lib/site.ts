@@ -20,6 +20,51 @@ export function whatsappUrl(message?: string) {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
+/** Niches a visitor can request a free demo for */
+export const demoNiches = [
+  {
+    id: "clinic",
+    label: "קליניקה / אסתטיקה",
+    hint: "תדמית שקטה שמובילה לתור",
+  },
+  {
+    id: "cakes",
+    label: "עוגות / מזון",
+    hint: "תיאבון ויזואלי + הזמנה",
+  },
+  {
+    id: "barber",
+    label: "מספרה / יופי",
+    hint: "נוכחות יוקרה ותיאום מראש",
+  },
+  {
+    id: "realestate",
+    label: "נדל״ן",
+    hint: "נכסים, אמון, פנייה מהירה",
+  },
+  {
+    id: "restaurant",
+    label: "מסעדה / בית קפה",
+    hint: "תפריט חי + הזמנת מקום",
+  },
+  {
+    id: "other",
+    label: "משהו אחר",
+    hint: "ספרו מה העסק — נתאים דימו",
+  },
+] as const;
+
+export type DemoNicheId = (typeof demoNiches)[number]["id"];
+
+export function freeDemoWhatsAppUrl(nicheLabel: string, note?: string) {
+  const detail = note?.trim()
+    ? `\n\nמה חשוב לי בדוגמא:\n${note.trim()}`
+    : "";
+  return whatsappUrl(
+    `היי דוד, אשמח לקבל דוגמא בחינם לאתר בסגנון: ${nicheLabel}.${detail}\n\nבלי התחייבות — רק לראות כיוון.`,
+  );
+}
+
 export type Project = {
   id: string;
   title: string;
@@ -168,6 +213,7 @@ export const services = [
 export const nav = [
   { href: "/", label: "בית" },
   { href: "/portfolio", label: "תיק עבודות" },
+  { href: "/#free-demo", label: "דוגמא בחינם" },
   { href: "/about", label: "אודות" },
   { href: "/contact", label: "צור קשר" },
 ] as const;

@@ -6,10 +6,12 @@ import { whatsappUrl } from "@/lib/site";
 export function WhatsAppFloat() {
   return (
     <motion.a
-      href={whatsappUrl()}
+      href={whatsappUrl(
+        "היי דוד, אשמח לקבל דוגמא בחינם לאתר של העסק שלי — בלי התחייבות.",
+      )}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="שלחו הודעה בוואטסאפ לקבלת הצעת מחיר"
+      aria-label="בקשו דוגמא בחינם בוואטסאפ"
       initial={{ opacity: 0, scale: 0.85, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.8, type: "spring", stiffness: 260, damping: 20 }}
@@ -21,9 +23,9 @@ export function WhatsAppFloat() {
         </svg>
       </span>
       <span className="hidden flex-col pe-1 sm:flex">
-        <span className="text-[11px] text-muted">מוכנים להתחיל?</span>
+        <span className="text-[11px] text-muted">רוצים לראות קודם?</span>
         <span className="text-sm font-semibold text-ivory transition group-hover:text-gold-bright">
-          וואטסאפ · הצעת מחיר
+          וואטסאפ · דוגמא בחינם
         </span>
       </span>
     </motion.a>
