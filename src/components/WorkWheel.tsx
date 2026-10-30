@@ -10,11 +10,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import {
-  projectHref,
-  projects,
-  type Project,
-} from "@/lib/site";
+import { projectHref, projects, type Project } from "@/lib/site";
 
 const ANGLE = 360 / projects.length;
 
@@ -47,19 +43,19 @@ function WheelCard({
   const opacity = useTransform(rotation, (r) => {
     const face = (((r + index * ANGLE) % 360) + 360) % 360;
     const dist = Math.min(face, 360 - face);
-    return dist < 55 ? 1 : dist < 110 ? 0.45 : 0.18;
+    return dist < 55 ? 1 : dist < 110 ? 0.4 : 0.15;
   });
 
   const scale = useTransform(rotation, (r) => {
     const face = (((r + index * ANGLE) % 360) + 360) % 360;
     const dist = Math.min(face, 360 - face);
-    return dist < 40 ? 1.02 : dist < 100 ? 0.96 : 0.88;
+    return dist < 40 ? 1.02 : dist < 100 ? 0.94 : 0.86;
   });
 
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute top-1/2 left-1/2 h-[min(48vh,320px)] w-[min(78vw,240px)] -translate-x-1/2 -translate-y-1/2 sm:h-[min(52vh,380px)] sm:w-[min(72vw,280px)] md:h-[min(58vh,440px)] md:w-[300px]"
+      className="pointer-events-none absolute top-1/2 left-1/2 h-[min(34vh,220px)] w-[min(52vw,168px)] -translate-x-1/2 -translate-y-1/2 sm:h-[min(36vh,250px)] sm:w-[min(42vw,190px)] md:h-[min(38vh,280px)] md:w-[210px]"
       style={{
         transform: `rotateY(${index * ANGLE}deg) translateZ(${radius}px)`,
         transformStyle: "preserve-3d",
@@ -67,10 +63,10 @@ function WheelCard({
     >
       <motion.div
         style={{ opacity, scale }}
-        className={`relative h-full w-full overflow-hidden rounded-[1.35rem] transition-[box-shadow,filter] duration-300 ${
+        className={`relative h-full w-full overflow-hidden rounded-2xl transition-[box-shadow,filter] duration-300 ${
           active
-            ? "shadow-[0_0_50px_rgba(56,180,255,0.22),0_28px_70px_rgba(0,0,0,0.55)] ring-1 ring-gold-bright/50"
-            : "shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
+            ? "shadow-[0_0_36px_rgba(56,180,255,0.2),0_18px_44px_rgba(0,0,0,0.5)] ring-1 ring-gold-bright/45"
+            : "shadow-[0_12px_32px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
         }`}
       >
         <div className="absolute inset-0 bg-[#0c1524]">
@@ -79,21 +75,23 @@ function WheelCard({
               src={preview}
               alt=""
               fill
-              className="object-cover object-top contrast-[1.05] saturate-[1.15]"
-              sizes="(max-width: 768px) 78vw, 300px"
+              className="object-cover object-top contrast-[1.05] saturate-[1.12]"
+              sizes="(max-width: 768px) 52vw, 210px"
               priority={index === 0}
-              quality={92}
+              quality={90}
             />
           ) : null}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050a14]/95 via-[#050a14]/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050a14]/95 via-[#050a14]/3 to-transparent" />
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-          <p className="text-[10px] tracking-[0.2em] text-gold-bright">{project.client}</p>
-          <p className="display mt-1 text-xl text-ivory sm:text-2xl md:text-3xl">{project.title}</p>
-          <p className="mt-2 line-clamp-2 text-xs text-platinum md:text-sm">{project.summary}</p>
+        <div className="absolute inset-x-0 bottom-0 p-3 sm:p-3.5">
+          <p className="text-[9px] tracking-[0.18em] text-gold-bright">{project.client}</p>
+          <p className="display mt-0.5 text-base text-ivory sm:text-lg md:text-xl">{project.title}</p>
+          <p className="mt-1 line-clamp-2 text-[10px] leading-snug text-platinum sm:text-xs">
+            {project.summary}
+          </p>
           <span
-            className={`mt-3 inline-flex items-center gap-2 text-sm font-medium sm:mt-4 ${
+            className={`mt-2 inline-flex text-[11px] font-medium sm:mt-2.5 sm:text-xs ${
               active ? "text-gold-bright" : "text-platinum"
             }`}
           >
@@ -109,15 +107,11 @@ function openLive(href: string) {
   window.open(href, "_blank", "noopener,noreferrer");
 }
 
-/**
- * Pinned work wheel — same experience on phone and desktop.
- * Screen stays, wheel turns; front card opens the live site.
- */
 export function WorkWheel() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [reduce, setReduce] = useState(false);
-  const [radius, setRadius] = useState(420);
+  const [radius, setRadius] = useState(280);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -130,10 +124,10 @@ export function WorkWheel() {
   useEffect(() => {
     const sync = () => {
       const w = window.innerWidth;
-      if (w < 480) setRadius(260);
-      else if (w < 768) setRadius(320);
-      else if (w < 1024) setRadius(380);
-      else setRadius(420);
+      if (w < 480) setRadius(190);
+      else if (w < 768) setRadius(230);
+      else if (w < 1024) setRadius(260);
+      else setRadius(290);
     };
     sync();
     window.addEventListener("resize", sync);
@@ -152,7 +146,7 @@ export function WorkWheel() {
     setActive(nearestIndex(v));
   });
 
-  const ringScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.92, 1, 0.96]);
+  const ringScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.94, 1, 0.97]);
   const hintOpacity = useTransform(scrollYProgress, [0, 0.08, 0.2], [1, 0.6, 0]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
@@ -160,29 +154,32 @@ export function WorkWheel() {
 
   return (
     <section id="work" ref={ref} className="relative bg-[#070e18]">
-      <div className="relative h-[280vh] sm:h-[320vh] md:h-[340vh]">
+      <div className="relative h-[260vh] sm:h-[280vh] md:h-[300vh]">
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(60,184,255,0.2),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(224,180,90,0.14),transparent_50%),radial-gradient(circle_at_70%_40%,rgba(120,90,200,0.16),transparent_45%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(60,184,255,0.16),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(224,180,90,0.1),transparent_50%)]"
           />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 pt-20 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:gap-4 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
               <p className="text-xs tracking-[0.22em] text-gold">עבודות חיות</p>
-              <h2 className="display mt-2 text-3xl text-ivory sm:mt-3 sm:text-4xl lg:text-5xl">
+              <h2 className="display mt-2 text-2xl text-ivory sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
                 שלושה אתרים שאפשר לפתוח
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted sm:mt-3">
+              <p className="mt-2 text-sm leading-relaxed text-muted">
                 גללו לאט. לחצו על הכרטיס הקדמי — נכנסים לאתר האמיתי.
               </p>
             </div>
 
             <div className="max-w-xs text-start md:text-left">
               <p className="text-[11px] tracking-[0.2em] text-gold">
-                {String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+                {String(active + 1).padStart(2, "0")} /{" "}
+                {String(projects.length).padStart(2, "0")}
               </p>
-              <p className="display mt-1 text-2xl text-ivory sm:mt-2 sm:text-3xl">{current.title}</p>
+              <p className="display mt-1 text-xl text-ivory sm:mt-2 sm:text-2xl md:text-3xl">
+                {current.title}
+              </p>
               <p className="mt-1 text-sm text-muted">{current.client}</p>
               <a
                 href={projectHref(current)}
@@ -192,7 +189,7 @@ export function WorkWheel() {
                   e.preventDefault();
                   openLive(projectHref(current));
                 }}
-                className="btn-gold relative z-30 mt-3 inline-flex rounded-full px-5 py-2.5 text-sm sm:mt-5"
+                className="btn-gold relative z-30 mt-3 inline-flex rounded-full px-5 py-2.5 text-sm sm:mt-4"
               >
                 כניסה ל{current.title}
               </a>
@@ -202,16 +199,16 @@ export function WorkWheel() {
           <div className="relative z-10 flex flex-1 items-center justify-center">
             <motion.div
               style={{ scale: ringScale }}
-              className="pointer-events-none absolute h-[min(58vh,420px)] w-[min(58vh,420px)] rounded-full border border-gold/20 sm:h-[min(70vh,520px)] sm:w-[min(70vh,520px)]"
+              className="pointer-events-none absolute h-[min(42vh,300px)] w-[min(42vh,300px)] rounded-full border border-gold/15 sm:h-[min(48vh,360px)] sm:w-[min(48vh,360px)]"
             />
             <motion.div
               style={{ scale: ringScale }}
-              className="pointer-events-none absolute h-[min(70vh,520px)] w-[min(70vh,520px)] rounded-full border border-white/5 sm:h-[min(82vh,620px)] sm:w-[min(82vh,620px)]"
+              className="pointer-events-none absolute h-[min(52vh,380px)] w-[min(52vh,380px)] rounded-full border border-white/5 sm:h-[min(58vh,440px)] sm:w-[min(58vh,440px)]"
             />
 
             <div
-              className="relative h-[min(52vh,400px)] w-full max-w-5xl sm:h-[min(62vh,480px)]"
-              style={{ perspective: "1400px", perspectiveOrigin: "50% 50%" }}
+              className="relative h-[min(40vh,300px)] w-full max-w-4xl sm:h-[min(44vh,340px)]"
+              style={{ perspective: "1200px", perspectiveOrigin: "50% 50%" }}
             >
               <motion.div
                 style={{
@@ -241,7 +238,7 @@ export function WorkWheel() {
                   openLive(projectHref(current));
                 }}
                 aria-label={`כניסה לאתר ${current.title}`}
-                className="absolute top-1/2 left-1/2 z-20 h-[min(48vh,320px)] w-[min(78vw,240px)] -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold sm:h-[min(52vh,380px)] sm:w-[min(72vw,280px)] md:h-[min(58vh,440px)] md:w-[300px]"
+                className="absolute top-1/2 left-1/2 z-20 h-[min(34vh,220px)] w-[min(52vw,168px)] -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold sm:h-[min(36vh,250px)] sm:w-[min(42vw,190px)] md:h-[min(38vh,280px)] md:w-[210px]"
               />
             </div>
           </div>
