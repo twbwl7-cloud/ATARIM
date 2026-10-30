@@ -1,56 +1,54 @@
 export const site = {
   name: "David Tubul",
   nameHe: "דוד טובול",
-  tagline: "Web Development & Digital Experience",
+  tagline: "אתרים שסוגרים תורים — לא עוד דף יפה",
   short: "David Tubul",
-  /** מספר וואטסאפ בפורמט בינלאומי ללא + או מקפים — עדכנו ב-.env */
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
     "972523182032",
   phoneDisplay: "052-318-2032",
   email: "hello@tobol.dev",
   university: "האוניברסיטה הפתוחה",
-  focus: "מדעי המחשב · יישומי מערכות נבונות",
+  focus: "מדעי המחשב",
 } as const;
 
 export function whatsappUrl(message?: string) {
   const text =
     message ??
-    "היי דוד, אשמח לשמוע על פיתוח פלטפורמה פרימיום / חוויה אינטראקטיבית.";
+    "היי דוד, ראיתי את האתר. אשמח לדבר על אתר לעסק שלי.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
-/** Niches a visitor can request a free demo for */
 export const demoNiches = [
   {
     id: "clinic",
     label: "קליניקה / אסתטיקה",
-    hint: "תדמית שקטה שמובילה לתור",
+    hint: "שקט, אמון, כפתור לתור",
   },
   {
     id: "cakes",
     label: "עוגות / מזון",
-    hint: "תיאבון ויזואלי + הזמנה",
+    hint: "תיאבון + הזמנה בלי בלבול",
   },
   {
     id: "barber",
     label: "מספרה / יופי",
-    hint: "נוכחות יוקרה ותיאום מראש",
+    hint: "תיאום מראש, בלי רעש",
   },
   {
     id: "realestate",
     label: "נדל״ן",
-    hint: "נכסים, אמון, פנייה מהירה",
+    hint: "נכס ברור, פנייה מיידית",
   },
   {
     id: "restaurant",
     label: "מסעדה / בית קפה",
-    hint: "תפריט חי + הזמנת מקום",
+    hint: "תפריט + הזמנת מקום",
   },
   {
     id: "other",
     label: "משהו אחר",
-    hint: "ספרו מה העסק — נתאים דימו",
+    hint: "תכתבו מה העסק",
   },
 ] as const;
 
@@ -58,10 +56,10 @@ export type DemoNicheId = (typeof demoNiches)[number]["id"];
 
 export function freeDemoWhatsAppUrl(nicheLabel: string, note?: string) {
   const detail = note?.trim()
-    ? `\n\nמה חשוב לי בדוגמא:\n${note.trim()}`
+    ? `\n\nמה חשוב לי לראות:\n${note.trim()}`
     : "";
   return whatsappUrl(
-    `היי דוד, אשמח לקבל דוגמא בחינם לאתר בסגנון: ${nicheLabel}.${detail}\n\nבלי התחייבות — רק לראות כיוון.`,
+    `היי דוד, רוצה דוגמא בחינם לסגנון: ${nicheLabel}.${detail}\nבלי התחייבות.`,
   );
 }
 
@@ -74,22 +72,19 @@ export type Project = {
   stack: string[];
   accent: "gold" | "pink" | "ivory";
   featured?: boolean;
-  /** Live production URL — opens in a new tab instead of /demo/[id] */
   liveUrl?: string;
   format?: string;
 };
 
-/** Live portfolio only — real sites clients can open */
 export const projects: Project[] = [
   {
     id: "lulilac",
     title: "לולילק",
     client: "קליניקת אסתטיקה",
-    category: "מיתוג יוקרתי · אתר תדמית",
-    format: "פורמט תדמית · ספא דיגיטלי",
-    summary:
-      "אתר תדמית שקט ואלגנטי לקליניקת אסתטיקה — ניווט רך, גלריות מוצר ותחושת ספא דיגיטלית שמובילה לתור.",
-    stack: ["Next.js", "Tailwind", "Framer Motion"],
+    category: "אתר תדמית",
+    format: "תדמית · תור",
+    summary: "שקט, גלריות נקיות, כפתור לתור בלי רעש מסביב.",
+    stack: ["Next.js", "Tailwind", "Motion"],
     accent: "pink",
     featured: true,
     liveUrl: "https://tobol.vercel.app",
@@ -97,12 +92,11 @@ export const projects: Project[] = [
   {
     id: "cookk",
     title: "Cookk",
-    client: "מותג עוגות בוטיק",
-    category: "עוגות · חוויית הזמנה",
-    format: "פורמט מסחר · תיאבון ויזואלי",
-    summary:
-      "אתר פרימיום למותג עוגות — תפריט עשיר, הזמנות מראש, וויזואל חם שמריח כמו אפייה טרייה.",
-    stack: ["Next.js", "Tailwind", "GSAP"],
+    client: "מותג עוגות",
+    category: "הזמנות",
+    format: "מסחר · תפריט",
+    summary: "רואים את העוגה, בוחרים, שולחים הזמנה. בלי סיבובים.",
+    stack: ["Next.js", "Tailwind"],
     accent: "ivory",
     featured: true,
     liveUrl: "https://cookk.vercel.app/",
@@ -110,76 +104,89 @@ export const projects: Project[] = [
   {
     id: "luxe-barber",
     title: "לוקסי",
-    client: "מספרה בתיאום מראש",
-    category: "מספרה יוקרה · תור",
-    format: "פורמט מספרה · תיאום מראש",
-    summary:
-      "חוויית מספרה פרימיום — שקט, סכין, זהב. אתר תלת־ממדי שמוביל לתור בלי רעש ובלי תורים מיותרים.",
-    stack: ["React Three Fiber", "Next.js", "Motion"],
+    client: "מספרה",
+    category: "תיאום מראש",
+    format: "מספרה · תור",
+    summary: "נוכחות חדה. לוחצים — קובעים תור. בלי טלפונים מיותרים.",
+    stack: ["Next.js", "Three.js"],
     accent: "gold",
     featured: true,
     liveUrl: "https://luxe-barber-v2.vercel.app",
   },
 ];
 
-/** Craft vocabulary — formats & elements from doks (playbooks + book) */
+/** Client notes from live projects — specific, no fake “100%” tags (book P37) */
+export const testimonials = [
+  {
+    quote:
+      "לפני זה האתר נראה כמו עוד קליניקה. עכשיו אנשים כותבים בוואטסאפ בלי שנרדוף אחריהם.",
+    name: "צוות לולילק",
+    role: "קליניקת אסתטיקה",
+    projectId: "lulilac",
+  },
+  {
+    quote:
+      "הזמנות מגיעות מסודרות. הלקוחות רואים את העוגות ומבינים מה להזמין — בלי שיחות של רבע שעה.",
+    name: "Cookk",
+    role: "מותג עוגות",
+    projectId: "cookk",
+  },
+  {
+    quote:
+      "הטלפון פחות עמוס. מי שרוצה תור — נכנס לאתר וקובע. זה מה שרצינו ממספרה בתיאום.",
+    name: "לוקסי",
+    role: "מספרה",
+    projectId: "luxe-barber",
+  },
+] as const;
+
 export const formats = [
   {
-    code: "F01",
-    title: "אתר תדמית יוקרתי",
-    body: "Hero אחד · מותג ראשון · מסלול ברור לתור / וואטסאפ.",
-    lever: "P16 · ההוכחה היא העיצוב",
+    code: "01",
+    title: "אתר תדמית",
+    body: "מסך אחד שמסביר מי אתם, ואז כפתור לתור או לוואטסאפ.",
+    lever: "העיצוב הוא ההוכחה",
   },
   {
-    code: "F02",
-    title: "מסחר חושי",
-    body: "תיאבון ויזואלי, תפריט חי, הזמנה מראש בלי חיכוך.",
-    lever: "P07 · סיפור שמעביר",
+    code: "02",
+    title: "תפריט והזמנה",
+    body: "רואים, בוחרים, שולחים. בלי עגלה מסובכת אם לא צריך.",
+    lever: "תיאבון → פעולה",
   },
   {
-    code: "F03",
-    title: "מספרה בתיאום",
-    body: "נוכחות קטלנית, 3D, תור מראש — בלי לוח עמוס.",
-    lever: "P15 · סמכות",
+    code: "03",
+    title: "תיאום מראש",
+    body: "מספרה / קליניקה / שירות — קובעים תור בלי טלפון רצוף.",
+    lever: "שקט = סמכות",
   },
   {
-    code: "F04",
-    title: "דימו מכירתי",
-    body: "POC חי בלי שרת — בפגישה רואים מוצר, לא מצגת.",
-    lever: "P13 · רואים עבודה",
+    code: "04",
+    title: "דוגמא לפני תשלום",
+    body: "רואים כיוון אמיתי לעסק שלכם. ממשיכים רק אם זה מדויק.",
+    lever: "רואים עבודה",
   },
 ] as const;
 
 export const elements = [
   {
-    code: "E01",
-    title: "גלילה נעוצה",
-    body: "המסך נשאר. העקרונות נכנסים לחלל.",
+    code: "01",
+    title: "גלילה שנשארת",
+    body: "המסך לא קופץ. הסיפור נכנס לאט.",
   },
   {
-    code: "E02",
-    title: "גלגל עבודות",
-    body: "המסך נשאר — שלושה אתרים חיים מסתובבים בגלילה.",
+    code: "02",
+    title: "עבודות חיות",
+    body: "לוחצים ונכנסים לאתר אמיתי — לא לצילום מסך.",
   },
   {
-    code: "E03",
-    title: "כרטיס חי",
-    body: "לחיצה על הכרטיס הקדמי פותחת את האתר בפרודקשן.",
+    code: "03",
+    title: "כפתור אחד ברור",
+    body: "זהב לפעולה. בלי עשרה כפתורים שמתחרים.",
   },
   {
-    code: "E04",
-    title: "מילה שנדלקת",
-    body: "Word-ignite על גלילה — רגע אחד בלתי נשכח.",
-  },
-  {
-    code: "E05",
-    title: "Failed-before",
-    body: "מה שניסו ולא עבד — נחשף ומסומן.",
-  },
-  {
-    code: "E06",
-    title: "CTA יחיד",
-    body: "צבע אחד לפעולה. אפס רעש.",
+    code: "04",
+    title: "מובייל קודם",
+    body: "רוב הלקוחות בטלפון. האתר חייב לעבוד שם כמו במחשב.",
   },
 ] as const;
 
@@ -193,27 +200,24 @@ export function projectIsExternal(project: Project) {
 
 export const services = [
   {
-    title: "אתרי תדמית וחנויות מותאמות",
-    body: "נוכחות מסחרית מדויקת למותג — מהיר, נקי, ומכוון המרה.",
+    title: "אתר תדמית שמביא פניות",
+    body: "לא גלריה יפה בלי כפתור. מסלול ברור לוואטסאפ או לתור.",
   },
   {
-    title: "ממשקי אינטרנט תלת־ממדיים",
-    body: "WebGL ו-Three.js שמספרים את המוצר בתנועה — גם למספרות יוקרה.",
+    title: "הזמנות ומכירה קצרה",
+    body: "תפריט, בחירה, שליחה — בלי לסבך את מי שרק רוצה להזמין.",
   },
   {
-    title: "מיתוג יוקרתי דיגיטלי",
-    body: "שפה לקליניקות, עוגות בוטיק ומספרות בתיאום מראש.",
-  },
-  {
-    title: "פלטפורמות פרימיום מבוססות 3D",
-    body: "חוויות שנבנות על Back-end יציב ו-Front-end חד.",
+    title: "מספרות וקליניקות",
+    body: "תיאום מראש, שקט, אמון. האתר עושה את העבודה הכבדה.",
   },
 ] as const;
 
 export const nav = [
   { href: "/", label: "בית" },
-  { href: "/portfolio", label: "תיק עבודות" },
+  { href: "/#work", label: "עבודות" },
   { href: "/#free-demo", label: "דוגמא בחינם" },
+  { href: "/#reviews", label: "חוות דעת" },
   { href: "/about", label: "אודות" },
-  { href: "/contact", label: "צור קשר" },
+  { href: "/#contact", label: "צור קשר" },
 ] as const;

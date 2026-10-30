@@ -5,8 +5,7 @@ import { ContactSection } from "@/components/ContactSection";
 
 export const metadata: Metadata = {
   title: "אודות",
-  description:
-    "דוד טובול — סטודנט למדעי המחשב שמשלב Back-end יציב עם Front-end פרימיום ו-3D.",
+  description: "דוד טובול — בונה אתרים שמביאים תורים. מדעי המחשב, קוד עצמי, דוגמא בחינם.",
 };
 
 export default function AboutPage() {

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "פיתוח חוויות אינטראקטיביות ופלטפורמות פרימיום — אתרי תדמית, חנויות 3D ומיתוג יוקרתי לקליניקות ומאפיות בוטיק.",
+    "דוד טובול — אתרים שמביאים תורים ופניות. דוגמא בחינם לפני תשלום. קליניקות, עוגות, מספרות.",
   openGraph: {
     title: site.name,
     description: site.tagline,

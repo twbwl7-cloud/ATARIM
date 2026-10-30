@@ -3,9 +3,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-/** Word-ignite on scroll — doks A* / P07 story transport: one scrub highlight only */
 const LINE =
-  "לקוחות לא זוכרים תבנית. הם זוכרים רגע — כשהמסך שותק והמותג מרגיש בלתי נמנע.";
+  "לקוחות לא זוכרים תבנית. הם זוכרים את הרגע שבו לחצו וקבעו תור.";
 
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
@@ -19,16 +18,16 @@ export function ScrollStory() {
   return (
     <section
       ref={ref}
-      className="section-void relative z-10 border-y border-line/30 px-5 py-28 md:px-8 md:py-40"
+      className="section-void relative z-10 border-y border-line/30 px-5 py-20 sm:py-28 md:px-8 md:py-36"
     >
       <div className="mx-auto max-w-4xl">
-        <div className="mb-8 flex items-center justify-between gap-4">
-          <p className="text-xs tracking-[0.28em] text-gold">למה זה חשוב</p>
-          <div className="h-px w-24 overflow-hidden bg-white/10 md:w-40">
+        <div className="mb-6 flex items-center justify-between gap-4 sm:mb-8">
+          <p className="text-xs tracking-[0.28em] text-gold">בקצרה</p>
+          <div className="h-px w-16 overflow-hidden bg-white/10 sm:w-24 md:w-40">
             <motion.div style={{ width: bar }} className="h-full bg-gradient-to-l from-gold to-pink" />
           </div>
         </div>
-        <p className="display flex flex-wrap gap-x-3 gap-y-2 text-2xl leading-snug text-ivory md:text-4xl md:leading-[1.35]">
+        <p className="display flex flex-wrap gap-x-2.5 gap-y-2 text-xl leading-snug text-ivory sm:gap-x-3 sm:text-2xl md:text-4xl md:leading-[1.35]">
           {words.map((word, i) => {
             const start = i / words.length;
             const end = start + 1 / words.length;
@@ -55,15 +54,14 @@ function Word({
   start: number;
   end: number;
 }) {
-  const opacity = useTransform(progress, [start, end], [0.14, 1]);
-  const y = useTransform(progress, [start, end], [10, 0]);
+  const opacity = useTransform(progress, [start, end], [0.18, 1]);
   const color = useTransform(
     progress,
     [start, end],
     ["rgba(154,149,140,0.55)", "rgba(243,238,230,1)"],
   );
   return (
-    <motion.span style={{ opacity, y, color }} className="inline-block">
+    <motion.span style={{ opacity, color }} className="inline-block">
       {children}
     </motion.span>
   );

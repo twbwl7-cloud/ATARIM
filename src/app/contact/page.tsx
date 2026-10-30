@@ -3,7 +3,7 @@ import { ContactSection } from "@/components/ContactSection";
 
 export const metadata: Metadata = {
   title: "צור קשר",
-  description: "שיחה בוואטסאפ לקבלת הצעת מחיר על פלטפורמה פרימיום או חוויה 3D.",
+  description: "דוגמא בחינם או שיחה בוואטסאפ — דוד טובול, 052-318-2032.",
 };
 
 export default function ContactPage() {

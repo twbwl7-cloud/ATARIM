@@ -53,7 +53,7 @@ function WheelCard({
   const scale = useTransform(rotation, (r) => {
     const face = (((r + index * ANGLE) % 360) + 360) % 360;
     const dist = Math.min(face, 360 - face);
-    return dist < 40 ? 1.05 : dist < 100 ? 0.92 : 0.78;
+    return dist < 40 ? 1.02 : dist < 100 ? 0.96 : 0.88;
   });
 
   return (
@@ -146,7 +146,7 @@ export function WorkWheel() {
   });
 
   const rawRotate = useTransform(scrollYProgress, [0.05, 0.92], [0, -ANGLE * projects.length]);
-  const rotation = useSpring(rawRotate, { stiffness: 90, damping: 28, mass: 0.4 });
+  const rotation = useSpring(rawRotate, { stiffness: 48, damping: 36, mass: 0.65 });
 
   useMotionValueEvent(rotation, "change", (v) => {
     setActive(nearestIndex(v));
@@ -169,13 +169,12 @@ export function WorkWheel() {
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 pt-20 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
-              <p className="text-xs tracking-[0.22em] text-gold">01 · הוכחה חיה</p>
+              <p className="text-xs tracking-[0.22em] text-gold">עבודות חיות</p>
               <h2 className="display mt-2 text-3xl text-ivory sm:mt-3 sm:text-4xl lg:text-5xl">
-                גלגל העבודות
+                שלושה אתרים שאפשר לפתוח
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted sm:mt-3">
-                המסך נשאר. הגלגל מסתובב. שלושה אתרים חיים — עוגות, אסתטיקה,
-                מספרה.
+                גללו לאט. לחצו על הכרטיס הקדמי — נכנסים לאתר האמיתי.
               </p>
             </div>
 

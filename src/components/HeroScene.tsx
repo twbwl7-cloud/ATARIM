@@ -179,7 +179,7 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
   }, []);
 
   return (
-    <Float speed={1.1} rotationIntensity={0.05} floatIntensity={0.16}>
+    <Float speed={0.7} rotationIntensity={0.02} floatIntensity={0.08}>
       <group ref={root}>
         {/* base */}
         <mesh castShadow receiveShadow material={bodyMat} position={[0, 0, 0.12]}>
@@ -318,7 +318,7 @@ function GlbMacbook({
   });
 
   return (
-    <Float speed={1.05} rotationIntensity={0.06} floatIntensity={0.16}>
+    <Float speed={0.7} rotationIntensity={0.02} floatIntensity={0.08}>
       <group ref={root}>
         <primitive object={cloned} />
         <pointLight position={[1.6, 2.4, 2.2]} intensity={1.25} color="#e8eef8" distance={12} />

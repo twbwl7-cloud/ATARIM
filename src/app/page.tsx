@@ -7,6 +7,7 @@ import { Hero } from "@/components/Hero";
 import { PinnedPillars } from "@/components/PinnedPillars";
 import { ProcessJourney } from "@/components/ProcessJourney";
 import { ScrollStory } from "@/components/ScrollStory";
+import { Testimonials } from "@/components/Testimonials";
 import { WhyRare } from "@/components/WhyRare";
 import { WorkWheel } from "@/components/WorkWheel";
 
@@ -18,10 +19,9 @@ export default function HomePage() {
       <WhyRare />
       <ProcessJourney />
       <FreeDemo />
+      <Testimonials />
       <FailedBefore />
-      <div id="pillars">
-        <PinnedPillars />
-      </div>
+      <PinnedPillars />
       <ScrollStory />
       <FormatsElements />
       <AboutSection />

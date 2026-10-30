@@ -4,12 +4,15 @@ import { nav, site, whatsappUrl } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="relative z-10 border-t border-line/50 bg-rich-black">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-12 md:flex-row md:items-end md:justify-between md:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between md:px-8">
         <div className="max-w-md">
-          <p className="display text-2xl text-ivory md:text-3xl">{site.nameHe ?? site.name}</p>
+          <p className="display text-2xl text-ivory md:text-3xl">{site.nameHe}</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">{site.tagline}</p>
+          <p className="mt-3 text-sm text-platinum" dir="ltr">
+            {site.phoneDisplay}
+          </p>
         </div>
-        <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted">
+        <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-muted">
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -20,13 +23,6 @@ export function Footer() {
             </Link>
           ))}
           <a
-            href={`tel:+${site.whatsapp}`}
-            className="transition hover:text-gold-bright"
-            dir="ltr"
-          >
-            {site.phoneDisplay}
-          </a>
-          <a
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
@@ -36,8 +32,12 @@ export function Footer() {
           </a>
         </div>
       </div>
-      <div className="border-t border-line/35 px-5 py-4 text-center text-xs text-muted md:px-8">
-        © 2026 {site.name} · נבנה עם Next.js, Three.js ואהבה לפרטים
+      <div className="space-y-2 border-t border-line/35 px-5 py-4 text-center text-[11px] leading-relaxed text-muted md:px-8">
+        <p>© 2026 {site.nameHe} · {site.phoneDisplay}</p>
+        <p>
+          התכנים באתר להמחשה. הצעת מחיר סופית ניתנת אחרי שיחה. אין דיוור שיווקי
+          בלי הסכמה מפורשת.
+        </p>
       </div>
     </footer>
   );
