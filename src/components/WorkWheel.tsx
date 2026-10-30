@@ -43,8 +43,6 @@ function WheelCard({
   active: boolean;
   rotation: MotionValue<number>;
 }) {
-  const href = projectHref(project);
-  const external = projectIsExternal(project);
   const preview = PREVIEWS[project.id];
 
   const opacity = useTransform(rotation, (r) => {
@@ -59,32 +57,30 @@ function WheelCard({
     return dist < 40 ? 1.05 : dist < 100 ? 0.92 : 0.78;
   });
 
+  // Visual only inside 3D — hit-testing on rotated faces is unreliable.
+  // Clicks go through a flat overlay on the active project (see WorkWheel).
   return (
     <div
-      className="absolute top-1/2 left-1/2 h-[min(52vh,380px)] w-[min(72vw,280px)] -translate-x-1/2 -translate-y-1/2 md:h-[min(58vh,440px)] md:w-[300px]"
+      aria-hidden
+      className="pointer-events-none absolute top-1/2 left-1/2 h-[min(52vh,380px)] w-[min(72vw,280px)] -translate-x-1/2 -translate-y-1/2 md:h-[min(58vh,440px)] md:w-[300px]"
       style={{
         transform: `rotateY(${index * ANGLE}deg) translateZ(${RADIUS}px)`,
         transformStyle: "preserve-3d",
       }}
     >
-      <motion.a
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
+      <motion.div
         style={{ opacity, scale }}
-        className={`relative block h-full w-full overflow-hidden rounded-2xl border transition-[box-shadow] duration-300 ${
+        className={`relative h-full w-full overflow-hidden rounded-2xl border transition-[box-shadow] duration-300 ${
           active
             ? "border-gold/55 shadow-[0_0_60px_rgba(212,168,75,0.28)]"
             : "border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
         }`}
-        aria-label={`כניסה לאתר ${project.title}`}
-        tabIndex={active ? 0 : -1}
       >
         <div className="absolute inset-0 bg-[#101a2c]">
           {preview ? (
             <Image
               src={preview}
-              alt={project.title}
+              alt=""
               fill
               className="object-cover object-top"
               sizes="300px"
@@ -106,9 +102,13 @@ function WheelCard({
             ← כניסה לאתר החי
           </span>
         </div>
-      </motion.a>
+      </motion.div>
     </div>
   );
+}
+
+function openLive(href: string) {
+  window.open(href, "_blank", "noopener,noreferrer");
 }
 
 function MobileStack() {
@@ -227,7 +227,11 @@ export function WorkWheel() {
                 href={projectHref(current)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold mt-5 inline-flex rounded-full px-5 py-2.5 text-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openLive(projectHref(current));
+                }}
+                className="btn-gold relative z-30 mt-5 inline-flex rounded-full px-5 py-2.5 text-sm"
               >
                 כניסה ל{current.title}
               </a>
@@ -255,7 +259,7 @@ export function WorkWheel() {
                   rotateY: reduce ? 0 : rotation,
                   transformStyle: "preserve-3d",
                 }}
-                className="absolute inset-0"
+                className="pointer-events-none absolute inset-0"
               >
                 {projects.map((project, i) => (
                   <WheelCard
@@ -267,6 +271,19 @@ export function WorkWheel() {
                   />
                 ))}
               </motion.div>
+
+              {/* Flat hit target over the front card — reliable vs CSS 3D faces */}
+              <a
+                href={projectHref(current)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openLive(projectHref(current));
+                }}
+                aria-label={`כניסה לאתר ${current.title}`}
+                className="absolute top-1/2 left-1/2 z-20 h-[min(58vh,440px)] w-[300px] -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+              />
             </div>
           </div>
 
