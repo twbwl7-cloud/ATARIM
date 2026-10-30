@@ -49,7 +49,7 @@ function PlungeStage({
           <span className="gold-text">לא לדף עוד.</span>
         </h1>
         <p className="mt-5 max-w-md text-sm leading-relaxed text-muted md:text-base">
-          הזיזו את העכבר — הסמל יוצא מהמסך. גללו — נכנסים פנימה.
+          הזיזו את העכבר — הכדור יוצא מהמסך. גללו — נכנסים לערפילית.
         </p>
         <div className="pointer-events-auto mt-8 flex flex-wrap items-center justify-center gap-3">
           <a

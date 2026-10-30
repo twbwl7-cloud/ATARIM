@@ -1,108 +1,143 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, useTexture } from "@react-three/drei";
-import { Suspense, useMemo, useRef } from "react";
+import { Environment, Float, useGLTF } from "@react-three/drei";
+import { Suspense, useMemo, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import type { MotionValue } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 
 const VOID = "#050a14";
+const GLB_PATH = "/models/POKEBALL_COSMIC.glb";
 
 /**
- * Pearl recipe + logo spiral core + optical parallax pop.
- * Inner sphere = emblem. Outer = glass. Cradle + rings = depth illusion.
+ * POKEBALL // Nebula Orb — procedural twin of the Sketchfab cosmic ball
+ * (Atahan3D / CC-BY). Drop POKEBALL_COSMIC.glb into public/models to use the original.
  */
-function IllusionPearl({ intensity }: { intensity: MotionValue<number> }) {
+function nebulaMaterial() {
+  return new THREE.ShaderMaterial({
+    transparent: false,
+    uniforms: {
+      uTime: { value: 0 },
+      uGlow: { value: 0 },
+    },
+    vertexShader: /* glsl */ `
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vWorld;
+      void main() {
+        vUv = uv;
+        vNormal = normalize(normalMatrix * normal);
+        vec4 world = modelMatrix * vec4(position, 1.0);
+        vWorld = world.xyz;
+        gl_Position = projectionMatrix * viewMatrix * world;
+      }
+    `,
+    fragmentShader: /* glsl */ `
+      uniform float uTime;
+      uniform float uGlow;
+      varying vec2 vUv;
+      varying vec3 vNormal;
+      varying vec3 vWorld;
+
+      float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+      float noise(vec2 p){
+        vec2 i = floor(p); vec2 f = fract(p);
+        float a = hash(i); float b = hash(i+vec2(1.,0.));
+        float c = hash(i+vec2(0.,1.)); float d = hash(i+vec2(1.,1.));
+        vec2 u = f*f*(3.-2.*f);
+        return mix(a,b,u.x) + (c-a)*u.y*(1.-u.x) + (d-b)*u.x*u.y;
+      }
+      float fbm(vec2 p){
+        float v=0.; float a=.5;
+        for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.05; a*=.55; }
+        return v;
+      }
+
+      void main() {
+        vec2 uv = vUv;
+        float t = uTime * 0.12;
+        // swirling nebula bands
+        float swirl = fbm(uv * 4.5 + vec2(t, -t*0.7));
+        float swirl2 = fbm(uv * 7.0 + vec2(-t*1.2, t*0.9) + swirl);
+        float n = mix(swirl, swirl2, 0.55);
+
+        vec3 deep = vec3(0.05, 0.02, 0.12);
+        vec3 blue = vec3(0.15, 0.35, 0.95);
+        vec3 mag = vec3(0.75, 0.15, 0.85);
+        vec3 pink = vec3(0.95, 0.35, 0.7);
+        vec3 col = mix(deep, blue, smoothstep(0.2, 0.55, n));
+        col = mix(col, mag, smoothstep(0.45, 0.75, n));
+        col = mix(col, pink, smoothstep(0.7, 0.95, n) * 0.65);
+
+        // star flecks
+        float stars = step(0.985, hash(uv * 180.0 + floor(uTime*2.0)));
+        col += stars * vec3(0.9, 0.95, 1.0);
+
+        // fresnel rim
+        float fres = pow(1.0 - max(dot(normalize(vNormal), vec3(0.,0.,1.)), 0.), 2.2);
+        col += fres * vec3(0.35, 0.55, 1.0) * (0.35 + uGlow * 0.5);
+
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `,
+  });
+}
+
+function ProceduralNebulaOrb({ intensity }: { intensity: MotionValue<number> }) {
   const root = useRef<THREE.Group>(null);
   const core = useRef<THREE.Mesh>(null);
-  const rings = useRef<THREE.Group>(null);
+  const band = useRef<THREE.Mesh>(null);
   const glow = useRef(0);
   const mouse = useRef({ x: 0, y: 0 });
 
-  const map = useTexture("/brand/emblem-sphere.jpg");
-  map.colorSpace = THREE.SRGBColorSpace;
-  map.anisotropy = 8;
-  map.wrapS = map.wrapT = THREE.ClampToEdgeWrapping;
-
-  useMotionValueEvent(intensity, "change", (v) => {
-    glow.current = v;
-  });
-
-  const coreMat = useMemo(
+  const shellMat = useMemo(() => nebulaMaterial(), []);
+  const metalMat = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
-        map,
-        roughness: 0.22,
-        metalness: 0.18,
-        clearcoat: 1,
-        clearcoatRoughness: 0.08,
-        iridescence: 1,
-        iridescenceIOR: 1.3,
-        iridescenceThicknessRange: [100, 420],
-        emissive: new THREE.Color("#1a6aaa"),
-        emissiveMap: map,
-        emissiveIntensity: 0.7,
-      }),
-    [map],
-  );
-
-  const glassMat = useMemo(
-    () =>
-      new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color("#d8e4f0"),
-        metalness: 0,
-        roughness: 0.04,
-        transmission: 0.88,
-        thickness: 0.55,
-        ior: 1.45,
-        transparent: true,
-        opacity: 0.55,
-        clearcoat: 1,
-        clearcoatRoughness: 0.04,
-        envMapIntensity: 1.3,
-      }),
-    [],
-  );
-
-  const cradleMat = useMemo(
-    () =>
-      new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color("#1a2230"),
-        metalness: 0.9,
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color("#1a1e28"),
+        metalness: 1,
         roughness: 0.28,
-        clearcoat: 0.65,
-        emissive: new THREE.Color("#0c1626"),
-        emissiveIntensity: 0.22,
+        emissive: new THREE.Color("#0a1020"),
+        emissiveIntensity: 0.15,
       }),
     [],
   );
-
+  const buttonMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color("#2a3140"),
+        metalness: 1,
+        roughness: 0.2,
+      }),
+    [],
+  );
+  const vortexMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: new THREE.Color("#c44dff"),
+        emissive: new THREE.Color("#ff4dcc"),
+        emissiveIntensity: 1.4,
+        roughness: 0.3,
+        metalness: 0.2,
+      }),
+    [],
+  );
   const goldMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
         color: new THREE.Color("#e0b45a"),
         emissive: new THREE.Color("#e0b45a"),
-        emissiveIntensity: 0.38,
+        emissiveIntensity: 0.35,
         metalness: 1,
-        roughness: 0.12,
+        roughness: 0.15,
       }),
     [],
   );
 
-  const cyanMat = useMemo(
-    () =>
-      new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#3cb8ff"),
-        emissive: new THREE.Color("#3cb8ff"),
-        emissiveIntensity: 0.55,
-        metalness: 0.85,
-        roughness: 0.2,
-        transparent: true,
-        opacity: 0.7,
-      }),
-    [],
-  );
+  useMotionValueEvent(intensity, "change", (v) => {
+    glow.current = v;
+  });
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -112,87 +147,141 @@ function IllusionPearl({ intensity }: { intensity: MotionValue<number> }) {
     const mx = mouse.current.x;
     const my = mouse.current.y;
 
+    shellMat.uniforms.uTime.value = t;
+    shellMat.uniforms.uGlow.value = g;
+
     if (root.current) {
-      root.current.rotation.y = mx * 0.42 + Math.sin(t * 0.22) * 0.04;
-      root.current.rotation.x = -my * 0.34 + Math.cos(t * 0.28) * 0.03;
-      const breath = 1 + Math.sin(t * 1.2) * 0.025 + g * 0.4;
+      root.current.rotation.y = t * 0.18 + mx * 0.45;
+      root.current.rotation.x = -my * 0.35 + Math.sin(t * 0.3) * 0.05;
+      const breath = 1 + Math.sin(t * 1.15) * 0.02 + g * 0.42;
       root.current.scale.setScalar(breath);
-      // push toward camera = optical pop out of the screen
-      root.current.position.z = 0.15 + g * 0.55;
+      root.current.position.z = 0.2 + g * 0.6; // optical pop
     }
-
     if (core.current) {
-      // core spins slower + shifts more than cradle → stereo depth
-      core.current.rotation.y = t * 0.22 + mx * 0.15;
-      core.current.position.x = mx * 0.1;
-      core.current.position.y = 0.18 + my * 0.08;
-      (core.current.material as THREE.MeshPhysicalMaterial).emissiveIntensity =
-        0.65 + g * 1.05 + Math.sin(t * 2.3) * 0.08;
+      core.current.rotation.y = -t * 0.35;
+    }
+    if (band.current) {
+      band.current.rotation.z = Math.sin(t * 0.4) * 0.02;
     }
 
-    if (rings.current) {
-      rings.current.position.x = mx * 0.24;
-      rings.current.position.y = my * 0.2;
-      rings.current.rotation.y = t * 0.18;
-      rings.current.rotation.z = t * 0.1;
-    }
-
-    state.camera.position.z = THREE.MathUtils.lerp(3.55, 0.48, g);
-    state.camera.position.x = mx * 0.12 * (1 - g * 0.5);
-    state.camera.position.y = 0.08 + my * 0.09 * (1 - g * 0.5);
-    state.camera.lookAt(0, 0.1, root.current?.position.z ?? 0);
+    state.camera.position.z = THREE.MathUtils.lerp(3.5, 0.45, g);
+    state.camera.position.x = mx * 0.14 * (1 - g * 0.5);
+    state.camera.position.y = 0.05 + my * 0.1 * (1 - g * 0.5);
+    state.camera.lookAt(0, 0, root.current?.position.z ?? 0);
   });
 
   return (
-    <Float speed={1.15} rotationIntensity={0.14} floatIntensity={0.38}>
-      <group ref={root} position={[0, -0.04, 0]}>
-        {/* cradle */}
-        <mesh
-          material={cradleMat}
-          rotation={[Math.PI / 2.4, 0.15, 0.1]}
-          position={[0, -0.3, -0.02]}
-          scale={[1.1, 1.1, 0.52]}
-        >
-          <sphereGeometry args={[0.7, 48, 48, 0, Math.PI * 2, 0, Math.PI / 2]} />
+    <Float speed={1.2} rotationIntensity={0.16} floatIntensity={0.4}>
+      <group ref={root}>
+        {/* nebula hemispheres */}
+        <mesh ref={core} material={shellMat}>
+          <sphereGeometry args={[0.85, 64, 64]} />
         </mesh>
 
-        {/* LOGO SPIRAL = the pearl */}
-        <mesh ref={core} material={coreMat} position={[0, 0.18, 0.12]}>
-          <sphereGeometry args={[0.5, 64, 64]} />
+        {/* equatorial metal band */}
+        <mesh ref={band} rotation={[0, 0, 0]} material={metalMat}>
+          <torusGeometry args={[0.86, 0.07, 24, 80]} />
         </mesh>
-
-        {/* glass shell */}
-        <mesh material={glassMat} position={[0, 0.18, 0.1]}>
-          <sphereGeometry args={[0.58, 64, 64]} />
-        </mesh>
-
-        {/* parallax rings */}
-        <group ref={rings}>
-          <mesh rotation={[1.2, 0.3, 0]} material={goldMat}>
-            <torusGeometry args={[0.82, 0.008, 16, 100]} />
+        {/* star windows on band */}
+        {[-1.2, -0.4, 0.4, 1.2].map((a, i) => (
+          <mesh
+            key={i}
+            position={[Math.sin(a) * 0.86, 0, Math.cos(a) * 0.86]}
+            rotation={[0, a, 0]}
+            material={goldMat}
+          >
+            <boxGeometry args={[0.12, 0.08, 0.02]} />
           </mesh>
-          <mesh rotation={[0.55, 0.85, 0.2]} material={cyanMat}>
-            <torusGeometry args={[1.02, 0.005, 12, 90]} />
+        ))}
+
+        {/* center button rings + vortex */}
+        <group position={[0, 0, 0.82]}>
+          <mesh material={buttonMat}>
+            <cylinderGeometry args={[0.22, 0.22, 0.06, 48]} />
           </mesh>
-          <mesh rotation={[1.35, -0.35, 0.25]} material={goldMat}>
-            <torusGeometry args={[1.2, 0.004, 12, 80]} />
+          <mesh position={[0, 0.02, 0]} material={metalMat}>
+            <torusGeometry args={[0.16, 0.018, 16, 48]} />
+          </mesh>
+          <mesh position={[0, 0.035, 0]} rotation={[Math.PI / 2, 0, 0]} material={vortexMat}>
+            <circleGeometry args={[0.1, 48]} />
           </mesh>
         </group>
 
-        <pointLight position={[0.45, 0.5, 1]} intensity={1.2} color="#f0c86a" distance={5} />
-        <pointLight position={[-0.5, 0.2, 0.8]} intensity={0.6} color="#7ec8ff" distance={4} />
-        <pointLight position={[0, 0.25, 1.4]} intensity={0.5} color="#ffffff" distance={3.5} />
+        {/* parallax orbit rings — stereo pop */}
+        <mesh rotation={[1.15, 0.3, 0]} material={goldMat} position={[0, 0, 0.05]}>
+          <torusGeometry args={[1.05, 0.008, 16, 100]} />
+        </mesh>
+        <mesh rotation={[0.6, 0.9, 0.2]} position={[0, 0, 0.1]} material={cyanMat}>
+          <torusGeometry args={[1.22, 0.005, 12, 90]} />
+        </mesh>
+
+        <pointLight position={[0.6, 0.5, 1.2]} intensity={1.3} color="#9ec8ff" distance={6} />
+        <pointLight position={[-0.5, -0.2, 1]} intensity={0.8} color="#ff66cc" distance={5} />
+        <pointLight position={[0, 0.2, 1.5]} intensity={0.55} color="#ffffff" distance={4} />
+        <spotLight position={[0, 1.2, 2]} angle={0.5} penumbra={0.6} intensity={1.1} color="#c8e0ff" />
       </group>
     </Float>
   );
+}
+
+function GlbNebulaOrb({ intensity }: { intensity: MotionValue<number> }) {
+  const root = useRef<THREE.Group>(null);
+  const { scene } = useGLTF(GLB_PATH);
+  const glow = useRef(0);
+  const mouse = useRef({ x: 0, y: 0 });
+  const cloned = useMemo(() => scene.clone(true), [scene]);
+
+  useMotionValueEvent(intensity, "change", (v) => {
+    glow.current = v;
+  });
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    const g = glow.current;
+    mouse.current.x = THREE.MathUtils.lerp(mouse.current.x, state.pointer.x, 0.07);
+    mouse.current.y = THREE.MathUtils.lerp(mouse.current.y, state.pointer.y, 0.07);
+    const mx = mouse.current.x;
+    const my = mouse.current.y;
+    if (root.current) {
+      root.current.rotation.y = t * 0.2 + mx * 0.4;
+      root.current.rotation.x = -my * 0.3;
+      root.current.scale.setScalar(1.15 + Math.sin(t * 1.1) * 0.02 + g * 0.4);
+      root.current.position.z = 0.15 + g * 0.55;
+    }
+    state.camera.position.z = THREE.MathUtils.lerp(3.5, 0.45, g);
+    state.camera.position.x = mx * 0.12 * (1 - g * 0.5);
+    state.camera.position.y = 0.05 + my * 0.09 * (1 - g * 0.5);
+    state.camera.lookAt(0, 0, root.current?.position.z ?? 0);
+  });
+
+  return (
+    <Float speed={1.15} rotationIntensity={0.15} floatIntensity={0.35}>
+      <group ref={root}>
+        <primitive object={cloned} />
+        <pointLight position={[0.6, 0.5, 1.2]} intensity={1.2} color="#9ec8ff" distance={6} />
+        <pointLight position={[-0.5, 0.2, 0.9]} intensity={0.7} color="#ff66cc" distance={5} />
+      </group>
+    </Float>
+  );
+}
+
+function OrbSwitcher({ intensity }: { intensity: MotionValue<number> }) {
+  const [useGlb, setUseGlb] = useState(false);
+  useEffect(() => {
+    fetch(GLB_PATH, { method: "HEAD" })
+      .then((r) => setUseGlb(r.ok))
+      .catch(() => setUseGlb(false));
+  }, []);
+  if (useGlb) return <GlbNebulaOrb intensity={intensity} />;
+  return <ProceduralNebulaOrb intensity={intensity} />;
 }
 
 function Lights() {
   return (
     <>
       <ambientLight intensity={0.22} />
-      <directionalLight position={[4, 5, 3]} intensity={1.05} color="#efe9de" />
-      <directionalLight position={[-3, 1, -2]} intensity={0.3} color="#5a468c" />
+      <directionalLight position={[4, 5, 3]} intensity={1.05} color="#eef4ff" />
+      <directionalLight position={[-3, 1, -2]} intensity={0.35} color="#6a3a8c" />
     </>
   );
 }
@@ -200,21 +289,21 @@ function Lights() {
 export function HeroScene({ intensity }: { intensity: MotionValue<number> }) {
   return (
     <div className="absolute inset-0 bg-[#050a14]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(56,140,140,0.16),transparent_48%),radial-gradient(circle_at_50%_52%,rgba(224,180,90,0.1),transparent_52%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(120,60,180,0.18),transparent_48%),radial-gradient(circle_at_50%_55%,rgba(40,120,220,0.14),transparent_52%)]" />
       <Canvas
-        dpr={[1, 1.65]}
-        camera={{ position: [0, 0.08, 3.55], fov: 36 }}
+        dpr={[1, 1.7]}
+        camera={{ position: [0, 0.05, 3.5], fov: 36 }}
         gl={{ antialias: true, alpha: true }}
         onCreated={({ gl }) => {
           gl.setClearColor(VOID, 0);
           gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.14;
+          gl.toneMappingExposure = 1.15;
         }}
       >
         <Suspense fallback={null}>
           <Lights />
-          <Environment preset="city" environmentIntensity={0.35} />
-          <IllusionPearl intensity={intensity} />
+          <Environment preset="night" environmentIntensity={0.4} />
+          <OrbSwitcher intensity={intensity} />
         </Suspense>
       </Canvas>
     </div>
