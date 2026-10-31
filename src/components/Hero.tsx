@@ -36,20 +36,35 @@ function PlungeStage({
 
   return (
     <div className="relative h-screen overflow-hidden bg-[#050a14]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_30%_20%,rgba(232,196,106,0.14),transparent_45%),radial-gradient(ellipse_at_80%_60%,rgba(78,196,255,0.12),transparent_50%),radial-gradient(ellipse_at_50%_90%,rgba(239,196,208,0.08),transparent_40%)]"
+      />
       <HeroScene intensity={reduce ? intensityRaw : intensity} />
 
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
         className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-[18vh] text-center sm:pb-[12vh] md:pb-[9vh]"
       >
-        {/* Script 6 Phase 1 — H1 ≤ 8 words, benefit, micro-trust */}
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
+          className="mb-3 text-[11px] tracking-[0.28em] text-cyan-bright"
+        >
+          דוד טובול · אתרים שסוגרים
+        </motion.p>
         <h1 className="display max-w-3xl text-[clamp(1.65rem,6.2vw,3.4rem)] leading-[1.08] text-ivory">
-          אתר שמביא תורים.
+          אתר שמביא{" "}
+          <span className="ink-gold">תורים</span>.
           <br />
-          <span className="gold-text">לא עוד דף יפה.</span>
+          לא עוד דף{" "}
+          <span className="ink-rose">יפה</span>.
         </h1>
         <p className="mt-3 max-w-md text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-base">
-          רואים דוגמא בחינם לפני שמשלמים. גללו — נכנסים למסך.
+          רואים{" "}
+          <span className="ink-cyan">דוגמא בחינם</span> לפני שמשלמים. גללו —{" "}
+          <span className="ink-champagne">נכנסים למסך</span>.
         </p>
         <div className="pointer-events-auto mt-5 flex w-full max-w-md flex-col items-stretch gap-2.5 sm:mt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
           <a
@@ -66,7 +81,10 @@ function PlungeStage({
           </a>
         </div>
         <p className="pointer-events-none mt-4 text-[11px] tracking-[0.06em] text-platinum/80">
-          בלי התחייבות · תשובה בוואטסאפ · 052-318-2032
+          בלי התחייבות · תשובה בוואטסאפ ·{" "}
+          <span className="ink-gold" dir="ltr">
+            052-318-2032
+          </span>
         </p>
       </motion.div>
 
@@ -107,9 +125,9 @@ export function Hero() {
     return (
       <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[#050a14] px-5 pt-24 text-center">
         <h1 className="display text-4xl text-ivory md:text-5xl">
-          אתר שמביא תורים.
+          אתר שמביא <span className="ink-gold">תורים</span>.
           <br />
-          <span className="gold-text">לא עוד דף יפה.</span>
+          לא עוד דף <span className="ink-rose">יפה</span>.
         </h1>
         <a href="#free-demo" className="btn-gold mt-8 rounded-full px-7 py-3.5 text-sm">
           דוגמא בחינם לעסק שלכם

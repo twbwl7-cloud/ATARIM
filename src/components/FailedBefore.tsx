@@ -4,18 +4,38 @@ import { motion, useScroll, useTransform, type MotionValue } from "framer-motion
 import { useRef } from "react";
 
 const STRIKES = [
-  "תבנית שנראית כמו כולם",
-  "אתר יפה שלא מביא שיחה",
-  "אנימציה כבדה שנתקעת בטלפון",
-  "עוד הבטחה של ״וואו״ בלי הוכחה",
+  {
+    plain: "תבנית שנראית כמו ",
+    accent: "כולם",
+    ink: "ink-rose" as const,
+  },
+  {
+    plain: "אתר יפה שלא מביא ",
+    accent: "שיחה",
+    ink: "ink-gold" as const,
+  },
+  {
+    plain: "אנימציה כבדה שנתקעת ב",
+    accent: "טלפון",
+    ink: "ink-cyan" as const,
+  },
+  {
+    plain: "עוד הבטחה של ״וואו״ בלי ",
+    accent: "הוכחה",
+    ink: "ink-champagne" as const,
+  },
 ];
 
 function StrikeLine({
-  text,
+  plain,
+  accent,
+  ink,
   progress,
   index,
 }: {
-  text: string;
+  plain: string;
+  accent: string;
+  ink: string;
   progress: MotionValue<number>;
   index: number;
 }) {
@@ -31,11 +51,12 @@ function StrikeLine({
       className="relative py-2.5 text-lg text-ivory/90 sm:py-3 sm:text-xl md:py-4 md:text-3xl"
     >
       <span className="relative inline-block">
-        {text}
+        {plain}
+        <span className={ink}>{accent}</span>
         <motion.span
           aria-hidden
           style={{ scaleX, originX: 1 }}
-          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-pink to-garnet/70"
+          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-pink to-cyan/70"
         />
       </span>
     </motion.li>
@@ -61,17 +82,24 @@ export function FailedBefore() {
       aria-label="מה כבר ניסיתם"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(212,168,181,0.09),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(122,46,58,0.1),transparent_45%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(239,196,208,0.12),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(138,69,104,0.12),transparent_45%),radial-gradient(ellipse_at_50%_10%,rgba(232,196,106,0.08),transparent_40%)]" />
         <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-5 sm:px-8">
           <p className="text-xs tracking-[0.28em] text-pink">הכאב</p>
           <h2 className="display mt-3 max-w-3xl text-[clamp(1.6rem,4.5vw,3.2rem)] leading-[1.15] text-ivory sm:mt-4">
-            לפני שסוגרים —{" "}
-            <span className="gold-text">מה כבר ניסיתם?</span>
+            לפני שסוגרים — מה כבר{" "}
+            <span className="ink-gold">ניסיתם</span>?
           </h2>
 
           <ul className="mt-8 max-w-3xl sm:mt-10">
             {STRIKES.map((line, i) => (
-              <StrikeLine key={line} text={line} progress={scrollYProgress} index={i} />
+              <StrikeLine
+                key={line.accent}
+                plain={line.plain}
+                accent={line.accent}
+                ink={line.ink}
+                progress={scrollYProgress}
+                index={i}
+              />
             ))}
           </ul>
 
@@ -79,7 +107,8 @@ export function FailedBefore() {
             style={{ opacity: reveal, y: revealY }}
             className="mt-8 max-w-xl text-sm leading-relaxed text-muted sm:mt-10 sm:text-base"
           >
-            אני לא מוכר באנר. בונים דף שמביא פנייה — ואז הוואטסאפ כבר קל יותר.
+            אני לא מוכר באנר. בונים דף שמביא{" "}
+            <span className="ink-cyan">פנייה</span> — ואז הוואטסאפ כבר קל יותר.
           </motion.p>
 
           <motion.div

@@ -6,9 +6,14 @@ export function Footer() {
     <footer className="relative z-10 border-t border-line/50 bg-rich-black">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between md:px-8">
         <div className="max-w-md">
-          <p className="display text-2xl text-ivory md:text-3xl">{site.nameHe}</p>
-          <p className="mt-2 text-sm leading-relaxed text-muted">{site.tagline}</p>
-          <p className="mt-3 text-sm text-platinum" dir="ltr">
+          <p className="display text-2xl text-ivory md:text-3xl">
+            <span className="ink-gold">{site.nameHe}</span>
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            אתרים שסוגרים <span className="ink-cyan">תורים</span> — לא עוד דף{" "}
+            <span className="ink-rose">יפה</span>
+          </p>
+          <p className="mt-3 text-sm ink-gold" dir="ltr">
             {site.phoneDisplay}
           </p>
         </div>

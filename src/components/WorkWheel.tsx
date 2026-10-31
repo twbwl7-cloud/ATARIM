@@ -158,17 +158,19 @@ export function WorkWheel() {
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(60,184,255,0.16),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(224,180,90,0.1),transparent_50%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(78,196,255,0.2),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(232,196,106,0.14),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(239,196,208,0.08),transparent_40%)]"
           />
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:gap-4 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
               <p className="text-xs tracking-[0.22em] text-gold">עבודות חיות</p>
               <h2 className="display mt-2 text-2xl text-ivory sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
-                שלושה אתרים שאפשר לפתוח
+                שלושה אתרים שאפשר{" "}
+                <span className="ink-gold">לפתוח</span>
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                גללו לאט. לחצו על הכרטיס הקדמי — נכנסים לאתר האמיתי.
+                גללו לאט. לחצו על הכרטיס הקדמי — נכנסים לאתר{" "}
+                <span className="ink-cyan">האמיתי</span>.
               </p>
             </div>
 

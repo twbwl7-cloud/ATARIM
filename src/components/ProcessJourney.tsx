@@ -8,34 +8,70 @@ const STEPS = [
   {
     n: "01",
     title: "הודעה קצרה",
-    body: "כותבים בוואטסאפ מה העסק ומה חסר היום. קובעים שיחה — בלי התחייבות.",
+    accent: "gold" as const,
+    body: (
+      <>
+        כותבים בוואטסאפ מה העסק ומה חסר היום. קובעים שיחה —{" "}
+        <span className="ink-cyan">בלי התחייבות</span>.
+      </>
+    ),
     outcome: "מועד ביומן",
   },
   {
     n: "02",
     title: "שיחה ישרה",
-    body: "מה עובד אצלכם, מה לא, ומה המתחרים כבר עושים. אומרים גם מה לא כדאי לבנות.",
+    accent: "rose" as const,
+    body: (
+      <>
+        מה עובד אצלכם, מה לא, ומה המתחרים כבר עושים. אומרים גם מה{" "}
+        <span className="ink-rose">לא כדאי</span> לבנות.
+      </>
+    ),
     outcome: "כיוון ברור",
   },
   {
     n: "03",
     title: "דוגמא בחינם",
-    body: "רואים עמוד ראשי בסגנון שלכם. ממשיכים רק אם זה מרגיש כמו העסק.",
+    accent: "cyan" as const,
+    body: (
+      <>
+        רואים עמוד ראשי בסגנון שלכם. ממשיכים רק אם זה מרגיש כמו{" "}
+        <span className="ink-gold">העסק</span>.
+      </>
+    ),
     outcome: "רואים לפני תשלום",
   },
   {
     n: "04",
     title: "בנייה ומסירה",
-    body: "עיצוב, תוכן, כפתורים — במערכת אחת. אתם מקבלים עדכונים, לא הפתעות.",
+    accent: "gold" as const,
+    body: (
+      <>
+        עיצוב, תוכן, כפתורים — במערכת אחת. אתם מקבלים עדכונים, לא{" "}
+        <span className="ink-champagne">הפתעות</span>.
+      </>
+    ),
     outcome: "אתר על שמכם",
   },
   {
     n: "05",
     title: "עלייה לאוויר",
-    body: "דומיין, הדרכה קצרה, וליווי אם משהו נשבר בגלל הקוד.",
+    accent: "cyan" as const,
+    body: (
+      <>
+        דומיין, הדרכה קצרה, וליווי אם משהו נשבר בגלל הקוד. מטרה:{" "}
+        <span className="ink-gold">פניות אמיתיות</span>.
+      </>
+    ),
     outcome: "פניות אמיתיות",
   },
 ] as const;
+
+const NUM = {
+  gold: "text-gold-bright",
+  rose: "text-pink",
+  cyan: "text-cyan-bright",
+} as const;
 
 /**
  * Locked viewport scrub — screen stays pinned; only the steps content moves.
@@ -47,7 +83,6 @@ export function ProcessJourney() {
     offset: ["start start", "end end"],
   });
 
-  // Content slides up inside the locked frame
   const contentY = useTransform(scrollYProgress, [0.08, 0.88], ["8%", "-72%"]);
   const lineScale = useTransform(scrollYProgress, [0.08, 0.88], [0.08, 1]);
   const hintOpacity = useTransform(scrollYProgress, [0, 0.08, 0.18], [1, 0.5, 0]);
@@ -59,19 +94,25 @@ export function ProcessJourney() {
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(212,175,103,0.1),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(60,120,200,0.08),transparent_45%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(232,196,106,0.14),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(78,196,255,0.12),transparent_45%),radial-gradient(ellipse_at_50%_50%,rgba(155,125,255,0.06),transparent_55%)]"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-3xl shrink-0 px-5 pt-20 sm:px-8 sm:pt-24">
           <p className="text-xs tracking-[0.22em] text-gold">איך זה עובד</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-            מההודעה הראשונה עד שהאתר חי
+            מההודעה הראשונה עד שהאתר{" "}
+            <span className="ink-gold">חי</span>
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted md:text-base">
-            המסך ננעל. גללו — רק השלבים זזים. חמישה שלבים, כל אחד עם תוצאה.
+            המסך <span className="ink-cyan">ננעל</span>. גללו — רק השלבים זזים.
+            חמישה שלבים, כל אחד עם{" "}
+            <span className="ink-rose">תוצאה</span>.
           </p>
           <div className="mt-5 h-px w-full max-w-xs overflow-hidden bg-white/10">
-            <motion.div style={{ width: progressWidth }} className="h-full bg-gold" />
+            <motion.div
+              style={{ width: progressWidth }}
+              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
+            />
           </div>
         </div>
 
@@ -83,7 +124,7 @@ export function ProcessJourney() {
           <motion.div
             aria-hidden
             style={{ scaleY: lineScale, transformOrigin: "top" }}
-            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-gold via-gold-bright to-gold/30 md:right-[19px]"
+            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-gold via-cyan-bright to-pink/50 md:right-[19px]"
           />
 
           <motion.ol style={{ y: contentY }} className="relative space-y-14 pb-40 sm:space-y-16 md:space-y-20">
@@ -91,10 +132,10 @@ export function ProcessJourney() {
               <li key={step.n} className="relative flex gap-5 md:gap-10">
                 <span
                   aria-hidden
-                  className="relative z-10 mt-1.5 h-6 w-6 shrink-0 rounded-full border-2 border-gold bg-[#070e18] md:mt-2 md:h-10 md:w-10"
+                  className="relative z-10 mt-1.5 h-6 w-6 shrink-0 rounded-full border-2 border-gold bg-[#070e18] shadow-[0_0_18px_rgba(232,196,106,0.45)] md:mt-2 md:h-10 md:w-10"
                 />
                 <div className="min-w-0 pb-1">
-                  <p className="display text-sm text-gold">{step.n}</p>
+                  <p className={`display text-sm ${NUM[step.accent]}`}>{step.n}</p>
                   <h3 className="display mt-1 text-2xl text-ivory sm:text-3xl md:text-4xl">
                     {step.title}
                   </h3>
@@ -102,7 +143,7 @@ export function ProcessJourney() {
                     {step.body}
                   </p>
                   <p className="mt-4 text-[11px] tracking-[0.14em] text-platinum">
-                    תוצאה · {step.outcome}
+                    תוצאה · <span className="ink-gold">{step.outcome}</span>
                   </p>
                 </div>
               </li>
@@ -112,11 +153,15 @@ export function ProcessJourney() {
 
         <motion.div
           style={{ opacity: ctaOpacity }}
-          className="relative z-20 mx-auto flex w-full max-w-3xl flex-col gap-4 border-t border-white/10 bg-[#070e18]/90 px-5 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6"
+          className="relative z-20 mx-auto flex w-full max-w-3xl flex-col gap-4 border-t border-gold/20 bg-[#070e18]/90 px-5 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6"
         >
           <div>
-            <p className="display text-lg text-ivory sm:text-xl">רוצים קודם לראות דוגמא?</p>
-            <p className="mt-1 text-sm text-muted">בחינם · בלי התחייבות</p>
+            <p className="display text-lg text-ivory sm:text-xl">
+              רוצים קודם לראות <span className="ink-gold">דוגמא</span>?
+            </p>
+            <p className="mt-1 text-sm text-muted">
+              <span className="ink-cyan">בחינם</span> · בלי התחייבות
+            </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
             <a href="#free-demo" className="btn-gold rounded-full px-6 py-3 text-center text-sm">
