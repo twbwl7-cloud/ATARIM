@@ -2,7 +2,15 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float, useGLTF } from "@react-three/drei";
-import { Suspense, useMemo, useRef, useState, useEffect } from "react";
+import React, {
+  Component,
+  Suspense,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
 import * as THREE from "three";
 import type { MotionValue } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
@@ -367,26 +375,92 @@ function Lights() {
   );
 }
 
+function canUseWebGL() {
+  if (typeof document === "undefined") return false;
+  try {
+    const canvas = document.createElement("canvas");
+    return Boolean(
+      canvas.getContext("webgl2") ||
+        canvas.getContext("webgl") ||
+        canvas.getContext("experimental-webgl"),
+    );
+  } catch {
+    return false;
+  }
+}
+
+function HeroFallback() {
+  return (
+    <div className="absolute inset-0 bg-[#0b0a09]" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(196,163,90,0.16),transparent_52%),radial-gradient(ellipse_at_72%_62%,rgba(184,116,92,0.08),transparent_48%),radial-gradient(circle_at_50%_78%,rgba(11,10,9,0.6),transparent_58%)]" />
+      <div className="pointer-events-none absolute inset-x-[12%] top-[18%] bottom-[28%] rounded-[2rem] border border-white/6 bg-[linear-gradient(160deg,rgba(34,30,24,0.55),rgba(12,11,9,0.2))] shadow-[0_40px_80px_rgba(0,0,0,0.45)]" />
+    </div>
+  );
+}
+
+class SceneErrorBoundary extends Component<
+  { children: ReactNode; onError: () => void },
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch() {
+    this.props.onError();
+  }
+
+  render() {
+    if (this.state.failed) return <HeroFallback />;
+    return this.props.children;
+  }
+}
+
 export function HeroScene({ intensity }: { intensity: MotionValue<number> }) {
+  const [ok, setOk] = useState(true);
+
+  useEffect(() => {
+    if (!canUseWebGL()) setOk(false);
+  }, []);
+
+  if (!ok) return <HeroFallback />;
+
   return (
     <div className="absolute inset-0 bg-[#0b0a09]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(196,163,90,0.12),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(11,10,9,0.55),transparent_58%)]" />
-      <Canvas
-        dpr={[1, 1.75]}
-        camera={{ position: [0, 1.35, 3.6], fov: 30 }}
-        gl={{ antialias: true, alpha: true }}
-        onCreated={({ gl }) => {
-          gl.setClearColor(VOID, 0);
-          gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.14;
-        }}
-      >
-        <Suspense fallback={null}>
-          <Lights />
-          <Environment preset="city" environmentIntensity={0.4} />
-          <MacbookSwitcher intensity={intensity} />
-        </Suspense>
-      </Canvas>
+      <SceneErrorBoundary onError={() => setOk(false)}>
+        <Canvas
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 1.35, 3.6], fov: 30 }}
+          gl={{
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance",
+            failIfMajorPerformanceCaveat: false,
+          }}
+          onCreated={({ gl }) => {
+            gl.setClearColor(VOID, 0);
+            gl.toneMapping = THREE.ACESFilmicToneMapping;
+            gl.toneMappingExposure = 1.14;
+            gl.domElement.addEventListener(
+              "webglcontextlost",
+              (e) => {
+                e.preventDefault();
+                setOk(false);
+              },
+              { once: true },
+            );
+          }}
+        >
+          <Suspense fallback={null}>
+            <Lights />
+            <Environment preset="city" environmentIntensity={0.4} />
+            <MacbookSwitcher intensity={intensity} />
+          </Suspense>
+        </Canvas>
+      </SceneErrorBoundary>
     </div>
   );
 }
