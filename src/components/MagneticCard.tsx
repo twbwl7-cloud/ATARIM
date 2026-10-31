@@ -170,7 +170,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-right scale-x-0 bg-gradient-to-l from-gold-bright via-gold to-pink transition duration-500 group-hover:scale-x-100" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-right scale-x-0 bg-gradient-to-l from-cyan-bright via-cyan to-platinum transition duration-500 group-hover:scale-x-100" />
     </motion.article>
   );
 }

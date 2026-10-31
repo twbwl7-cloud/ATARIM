@@ -68,8 +68,8 @@ const STEPS = [
 ] as const;
 
 const NUM = {
-  gold: "text-gold-bright",
-  rose: "text-pink",
+  gold: "text-cyan-bright",
+  rose: "text-platinum",
   cyan: "text-cyan-bright",
 } as const;
 
@@ -108,7 +108,7 @@ export function ProcessJourney() {
           <div className="mt-5 h-px w-full max-w-xs overflow-hidden bg-white/10">
             <motion.div
               style={{ width: progressWidth }}
-              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-gold"
+              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-platinum"
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ export function ProcessJourney() {
           <motion.div
             aria-hidden
             style={{ scaleY: lineScale, transformOrigin: "top" }}
-            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-cyan via-cyan-bright to-gold/40 md:right-[19px]"
+            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-cyan via-cyan-bright to-platinum/40 md:right-[19px]"
           />
 
           <motion.ol style={{ y: contentY }} className="relative space-y-14 pb-40 sm:space-y-16 md:space-y-20">

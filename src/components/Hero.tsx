@@ -60,7 +60,7 @@ function PlungeStage({
           <span className="ink-cyan">הודעות</span>.
           <br />
           לא עוד דף{" "}
-          <span className="ink-rose">יפה</span>.
+          <span className="ink-cyan">יפה</span>.
         </h1>
         <p className="mt-3 max-w-md text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-base">
           רואים <span className="ink-cyan">דוגמה בחינם</span> לפני שמשלמים.
@@ -127,7 +127,7 @@ export function Hero() {
         <h1 className="display text-4xl text-ivory md:text-5xl">
           אתר שמביא <span className="ink-cyan">הודעות</span>.
           <br />
-          לא עוד דף <span className="ink-rose">יפה</span>.
+          לא עוד דף <span className="ink-cyan">יפה</span>.
         </h1>
         <a href="#free-demo" className="btn-gold mt-8 rounded-full px-7 py-3.5 text-sm">
           לקבלת דוגמה בחינם

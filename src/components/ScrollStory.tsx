@@ -26,7 +26,7 @@ export function ScrollStory() {
           <div className="h-px w-16 overflow-hidden bg-white/10 sm:w-24 md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-gold"
+              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-platinum"
             />
           </div>
         </div>

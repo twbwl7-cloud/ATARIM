@@ -24,17 +24,17 @@
   --silver-bright: #f0f5fa;
   --steel: #8fa3b5;
 
-  /* Warm accent only for money/CTA — champagne, not rose */
-  --gold: #d8c49a;
-  --gold-bright: #f0e4c4;
-  --gold-dim: #a89268;
-  --champagne: #e8dcc4;
+  /* "gold" tokens remapped to sky — zero warm gold on site */
+  --gold: #3ec8f0;
+  --gold-bright: #8ae8ff;
+  --gold-dim: #1aa8c8;
+  --champagne: #c8dce8;
 
-  /* Keep pink vars mapped to silver so old class names don't go pink */
+  /* "pink" tokens remapped to ice silver — zero rose */
   --rose-gold: #b8c8d4;
-  --baby-pink: #c5d4e0;
-  --garnet: #4a6a7a;
-  --violet: #6eb8d0;
+  --baby-pink: #e8f0f6;
+  --garnet: #3a6a7c;
+  --violet: #5eb8d4;
 
   --platinum: #e8f0f6;
   --platinum-dim: #8fa3b5;
@@ -53,19 +53,18 @@
 
   --metal-gold: linear-gradient(
     120deg,
-    #f5efe0 0%,
-    #f0e4c4 20%,
-    #d8c49a 50%,
-    #b8a078 75%,
-    #e8dcb0 100%
+    #e8f9ff 0%,
+    #8ae8ff 35%,
+    #3ec8f0 70%,
+    #1aa8c8 100%
   );
 
   --metal-rose: linear-gradient(
     120deg,
-    #f0f5fa 0%,
-    #d4dee8 40%,
-    #b8c8d4 75%,
-    #8fa3b5 100%
+    #f5f8fb 0%,
+    #e8f0f6 40%,
+    #d4dee8 75%,
+    #a8b8c8 100%
   );
 
   --metal-cyan: linear-gradient(
@@ -179,22 +178,23 @@ a {
 
 /* Dual-tone: sky + silver + warm metal */
 .ink-gold {
-  color: var(--gold-bright);
-  text-shadow: 0 0 26px rgba(216, 196, 154, 0.28);
-}
-
-.ink-rose {
-  color: var(--silver-bright);
-  text-shadow: 0 0 22px rgba(212, 222, 232, 0.22);
-}
-
-.ink-cyan {
   color: var(--cyan-bright);
   text-shadow: 0 0 28px rgba(62, 200, 240, 0.4);
 }
 
+.ink-rose {
+  color: var(--silver-bright);
+  text-shadow: 0 0 22px rgba(232, 240, 246, 0.28);
+}
+
+.ink-cyan {
+  color: var(--cyan-bright);
+  text-shadow: 0 0 28px rgba(62, 200, 240, 0.45);
+}
+
 .ink-champagne {
-  color: var(--champagne);
+  color: var(--silver);
+  text-shadow: 0 0 18px rgba(212, 222, 232, 0.2);
 }
 
 .glass {
