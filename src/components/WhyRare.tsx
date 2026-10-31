@@ -85,7 +85,7 @@ export function WhyRare() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ delay: i * 0.04, duration: 0.4 }}
-              className="border-t border-cyan/30 pt-5"
+              className="border-t border-gold/30 pt-5"
             >
               <h3 className="display text-xl text-ivory md:text-2xl">{p.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">

@@ -60,7 +60,7 @@ export function FreeDemo() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-cyan/30 bg-black/30 p-4 shadow-[0_0_40px_rgba(62,200,240,0.12)] sm:p-5 md:p-6">
+          <div className="rounded-2xl border border-gold/25 bg-black/30 p-4 shadow-[0_0_40px_rgba(240,208,120,0.1)] sm:p-5 md:p-6">
             <p className="text-[11px] tracking-[0.18em] text-muted">סוג עסק</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {demoNiches.map((niche) => {
@@ -72,8 +72,8 @@ export function FreeDemo() {
                     onClick={() => setNicheId(niche.id)}
                     className={`rounded-full px-3 py-2 text-sm transition sm:px-3.5 ${
                       active
-                        ? "bg-cyan text-rich-black shadow-[0_0_24px_rgba(62,200,240,0.5)]"
-                        : "border border-white/15 text-ivory hover:border-cyan/50 hover:text-cyan-bright"
+                        ? "bg-gold text-rich-black shadow-[0_0_24px_rgba(240,208,120,0.45)]"
+                        : "border border-white/15 text-ivory hover:border-gold/50 hover:text-gold-bright"
                     }`}
                   >
                     {niche.label}
@@ -92,7 +92,7 @@ export function FreeDemo() {
                 rows={3}
                 maxLength={280}
                 placeholder="למשל: כפתור לתור, תפריט עוגות, או מראה שקט למספרה…"
-                className="mt-2 w-full resize-none rounded-xl border border-white/12 bg-black/35 px-4 py-3 text-sm text-ivory outline-none placeholder:text-muted/70 focus:border-cyan/50 focus:shadow-[0_0_20px_rgba(62,200,240,0.18)]"
+                className="mt-2 w-full resize-none rounded-xl border border-white/12 bg-black/35 px-4 py-3 text-sm text-ivory outline-none placeholder:text-muted/70 focus:border-gold/45 focus:shadow-[0_0_20px_rgba(240,208,120,0.12)]"
               />
             </label>
 
