@@ -17,14 +17,14 @@ export function Testimonials() {
       />
 
       <div className="relative mx-auto max-w-6xl">
-        <p className="text-xs tracking-[0.22em] text-cyan-bright">מה אומרים</p>
+        <p className="text-xs tracking-[0.22em] text-pink">מה אומרים</p>
         <h2 className="display mt-3 max-w-xl text-3xl text-ivory md:text-5xl">
-          אחרי שהאתר{" "}
-          <span className="ink-cyan">עלה</span>
+          שלושה עסקים.{" "}
+          <span className="ink-gold">שלוש תוצאות</span>.
         </h2>
         <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted md:text-base">
-          שלושה עסקים <span className="ink-gold">חיים</span> — ומה השתנה אצלם
-          ביום־יום.
+          לא סיסמאות — מה קרה אצלם אחרי שהאתר{" "}
+          <span className="ink-cyan">עלה</span>.
         </p>
 
         <ul className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-3">

@@ -56,7 +56,7 @@ function StrikeLine({
         <motion.span
           aria-hidden
           style={{ scaleX, originX: 1 }}
-          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-cyan-bright via-cyan to-platinum/70"
+          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-pink to-cyan/70"
         />
       </span>
     </motion.li>
@@ -83,10 +83,10 @@ export function FailedBefore() {
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(62,200,240,0.14),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(26,168,200,0.12),transparent_45%)]" />
         <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-5 sm:px-8">
-          <p className="text-xs tracking-[0.28em] text-cyan-bright">בואו נהיה כנים</p>
+          <p className="text-xs tracking-[0.28em] text-pink">בואו נהיה כנים</p>
           <h2 className="display mt-3 max-w-3xl text-[clamp(1.6rem,4.5vw,3.2rem)] leading-[1.15] text-ivory sm:mt-4">
-            לפני שסוגרים — מה כבר{" "}
-            <span className="ink-cyan">ניסיתם</span>?
+            מה כבר ניסיתם — ולמה זה{" "}
+            <span className="ink-gold">לא עבד</span>?
           </h2>
 
           <ul className="mt-8 max-w-3xl sm:mt-10">

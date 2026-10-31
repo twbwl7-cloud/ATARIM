@@ -34,17 +34,16 @@ export function FreeDemo() {
 
         <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
-            <p className="text-xs tracking-[0.24em] text-cyan-bright">
+            <p className="text-xs tracking-[0.24em] text-gold">
               דוגמה בחינם
             </p>
-            {/* L25 free · L29 small step */}
             <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-              קודם רואים.{" "}
-              <span className="ink-cyan">אחר כך</span> מחליטים.
+              שלחו שלוש מילים.{" "}
+              <span className="ink-gold">תקבלו דף</span>.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:mt-5 md:text-base">
-              בחרו סוג עסק, כתבו משפט על מה חשוב לכם, ושלחו. תקבלו דוגמה{" "}
-              <span className="ink-gold">שלכם</span> — בלי כרטיס אשראי.
+              בחרו סוג עסק, כתבו מה חשוב, ושלחו בוואטסאפ. בלי כרטיס אשראי ובלי{" "}
+              <span className="ink-rose">התחייבות</span>.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-platinum sm:mt-6">
               <li>

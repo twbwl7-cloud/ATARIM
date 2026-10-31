@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const LINE =
-  "לקוחות לא זוכרים תבנית. הם זוכרים את הרגע שבו לחצו וכתבו לכם.";
+  "לא זוכרים תבנית. זוכרים את הרגע שבו לחצו וכתבו לכם בוואטסאפ.";
 
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
@@ -26,7 +26,7 @@ export function ScrollStory() {
           <div className="h-px w-16 overflow-hidden bg-white/10 sm:w-24 md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-platinum"
+              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
             />
           </div>
         </div>

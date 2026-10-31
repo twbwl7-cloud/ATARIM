@@ -71,10 +71,10 @@ export function WhyRare() {
       />
 
       <div className="relative mx-auto max-w-5xl">
-        <p className="text-xs tracking-[0.22em] text-cyan-bright">למה איתי</p>
+        <p className="text-xs tracking-[0.22em] text-gold">למה איתי</p>
         <h2 className="display mt-3 max-w-xl text-3xl text-ivory md:text-5xl">
-          קצר. ברור.{" "}
-          <span className="ink-cyan">בלי סיבובים</span>.
+          שיחה אחת. בנייה אחת.{" "}
+          <span className="ink-gold">בלי תיווך</span>.
         </h2>
 
         <ul className="mt-10 grid gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-10">

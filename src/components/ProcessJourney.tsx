@@ -68,8 +68,8 @@ const STEPS = [
 ] as const;
 
 const NUM = {
-  gold: "text-cyan-bright",
-  rose: "text-platinum",
+  gold: "text-gold-bright",
+  rose: "text-pink",
   cyan: "text-cyan-bright",
 } as const;
 
@@ -95,20 +95,20 @@ export function ProcessJourney() {
         />
 
         <div className="relative z-10 mx-auto w-full max-w-3xl shrink-0 px-5 pt-20 sm:px-8 sm:pt-24">
-          <p className="text-xs tracking-[0.22em] text-cyan-bright">איך זה עובד</p>
+          <p className="text-xs tracking-[0.22em] text-gold">איך זה עובד</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-            מההודעה עד שהאתר{" "}
-            <span className="ink-cyan">חי</span>
+            חמישה שלבים עד{" "}
+            <span className="ink-gold">עלייה לאוויר</span>
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted md:text-base">
             המסך <span className="ink-cyan">נשאר</span>. גללו — רק השלבים זזים.
-            חמישה שלבים, כל אחד עם{" "}
-            <span className="ink-gold">תוצאה</span>.
+            כל שלב נגמר בתוצאה{" "}
+            <span className="ink-rose">ברורה</span>.
           </p>
           <div className="mt-5 h-px w-full max-w-xs overflow-hidden bg-white/10">
             <motion.div
               style={{ width: progressWidth }}
-              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-platinum"
+              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ export function ProcessJourney() {
           <motion.div
             aria-hidden
             style={{ scaleY: lineScale, transformOrigin: "top" }}
-            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-cyan via-cyan-bright to-platinum/40 md:right-[19px]"
+            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-gold via-cyan-bright to-pink/50 md:right-[19px]"
           />
 
           <motion.ol style={{ y: contentY }} className="relative space-y-14 pb-40 sm:space-y-16 md:space-y-20">

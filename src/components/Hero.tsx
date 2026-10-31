@@ -35,10 +35,10 @@ function PlungeStage({
   const veilOpacity = useTransform(progress, [0.72, 0.9, 1], [0, 0.5, 1]);
 
   return (
-    <div className="relative h-screen overflow-hidden bg-[#030b14]">
+    <div className="relative h-screen overflow-hidden bg-[#041525]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_50%_10%,rgba(62,200,240,0.28),transparent_48%),radial-gradient(ellipse_at_80%_60%,rgba(138,232,255,0.14),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(26,168,200,0.12),transparent_42%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_50%_8%,rgba(56,189,248,0.28),transparent_48%),radial-gradient(ellipse_at_80%_55%,rgba(240,208,120,0.12),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(245,208,220,0.1),transparent_42%)]"
       />
       <HeroScene intensity={reduce ? intensityRaw : intensity} />
 
@@ -50,21 +50,21 @@ function PlungeStage({
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="mb-3 text-[11px] tracking-[0.22em] text-cyan-bright"
+          className="mb-3 text-[11px] tracking-[0.22em] text-gold"
         >
-          דוד טובול · בונה אתרים
+          דוד טובול · אתרים לעסקים
         </motion.p>
-        {/* H01 · ≤8 words · benefit first */}
+        {/* H01 · ≤8 words · book */}
         <h1 className="display max-w-3xl text-[clamp(1.75rem,6.4vw,3.5rem)] leading-[1.12] text-ivory">
-          אתר שמביא{" "}
-          <span className="ink-cyan">הודעות</span>.
+          לקוחות כותבים{" "}
+          <span className="ink-gold">קודם</span>.
           <br />
-          לא עוד דף{" "}
-          <span className="ink-cyan">יפה</span>.
+          אתם עונים{" "}
+          <span className="ink-rose">אחר כך</span>.
         </h1>
         <p className="mt-3 max-w-md text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-base">
-          רואים <span className="ink-cyan">דוגמה בחינם</span> לפני שמשלמים.
-          גללו — ונכנסים פנימה.
+          דוגמה של העמוד שלכם —{" "}
+          <span className="ink-cyan">בחינם</span>, לפני שקל אחד.
         </p>
         <div className="pointer-events-auto mt-5 flex w-full max-w-md flex-col items-stretch gap-2.5 sm:mt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
           <a
@@ -82,7 +82,7 @@ function PlungeStage({
         </div>
         <p className="pointer-events-none mt-4 text-[11px] tracking-[0.04em] text-platinum/85">
           בלי התחייבות · עונים בוואטסאפ ·{" "}
-          <span className="ink-cyan" dir="ltr">
+          <span className="ink-gold" dir="ltr">
             052-318-2032
           </span>
         </p>
@@ -98,7 +98,7 @@ function PlungeStage({
       <motion.div
         aria-hidden
         style={{ opacity: veilOpacity }}
-        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(30,160,200,0.3)_0%,rgba(3,11,20,0.95)_42%,#030b14_70%)]"
+        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.28)_0%,rgba(4,21,37,0.95)_42%,#041525_70%)]"
       />
     </div>
   );
@@ -123,11 +123,11 @@ export function Hero() {
 
   if (reduce) {
     return (
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[#030b14] px-5 pt-24 text-center">
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[#041525] px-5 pt-24 text-center">
         <h1 className="display text-4xl text-ivory md:text-5xl">
-          אתר שמביא <span className="ink-cyan">הודעות</span>.
+          לקוחות כותבים <span className="ink-gold">קודם</span>.
           <br />
-          לא עוד דף <span className="ink-cyan">יפה</span>.
+          אתם עונים <span className="ink-rose">אחר כך</span>.
         </h1>
         <a href="#free-demo" className="btn-gold mt-8 rounded-full px-7 py-3.5 text-sm">
           לקבלת דוגמה בחינם
@@ -137,7 +137,7 @@ export function Hero() {
   }
 
   return (
-    <section ref={ref} className="relative h-[240vh] bg-[#030b14] sm:h-[260vh] md:h-[280vh]">
+    <section ref={ref} className="relative h-[240vh] bg-[#041525] sm:h-[260vh] md:h-[280vh]">
       <div className="sticky top-0 h-screen">
         <PlungeStage progress={scrollYProgress} reduce={false} />
       </div>

@@ -14,9 +14,10 @@ export function AboutSection() {
         className="pointer-events-none absolute -right-20 top-10 h-56 w-56 rounded-full bg-cyan/14 blur-3xl md:right-1/3"
       />
       <div>
-        <p className="text-xs tracking-[0.24em] text-cyan-bright">עליי</p>
+        <p className="text-xs tracking-[0.24em] text-pink">עליי</p>
         <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-          דוד טובול. בונה אתרים ש<span className="ink-cyan">מביאים</span>.
+          דוד טובול. כותב קוד.{" "}
+          <span className="ink-gold">סוגר תורים</span>.
         </h2>
         <motion.p
           initial={{ opacity: 0, y: 12 }}

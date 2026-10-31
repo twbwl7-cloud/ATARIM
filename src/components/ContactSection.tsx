@@ -21,13 +21,13 @@ export function ContactSection() {
           className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-l from-transparent via-cyan/55 to-transparent"
         />
         <div className="relative max-w-2xl">
-          <p className="text-xs tracking-[0.24em] text-cyan-bright">דברו איתי</p>
+          <p className="text-xs tracking-[0.24em] text-gold">דברו איתי</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-            דוגמה <span className="ink-cyan">בחינם</span> — או שיחה{" "}
-            <span className="ink-gold">קצרה</span>
+            כתבו מה העסק.{" "}
+            <span className="ink-gold">נחזור היום</span>.
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-muted md:text-base">
-            כתבו מה העסק. תקבלו תשובה בוואטסאפ. בלי טופס ארוך ובלי{" "}
+            וואטסאפ או טלפון. בלי טופס של עשר שדות ובלי{" "}
             <span className="ink-rose">התחייבות</span>.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">

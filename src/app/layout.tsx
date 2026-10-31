@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "דוד טובול — אתר שמביא הודעות בוואטסאפ. רואים דוגמה בחינם לפני שמשלמים.",
+    "דוד טובול — לקוחות כותבים קודם, אתם עונים אחר כך. דוגמה בחינם לפני שקל אחד.",
   openGraph: {
     title: site.name,
     description: site.tagline,
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="rtl"
       className={`${rubik.variable} ${secular.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col overflow-x-hidden bg-[#061018] font-sans text-ivory">
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-[#041525] font-sans text-ivory">
         <LenisProvider>
           <div className="noise" aria-hidden />
           <SiteChrome>{children}</SiteChrome>

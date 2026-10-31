@@ -86,8 +86,8 @@ export function PinnedPillars() {
           <div>
             <p className="text-xs tracking-[0.28em] text-platinum">השיטה</p>
             <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-              חמש מילים שמחזיקות{" "}
-              <span className="ink-cyan">אתר</span>
+              חמש מילים לפני{" "}
+              <span className="ink-gold">עלייה לאוויר</span>
             </h2>
             <p className="mt-3 max-w-md text-sm text-muted">
               זה מה שבודקים לפני שמעלים ל
@@ -97,7 +97,7 @@ export function PinnedPillars() {
           <div className="hidden h-px w-28 overflow-hidden bg-white/10 sm:block md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-platinum"
+              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
             />
           </div>
         </div>

@@ -65,7 +65,7 @@ function WheelCard({
         style={{ opacity, scale }}
         className={`relative h-full w-full overflow-hidden rounded-2xl transition-[box-shadow,filter] duration-300 ${
           active
-            ? "shadow-[0_0_36px_rgba(62,200,240,0.28),0_18px_44px_rgba(0,0,0,0.5)] ring-1 ring-cyan-bright/50"
+            ? "shadow-[0_0_36px_rgba(56,180,255,0.2),0_18px_44px_rgba(0,0,0,0.5)] ring-1 ring-gold-bright/45"
             : "shadow-[0_12px_32px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
         }`}
       >
@@ -85,14 +85,14 @@ function WheelCard({
         </div>
 
         <div className="absolute inset-x-0 bottom-0 p-3 sm:p-3.5">
-          <p className="text-[9px] tracking-[0.18em] text-cyan-bright">{project.client}</p>
+          <p className="text-[9px] tracking-[0.18em] text-gold-bright">{project.client}</p>
           <p className="display mt-0.5 text-base text-ivory sm:text-lg md:text-xl">{project.title}</p>
           <p className="mt-1 line-clamp-2 text-[10px] leading-snug text-platinum sm:text-xs">
             {project.summary}
           </p>
           <span
             className={`mt-2 inline-flex text-[11px] font-medium sm:mt-2.5 sm:text-xs ${
-              active ? "text-cyan-bright" : "text-platinum"
+              active ? "text-gold-bright" : "text-platinum"
             }`}
           >
             ← כניסה לאתר החי
@@ -163,19 +163,19 @@ export function WorkWheel() {
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:gap-4 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
-              <p className="text-xs tracking-[0.22em] text-cyan-bright">עבודות חיות</p>
+              <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
               <h2 className="display mt-2 text-2xl text-ivory sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
-                שלושה אתרים שאפשר{" "}
-                <span className="ink-cyan">לפתוח</span>
+                שלושה אתרים.{" "}
+                <span className="ink-gold">לחצו ונכנסים</span>.
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                גללו לאט. לחצו על הכרטיס הקדמי — נכנסים לאתר{" "}
-                <span className="ink-gold">האמיתי</span>.
+                גללו לאט. הכרטיס הקדמי פותח את האתר{" "}
+                <span className="ink-cyan">עצמו</span> — לא צילום.
               </p>
             </div>
 
             <div className="max-w-xs text-start md:text-left">
-              <p className="text-[11px] tracking-[0.2em] text-cyan-bright">
+              <p className="text-[11px] tracking-[0.2em] text-gold">
                 {String(active + 1).padStart(2, "0")} /{" "}
                 {String(projects.length).padStart(2, "0")}
               </p>
@@ -201,7 +201,7 @@ export function WorkWheel() {
           <div className="relative z-10 flex flex-1 items-center justify-center">
             <motion.div
               style={{ scale: ringScale }}
-              className="pointer-events-none absolute h-[min(42vh,300px)] w-[min(42vh,300px)] rounded-full border border-cyan/20 sm:h-[min(48vh,360px)] sm:w-[min(48vh,360px)]"
+              className="pointer-events-none absolute h-[min(42vh,300px)] w-[min(42vh,300px)] rounded-full border border-gold/15 sm:h-[min(48vh,360px)] sm:w-[min(48vh,360px)]"
             />
             <motion.div
               style={{ scale: ringScale }}
@@ -253,14 +253,14 @@ export function WorkWheel() {
               גללו — הגלגל זז
             </motion.p>
             <div className="h-px min-w-0 flex-1 overflow-hidden bg-white/10 sm:w-40 sm:flex-none">
-              <motion.div style={{ width: progressWidth }} className="h-full bg-cyan" />
+              <motion.div style={{ width: progressWidth }} className="h-full bg-gold" />
             </div>
             <div className="flex gap-2">
               {projects.map((p, i) => (
                 <span
                   key={p.id}
                   className={`h-1.5 w-1.5 rounded-full transition ${
-                    i === active ? "bg-cyan scale-125" : "bg-white/25"
+                    i === active ? "bg-gold scale-125" : "bg-white/25"
                   }`}
                 />
               ))}

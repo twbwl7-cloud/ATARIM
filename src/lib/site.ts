@@ -1,7 +1,7 @@
 export const site = {
   name: "David Tubul",
   nameHe: "דוד טובול",
-  tagline: "אתר שמביא הודעות בוואטסאפ",
+  tagline: "לקוחות כותבים קודם — אתם עונים אחר כך",
   short: "David Tubul",
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
@@ -115,7 +115,6 @@ export const projects: Project[] = [
   },
 ];
 
-/** L19 — real notes, no fake stars / 100% */
 export const testimonials = [
   {
     quote:
@@ -153,7 +152,7 @@ export const formats = [
     title: "אתר תדמית",
     body: "מי אתם, מה עושים, ולמה אצלכם. אחרי זה וואטסאפ או תור.",
     lever: "ברור · עובד",
-    accent: "cyan" as const,
+    accent: "rose" as const,
   },
   {
     code: "03",
