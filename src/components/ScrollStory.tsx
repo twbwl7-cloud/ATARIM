@@ -22,11 +22,11 @@ export function ScrollStory() {
     >
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center justify-between gap-4 sm:mb-8">
-          <p className="text-xs tracking-[0.28em] text-cyan-bright">בקצרה</p>
+          <p className="text-xs tracking-[0.28em] text-gold-bright">בקצרה</p>
           <div className="h-px w-16 overflow-hidden bg-white/10 sm:w-24 md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
+              className="h-full bg-gradient-to-l from-gold via-gold to-pink"
             />
           </div>
         </div>

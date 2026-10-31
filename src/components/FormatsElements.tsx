@@ -17,10 +17,10 @@ const ACCENT = {
     chip: "bg-pink/15 text-pink",
   },
   cyan: {
-    num: "text-cyan-bright",
-    border: "border-cyan/35 hover:border-cyan/60",
+    num: "text-gold-bright",
+    border: "border-gold/35 hover:border-gold/60",
     glow: "group-hover:shadow-[0_0_40px_rgba(62,220,200,0.22)]",
-    chip: "bg-cyan/15 text-cyan-bright",
+    chip: "bg-gold/15 text-gold-bright",
   },
   violet: {
     num: "text-violet",
@@ -39,11 +39,11 @@ export function FormatsElements() {
       <div aria-hidden className="aurora" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-cyan/16 blur-3xl"
+        className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-gold/16 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-cyan/10 blur-3xl"
+        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-gold/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl">
@@ -101,7 +101,7 @@ export function FormatsElements() {
           </div>
 
           <div>
-            <p className="mb-4 text-[11px] tracking-[0.22em] text-cyan-bright">
+            <p className="mb-4 text-[11px] tracking-[0.22em] text-gold-bright">
               איך זה מרגיש
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -114,7 +114,7 @@ export function FormatsElements() {
                   transition={{ delay: i * 0.04, duration: 0.4 }}
                   className="premium-panel rounded-2xl p-5"
                 >
-                  <p className="text-[11px] tracking-[0.18em] text-cyan-bright">
+                  <p className="text-[11px] tracking-[0.18em] text-gold-bright">
                     {el.code}
                   </p>
                   <h3 className="display mt-2 text-lg text-ivory">

@@ -70,7 +70,7 @@ const STEPS = [
 const NUM = {
   gold: "text-gold-bright",
   rose: "text-pink",
-  cyan: "text-cyan-bright",
+  cyan: "text-gold-bright",
 } as const;
 
 export function ProcessJourney() {
@@ -87,11 +87,11 @@ export function ProcessJourney() {
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="process" ref={ref} className="relative z-10 h-[320vh] bg-[#041018] sm:h-[340vh]">
+    <section id="process" ref={ref} className="relative z-10 h-[320vh] bg-[var(--ink)] sm:h-[340vh]">
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(62,200,240,0.2),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(26,168,200,0.14),transparent_45%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(196,163,90,0.12),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(184,116,92,0.08),transparent_45%)]"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-3xl shrink-0 px-5 pt-20 sm:px-8 sm:pt-24">
@@ -101,14 +101,12 @@ export function ProcessJourney() {
             <span className="ink-gold">עלייה לאוויר</span>
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted md:text-base">
-            המסך <span className="ink-cyan">נשאר</span>. גללו — רק השלבים זזים.
-            כל שלב נגמר בתוצאה{" "}
-            <span className="ink-rose">ברורה</span>.
+            המסך נשאר. גללו — רק השלבים זזים. כל שלב נגמר בתוצאה ברורה.
           </p>
           <div className="mt-5 h-px w-full max-w-xs overflow-hidden bg-white/10">
             <motion.div
               style={{ width: progressWidth }}
-              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
+              className="h-full bg-gold"
             />
           </div>
         </div>
@@ -121,7 +119,7 @@ export function ProcessJourney() {
           <motion.div
             aria-hidden
             style={{ scaleY: lineScale, transformOrigin: "top" }}
-            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-gold via-cyan-bright to-pink/50 md:right-[19px]"
+            className="absolute top-0 right-[11px] h-[calc(100%-6rem)] w-px bg-gradient-to-b from-gold via-gold-dim to-pink/40 md:right-[19px]"
           />
 
           <motion.ol style={{ y: contentY }} className="relative space-y-14 pb-40 sm:space-y-16 md:space-y-20">
@@ -129,7 +127,7 @@ export function ProcessJourney() {
               <li key={step.n} className="relative flex gap-5 md:gap-10">
                 <span
                   aria-hidden
-                  className="relative z-10 mt-1.5 h-6 w-6 shrink-0 rounded-full border-2 border-cyan bg-[#041018] shadow-[0_0_18px_rgba(62,200,240,0.55)] md:mt-2 md:h-10 md:w-10"
+                  className="relative z-10 mt-1.5 h-6 w-6 shrink-0 rounded-full border-2 border-gold bg-[var(--ink)] md:mt-2 md:h-10 md:w-10"
                 />
                 <div className="min-w-0 pb-1">
                   <p className={`display text-sm ${NUM[step.accent]}`}>{step.n}</p>
@@ -140,7 +138,7 @@ export function ProcessJourney() {
                     {step.body}
                   </p>
                   <p className="mt-4 text-[11px] tracking-[0.14em] text-platinum">
-                    תוצאה · <span className="ink-cyan">{step.outcome}</span>
+                    תוצאה · <span className="ink-gold">{step.outcome}</span>
                   </p>
                 </div>
               </li>
@@ -150,25 +148,25 @@ export function ProcessJourney() {
 
         <motion.div
           style={{ opacity: ctaOpacity }}
-          className="relative z-20 mx-auto flex w-full max-w-3xl flex-col gap-4 border-t border-cyan/25 bg-[#041018]/90 px-5 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6"
+          className="relative z-20 mx-auto flex w-full max-w-3xl flex-col gap-4 border-t border-gold/25 bg-[var(--ink)]/90 px-5 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6"
         >
           <div>
             <p className="display text-lg text-ivory sm:text-xl">
-              רוצים קודם לראות <span className="ink-cyan">דוגמה</span>?
+              רוצים קודם לראות <span className="ink-gold">דוגמה</span>?
             </p>
             <p className="mt-1 text-sm text-muted">
               <span className="ink-gold">בחינם</span> · בלי התחייבות
             </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
-            <a href="#free-demo" className="btn-gold rounded-full px-6 py-3 text-center text-sm">
+            <a href="#free-demo" className="btn-gold rounded-md px-6 py-3 text-center text-sm">
               לקבלת דוגמה בחינם
             </a>
             <a
               href={whatsappUrl("היי דוד, בא לי לקבוע שיחה קצרה על אתר לעסק שלי.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost rounded-full px-6 py-3 text-center text-sm"
+              className="btn-ghost rounded-md px-6 py-3 text-center text-sm"
             >
               לשיחה בוואטסאפ
             </a>

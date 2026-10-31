@@ -74,11 +74,11 @@ export function PinnedPillars() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-10 top-20 h-64 w-64 rounded-full bg-cyan/14 blur-3xl"
+        className="pointer-events-none absolute -left-10 top-20 h-64 w-64 rounded-full bg-gold/14 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-cyan/10 blur-3xl"
+        className="pointer-events-none absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-gold/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-5xl">
@@ -97,7 +97,7 @@ export function PinnedPillars() {
           <div className="hidden h-px w-28 overflow-hidden bg-white/10 sm:block md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
+              className="h-full bg-gradient-to-l from-gold via-gold to-pink"
             />
           </div>
         </div>

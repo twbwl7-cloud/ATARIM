@@ -7,7 +7,7 @@ import * as THREE from "three";
 import type { MotionValue } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 
-const VOID = "#07090d";
+const VOID = "#0b0a09";
 const GLB_CANDIDATES = [
   "/models/MacbookProProledXDR4K.glb",
   "/models/macbook-pro-proledxdr-4k.glb",
@@ -321,9 +321,9 @@ function GlbMacbook({
     <Float speed={0.7} rotationIntensity={0.02} floatIntensity={0.08}>
       <group ref={root}>
         <primitive object={cloned} />
-        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.25} color="#e8eef8" distance={12} />
-        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.55} color="#7a90b8" distance={9} />
-        <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.7} intensity={1.6} color="#f2f5fa" />
+        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.15} color="#f0e6d2" distance={12} />
+        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.45} color="#c4a35a" distance={9} />
+        <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.7} intensity={1.4} color="#f2ebe0" />
       </group>
     </Float>
   );
@@ -360,17 +360,17 @@ function MacbookSwitcher({ intensity }: { intensity: MotionValue<number> }) {
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.32} />
-      <directionalLight position={[4, 6, 3]} intensity={1.2} color="#f4f7fb" />
-      <directionalLight position={[-3, 2, -2]} intensity={0.28} color="#5a6a88" />
+      <ambientLight intensity={0.28} />
+      <directionalLight position={[4, 6, 3]} intensity={1.05} color="#f2ebe0" />
+      <directionalLight position={[-3, 2, -2]} intensity={0.25} color="#8a7340" />
     </>
   );
 }
 
 export function HeroScene({ intensity }: { intensity: MotionValue<number> }) {
   return (
-    <div className="absolute inset-0 bg-[#07090d]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(100,130,180,0.18),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(18,24,36,0.55),transparent_58%)]" />
+    <div className="absolute inset-0 bg-[#0b0a09]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(196,163,90,0.12),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(11,10,9,0.55),transparent_58%)]" />
       <Canvas
         dpr={[1, 1.75]}
         camera={{ position: [0, 1.35, 3.6], fov: 30 }}

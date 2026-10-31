@@ -1,22 +1,22 @@
-# דוד טובול — פורטפוליו פרימיום
+# דוד טובול — פורטפוליו
 
-אתר קטלוג / תיק עבודות בעברית (RTL) לפיתוח חוויות אינטראקטיביות ופלטפורמות פרימיום.
+אתר תיק עבודות בעברית (RTL) לבניית אתרים לעסקים. דיבור ישיר, דוגמה בחינם, כניסה לאתרים חיים.
 
 ## סטאק
 
 - **Next.js** (App Router) + **Tailwind CSS**
-- **React Three Fiber** / Three.js — Hero MacBook Pro (ProledXDR) עם כניסה למסך
-- **Framer Motion** + **Lenis** — גלילה נעוצה, מגנטיות, word-ignite
+- **React Three Fiber** — Hero MacBook
+- **Framer Motion** + **Lenis** — גלילה נעוצה
 - Mobile-first · Hebrew RTL · CTA לוואטסאפ
 
-מבוסס על חבילת ה־playbooks ב־`doks/` (פסיכולוגיה P*, אנימציות A*, סקריפט דימו).
+מבוסס על חבילת ה־playbooks ב־`doks/` (פסיכולוגיה, אנימציות, סקריפט דימו, סקריפט 6 — טיהור AI).
 
 ## הרצה
 
 ```bash
 npm install
 cp .env.example .env.local   # ועדכנו מספר וואטסאפ
-npm run dev
+npm run dev -- --port 43128 --hostname 127.0.0.1
 ```
 
 פתחו [http://127.0.0.1:43128](http://127.0.0.1:43128).
@@ -25,13 +25,11 @@ npm run dev
 
 | נתיב | תוכן |
 |------|------|
-| `/` | Hero MacBook 3D (plunge למסך), **גלגל עבודות נעוץ** (לולילק · Cookk · לוקסי), תהליך, למה נדיר |
-| `public/models/` | שימו כאן `MacbookProProledXDR4K.glb` מה־zip של Sketchfab — ה־Hero מחליף אוטומטית |
-| `/demo/[slug]` | דימו חי לכל פרויקט (POC בלי שרת, noindex) |
-| `/portfolio` | קטלוג כרטיסים מלא |
-| `/about` | גישה טכנולוגית ועיצובית |
-| `/contact` | CTA לוואטסאפ |
+| `/` | Hero, עבודות במסגרות מכשיר (מובייל↔מובייל, מחשב↔מחשב), תהליך, דוגמה בחינם |
+| `public/work/mobile/` | צילומי מסך לטלפון |
+| `public/work/desktop/` | צילומי מסך למחשב |
+| `/demo/[slug]` | דימו חי (POC בלי שרת) |
+| `/about` | עליי |
+| `/contact` | יצירת קשר |
 
-אחרי ה־Hero: גללו — המסך נשאר והגלגל מסתובב. לחיצה על הכרטיס הקדמי פותחת את האתר החי (Vercel).
-
-עדכנו `NEXT_PUBLIC_WHATSAPP_NUMBER` ב־`.env.local`.
+עדכנו `NEXT_PUBLIC_WHATSAPP_NUMBER` ב־`.env.local` (ברירת מחדל: 052-318-2032).

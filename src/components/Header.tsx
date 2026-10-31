@@ -27,7 +27,7 @@ export function Header() {
               fill
               sizes="48px"
               unoptimized
-              className="object-contain drop-shadow-[0_0_20px_rgba(56,180,255,0.65)]"
+              className="object-contain drop-shadow-[0_6px_18px_rgba(0,0,0,0.55)]"
             />
           </span>
           <span
@@ -38,7 +38,6 @@ export function Header() {
               backgroundClip: "text",
               color: "transparent",
               WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 0 10px rgba(224,180,90,0.35))",
             }}
           >
             David Tubul
@@ -53,7 +52,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-full px-4 py-2 text-sm transition ${
+                className={`rounded-md px-4 py-2 text-sm transition ${
                   active ? "text-gold-bright" : "text-muted hover:text-ivory"
                 }`}
               >
@@ -66,7 +65,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/#free-demo"
-            className="btn-gold inline-flex rounded-full px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
+            className="btn-gold inline-flex rounded-md px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
             onClick={() => setOpen(false)}
           >
             דוגמה בחינם
@@ -75,7 +74,7 @@ export function Header() {
             type="button"
             aria-expanded={open}
             aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-            className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-ivory sm:h-11 sm:w-11 md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-md border border-white/15 text-ivory sm:h-11 sm:w-11 md:hidden"
             onClick={() => setOpen((v) => !v)}
           >
             <span className="flex w-4 flex-col gap-1.5">

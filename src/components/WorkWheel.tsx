@@ -1,104 +1,62 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
-  type MotionValue,
 } from "framer-motion";
 import { projectHref, projects, type Project } from "@/lib/site";
 
-const ANGLE = 360 / projects.length;
-
-const PREVIEWS: Record<string, string> = {
-  lulilac: "/work/lulilac.jpg",
-  cookk: "/work/cookk.jpg",
-  "luxe-barber": "/work/luxe-barber.jpg",
-};
-
-function nearestIndex(rotationDeg: number) {
-  const normalized = ((-rotationDeg % 360) + 360) % 360;
-  return Math.round(normalized / ANGLE) % projects.length;
+function PhonePreview({ project, priority }: { project: Project; priority?: boolean }) {
+  const src = `/work/mobile/${project.id}.jpg`;
+  return (
+    <div className="phone-frame mx-auto w-[min(72vw,280px)] sm:w-[min(58vw,300px)]">
+      <div className="phone-screen">
+        <Image
+          src={src}
+          alt={`תצוגת מובייל — ${project.title}`}
+          fill
+          className="object-cover object-top"
+          sizes="(max-width: 768px) 72vw, 300px"
+          priority={priority}
+          quality={90}
+        />
+      </div>
+    </div>
+  );
 }
 
-function WheelCard({
-  project,
-  index,
-  active,
-  rotation,
-  radius,
-}: {
-  project: Project;
-  index: number;
-  active: boolean;
-  rotation: MotionValue<number>;
-  radius: number;
-}) {
-  const preview = PREVIEWS[project.id];
-
-  const opacity = useTransform(rotation, (r) => {
-    const face = (((r + index * ANGLE) % 360) + 360) % 360;
-    const dist = Math.min(face, 360 - face);
-    return dist < 55 ? 1 : dist < 110 ? 0.4 : 0.15;
-  });
-
-  const scale = useTransform(rotation, (r) => {
-    const face = (((r + index * ANGLE) % 360) + 360) % 360;
-    const dist = Math.min(face, 360 - face);
-    return dist < 40 ? 1.02 : dist < 100 ? 0.94 : 0.86;
-  });
+function DesktopPreview({ project, priority }: { project: Project; priority?: boolean }) {
+  const src = `/work/desktop/${project.id}.jpg`;
+  const host = project.liveUrl
+    ? project.liveUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
+    : "davidwebsitebuilder.vercel.app";
 
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute top-1/2 left-1/2 h-[min(34vh,220px)] w-[min(52vw,168px)] -translate-x-1/2 -translate-y-1/2 sm:h-[min(36vh,250px)] sm:w-[min(42vw,190px)] md:h-[min(38vh,280px)] md:w-[210px]"
-      style={{
-        transform: `rotateY(${index * ANGLE}deg) translateZ(${radius}px)`,
-        transformStyle: "preserve-3d",
-      }}
-    >
-      <motion.div
-        style={{ opacity, scale }}
-        className={`relative h-full w-full overflow-hidden rounded-2xl transition-[box-shadow,filter] duration-300 ${
-          active
-            ? "shadow-[0_0_36px_rgba(56,180,255,0.2),0_18px_44px_rgba(0,0,0,0.5)] ring-1 ring-gold-bright/45"
-            : "shadow-[0_12px_32px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
-        }`}
-      >
-        <div className="absolute inset-0 bg-[#0c1524]">
-          {preview ? (
-            <Image
-              src={preview}
-              alt=""
-              fill
-              className="object-cover object-top contrast-[1.05] saturate-[1.12]"
-              sizes="(max-width: 768px) 52vw, 210px"
-              priority={index === 0}
-              quality={90}
-            />
-          ) : null}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050a14]/95 via-[#050a14]/3 to-transparent" />
+    <div className="desktop-frame mx-auto w-full max-w-3xl">
+      <div className="desktop-chrome">
+        <div className="desktop-chrome-dots" aria-hidden>
+          <span />
+          <span />
+          <span />
         </div>
-
-        <div className="absolute inset-x-0 bottom-0 p-3 sm:p-3.5">
-          <p className="text-[9px] tracking-[0.18em] text-gold-bright">{project.client}</p>
-          <p className="display mt-0.5 text-base text-ivory sm:text-lg md:text-xl">{project.title}</p>
-          <p className="mt-1 line-clamp-2 text-[10px] leading-snug text-platinum sm:text-xs">
-            {project.summary}
-          </p>
-          <span
-            className={`mt-2 inline-flex text-[11px] font-medium sm:mt-2.5 sm:text-xs ${
-              active ? "text-gold-bright" : "text-platinum"
-            }`}
-          >
-            ← כניסה לאתר החי
-          </span>
-        </div>
-      </motion.div>
+        <div className="desktop-url">{host}</div>
+      </div>
+      <div className="desktop-screen">
+        <Image
+          src={src}
+          alt={`תצוגת מחשב — ${project.title}`}
+          fill
+          className="object-cover object-top"
+          sizes="(max-width: 1024px) 90vw, 768px"
+          priority={priority}
+          quality={90}
+        />
+      </div>
     </div>
   );
 }
@@ -111,7 +69,6 @@ export function WorkWheel() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
   const [reduce, setReduce] = useState(false);
-  const [radius, setRadius] = useState(280);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -121,56 +78,84 @@ export function WorkWheel() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  useEffect(() => {
-    const sync = () => {
-      const w = window.innerWidth;
-      if (w < 480) setRadius(190);
-      else if (w < 768) setRadius(230);
-      else if (w < 1024) setRadius(260);
-      else setRadius(290);
-    };
-    sync();
-    window.addEventListener("resize", sync);
-    return () => window.removeEventListener("resize", sync);
-  }, []);
-
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  const rawRotate = useTransform(scrollYProgress, [0.05, 0.92], [0, -ANGLE * projects.length]);
-  const rotation = useSpring(rawRotate, { stiffness: 48, damping: 36, mass: 0.65 });
+  const rawIndex = useTransform(
+    scrollYProgress,
+    [0.08, 0.92],
+    [0, projects.length - 0.001],
+  );
+  const sprung = useSpring(rawIndex, { stiffness: 70, damping: 28, mass: 0.4 });
 
-  useMotionValueEvent(rotation, "change", (v) => {
-    setActive(nearestIndex(v));
+  useMotionValueEvent(sprung, "change", (v) => {
+    const next = Math.min(projects.length - 1, Math.max(0, Math.floor(v)));
+    setActive((prev) => (prev === next ? prev : next));
   });
 
-  const ringScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.94, 1, 0.97]);
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.08, 0.2], [1, 0.6, 0]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
   const current = projects[active] ?? projects[0];
 
+  if (reduce) {
+    return (
+      <section id="work" className="relative bg-[var(--ink)] px-5 py-16 md:px-8 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
+          <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
+            שלושה אתרים. נכנסים אליהם.
+          </h2>
+          <ul className="mt-12 space-y-16">
+            {projects.map((project, i) => (
+              <li key={project.id} className="grid gap-8 md:grid-cols-2 md:items-center">
+                <div>
+                  <p className="text-[11px] tracking-[0.18em] text-gold">{project.client}</p>
+                  <h3 className="display mt-2 text-2xl text-ivory md:text-3xl">{project.title}</h3>
+                  <p className="mt-3 text-sm text-muted">{project.summary}</p>
+                  <a
+                    href={projectHref(project)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-gold mt-5 inline-flex rounded-md px-5 py-2.5 text-sm"
+                  >
+                    כניסה ל{project.title}
+                  </a>
+                </div>
+                <div>
+                  <div className="md:hidden">
+                    <PhonePreview project={project} priority={i === 0} />
+                  </div>
+                  <div className="hidden md:block">
+                    <DesktopPreview project={project} priority={i === 0} />
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section id="work" ref={ref} className="relative bg-[#070e18]">
-      <div className="relative h-[260vh] sm:h-[280vh] md:h-[300vh]">
+    <section id="work" ref={ref} className="relative bg-[var(--ink)]">
+      <div className="relative h-[280vh] sm:h-[300vh] md:h-[320vh]">
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(62,200,240,0.28),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(138,232,255,0.14),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(26,168,200,0.12),transparent_40%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,rgba(196,163,90,0.1),transparent_55%)]"
           />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:gap-4 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
               <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
-              <h2 className="display mt-2 text-2xl text-ivory sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
+              <h2 className="display mt-2 text-2xl text-ivory sm:text-3xl md:text-4xl lg:text-5xl">
                 שלושה אתרים.{" "}
                 <span className="ink-gold">לחצו ונכנסים</span>.
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                גללו לאט. הכרטיס הקדמי פותח את האתר{" "}
-                <span className="ink-cyan">עצמו</span> — לא צילום.
+                בטלפון — מסך טלפון. במחשב — מסך מחשב. כמו אצל הלקוח.
               </p>
             </div>
 
@@ -179,10 +164,13 @@ export function WorkWheel() {
                 {String(active + 1).padStart(2, "0")} /{" "}
                 {String(projects.length).padStart(2, "0")}
               </p>
-              <p className="display mt-1 text-xl text-ivory sm:mt-2 sm:text-2xl md:text-3xl">
+              <p className="display mt-1 text-xl text-ivory sm:text-2xl md:text-3xl">
                 {current.title}
               </p>
               <p className="mt-1 text-sm text-muted">{current.client}</p>
+              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-platinum sm:text-sm">
+                {current.summary}
+              </p>
               <a
                 href={projectHref(current)}
                 target="_blank"
@@ -191,67 +179,58 @@ export function WorkWheel() {
                   e.preventDefault();
                   openLive(projectHref(current));
                 }}
-                className="btn-gold relative z-30 mt-3 inline-flex rounded-full px-5 py-2.5 text-sm sm:mt-4"
+                className="btn-gold relative z-30 mt-3 inline-flex rounded-md px-5 py-2.5 text-sm sm:mt-4"
               >
                 כניסה ל{current.title}
               </a>
             </div>
           </div>
 
-          <div className="relative z-10 flex flex-1 items-center justify-center">
-            <motion.div
-              style={{ scale: ringScale }}
-              className="pointer-events-none absolute h-[min(42vh,300px)] w-[min(42vh,300px)] rounded-full border border-gold/15 sm:h-[min(48vh,360px)] sm:w-[min(48vh,360px)]"
-            />
-            <motion.div
-              style={{ scale: ringScale }}
-              className="pointer-events-none absolute h-[min(52vh,380px)] w-[min(52vh,380px)] rounded-full border border-white/5 sm:h-[min(58vh,440px)] sm:w-[min(58vh,440px)]"
-            />
-
-            <div
-              className="relative h-[min(40vh,300px)] w-full max-w-4xl sm:h-[min(44vh,340px)]"
-              style={{ perspective: "1200px", perspectiveOrigin: "50% 50%" }}
-            >
-              <motion.div
-                style={{
-                  rotateY: reduce ? 0 : rotation,
-                  transformStyle: "preserve-3d",
-                }}
-                className="pointer-events-none absolute inset-0"
-              >
-                {projects.map((project, i) => (
-                  <WheelCard
-                    key={project.id}
-                    project={project}
-                    index={i}
-                    active={i === active}
-                    rotation={rotation}
-                    radius={radius}
-                  />
-                ))}
-              </motion.div>
-
-              <a
-                href={projectHref(current)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openLive(projectHref(current));
-                }}
-                aria-label={`כניסה לאתר ${current.title}`}
-                className="absolute top-1/2 left-1/2 z-20 h-[min(34vh,220px)] w-[min(52vw,168px)] -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold sm:h-[min(36vh,250px)] sm:w-[min(42vw,190px)] md:h-[min(38vh,280px)] md:w-[210px]"
-              />
-            </div>
+          <div className="relative z-10 flex flex-1 items-center justify-center px-4 pb-4 pt-2 sm:px-6">
+            {projects.map((project, i) => {
+              const isActive = i === active;
+              return (
+                <motion.a
+                  key={project.id}
+                  href={projectHref(project)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-hidden={!isActive}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openLive(projectHref(project));
+                  }}
+                  aria-label={`כניסה לאתר ${project.title}`}
+                  initial={false}
+                  animate={{
+                    opacity: isActive ? 1 : 0,
+                    y: isActive ? 0 : 18,
+                    scale: isActive ? 1 : 0.96,
+                    pointerEvents: isActive ? "auto" : "none",
+                  }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className={`absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-8 ${
+                    isActive ? "z-20" : "z-10"
+                  }`}
+                >
+                  {/* Mobile: phone frame + mobile screenshot */}
+                  <div className="md:hidden">
+                    <PhonePreview project={project} priority={i === 0} />
+                  </div>
+                  {/* Desktop: laptop chrome + desktop screenshot */}
+                  <div className="hidden md:block">
+                    <DesktopPreview project={project} priority={i === 0} />
+                  </div>
+                </motion.a>
+              );
+            })}
           </div>
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-5 pb-6 sm:px-6 sm:pb-8 md:px-8">
-            <motion.p
-              style={{ opacity: hintOpacity }}
-              className="text-[10px] tracking-[0.18em] text-muted sm:text-xs sm:tracking-[0.24em]"
-            >
-              גללו — הגלגל זז
-            </motion.p>
+            <p className="text-[10px] tracking-[0.18em] text-muted sm:text-xs sm:tracking-[0.24em]">
+              גללו — האתר הבא
+            </p>
             <div className="h-px min-w-0 flex-1 overflow-hidden bg-white/10 sm:w-40 sm:flex-none">
               <motion.div style={{ width: progressWidth }} className="h-full bg-gold" />
             </div>
@@ -260,7 +239,7 @@ export function WorkWheel() {
                 <span
                   key={p.id}
                   className={`h-1.5 w-1.5 rounded-full transition ${
-                    i === active ? "bg-gold scale-125" : "bg-white/25"
+                    i === active ? "scale-125 bg-gold" : "bg-white/25"
                   }`}
                 />
               ))}

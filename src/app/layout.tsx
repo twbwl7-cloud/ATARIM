@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Rubik, Secular_One } from "next/font/google";
+import { Frank_Ruhl_Libre, Rubik } from "next/font/google";
 import { LenisProvider } from "@/components/LenisProvider";
 import { SiteChrome } from "@/components/SiteChrome";
 import { site } from "@/lib/site";
@@ -11,10 +11,10 @@ const rubik = Rubik({
   weight: ["400", "500", "600", "700"],
 });
 
-const secular = Secular_One({
-  variable: "--font-secular",
+const frank = Frank_Ruhl_Libre({
+  variable: "--font-frank",
   subsets: ["hebrew", "latin"],
-  weight: ["400"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "דוד טובול — לקוחות כותבים קודם, אתם עונים אחר כך. דוגמה בחינם לפני שקל אחד.",
+    "דוד טובול — אתרים לעסקים שגורמים ללקוחות לכתוב קודם. דוגמה בחינם לפני שקל אחד.",
   openGraph: {
     title: site.name,
     description: site.tagline,
@@ -37,9 +37,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="he"
       dir="rtl"
-      className={`${rubik.variable} ${secular.variable} h-full antialiased`}
+      className={`${rubik.variable} ${frank.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col overflow-x-hidden bg-[#041525] font-sans text-ivory">
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-[var(--ink)] font-sans text-ivory">
         <LenisProvider>
           <div className="noise" aria-hidden />
           <SiteChrome>{children}</SiteChrome>

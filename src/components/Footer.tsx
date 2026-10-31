@@ -22,7 +22,7 @@ export function Footer() {
             <Link
               key={item.href}
               href={item.href}
-              className="transition hover:text-cyan-bright"
+              className="transition hover:text-gold-bright"
             >
               {item.label}
             </Link>
@@ -31,7 +31,7 @@ export function Footer() {
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-cyan transition hover:text-cyan-bright"
+            className="text-gold transition hover:text-gold-bright"
           >
             וואטסאפ
           </a>

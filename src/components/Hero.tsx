@@ -32,13 +32,13 @@ function PlungeStage({
   const textOpacity = useTransform(progress, [0, 0.12, 0.28], [1, 0.8, 0]);
   const textY = useTransform(progress, [0, 0.3], [0, -28]);
   const hintOpacity = useTransform(progress, [0, 0.1, 0.22], [1, 0.5, 0]);
-  const veilOpacity = useTransform(progress, [0.72, 0.9, 1], [0, 0.5, 1]);
+  const veilOpacity = useTransform(progress, [0.72, 0.9, 1], [0, 0.55, 1]);
 
   return (
-    <div className="relative h-screen overflow-hidden bg-[#041525]">
+    <div className="relative h-screen overflow-hidden bg-[var(--ink)]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_50%_8%,rgba(56,189,248,0.28),transparent_48%),radial-gradient(ellipse_at_80%_55%,rgba(240,208,120,0.12),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(245,208,220,0.1),transparent_42%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_50%_0%,rgba(196,163,90,0.16),transparent_48%),radial-gradient(ellipse_at_85%_60%,rgba(184,116,92,0.08),transparent_45%)]"
       />
       <HeroScene intensity={reduce ? intensityRaw : intensity} />
 
@@ -50,37 +50,35 @@ function PlungeStage({
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="mb-3 text-[11px] tracking-[0.22em] text-gold"
+          className="display mb-4 text-[clamp(1.65rem,5.5vw,2.75rem)] tracking-[-0.01em] text-ivory"
         >
-          דוד טובול · אתרים לעסקים
+          דוד טובול
         </motion.p>
-        {/* H01 · ≤8 words · book */}
-        <h1 className="display max-w-3xl text-[clamp(1.75rem,6.4vw,3.5rem)] leading-[1.12] text-ivory">
+        {/* Script 6 · H1 ≤ 8 words */}
+        <h1 className="display max-w-2xl text-[clamp(1.35rem,4.8vw,2.35rem)] leading-[1.2] text-platinum">
           לקוחות כותבים{" "}
-          <span className="ink-gold">קודם</span>.
-          <br />
-          אתם עונים{" "}
-          <span className="ink-rose">אחר כך</span>.
+          <span className="ink-gold">קודם</span>
+          {" — "}
+          אתם עונים אחר כך
         </h1>
-        <p className="mt-3 max-w-md text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-base">
-          דוגמה של העמוד שלכם —{" "}
-          <span className="ink-cyan">בחינם</span>, לפני שקל אחד.
+        <p className="mt-3 max-w-sm text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm">
+          דוגמה של העמוד שלכם בחינם. לפני שקל אחד.
         </p>
         <div className="pointer-events-auto mt-5 flex w-full max-w-md flex-col items-stretch gap-2.5 sm:mt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
           <a
             href="#free-demo"
-            className="btn-gold rounded-full px-6 py-3.5 text-center text-sm sm:px-7"
+            className="btn-gold rounded-md px-6 py-3.5 text-center text-sm sm:px-7"
           >
             לקבלת דוגמה בחינם
           </a>
           <a
             href="#work"
-            className="btn-ghost rounded-full px-6 py-3.5 text-center text-sm"
+            className="btn-ghost rounded-md px-6 py-3.5 text-center text-sm"
           >
             לפתיחת אתרים חיים
           </a>
         </div>
-        <p className="pointer-events-none mt-4 text-[11px] tracking-[0.04em] text-platinum/85">
+        <p className="pointer-events-none mt-4 text-[11px] tracking-[0.04em] text-platinum/90">
           בלי התחייבות · עונים בוואטסאפ ·{" "}
           <span className="ink-gold" dir="ltr">
             052-318-2032
@@ -98,7 +96,7 @@ function PlungeStage({
       <motion.div
         aria-hidden
         style={{ opacity: veilOpacity }}
-        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.28)_0%,rgba(4,21,37,0.95)_42%,#041525_70%)]"
+        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(196,163,90,0.12)_0%,rgba(11,10,9,0.92)_45%,#0b0a09_72%)]"
       />
     </div>
   );
@@ -123,13 +121,12 @@ export function Hero() {
 
   if (reduce) {
     return (
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[#041525] px-5 pt-24 text-center">
-        <h1 className="display text-4xl text-ivory md:text-5xl">
-          לקוחות כותבים <span className="ink-gold">קודם</span>.
-          <br />
-          אתם עונים <span className="ink-rose">אחר כך</span>.
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[var(--ink)] px-5 pt-24 text-center">
+        <p className="display text-4xl text-ivory md:text-5xl">דוד טובול</p>
+        <h1 className="display mt-4 text-2xl text-platinum md:text-3xl">
+          לקוחות כותבים <span className="ink-gold">קודם</span> — אתם עונים אחר כך
         </h1>
-        <a href="#free-demo" className="btn-gold mt-8 rounded-full px-7 py-3.5 text-sm">
+        <a href="#free-demo" className="btn-gold mt-8 rounded-md px-7 py-3.5 text-sm">
           לקבלת דוגמה בחינם
         </a>
       </section>
@@ -137,7 +134,10 @@ export function Hero() {
   }
 
   return (
-    <section ref={ref} className="relative h-[240vh] bg-[#041525] sm:h-[260vh] md:h-[280vh]">
+    <section
+      ref={ref}
+      className="relative h-[240vh] bg-[var(--ink)] sm:h-[260vh] md:h-[280vh]"
+    >
       <div className="sticky top-0 h-screen">
         <PlungeStage progress={scrollYProgress} reduce={false} />
       </div>

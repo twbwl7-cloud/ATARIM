@@ -24,12 +24,12 @@ export function FreeDemo() {
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        className="premium-panel relative overflow-hidden rounded-[1.5rem] px-5 py-10 sm:rounded-[1.85rem] sm:px-6 sm:py-12 md:px-12 md:py-16"
+        className="premium-panel relative overflow-hidden rounded-2xl px-5 py-10 sm:px-6 sm:py-12 md:px-12 md:py-16"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(680px_circle_at_12%_18%,rgba(62,200,240,0.22),transparent_48%),radial-gradient(520px_circle_at_88%_80%,rgba(138,232,255,0.14),transparent_45%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(680px_circle_at_12%_18%,rgba(196,163,90,0.12),transparent_48%),radial-gradient(520px_circle_at_88%_80%,rgba(184,116,92,0.08),transparent_45%)]" />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-l from-transparent via-cyan/55 to-transparent"
+          className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-l from-transparent via-gold/45 to-transparent"
         />
 
         <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
@@ -60,7 +60,7 @@ export function FreeDemo() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-gold/25 bg-black/30 p-4 shadow-[0_0_40px_rgba(240,208,120,0.1)] sm:p-5 md:p-6">
+          <div className="rounded-xl border border-gold/25 bg-black/30 p-4 shadow-[var(--shadow-contact)] sm:p-5 md:p-6">
             <p className="text-[11px] tracking-[0.18em] text-muted">סוג עסק</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {demoNiches.map((niche) => {
@@ -70,9 +70,9 @@ export function FreeDemo() {
                     key={niche.id}
                     type="button"
                     onClick={() => setNicheId(niche.id)}
-                    className={`rounded-full px-3 py-2 text-sm transition sm:px-3.5 ${
+                    className={`rounded-md px-3 py-2 text-sm transition sm:px-3.5 ${
                       active
-                        ? "bg-gold text-rich-black shadow-[0_0_24px_rgba(240,208,120,0.45)]"
+                        ? "bg-gold text-rich-black"
                         : "border border-white/15 text-ivory hover:border-gold/50 hover:text-gold-bright"
                     }`}
                   >
@@ -92,7 +92,7 @@ export function FreeDemo() {
                 rows={3}
                 maxLength={280}
                 placeholder="למשל: כפתור לתור, תפריט עוגות, או מראה שקט למספרה…"
-                className="mt-2 w-full resize-none rounded-xl border border-white/12 bg-black/35 px-4 py-3 text-sm text-ivory outline-none placeholder:text-muted/70 focus:border-gold/45 focus:shadow-[0_0_20px_rgba(240,208,120,0.12)]"
+                className="mt-2 w-full resize-none rounded-md border border-white/12 bg-black/35 px-4 py-3 text-sm text-ivory outline-none placeholder:text-muted/70 focus:border-gold/45"
               />
             </label>
 
@@ -100,7 +100,7 @@ export function FreeDemo() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold mt-5 flex w-full items-center justify-center rounded-full px-7 py-3.5 text-sm"
+              className="btn-gold mt-5 flex w-full items-center justify-center rounded-md px-7 py-3.5 text-sm"
             >
               לשליחה בוואטסאפ
             </a>
