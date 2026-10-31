@@ -5,7 +5,6 @@ import { testimonials } from "@/lib/site";
 
 const ACCENTS = ["ink-gold", "ink-rose", "ink-cyan"] as const;
 
-/** P37 — recommendations before hard sell. Specific notes, no fake stars/100%. */
 export function Testimonials() {
   return (
     <section
@@ -14,18 +13,18 @@ export function Testimonials() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full bg-pink/8 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full bg-cyan/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-6xl">
-        <p className="text-xs tracking-[0.22em] text-pink">חוות דעת</p>
+        <p className="text-xs tracking-[0.22em] text-pink">מה אומרים</p>
         <h2 className="display mt-3 max-w-xl text-3xl text-ivory md:text-5xl">
-          מה אומרים אחרי שהאתר{" "}
+          אחרי שהאתר{" "}
           <span className="ink-gold">עלה</span>
         </h2>
         <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted md:text-base">
-          לא סיסמאות. שלושה עסקים{" "}
-          <span className="ink-cyan">חיים</span> — ומה השתנה אצלם ביום־יום.
+          שלושה עסקים <span className="ink-cyan">חיים</span> — ומה השתנה אצלם
+          ביום־יום.
         </p>
 
         <ul className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-3">

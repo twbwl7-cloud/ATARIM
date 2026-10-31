@@ -4,8 +4,9 @@ import { ServicesSection } from "@/components/ServicesSection";
 import { ContactSection } from "@/components/ContactSection";
 
 export const metadata: Metadata = {
-  title: "אודות",
-  description: "דוד טובול — בונה אתרים שמביאים תורים. מדעי המחשב, קוד עצמי, דוגמא בחינם.",
+  title: "עליי",
+  description:
+    "דוד טובול — בונה אתרים שמביאים הודעות. מדעי המחשב, קוד עצמי, דוגמה בחינם.",
 };
 
 export default function AboutPage() {

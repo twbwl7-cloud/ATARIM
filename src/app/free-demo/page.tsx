@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { FreeDemo } from "@/components/FreeDemo";
 
 export const metadata: Metadata = {
-  title: "דוגמא בחינם | דוד טובול",
+  title: "דוגמה בחינם | דוד טובול",
   description:
-    "בחרו נישה וקבלו דוגמא בחינם לאתר שאתם רוצים — בלי התחייבות ולפני פרויקט מלא.",
+    "בחרו סוג עסק וקבלו דוגמה בחינם לאתר שאתם רוצים — בלי התחייבות.",
 };
 
 export default function FreeDemoPage() {

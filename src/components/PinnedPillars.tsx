@@ -10,7 +10,7 @@ const PILLARS = [
     ink: "ink-gold" as const,
     line: (
       <>
-        מה הלקוח צריך להבין ב<span className="ink-cyan">שנייה</span> הראשונה
+        מה הלקוח מבין ב<span className="ink-cyan">שנייה</span> הראשונה
       </>
     ),
   },
@@ -20,7 +20,7 @@ const PILLARS = [
     ink: "ink-rose" as const,
     line: (
       <>
-        כל מסך משרת <span className="ink-gold">פנייה</span> — לא קישוט
+        כל מסך מביא <span className="ink-gold">הודעה</span> — לא קישוט
       </>
     ),
   },
@@ -40,7 +40,8 @@ const PILLARS = [
     ink: "ink-champagne" as const,
     line: (
       <>
-        עבודות חיות + חוות דעת <span className="ink-cyan">אמיתיות</span>
+        אתרים חיים + אנשים{" "}
+        <span className="ink-cyan">אמיתיים</span> שמדברים
       </>
     ),
   },
@@ -56,7 +57,6 @@ const PILLARS = [
   },
 ] as const;
 
-/** Clean stack on all sizes — no broken dual layout */
 export function PinnedPillars() {
   const wrap = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -70,15 +70,15 @@ export function PinnedPillars() {
       ref={wrap}
       id="pillars"
       className="section-void relative z-10 overflow-hidden px-5 py-16 sm:py-20 md:px-8 md:py-28"
-      aria-label="עמודי תווך"
+      aria-label="חמש מילים"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-10 top-20 h-64 w-64 rounded-full bg-violet/10 blur-3xl"
+        className="pointer-events-none absolute -left-10 top-20 h-64 w-64 rounded-full bg-cyan/12 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-gold/10 blur-3xl"
+        className="pointer-events-none absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-gold/12 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-5xl">
@@ -90,7 +90,7 @@ export function PinnedPillars() {
               <span className="ink-gold">אתר</span>
             </h2>
             <p className="mt-3 max-w-md text-sm text-muted">
-              בלי סיסמאות. זה מה שבודקים לפני שמעלים ל
+              זה מה שבודקים לפני שמעלים ל
               <span className="ink-cyan">אוויר</span>.
             </p>
           </div>

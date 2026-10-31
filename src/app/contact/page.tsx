@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ContactSection } from "@/components/ContactSection";
 
 export const metadata: Metadata = {
-  title: "צור קשר",
-  description: "דוגמא בחינם או שיחה בוואטסאפ — דוד טובול, 052-318-2032.",
+  title: "דברו איתי",
+  description: "דוגמה בחינם או שיחה בוואטסאפ — דוד טובול, 052-318-2032.",
 };
 
 export default function ContactPage() {

@@ -63,7 +63,7 @@ export function DemoShell({ demo }: Props) {
           </p>
           <a
             href={whatsappUrl(
-              `היי דוד, ראיתי את הדימו של "${project.title}" ואשמח לדבר על פרויקט דומה.`,
+              `היי דוד, ראיתי את הדוגמה של "${project.title}". בא לי לדבר על משהו דומה.`,
             )}
             target="_blank"
             rel="noopener noreferrer"
@@ -110,7 +110,7 @@ export function DemoShell({ demo }: Props) {
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.05, ease }}
-            className="max-w-3xl font-[family-name:var(--font-frank)] text-4xl leading-[1.08] sm:text-5xl md:text-7xl"
+            className="max-w-3xl font-[family-name:var(--font-secular)] text-4xl leading-[1.08] sm:text-5xl md:text-7xl"
             style={{ color: palette.ink }}
           >
             {demo.heroTitle}
@@ -160,7 +160,7 @@ export function DemoShell({ demo }: Props) {
           למה זה עובד
         </p>
         <h2
-          className="mb-12 max-w-2xl font-[family-name:var(--font-frank)] text-3xl md:text-5xl"
+          className="mb-12 max-w-2xl font-[family-name:var(--font-secular)] text-3xl md:text-5xl"
           style={{ color: palette.ink }}
         >
           שלושה עקרונות. אפס רעש.
@@ -186,7 +186,7 @@ export function DemoShell({ demo }: Props) {
                 0{i + 1}
               </p>
               <h3
-                className="font-[family-name:var(--font-frank)] text-2xl"
+                className="font-[family-name:var(--font-secular)] text-2xl"
                 style={{ color: palette.ink }}
               >
                 {p.title}
@@ -228,18 +228,18 @@ export function DemoShell({ demo }: Props) {
       {/* Mock CTA success */}
       <section className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8 md:py-28">
         <h2
-          className="font-[family-name:var(--font-frank)] text-3xl md:text-4xl"
+          className="font-[family-name:var(--font-secular)] text-3xl md:text-4xl"
           style={{ color: palette.ink }}
         >
-          זה דימו חי — בלי שרת, עם תחושת מוצר אמיתי
+          זו דוגמה חיה — אפשר ללחוץ ולהרגיש
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed md:text-base" style={{ color: palette.soft }}>
-          בדיוק ככה נבנה פרויקט מכירתי: נכסים פרימיום, תנועה מדויקת, ומסלול ברור
-          לשיחה. רוצים גרסה מלאה למותג שלכם?
+          ככה נבנה אתר שמביא הודעות: מראה נקי, תנועה במקום הנכון, וכפתור ברור
+          לשיחה. רוצים גרסה מלאה לעסק שלכם?
         </p>
         <a
           href={whatsappUrl(
-            `היי דוד, הדימו של "${project.title}" שכנע אותי. בואו נדבר על פרויקט.`,
+            `היי דוד, הדוגמה של "${project.title}" דיברה אליי. בואו נדבר.`,
           )}
           target="_blank"
           rel="noopener noreferrer"
@@ -255,7 +255,7 @@ export function DemoShell({ demo }: Props) {
         className="border-t px-5 py-8 text-center text-xs md:px-8"
         style={{ borderColor: `${palette.ink}14`, color: palette.soft }}
       >
-        Demo POC · לא לאנדקס · © {site.name} 2026
+        דוגמה · לא לאנדקס · © {site.name} 2026
       </footer>
     </div>
   );

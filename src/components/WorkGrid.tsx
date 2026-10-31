@@ -17,7 +17,7 @@ type Props = {
 export function WorkGrid({
   items = projects,
   title = "עבודות שאפשר להיכנס אליהן",
-  eyebrow = "01 · הוכחה",
+  eyebrow = "01 · עבודות",
   id = "work",
   limit,
 }: Props) {
@@ -29,8 +29,7 @@ export function WorkGrid({
         <p className="text-xs tracking-[0.22em] text-gold">{eyebrow}</p>
         <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">{title}</h2>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted md:text-base">
-          כל אחד נבנה מאפס, בלי תבנית. אפשר להיכנס לאתר החי ולנסות בעצמך — דוגמאות
-          ליכולת, לא מצגת.
+          כל אחד נבנה מאפס, בלי תבנית. נכנסים לאתר החי ומנסים בעצמכם.
         </p>
 
         <ul className="mt-12 divide-y divide-white/10 border-y border-white/10">

@@ -7,25 +7,25 @@ const ACCENT = {
   gold: {
     num: "text-gold-bright",
     border: "border-gold/35 hover:border-gold/60",
-    glow: "group-hover:shadow-[0_0_40px_rgba(232,196,106,0.18)]",
+    glow: "group-hover:shadow-[0_0_40px_rgba(240,208,120,0.22)]",
     chip: "bg-gold/15 text-gold-bright",
   },
   rose: {
     num: "text-pink",
     border: "border-pink/30 hover:border-pink/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(239,196,208,0.16)]",
+    glow: "group-hover:shadow-[0_0_40px_rgba(245,208,220,0.18)]",
     chip: "bg-pink/15 text-pink",
   },
   cyan: {
     num: "text-cyan-bright",
-    border: "border-cyan/30 hover:border-cyan/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(78,196,255,0.16)]",
+    border: "border-cyan/35 hover:border-cyan/60",
+    glow: "group-hover:shadow-[0_0_40px_rgba(62,220,200,0.22)]",
     chip: "bg-cyan/15 text-cyan-bright",
   },
   violet: {
     num: "text-violet",
     border: "border-violet/30 hover:border-violet/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(155,125,255,0.16)]",
+    glow: "group-hover:shadow-[0_0_40px_rgba(176,154,255,0.18)]",
     chip: "bg-violet/15 text-violet",
   },
 } as const;
@@ -39,11 +39,11 @@ export function FormatsElements() {
       <div aria-hidden className="aurora" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-cyan/10 blur-3xl"
+        className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-cyan/14 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-gold/10 blur-3xl"
+        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-gold/12 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl">
@@ -55,7 +55,7 @@ export function FormatsElements() {
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
             בוחרים מה מתאים לעסק — ובונים רק מה שמביא{" "}
-            <span className="ink-cyan">פנייה</span>.
+            <span className="ink-cyan">הודעה</span>.
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export function FormatsElements() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ delay: i * 0.05, duration: 0.45 }}
-                    className={`group relative overflow-hidden rounded-2xl border bg-white/[0.025] p-5 transition duration-300 md:p-6 ${a.border} ${a.glow}`}
+                    className={`group relative overflow-hidden rounded-2xl border bg-white/[0.03] p-5 transition duration-300 md:p-6 ${a.border} ${a.glow}`}
                   >
                     <div className="flex gap-4 md:gap-5">
                       <span className={`display text-2xl md:text-3xl ${a.num}`}>
@@ -134,7 +134,10 @@ export function FormatsElements() {
                       <>
                         {el.body.split(el.accentWord)[0]}
                         <span className="ink-cyan">{el.accentWord}</span>
-                        {el.body.split(el.accentWord).slice(1).join(el.accentWord)}
+                        {el.body
+                          .split(el.accentWord)
+                          .slice(1)
+                          .join(el.accentWord)}
                       </>
                     ) : (
                       el.body

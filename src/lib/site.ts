@@ -1,7 +1,7 @@
 export const site = {
   name: "David Tubul",
   nameHe: "דוד טובול",
-  tagline: "אתרים שסוגרים תורים — לא עוד דף יפה",
+  tagline: "אתר שמביא הודעות — לא רק לייקים",
   short: "David Tubul",
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
@@ -15,7 +15,7 @@ export const site = {
 export function whatsappUrl(message?: string) {
   const text =
     message ??
-    "היי דוד, ראיתי את האתר. אשמח לדבר על אתר לעסק שלי.";
+    "היי דוד, ראיתי את האתר שלך. בא לי לדבר על אתר לעסק שלי.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
@@ -23,32 +23,32 @@ export const demoNiches = [
   {
     id: "clinic",
     label: "קליניקה / אסתטיקה",
-    hint: "שקט, אמון, כפתור לתור",
+    hint: "שקט, יפה, וכפתור שפותח תור",
   },
   {
     id: "cakes",
     label: "עוגות / מזון",
-    hint: "תיאבון + הזמנה בלי בלבול",
+    hint: "רואים עוגה — שולחים הזמנה",
   },
   {
     id: "barber",
     label: "מספרה / יופי",
-    hint: "תיאום מראש, בלי רעש",
+    hint: "קובעים תור בלי טלפונים",
   },
   {
     id: "realestate",
     label: "נדל״ן",
-    hint: "נכס ברור, פנייה מיידית",
+    hint: "נכס ברור + כפתור לפנייה",
   },
   {
     id: "restaurant",
     label: "מסעדה / בית קפה",
-    hint: "תפריט + הזמנת מקום",
+    hint: "תפריט + הזמנת שולחן",
   },
   {
     id: "other",
     label: "משהו אחר",
-    hint: "תכתבו מה העסק",
+    hint: "פשוט כתבו מה העסק",
   },
 ] as const;
 
@@ -59,7 +59,7 @@ export function freeDemoWhatsAppUrl(nicheLabel: string, note?: string) {
     ? `\n\nמה חשוב לי לראות:\n${note.trim()}`
     : "";
   return whatsappUrl(
-    `היי דוד, רוצה דוגמא בחינם לסגנון: ${nicheLabel}.${detail}\nבלי התחייבות.`,
+    `היי דוד, רוצה דוגמה בחינם לסגנון: ${nicheLabel}.${detail}\nבלי התחייבות.`,
   );
 }
 
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     client: "קליניקת אסתטיקה",
     category: "אתר תדמית",
     format: "תדמית · תור",
-    summary: "שקט, גלריות נקיות, כפתור לתור בלי רעש מסביב.",
+    summary: "נקי, רגוע, וכפתור לתור שלא מתחרה עם רעש.",
     stack: ["Next.js", "Tailwind", "Motion"],
     accent: "pink",
     featured: true,
@@ -94,8 +94,8 @@ export const projects: Project[] = [
     title: "Cookk",
     client: "מותג עוגות",
     category: "הזמנות",
-    format: "מסחר · תפריט",
-    summary: "רואים את העוגה, בוחרים, שולחים הזמנה. בלי סיבובים.",
+    format: "תפריט · הזמנה",
+    summary: "רואים עוגה, בוחרים, שולחים. בלי סיבובים.",
     stack: ["Next.js", "Tailwind"],
     accent: "ivory",
     featured: true,
@@ -107,7 +107,7 @@ export const projects: Project[] = [
     client: "מספרה",
     category: "תיאום מראש",
     format: "מספרה · תור",
-    summary: "נוכחות חדה. לוחצים — קובעים תור. בלי טלפונים מיותרים.",
+    summary: "לוחצים — קובעים תור. הטלפון נשאר שקט.",
     stack: ["Next.js", "Three.js"],
     accent: "gold",
     featured: true,
@@ -115,59 +115,57 @@ export const projects: Project[] = [
   },
 ];
 
-/** Client notes from live projects — specific, no fake “100%” tags (book P37) */
 export const testimonials = [
   {
     quote:
-      "לפני זה האתר נראה כמו עוד קליניקה. עכשיו אנשים כותבים בוואטסאפ בלי שנרדוף אחריהם.",
+      "לפני זה נראינו כמו עוד קליניקה מהרשימה. עכשיו אנשים כותבים לבד בוואטסאפ.",
     name: "צוות לולילק",
     role: "קליניקת אסתטיקה",
     projectId: "lulilac",
   },
   {
     quote:
-      "הזמנות מגיעות מסודרות. הלקוחות רואים את העוגות ומבינים מה להזמין — בלי שיחות של רבע שעה.",
+      "ההזמנות מגיעות מסודר. רואים עוגה ומבינים מה להזמין — בלי שיחת טלפון של רבע שעה.",
     name: "Cookk",
     role: "מותג עוגות",
     projectId: "cookk",
   },
   {
     quote:
-      "הטלפון פחות עמוס. מי שרוצה תור — נכנס לאתר וקובע. זה מה שרצינו ממספרה בתיאום.",
+      "פחות טלפונים באמצע היום. מי שרוצה תור פשוט נכנס וקובע. זה מה שרצינו.",
     name: "לוקסי",
     role: "מספרה",
     projectId: "luxe-barber",
   },
 ] as const;
 
-/** Four real product formats — landing / branding / order / booking */
 export const formats = [
   {
     code: "01",
     title: "דף נחיתה",
-    body: "מסך אחד לקמפיין. מסר חד, הוכחה קצרה, כפתור שסוגר ליד תוך שניות.",
-    lever: "המרה · לא סיפור ארוך",
+    body: "עמוד אחד לקמפיין. אומרים מה מוכרים, מראים למה לבחור בכם, ונותנים כפתור שסוגר שיחה.",
+    lever: "לחיצה → הודעה",
     accent: "gold" as const,
   },
   {
     code: "02",
     title: "אתר תדמית",
-    body: "מי אתם, למה אתכם, ואז וואטסאפ או תור. שקט שמשדר אמון.",
-    lever: "העיצוב הוא ההוכחה",
+    body: "מי אתם, מה עושים, ולמה אצלכם. ואז וואטסאפ או תור — בלי להתבלבל.",
+    lever: "נראה טוב · עובד",
     accent: "rose" as const,
   },
   {
     code: "03",
     title: "תפריט והזמנה",
-    body: "רואים, בוחרים, שולחים. בלי עגלה מסובכת אם לא צריך אותה.",
-    lever: "תיאבון → פעולה",
+    body: "רואים, בוחרים, שולחים. בלי עגלה מסובכת אם אין צורך.",
+    lever: "ראיתי → הזמנתי",
     accent: "cyan" as const,
   },
   {
     code: "04",
     title: "תיאום מראש",
-    body: "מספרה, קליניקה, שירות — קובעים תור בלי טלפון רצוף כל היום.",
-    lever: "שקט = סמכות",
+    body: "מספרה, קליניקה, שירות — קובעים תור בלי לרדוף אחרי הטלפון כל היום.",
+    lever: "שקט לכם · נוח ללקוח",
     accent: "violet" as const,
   },
 ] as const;
@@ -182,20 +180,20 @@ export const elements = [
   {
     code: "02",
     title: "עבודות חיות",
-    body: "לוחצים ונכנסים לאתר אמיתי — לא לצילום מסך.",
+    body: "לוחצים ונכנסים לאתר אמיתי — לא רק לתמונה.",
     accentWord: "אמיתי",
   },
   {
     code: "03",
     title: "כפתור אחד ברור",
-    body: "זהב לפעולה. בלי עשרה כפתורים שמתחרים על תשומת לב.",
+    body: "זהב לפעולה. בלי עשרה כפתורים שצועקים ביחד.",
     accentWord: "זהב",
   },
   {
     code: "04",
-    title: "מובייל קודם",
-    body: "רוב הלקוחות בטלפון. האתר חייב לעבוד שם כמו במחשב.",
-    accentWord: "טלפון",
+    title: "קודם בטלפון",
+    body: "רוב האנשים גולשים מהנייד. האתר חייב להרגיש שם כמו במחשב.",
+    accentWord: "נייד",
   },
 ] as const;
 
@@ -209,24 +207,24 @@ export function projectIsExternal(project: Project) {
 
 export const services = [
   {
-    title: "אתר תדמית שמביא פניות",
-    body: "לא גלריה יפה בלי כפתור. מסלול ברור לוואטסאפ או לתור.",
+    title: "אתר תדמית שמביא הודעות",
+    body: "לא רק תמונות יפות. יש כפתור ברור לוואטסאפ או לתור.",
   },
   {
-    title: "הזמנות ומכירה קצרה",
-    body: "תפריט, בחירה, שליחה — בלי לסבך את מי שרק רוצה להזמין.",
+    title: "הזמנות בלי בלגן",
+    body: "תפריט, בחירה, שליחה. מי שרוצה להזמין — מזמין.",
   },
   {
     title: "מספרות וקליניקות",
-    body: "תיאום מראש, שקט, אמון. האתר עושה את העבודה הכבדה.",
+    body: "תיאום מראש בלי רעש. האתר עושה את השיחה בשבילכם.",
   },
 ] as const;
 
 export const nav = [
   { href: "/", label: "בית" },
   { href: "/#work", label: "עבודות" },
-  { href: "/#free-demo", label: "דוגמא בחינם" },
-  { href: "/#reviews", label: "חוות דעת" },
-  { href: "/about", label: "אודות" },
-  { href: "/#contact", label: "צור קשר" },
+  { href: "/#free-demo", label: "דוגמה בחינם" },
+  { href: "/#reviews", label: "מה אומרים" },
+  { href: "/about", label: "עליי" },
+  { href: "/#contact", label: "דברו איתי" },
 ] as const;

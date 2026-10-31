@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const LINE =
-  "לקוחות לא זוכרים תבנית. הם זוכרים את הרגע שבו לחצו וקבעו תור.";
+  "לקוחות לא זוכרים תבנית. הם זוכרים את הרגע שבו לחצו וכתבו לכם.";
 
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
@@ -24,7 +24,10 @@ export function ScrollStory() {
         <div className="mb-6 flex items-center justify-between gap-4 sm:mb-8">
           <p className="text-xs tracking-[0.28em] text-gold">בקצרה</p>
           <div className="h-px w-16 overflow-hidden bg-white/10 sm:w-24 md:w-40">
-            <motion.div style={{ width: bar }} className="h-full bg-gradient-to-l from-gold to-pink" />
+            <motion.div
+              style={{ width: bar }}
+              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
+            />
           </div>
         </div>
         <p className="display flex flex-wrap gap-x-2.5 gap-y-2 text-xl leading-snug text-ivory sm:gap-x-3 sm:text-2xl md:text-4xl md:leading-[1.35]">
@@ -58,7 +61,7 @@ function Word({
   const color = useTransform(
     progress,
     [start, end],
-    ["rgba(154,149,140,0.55)", "rgba(243,238,230,1)"],
+    ["rgba(158,180,176,0.55)", "rgba(250,246,239,1)"],
   );
   return (
     <motion.span style={{ opacity, color }} className="inline-block">

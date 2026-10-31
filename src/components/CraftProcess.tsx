@@ -10,27 +10,27 @@ import { useRef } from "react";
 const STEPS = [
   {
     n: "01",
-    title: "אבחון כאב",
-    body: "מה באמת מונע המרה — לא מה שהמתחרים מעתיקים. מספרים אמיתיים בלבד.",
+    title: "מה חסר היום",
+    body: "מדברים על מה באמת עוצר הודעות — לא על מה שהמתחרים מעתיקים.",
     lever: "בהירות",
   },
   {
     n: "02",
-    title: "רגע חתימה",
-    body: "אלמנט אחד בלתי נשכח: גלילה נעוצה, מוצר 3D, או מילה שנדלקת. לא רעש — נוכחות.",
+    title: "רגע שנזכרים",
+    body: "דבר אחד שתופס: גלילה שנשארת, מוצר בתלת־ממד, או מילה שנדלקת. בלי רעש.",
     lever: "סקרנות",
   },
   {
     n: "03",
-    title: "בניית דימו",
-    body: "POC חי בלי שרת — כדי שבפגישה תראו מוצר, לא מצגת. Awwwards-feeling, עברית RTL.",
+    title: "דוגמה חיה",
+    body: "רואים עמוד אמיתי לפני שמשלמים. לא מצגת — משהו שאפשר ללחוץ עליו.",
     lever: "רואים עבודה",
   },
   {
     n: "04",
-    title: "השקה שסוגרת",
-    body: "מסלול ברור לוואטסאפ / תור / רכישה. בלי הבטחות מנופחות. בלי ספירות מזויפות.",
-    lever: "סמכות",
+    title: "עולים וסוגרים",
+    body: "כפתור ברור לוואטסאפ, תור או הזמנה. בלי הבטחות באוויר.",
+    lever: "פעולה",
   },
 ];
 
@@ -89,7 +89,7 @@ export function CraftProcess() {
       <div className="space-y-6 px-5 py-20 md:hidden">
         <div>
           <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
-          <h2 className="display mt-3 text-3xl text-ivory">איך נבנה פרויקט שסוגר</h2>
+          <h2 className="display mt-3 text-3xl text-ivory">איך נבנה אתר שמביא הודעות</h2>
         </div>
         {STEPS.map((s) => (
           <div
@@ -122,10 +122,10 @@ export function CraftProcess() {
             <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
             <h2 className="display mt-3 text-[clamp(28px,3.8vw,48px)] text-ivory">
               ארבעה שלבים.{" "}
-              <span className="luxury-gradient-text">אפס קיצורי דרך.</span>
+              <span className="luxury-gradient-text">בלי קיצורי דרך.</span>
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
-              הגלילה נשארת. הכרטיסים נערמים — כמו תהליך אמיתי, לא מצגת.
+              הגלילה נשארת. הכרטיסים נערמים — כמו תהליך אמיתי.
             </p>
           </motion.div>
 

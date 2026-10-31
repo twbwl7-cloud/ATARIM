@@ -10,7 +10,7 @@ export function Footer() {
             <span className="ink-gold">{site.nameHe}</span>
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            אתרים שסוגרים <span className="ink-cyan">תורים</span> — לא עוד דף{" "}
+            אתר שמביא <span className="ink-cyan">הודעות</span> — לא רק דף{" "}
             <span className="ink-rose">יפה</span>
           </p>
           <p className="mt-3 text-sm ink-gold" dir="ltr">
@@ -22,7 +22,7 @@ export function Footer() {
             <Link
               key={item.href}
               href={item.href}
-              className="transition hover:text-gold-bright"
+              className="transition hover:text-cyan-bright"
             >
               {item.label}
             </Link>
@@ -38,10 +38,11 @@ export function Footer() {
         </div>
       </div>
       <div className="space-y-2 border-t border-line/35 px-5 py-4 text-center text-[11px] leading-relaxed text-muted md:px-8">
-        <p>© 2026 {site.nameHe} · {site.phoneDisplay}</p>
         <p>
-          התכנים באתר להמחשה. הצעת מחיר סופית ניתנת אחרי שיחה. אין דיוור שיווקי
-          בלי הסכמה מפורשת.
+          © 2026 {site.nameHe} · {site.phoneDisplay}
+        </p>
+        <p>
+          התכנים באתר להמחשה. מחיר סופי אחרי שיחה. אין דיוור בלי הסכמה.
         </p>
       </div>
     </footer>

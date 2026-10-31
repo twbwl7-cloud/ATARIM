@@ -11,7 +11,7 @@ const STRIKES = [
   },
   {
     plain: "אתר יפה שלא מביא ",
-    accent: "שיחה",
+    accent: "הודעה",
     ink: "ink-gold" as const,
   },
   {
@@ -21,7 +21,7 @@ const STRIKES = [
   },
   {
     plain: "עוד הבטחה של ״וואו״ בלי ",
-    accent: "הוכחה",
+    accent: "תוצאה",
     ink: "ink-champagne" as const,
   },
 ];
@@ -63,7 +63,6 @@ function StrikeLine({
   );
 }
 
-/** Same pinned scrub on phone and desktop — no separate broken mobile layout */
 export function FailedBefore() {
   const wrap = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -82,9 +81,9 @@ export function FailedBefore() {
       aria-label="מה כבר ניסיתם"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(239,196,208,0.12),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(138,69,104,0.12),transparent_45%),radial-gradient(ellipse_at_50%_10%,rgba(232,196,106,0.08),transparent_40%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(245,208,220,0.14),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(154,85,112,0.12),transparent_45%),radial-gradient(ellipse_at_50%_10%,rgba(62,220,200,0.1),transparent_40%)]" />
         <div className="relative mx-auto flex h-full max-w-5xl flex-col justify-center px-5 sm:px-8">
-          <p className="text-xs tracking-[0.28em] text-pink">הכאב</p>
+          <p className="text-xs tracking-[0.28em] text-pink">בואו נהיה כנים</p>
           <h2 className="display mt-3 max-w-3xl text-[clamp(1.6rem,4.5vw,3.2rem)] leading-[1.15] text-ivory sm:mt-4">
             לפני שסוגרים — מה כבר{" "}
             <span className="ink-gold">ניסיתם</span>?
@@ -108,7 +107,7 @@ export function FailedBefore() {
             className="mt-8 max-w-xl text-sm leading-relaxed text-muted sm:mt-10 sm:text-base"
           >
             אני לא מוכר באנר. בונים דף שמביא{" "}
-            <span className="ink-cyan">פנייה</span> — ואז הוואטסאפ כבר קל יותר.
+            <span className="ink-cyan">הודעה</span> — ואז הוואטסאפ כבר קל יותר.
           </motion.p>
 
           <motion.div

@@ -69,7 +69,7 @@ export function Header() {
             className="btn-gold inline-flex rounded-full px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
             onClick={() => setOpen(false)}
           >
-            דוגמא בחינם
+            דוגמה בחינם
           </Link>
           <button
             type="button"
