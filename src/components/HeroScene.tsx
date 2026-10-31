@@ -53,17 +53,17 @@ function screenMaterial() {
           streaks += band * soft * (0.55 + hash(fi * 1.9) * 0.5);
         }
 
-        vec3 deep = vec3(0.03, 0.05, 0.09);
-        vec3 blue = vec3(0.32, 0.52, 0.95);
-        vec3 silver = vec3(0.8, 0.86, 0.96);
-        vec3 white = vec3(0.96, 0.98, 1.0);
+        vec3 deep = vec3(0.06, 0.05, 0.03);
+        vec3 brass = vec3(0.72, 0.58, 0.28);
+        vec3 warm = vec3(0.88, 0.78, 0.55);
+        vec3 bone = vec3(0.95, 0.91, 0.84);
 
-        vec3 col = mix(deep, blue, streaks * 0.8);
-        col = mix(col, silver, smoothstep(0.35, 0.9, streaks) * 0.75);
-        col = mix(col, white, smoothstep(0.65, 1.25, streaks) * 0.6);
+        vec3 col = mix(deep, brass, streaks * 0.75);
+        col = mix(col, warm, smoothstep(0.35, 0.9, streaks) * 0.7);
+        col = mix(col, bone, smoothstep(0.65, 1.25, streaks) * 0.55);
 
         float cx = length(uv - vec2(0.5, 0.48));
-        col += (1.0 - smoothstep(0.0, 0.55, cx)) * uGlow * vec3(0.14, 0.2, 0.32);
+        col += (1.0 - smoothstep(0.0, 0.55, cx)) * uGlow * vec3(0.28, 0.2, 0.08);
 
         float vig = smoothstep(1.2, 0.3, length(uv - 0.5));
         col *= mix(0.72, 1.0, vig);
@@ -231,20 +231,20 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
           </mesh>
           <mesh position={[0, -0.016, 0.06]} rotation={[Math.PI / 2, 0, 0]}>
             <circleGeometry args={[0.012, 16]} />
-            <meshStandardMaterial color="#1a2030" metalness={0.8} roughness={0.2} />
+            <meshStandardMaterial color="#1c1812" metalness={0.8} roughness={0.2} />
           </mesh>
-          <pointLight position={[0, -0.35, screenH / 2]} intensity={1.25} color="#a8c4ff" distance={5} />
-          <pointLight position={[0, -0.12, screenH / 2]} intensity={0.7} color="#d0e4ff" distance={3} />
+          <pointLight position={[0, -0.35, screenH / 2]} intensity={1.1} color="#e8d5a3" distance={5} />
+          <pointLight position={[0, -0.12, screenH / 2]} intensity={0.55} color="#c4a35a" distance={3} />
         </group>
 
-        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.2} color="#e8eef8" distance={12} />
-        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.5} color="#7a90b8" distance={9} />
+        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.05} color="#f0e6d2" distance={12} />
+        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.42} color="#c4a35a" distance={9} />
         <spotLight
           position={[0, 3.8, 2.8]}
           angle={0.48}
           penumbra={0.7}
-          intensity={1.55}
-          color="#f2f5fa"
+          intensity={1.35}
+          color="#f2ebe0"
         />
       </group>
     </Float>

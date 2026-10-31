@@ -160,7 +160,7 @@ export function WorkWheel() {
             </div>
 
             <div className="max-w-xs text-start md:text-left">
-              <p className="text-[11px] tracking-[0.2em] text-gold">
+              <p className="text-[11px] tracking-[0.2em] text-gold" dir="ltr">
                 {String(active + 1).padStart(2, "0")} /{" "}
                 {String(projects.length).padStart(2, "0")}
               </p>
