@@ -6,26 +6,26 @@ import { elements, formats } from "@/lib/site";
 const ACCENT = {
   gold: {
     num: "text-gold-bright",
-    border: "border-gold/35 hover:border-gold/60",
-    glow: "group-hover:shadow-[0_0_40px_rgba(240,208,120,0.22)]",
+    border: "border-gold/35 hover:border-gold/55",
+    glow: "group-hover:shadow-[0_0_40px_rgba(216,196,154,0.18)]",
     chip: "bg-gold/15 text-gold-bright",
   },
   rose: {
     num: "text-pink",
-    border: "border-pink/30 hover:border-pink/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(245,208,220,0.18)]",
+    border: "border-pink/30 hover:border-pink/50",
+    glow: "group-hover:shadow-[0_0_40px_rgba(197,212,224,0.16)]",
     chip: "bg-pink/15 text-pink",
   },
   cyan: {
     num: "text-cyan-bright",
-    border: "border-cyan/35 hover:border-cyan/60",
-    glow: "group-hover:shadow-[0_0_40px_rgba(62,220,200,0.22)]",
+    border: "border-cyan/40 hover:border-cyan/65",
+    glow: "group-hover:shadow-[0_0_40px_rgba(62,200,240,0.25)]",
     chip: "bg-cyan/15 text-cyan-bright",
   },
   violet: {
     num: "text-violet",
-    border: "border-violet/30 hover:border-violet/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(176,154,255,0.18)]",
+    border: "border-violet/35 hover:border-violet/55",
+    glow: "group-hover:shadow-[0_0_40px_rgba(110,184,208,0.18)]",
     chip: "bg-violet/15 text-violet",
   },
 } as const;
@@ -39,29 +39,29 @@ export function FormatsElements() {
       <div aria-hidden className="aurora" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-cyan/14 blur-3xl"
+        className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-cyan/16 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-gold/12 blur-3xl"
+        className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-cyan/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-10 max-w-2xl md:mb-14">
-          <p className="text-xs tracking-[0.24em] text-gold">מה בונים</p>
+          <p className="text-xs tracking-[0.24em] text-cyan-bright">מה בונים</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
             ארבעה סוגי אתרים.{" "}
-            <span className="ink-gold">ארבעה כלים.</span>
+            <span className="ink-cyan">ארבעה כלים.</span>
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
             בוחרים מה מתאים לעסק — ובונים רק מה שמביא{" "}
-            <span className="ink-cyan">הודעה</span>.
+            <span className="ink-gold">הודעה</span>.
           </p>
         </div>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
-            <p className="mb-4 text-[11px] tracking-[0.22em] text-pink">
+            <p className="mb-4 text-[11px] tracking-[0.22em] text-gold-bright">
               סוגי אתרים
             </p>
             <ul className="grid gap-3 sm:gap-4">
@@ -114,14 +114,14 @@ export function FormatsElements() {
                   transition={{ delay: i * 0.04, duration: 0.4 }}
                   className="premium-panel rounded-2xl p-5"
                 >
-                  <p className="text-[11px] tracking-[0.18em] text-gold-bright">
+                  <p className="text-[11px] tracking-[0.18em] text-cyan-bright">
                     {el.code}
                   </p>
                   <h3 className="display mt-2 text-lg text-ivory">
                     {el.title.includes(" ") ? (
                       <>
                         {el.title.split(" ").slice(0, -1).join(" ")}{" "}
-                        <span className="ink-rose">
+                        <span className="ink-cyan">
                           {el.title.split(" ").slice(-1)}
                         </span>
                       </>
@@ -133,7 +133,7 @@ export function FormatsElements() {
                     {el.body.includes(el.accentWord) ? (
                       <>
                         {el.body.split(el.accentWord)[0]}
-                        <span className="ink-cyan">{el.accentWord}</span>
+                        <span className="ink-gold">{el.accentWord}</span>
                         {el.body
                           .split(el.accentWord)
                           .slice(1)

@@ -65,7 +65,7 @@ function WheelCard({
         style={{ opacity, scale }}
         className={`relative h-full w-full overflow-hidden rounded-2xl transition-[box-shadow,filter] duration-300 ${
           active
-            ? "shadow-[0_0_36px_rgba(56,180,255,0.2),0_18px_44px_rgba(0,0,0,0.5)] ring-1 ring-gold-bright/45"
+            ? "shadow-[0_0_36px_rgba(62,200,240,0.28),0_18px_44px_rgba(0,0,0,0.5)] ring-1 ring-cyan-bright/50"
             : "shadow-[0_12px_32px_rgba(0,0,0,0.45)] ring-1 ring-white/10"
         }`}
       >
@@ -158,19 +158,19 @@ export function WorkWheel() {
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(62,220,200,0.26),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(240,208,120,0.16),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(245,208,220,0.1),transparent_40%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(62,200,240,0.28),transparent_42%),radial-gradient(circle_at_50%_55%,rgba(138,232,255,0.14),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(26,168,200,0.12),transparent_40%)]"
           />
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:gap-4 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
-              <p className="text-xs tracking-[0.22em] text-gold">עבודות חיות</p>
+              <p className="text-xs tracking-[0.22em] text-cyan-bright">עבודות חיות</p>
               <h2 className="display mt-2 text-2xl text-ivory sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
                 שלושה אתרים שאפשר{" "}
-                <span className="ink-gold">לגעת</span>
+                <span className="ink-cyan">לפתוח</span>
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 גללו לאט. לחצו על הכרטיס הקדמי — נכנסים לאתר{" "}
-                <span className="ink-cyan">האמיתי</span>.
+                <span className="ink-gold">האמיתי</span>.
               </p>
             </div>
 

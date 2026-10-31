@@ -6,13 +6,13 @@ const POINTS = [
   {
     title: (
       <>
-        רואים לפני ש<span className="ink-gold">משלמים</span>
+        רואים לפני ש<span className="ink-cyan">משלמים</span>
       </>
     ),
     body: (
       <>
-        מקבלים דוגמה של העמוד שלכם — <span className="ink-cyan">בחינם</span>.
-        לא מתאים? עוצרים שם. בלי לחץ.
+        מקבלים דוגמה של העמוד שלכם — <span className="ink-gold">בחינם</span>.
+        לא מתאים? עוצרים שם.
       </>
     ),
   },
@@ -25,14 +25,14 @@ const POINTS = [
     body: (
       <>
         בלי שרשרת אנשים באמצע. אתם כותבים, אני בונה, ואתם מקבלים אתר ש{" "}
-        <span className="ink-champagne">עובד</span>.
+        <span className="ink-cyan">עובד</span>.
       </>
     ),
   },
   {
     title: (
       <>
-        הכל נשאר אצלכם — <span className="ink-cyan">קוד ודומיין</span>
+        הקוד והדומיין <span className="ink-cyan">שלכם</span>
       </>
     ),
     body: (
@@ -46,12 +46,12 @@ const POINTS = [
     title: (
       <>
         תנועה רק כשהיא{" "}
-        <span className="ink-gold">עוזרת</span>
+        <span className="ink-cyan">עוזרת</span>
       </>
     ),
     body: (
       <>
-        אנימציה שמביאה <span className="ink-rose">הודעה</span> — כן. גימיק שתוקע
+        אנימציה שמביאה <span className="ink-gold">הודעה</span> — כן. גימיק שתוקע
         את הטלפון — לא.
       </>
     ),
@@ -63,15 +63,15 @@ export function WhyRare() {
     <section className="section-void relative z-10 overflow-hidden border-y border-line/30 px-5 py-16 sm:py-20 md:px-8 md:py-28">
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-24 top-0 h-64 w-64 rounded-full bg-gold/12 blur-3xl"
+        className="pointer-events-none absolute -right-24 top-0 h-64 w-64 rounded-full bg-cyan/16 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-cyan/14 blur-3xl"
+        className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-cyan/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-5xl">
-        <p className="text-xs tracking-[0.22em] text-gold">למה איתי</p>
+        <p className="text-xs tracking-[0.22em] text-cyan-bright">למה איתי</p>
         <h2 className="display mt-3 max-w-xl text-3xl text-ivory md:text-5xl">
           קצר. ברור.{" "}
           <span className="ink-cyan">בלי סיבובים</span>.
@@ -85,7 +85,7 @@ export function WhyRare() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{ delay: i * 0.04, duration: 0.4 }}
-              className="border-t border-gold/30 pt-5"
+              className="border-t border-cyan/30 pt-5"
             >
               <h3 className="display text-xl text-ivory md:text-2xl">{p.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">

@@ -11,12 +11,12 @@ export function AboutSection() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-20 top-10 h-56 w-56 rounded-full bg-cyan/12 blur-3xl md:right-1/3"
+        className="pointer-events-none absolute -right-20 top-10 h-56 w-56 rounded-full bg-cyan/14 blur-3xl md:right-1/3"
       />
       <div>
-        <p className="text-xs tracking-[0.24em] text-pink">עליי</p>
+        <p className="text-xs tracking-[0.24em] text-cyan-bright">עליי</p>
         <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-          דוד טובול. בונה אתרים ש<span className="ink-gold">מביאים</span>.
+          דוד טובול. בונה אתרים ש<span className="ink-cyan">מביאים</span>.
         </h2>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -26,12 +26,12 @@ export function AboutSection() {
         >
           לומד {site.focus} ב{site.university}. כותב את הקוד בעצמי —{" "}
           <span className="ink-cyan">Next.js</span>, Node,{" "}
-          <span className="ink-rose">Three.js</span>. בלי להעביר אתכם בין חמישה
+          <span className="ink-gold">Three.js</span>. בלי להעביר אתכם בין חמישה
           אנשים.
         </motion.p>
         <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
           עובד עם עסקים שצריכים{" "}
-          <span className="ink-gold">הודעות</span>: קליניקות כמו לולילק, עוגות כמו
+          <span className="ink-cyan">הודעות</span>: קליניקות כמו לולילק, עוגות כמו
           Cookk, מספרות כמו לוקסי. האתר חייב לעבוד גם בטלפון — שם רוב הלקוחות.
         </p>
       </div>
@@ -42,12 +42,12 @@ export function AboutSection() {
         viewport={{ once: true }}
         className="premium-panel relative overflow-hidden rounded-[1.5rem] p-6 sm:p-7 md:p-9"
       >
-        <div className="absolute -start-10 -top-10 h-40 w-40 rounded-full bg-gold/18 blur-3xl" />
-        <div className="absolute -bottom-12 -end-8 h-44 w-44 rounded-full bg-cyan/16 blur-3xl" />
+        <div className="absolute -start-10 -top-10 h-40 w-40 rounded-full bg-cyan/20 blur-3xl" />
+        <div className="absolute -bottom-12 -end-8 h-44 w-44 rounded-full bg-cyan/12 blur-3xl" />
         <ul className="relative space-y-5 text-sm md:text-base">
           {[
-            ["בנייה", "Next.js · Tailwind · Three.js", "ink-gold"],
-            ["שרת", "Node.js · Java · APIs", "ink-cyan"],
+            ["בנייה", "Next.js · Tailwind · Three.js", "ink-cyan"],
+            ["שרת", "Node.js · Java · APIs", "ink-gold"],
             ["למי", "קליניקות · אוכל · מספרות", "ink-rose"],
             ["טלפון", "אותו אתר — גם ב־390px", "ink-champagne"],
           ].map(([label, value, ink]) => (

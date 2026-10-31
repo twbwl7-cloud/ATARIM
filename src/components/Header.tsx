@@ -27,18 +27,18 @@ export function Header() {
               fill
               sizes="48px"
               unoptimized
-              className="object-contain drop-shadow-[0_0_20px_rgba(56,180,255,0.65)]"
+              className="object-contain drop-shadow-[0_0_22px_rgba(62,200,240,0.7)]"
             />
           </span>
           <span
             className="select-none text-[13px] font-semibold tracking-[0.12em] uppercase sm:text-[15px] sm:tracking-[0.14em] md:text-lg"
             style={{
-              background: "var(--metal-gold)",
+              background: "var(--metal-cyan)",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
               WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 0 10px rgba(224,180,90,0.35))",
+              filter: "drop-shadow(0 0 12px rgba(62,200,240,0.45))",
             }}
           >
             David Tubul
@@ -54,7 +54,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={`rounded-full px-4 py-2 text-sm transition ${
-                  active ? "text-gold-bright" : "text-muted hover:text-ivory"
+                  active ? "text-cyan-bright" : "text-muted hover:text-ivory"
                 }`}
               >
                 {item.label}

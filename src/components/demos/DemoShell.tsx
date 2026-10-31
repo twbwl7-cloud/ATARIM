@@ -206,7 +206,7 @@ export function DemoShell({ demo }: Props) {
       >
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
           <p className="text-sm" style={{ color: palette.soft }}>
-            טכנולוגיה מאחורי החוויה
+            מה רץ מאחורי הקלעים
           </p>
           <div className="flex flex-wrap gap-2">
             {project.stack.map((tech) => (

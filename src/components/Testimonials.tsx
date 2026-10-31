@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { testimonials } from "@/lib/site";
 
-const ACCENTS = ["ink-gold", "ink-rose", "ink-cyan"] as const;
+const ACCENTS = ["ink-cyan", "ink-gold", "ink-rose"] as const;
 
 export function Testimonials() {
   return (
@@ -13,17 +13,17 @@ export function Testimonials() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full bg-cyan/10 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full bg-cyan/12 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-6xl">
-        <p className="text-xs tracking-[0.22em] text-pink">מה אומרים</p>
+        <p className="text-xs tracking-[0.22em] text-cyan-bright">מה אומרים</p>
         <h2 className="display mt-3 max-w-xl text-3xl text-ivory md:text-5xl">
           אחרי שהאתר{" "}
-          <span className="ink-gold">עלה</span>
+          <span className="ink-cyan">עלה</span>
         </h2>
         <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted md:text-base">
-          שלושה עסקים <span className="ink-cyan">חיים</span> — ומה השתנה אצלם
+          שלושה עסקים <span className="ink-gold">חיים</span> — ומה השתנה אצלם
           ביום־יום.
         </p>
 

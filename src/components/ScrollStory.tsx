@@ -22,11 +22,11 @@ export function ScrollStory() {
     >
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center justify-between gap-4 sm:mb-8">
-          <p className="text-xs tracking-[0.28em] text-gold">בקצרה</p>
+          <p className="text-xs tracking-[0.28em] text-cyan-bright">בקצרה</p>
           <div className="h-px w-16 overflow-hidden bg-white/10 sm:w-24 md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
+              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-gold"
             />
           </div>
         </div>
@@ -61,7 +61,7 @@ function Word({
   const color = useTransform(
     progress,
     [start, end],
-    ["rgba(158,180,176,0.55)", "rgba(250,246,239,1)"],
+    ["rgba(143,163,181,0.55)", "rgba(242,246,250,1)"],
   );
   return (
     <motion.span style={{ opacity, color }} className="inline-block">

@@ -25,7 +25,7 @@ export function WhatsAppFloat() {
       <span className="flex min-w-0 flex-col pe-1">
         <span className="text-[10px] text-muted sm:text-[11px]">בא לראות קודם?</span>
         <span className="truncate text-xs font-semibold text-ivory transition group-hover:text-cyan-bright sm:text-sm">
-          וואטסאפ · דוגמה בחינם
+          וואטסאפ · לקבלת דוגמה
         </span>
       </span>
     </motion.a>

@@ -1,7 +1,7 @@
 export const site = {
   name: "David Tubul",
   nameHe: "דוד טובול",
-  tagline: "אתר שמביא הודעות — לא רק לייקים",
+  tagline: "אתר שמביא הודעות בוואטסאפ",
   short: "David Tubul",
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
@@ -15,7 +15,7 @@ export const site = {
 export function whatsappUrl(message?: string) {
   const text =
     message ??
-    "היי דוד, ראיתי את האתר שלך. בא לי לדבר על אתר לעסק שלי.";
+    "היי דוד, ראיתי את האתר. בא לי לדבר על אתר לעסק שלי.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
@@ -23,22 +23,22 @@ export const demoNiches = [
   {
     id: "clinic",
     label: "קליניקה / אסתטיקה",
-    hint: "שקט, יפה, וכפתור שפותח תור",
+    hint: "כפתור לתור + גלריה נקייה",
   },
   {
     id: "cakes",
     label: "עוגות / מזון",
-    hint: "רואים עוגה — שולחים הזמנה",
+    hint: "רואים עוגה ושולחים הזמנה",
   },
   {
     id: "barber",
     label: "מספרה / יופי",
-    hint: "קובעים תור בלי טלפונים",
+    hint: "קובעים תור בלי טלפון",
   },
   {
     id: "realestate",
     label: "נדל״ן",
-    hint: "נכס ברור + כפתור לפנייה",
+    hint: "נכס ברור + פנייה מיידית",
   },
   {
     id: "restaurant",
@@ -48,7 +48,7 @@ export const demoNiches = [
   {
     id: "other",
     label: "משהו אחר",
-    hint: "פשוט כתבו מה העסק",
+    hint: "כתבו מה העסק עושה",
   },
 ] as const;
 
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     client: "קליניקת אסתטיקה",
     category: "אתר תדמית",
     format: "תדמית · תור",
-    summary: "נקי, רגוע, וכפתור לתור שלא מתחרה עם רעש.",
+    summary: "גלריות נקיות. כפתור לתור שלא מתחרה עם רעש.",
     stack: ["Next.js", "Tailwind", "Motion"],
     accent: "pink",
     featured: true,
@@ -115,6 +115,7 @@ export const projects: Project[] = [
   },
 ];
 
+/** L19 — real notes, no fake stars / 100% */
 export const testimonials = [
   {
     quote:
@@ -132,7 +133,7 @@ export const testimonials = [
   },
   {
     quote:
-      "פחות טלפונים באמצע היום. מי שרוצה תור פשוט נכנס וקובע. זה מה שרצינו.",
+      "פחות טלפונים באמצע היום. מי שרוצה תור נכנס וקובע. זה מה שרצינו.",
     name: "לוקסי",
     role: "מספרה",
     projectId: "luxe-barber",
@@ -143,16 +144,16 @@ export const formats = [
   {
     code: "01",
     title: "דף נחיתה",
-    body: "עמוד אחד לקמפיין. אומרים מה מוכרים, מראים למה לבחור בכם, ונותנים כפתור שסוגר שיחה.",
+    body: "עמוד אחד לקמפיין. מה מוכרים, למה אתכם, וכפתור שפותח שיחה.",
     lever: "לחיצה → הודעה",
     accent: "gold" as const,
   },
   {
     code: "02",
     title: "אתר תדמית",
-    body: "מי אתם, מה עושים, ולמה אצלכם. ואז וואטסאפ או תור — בלי להתבלבל.",
-    lever: "נראה טוב · עובד",
-    accent: "rose" as const,
+    body: "מי אתם, מה עושים, ולמה אצלכם. אחרי זה וואטסאפ או תור.",
+    lever: "ברור · עובד",
+    accent: "cyan" as const,
   },
   {
     code: "03",
@@ -164,7 +165,7 @@ export const formats = [
   {
     code: "04",
     title: "תיאום מראש",
-    body: "מספרה, קליניקה, שירות — קובעים תור בלי לרדוף אחרי הטלפון כל היום.",
+    body: "מספרה, קליניקה, שירות — קובעים תור בלי לרדוף אחרי הטלפון.",
     lever: "שקט לכם · נוח ללקוח",
     accent: "violet" as const,
   },
@@ -174,25 +175,25 @@ export const elements = [
   {
     code: "01",
     title: "גלילה שנשארת",
-    body: "המסך לא קופץ. הסיפור נכנס לאט — תוכן זז, מסגרת נעולה.",
+    body: "המסך לא קופץ. התוכן זז, המסגרת נעולה.",
     accentWord: "נעולה",
   },
   {
     code: "02",
     title: "עבודות חיות",
-    body: "לוחצים ונכנסים לאתר אמיתי — לא רק לתמונה.",
+    body: "לוחצים ונכנסים לאתר אמיתי — לא לתמונה.",
     accentWord: "אמיתי",
   },
   {
     code: "03",
-    title: "כפתור אחד ברור",
-    body: "זהב לפעולה. בלי עשרה כפתורים שצועקים ביחד.",
-    accentWord: "זהב",
+    title: "כפתור אחד",
+    body: "כפתור אחד לפעולה. בלי עשרה שצועקים ביחד.",
+    accentWord: "אחד",
   },
   {
     code: "04",
     title: "קודם בטלפון",
-    body: "רוב האנשים גולשים מהנייד. האתר חייב להרגיש שם כמו במחשב.",
+    body: "רוב האנשים גולשים מהנייד. האתר חייב לעבוד שם כמו במחשב.",
     accentWord: "נייד",
   },
 ] as const;
@@ -207,8 +208,8 @@ export function projectIsExternal(project: Project) {
 
 export const services = [
   {
-    title: "אתר תדמית שמביא הודעות",
-    body: "לא רק תמונות יפות. יש כפתור ברור לוואטסאפ או לתור.",
+    title: "אתר תדמית עם כפתור ברור",
+    body: "מי אתם, מה עושים, ואז וואטסאפ או תור. בלי להתבלבל.",
   },
   {
     title: "הזמנות בלי בלגן",
@@ -216,7 +217,7 @@ export const services = [
   },
   {
     title: "מספרות וקליניקות",
-    body: "תיאום מראש בלי רעש. האתר עושה את השיחה בשבילכם.",
+    body: "תיאום מראש בלי טלפונים רצופים. האתר קובע את התור.",
   },
 ] as const;
 

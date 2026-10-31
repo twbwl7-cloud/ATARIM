@@ -7,13 +7,13 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between md:px-8">
         <div className="max-w-md">
           <p className="display text-2xl text-ivory md:text-3xl">
-            <span className="ink-gold">{site.nameHe}</span>
+            <span className="ink-cyan">{site.nameHe}</span>
           </p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            אתר שמביא <span className="ink-cyan">הודעות</span> — לא רק דף{" "}
+            אתר שמביא <span className="ink-cyan">הודעות</span> — לא עוד דף{" "}
             <span className="ink-rose">יפה</span>
           </p>
-          <p className="mt-3 text-sm ink-gold" dir="ltr">
+          <p className="mt-3 text-sm ink-cyan" dir="ltr">
             {site.phoneDisplay}
           </p>
         </div>
@@ -31,7 +31,7 @@ export function Footer() {
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gold transition hover:text-gold-bright"
+            className="text-cyan transition hover:text-cyan-bright"
           >
             וואטסאפ
           </a>

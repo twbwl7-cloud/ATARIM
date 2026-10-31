@@ -7,30 +7,30 @@ const PILLARS = [
   {
     n: "01",
     word: "בהירות",
-    ink: "ink-gold" as const,
+    ink: "ink-cyan" as const,
     line: (
       <>
-        מה הלקוח מבין ב<span className="ink-cyan">שנייה</span> הראשונה
+        מה הלקוח מבין ב<span className="ink-gold">שנייה</span> הראשונה
       </>
     ),
   },
   {
     n: "02",
     word: "מלאכה",
-    ink: "ink-rose" as const,
+    ink: "ink-gold" as const,
     line: (
       <>
-        כל מסך מביא <span className="ink-gold">הודעה</span> — לא קישוט
+        כל מסך מביא <span className="ink-cyan">הודעה</span> — לא קישוט
       </>
     ),
   },
   {
     n: "03",
     word: "קצב",
-    ink: "ink-cyan" as const,
+    ink: "ink-rose" as const,
     line: (
       <>
-        גלילה רגועה. בלי <span className="ink-rose">רעש</span> בטלפון
+        גלילה רגועה. בלי <span className="ink-cyan">רעש</span> בטלפון
       </>
     ),
   },
@@ -48,7 +48,7 @@ const PILLARS = [
   {
     n: "05",
     word: "פעולה",
-    ink: "ink-gold" as const,
+    ink: "ink-cyan" as const,
     line: (
       <>
         כפתור אחד ברור — וואטסאפ או <span className="ink-gold">תור</span>
@@ -74,11 +74,11 @@ export function PinnedPillars() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-10 top-20 h-64 w-64 rounded-full bg-cyan/12 blur-3xl"
+        className="pointer-events-none absolute -left-10 top-20 h-64 w-64 rounded-full bg-cyan/14 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-gold/12 blur-3xl"
+        className="pointer-events-none absolute -right-10 bottom-10 h-56 w-56 rounded-full bg-cyan/10 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-5xl">
@@ -87,17 +87,17 @@ export function PinnedPillars() {
             <p className="text-xs tracking-[0.28em] text-platinum">השיטה</p>
             <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
               חמש מילים שמחזיקות{" "}
-              <span className="ink-gold">אתר</span>
+              <span className="ink-cyan">אתר</span>
             </h2>
             <p className="mt-3 max-w-md text-sm text-muted">
               זה מה שבודקים לפני שמעלים ל
-              <span className="ink-cyan">אוויר</span>.
+              <span className="ink-gold">אוויר</span>.
             </p>
           </div>
           <div className="hidden h-px w-28 overflow-hidden bg-white/10 sm:block md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-gold via-cyan to-pink"
+              className="h-full bg-gradient-to-l from-cyan via-cyan-bright to-gold"
             />
           </div>
         </div>

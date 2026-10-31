@@ -35,10 +35,10 @@ function PlungeStage({
   const veilOpacity = useTransform(progress, [0.72, 0.9, 1], [0, 0.5, 1]);
 
   return (
-    <div className="relative h-screen overflow-hidden bg-[#061018]">
+    <div className="relative h-screen overflow-hidden bg-[#030b14]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_30%_20%,rgba(240,208,120,0.18),transparent_45%),radial-gradient(ellipse_at_80%_60%,rgba(62,220,200,0.2),transparent_50%),radial-gradient(ellipse_at_50%_90%,rgba(245,208,220,0.1),transparent_40%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_50%_10%,rgba(62,200,240,0.28),transparent_48%),radial-gradient(ellipse_at_80%_60%,rgba(138,232,255,0.14),transparent_50%),radial-gradient(ellipse_at_20%_80%,rgba(26,168,200,0.12),transparent_42%)]"
       />
       <HeroScene intensity={reduce ? intensityRaw : intensity} />
 
@@ -54,11 +54,12 @@ function PlungeStage({
         >
           דוד טובול · בונה אתרים
         </motion.p>
+        {/* H01 · ≤8 words · benefit first */}
         <h1 className="display max-w-3xl text-[clamp(1.75rem,6.4vw,3.5rem)] leading-[1.12] text-ivory">
-          האתר שלכם צריך להביא{" "}
-          <span className="ink-gold">הודעות</span>.
+          אתר שמביא{" "}
+          <span className="ink-cyan">הודעות</span>.
           <br />
-          לא רק להיראות{" "}
+          לא עוד דף{" "}
           <span className="ink-rose">יפה</span>.
         </h1>
         <p className="mt-3 max-w-md text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-base">
@@ -70,18 +71,18 @@ function PlungeStage({
             href="#free-demo"
             className="btn-gold rounded-full px-6 py-3.5 text-center text-sm sm:px-7"
           >
-            רוצה דוגמה בחינם
+            לקבלת דוגמה בחינם
           </a>
           <a
             href="#work"
             className="btn-ghost rounded-full px-6 py-3.5 text-center text-sm"
           >
-            תראה לי אתרים חיים
+            לפתיחת אתרים חיים
           </a>
         </div>
         <p className="pointer-events-none mt-4 text-[11px] tracking-[0.04em] text-platinum/85">
           בלי התחייבות · עונים בוואטסאפ ·{" "}
-          <span className="ink-gold" dir="ltr">
+          <span className="ink-cyan" dir="ltr">
             052-318-2032
           </span>
         </p>
@@ -97,7 +98,7 @@ function PlungeStage({
       <motion.div
         aria-hidden
         style={{ opacity: veilOpacity }}
-        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(40,180,170,0.28)_0%,rgba(6,16,24,0.95)_42%,#061018_70%)]"
+        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(30,160,200,0.3)_0%,rgba(3,11,20,0.95)_42%,#030b14_70%)]"
       />
     </div>
   );
@@ -122,21 +123,21 @@ export function Hero() {
 
   if (reduce) {
     return (
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[#061018] px-5 pt-24 text-center">
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-[#030b14] px-5 pt-24 text-center">
         <h1 className="display text-4xl text-ivory md:text-5xl">
-          האתר שלכם צריך להביא <span className="ink-gold">הודעות</span>.
+          אתר שמביא <span className="ink-cyan">הודעות</span>.
           <br />
-          לא רק להיראות <span className="ink-rose">יפה</span>.
+          לא עוד דף <span className="ink-rose">יפה</span>.
         </h1>
         <a href="#free-demo" className="btn-gold mt-8 rounded-full px-7 py-3.5 text-sm">
-          רוצה דוגמה בחינם
+          לקבלת דוגמה בחינם
         </a>
       </section>
     );
   }
 
   return (
-    <section ref={ref} className="relative h-[240vh] bg-[#061018] sm:h-[260vh] md:h-[280vh]">
+    <section ref={ref} className="relative h-[240vh] bg-[#030b14] sm:h-[260vh] md:h-[280vh]">
       <div className="sticky top-0 h-screen">
         <PlungeStage progress={scrollYProgress} reduce={false} />
       </div>

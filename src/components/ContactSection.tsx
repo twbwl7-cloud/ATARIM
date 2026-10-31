@@ -15,16 +15,16 @@ export function ContactSection() {
         viewport={{ once: true }}
         className="premium-panel relative overflow-hidden rounded-[1.5rem] px-5 py-10 sm:rounded-[1.85rem] sm:px-6 sm:py-12 md:px-14 md:py-16"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_circle_at_90%_10%,rgba(245,208,220,0.18),transparent_50%),radial-gradient(500px_circle_at_10%_90%,rgba(240,208,120,0.16),transparent_45%),radial-gradient(400px_circle_at_50%_50%,rgba(62,220,200,0.14),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_circle_at_90%_10%,rgba(62,200,240,0.2),transparent_50%),radial-gradient(500px_circle_at_10%_90%,rgba(138,232,255,0.12),transparent_45%)]" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-l from-transparent via-cyan/55 to-transparent"
         />
         <div className="relative max-w-2xl">
-          <p className="text-xs tracking-[0.24em] text-gold">דברו איתי</p>
+          <p className="text-xs tracking-[0.24em] text-cyan-bright">דברו איתי</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-            דוגמה <span className="ink-gold">בחינם</span> — או שיחה{" "}
-            <span className="ink-cyan">קצרה</span>
+            דוגמה <span className="ink-cyan">בחינם</span> — או שיחה{" "}
+            <span className="ink-gold">קצרה</span>
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-muted md:text-base">
             כתבו מה העסק. תקבלו תשובה בוואטסאפ. בלי טופס ארוך ובלי{" "}
@@ -35,7 +35,7 @@ export function ContactSection() {
               href="#free-demo"
               className="btn-gold rounded-full px-7 py-3.5 text-center text-sm"
             >
-              דוגמה בחינם
+              לקבלת דוגמה בחינם
             </a>
             <a
               href={whatsappUrl("היי דוד, בא לי לקבוע שיחה קצרה.")}
@@ -43,7 +43,7 @@ export function ContactSection() {
               rel="noopener noreferrer"
               className="btn-ghost rounded-full px-7 py-3.5 text-center text-sm"
             >
-              וואטסאפ
+              לשיחה בוואטסאפ
             </a>
             <a
               href={`tel:+${site.whatsapp}`}
