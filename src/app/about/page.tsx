@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { AboutSection } from "@/components/AboutSection";
+import { AboutIntro } from "@/components/AboutIntro";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ContactSection } from "@/components/ContactSection";
 
 export const metadata: Metadata = {
   title: "עליי",
   description:
-    "דוד טובול — בונה אתרים שמביאים הודעות. מדעי המחשב, קוד עצמי, דוגמה בחינם.",
+    "דוד טובול — הנדסת ממשקים, אתרי פרימיום וחוויות 3D. 100% קוד נקי.",
 };
 
 export default function AboutPage() {
   return (
     <div className="pt-24">
-      <AboutSection />
+      <AboutIntro />
       <ServicesSection />
       <ContactSection />
     </div>

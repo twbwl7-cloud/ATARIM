@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-/** A09 / animations.docx — curtain drop entrance (demo script signature). */
+/** A09 curtain — brand emblem first, then lift */
 export function Curtain() {
   const [show, setShow] = useState(true);
 
@@ -13,7 +14,7 @@ export function Curtain() {
       setShow(false);
       return;
     }
-    const t = window.setTimeout(() => setShow(false), 900);
+    const t = window.setTimeout(() => setShow(false), 1200);
     return () => window.clearTimeout(t);
   }, []);
 
@@ -21,17 +22,34 @@ export function Curtain() {
     <AnimatePresence>
       {show ? (
         <motion.div
-          className="curtain-panel flex items-center justify-center"
+          className="curtain-panel flex flex-col items-center justify-center gap-5"
           initial={{ scaleY: 1 }}
           exit={{ scaleY: 0 }}
-          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
           aria-hidden
         >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.86, filter: "blur(8px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -16, filter: "blur(6px)" }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="relative h-24 w-24 sm:h-28 sm:w-28"
+          >
+            <Image
+              src="/brand/emblem.png"
+              alt=""
+              fill
+              priority
+              unoptimized
+              className="object-contain drop-shadow-[0_0_40px_rgba(94,235,245,0.45)]"
+            />
+          </motion.div>
           <motion.p
-            initial={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.35 }}
-            className="display text-2xl tracking-[0.08em] text-[#5eebf5] sm:text-3xl"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="display text-xl tracking-[0.12em] text-[#5eebf5] sm:text-2xl"
           >
             דוד טובול
           </motion.p>

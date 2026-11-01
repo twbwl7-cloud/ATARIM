@@ -18,8 +18,8 @@ export function Header() {
       return;
     }
     const onScroll = () => {
-      // Hero sticky plunge ~165–220vh — night chrome while still in first viewport band
-      setOverHero(window.scrollY < window.innerHeight * 0.85);
+      // Night glass chrome while still near the top of the page
+      setOverHero(window.scrollY < window.innerHeight * 1.35);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
