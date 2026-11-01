@@ -122,10 +122,10 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Opening copy — fades as we enter the machine */}
+        {/* Opening copy — fades as we enter; never blocks laptop hover */}
         <motion.div
           style={{ opacity: copyOpacity, y: copyY }}
-          className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center px-5 pt-[calc(4.75rem+env(safe-area-inset-top))] text-center sm:px-8"
+          className="pointer-events-none relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center px-5 pt-[calc(4.75rem+env(safe-area-inset-top))] text-center sm:px-8"
         >
           <motion.p
             initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
@@ -156,11 +156,14 @@ export function Hero() {
               href={consultHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold min-h-11 justify-center rounded-md px-7 py-3 text-[14px] sm:min-h-12 sm:px-10 sm:py-3.5 sm:text-sm"
+              className="pointer-events-auto btn-gold min-h-11 justify-center rounded-md px-7 py-3 text-[14px] sm:min-h-12 sm:px-10 sm:py-3.5 sm:text-sm"
             >
               לשיחת ייעוץ בוואטסאפ
             </MagneticButton>
-            <a href="#work" className="hero-caption group relative inline-flex justify-center">
+            <a
+              href="#work"
+              className="hero-caption group relative inline-flex pointer-events-auto justify-center"
+            >
               לראות עבודות חיות
               <span className="absolute inset-x-0 -bottom-0.5 mx-auto h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
             </a>

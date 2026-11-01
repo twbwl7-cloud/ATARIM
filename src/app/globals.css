@@ -818,8 +818,9 @@ a {
   will-change: transform;
 }
 
-.hero-laptop-zoom:hover .hero-laptop-media {
-  transform: scale(1.05);
+.desktop-screen,
+.phone-screen {
+  overflow: hidden;
 }
 
 .desktop-screen img,
@@ -830,9 +831,15 @@ a {
   will-change: transform;
 }
 
-.desktop-frame:hover .desktop-screen img,
-.phone-frame:hover .phone-screen img {
-  transform: scale(1.05);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-laptop-zoom:hover .hero-laptop-media {
+    transform: scale(1.05);
+  }
+
+  .desktop-frame:hover .desktop-screen img,
+  .phone-frame:hover .phone-screen img {
+    transform: scale(1.05);
+  }
 }
 
 .hero-laptop-shadow {
