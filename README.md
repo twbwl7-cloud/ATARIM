@@ -1,6 +1,6 @@
 # דוד טובול — נכסים דיגיטליים יוקרתיים
 
-אתר תדמית RTL ברמת סטודיו יוקרה. Next.js App Router · Assistant + Frank Ruhl Libre · Onyx + Champagne Gold.
+אתר תדמית RTL ברמת סטודיו יוקרה. Next.js App Router · Assistant + Frank Ruhl Libre · Light Luxury (Pearl + Charcoal + Muted Gold) · R3F frosted crystal hero.
 
 ## משפך
 
