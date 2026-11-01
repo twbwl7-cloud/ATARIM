@@ -149,7 +149,7 @@ export function ProcessJourney() {
 
   if (reduce) {
     return (
-      <section id="process" className="relative z-10 bg-sky px-5 py-16 md:px-8 md:py-24">
+      <section id="process" className="relative z-10 px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-3xl">
           <p className="text-xs tracking-[0.16em] text-cyan-deep">איך זה עובד</p>
           <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
@@ -178,7 +178,7 @@ export function ProcessJourney() {
     <section
       id="process"
       ref={ref}
-      className="relative z-10 h-[360vh] bg-sky sm:h-[380vh]"
+      className="relative z-10 h-[360vh] sm:h-[380vh]"
     >
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         {/* Living atmosphere */}

@@ -67,7 +67,7 @@ export function Hero() {
 
   if (reduce) {
     return (
-      <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-sky px-5 pb-16 pt-[calc(5rem+env(safe-area-inset-top))] text-center">
+      <section className="relative flex min-h-[100svh] flex-col overflow-hidden px-5 pb-16 pt-[calc(5rem+env(safe-area-inset-top))] text-center">
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-deep">
           David Web Design &amp; Development
         </p>
@@ -95,7 +95,7 @@ export function Hero() {
   }
 
   return (
-    <section ref={ref} className="relative z-10 h-[280vh] bg-sky sm:h-[300vh]">
+    <section ref={ref} className="relative z-10 h-[280vh] sm:h-[300vh]">
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         <div
           aria-hidden

@@ -99,7 +99,7 @@ export function WorkWheel() {
 
   if (reduce) {
     return (
-      <section id="work" className="relative bg-sky px-5 py-16 md:px-8 md:py-24">
+      <section id="work" className="relative px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
           <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
@@ -142,7 +142,7 @@ export function WorkWheel() {
   }
 
   return (
-    <section id="work" ref={ref} className="relative bg-sky">
+    <section id="work" ref={ref} className="relative">
       <div className="relative h-[260vh] sm:h-[280vh] md:h-[300vh]">
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div

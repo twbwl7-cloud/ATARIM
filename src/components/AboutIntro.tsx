@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/** Exact user about copy — do not rewrite */
+/** Exact user about body — without the small duplicate "היי, אני דוד" opener */
 const ABOUT_BODY =
-  "היי, אני דוד. בעולם שבו הרושם הראשוני קובע הכל, האתר שלך חייב להיות בלתי נשכח. כסטודנט למדעי המחשב ומפתח אתרי פרימיום, אני מחבר בין ארכיטקטורת קוד חכמה לעיצוב יוקרתי ללא פשרות – וללא תבניות. ההתמחות שלי היא ביצירת חוויות 3D אינטראקטיביות וממשקים שעוצרים את הגלילה. החזון שלך, הסטנדרט שלי. יחד ניצור נכס דיגיטלי שמרגיש, נראה ועובד ברמה הגבוהה ביותר.";
+  "בעולם שבו הרושם הראשוני קובע הכל, האתר שלך חייב להיות בלתי נשכח. כסטודנט למדעי המחשב ומפתח אתרי פרימיום, אני מחבר בין ארכיטקטורת קוד חכמה לעיצוב יוקרתי ללא פשרות – וללא תבניות. ההתמחות שלי היא ביצירת חוויות 3D אינטראקטיביות וממשקים שעוצרים את הגלילה. החזון שלך, הסטנדרט שלי. יחד ניצור נכס דיגיטלי שמרגיש, נראה ועובד ברמה הגבוהה ביותר.";
 
-/** About — portrait + exact copy · no duplicate large H2 */
+/** About — large H2 only · exact body · near page bottom */
 export function AboutIntro() {
   return (
     <section
@@ -50,6 +50,9 @@ export function AboutIntro() {
           <p className="text-[10px] font-semibold tracking-[0.18em] text-cyan-deep sm:text-xs">
             עליי
           </p>
+          <h2 className="display mt-2 text-2xl font-semibold text-ink sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
+            היי, אני דוד
+          </h2>
           <p className="mx-auto mt-4 max-w-xl text-[14px] leading-[1.75] text-ink-soft sm:mt-5 sm:text-[15px] sm:leading-[1.75] md:mx-0 md:mt-6 md:text-lg md:leading-[1.8]">
             {ABOUT_BODY}
           </p>
