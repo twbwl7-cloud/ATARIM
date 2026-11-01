@@ -135,10 +135,11 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     // Lower-band framing: laptop fills the bottom scene under sky copy
     const aspect = state.viewport.aspect || 1;
     const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 4.6 : 3.35;
-    const camY0 = narrow ? 0.95 : 1.05;
-    const modelScale = narrow ? 0.9 : 1.05;
-    const modelY = narrow ? -0.18 : -0.28;
+    // Night hero: laptop sits higher in the lower band — keep full machine in frame
+    const camZ0 = narrow ? 4.35 : 3.15;
+    const camY0 = narrow ? 0.82 : 0.92;
+    const modelScale = narrow ? 0.95 : 1.12;
+    const modelY = narrow ? -0.22 : -0.32;
 
     screenMat.uniforms.uTime.value = t;
     screenMat.uniforms.uGlow.value = g;
@@ -308,16 +309,16 @@ function GlbMacbook({
     const my = mouse.current.y;
     const aspect = state.viewport.aspect || 1;
     const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 4.6 : 3.35;
-    const camY0 = narrow ? 0.95 : 1.05;
-    const modelScale = narrow ? 0.9 : 1.05;
+    const camZ0 = narrow ? 4.35 : 3.15;
+    const camY0 = narrow ? 0.82 : 0.92;
+    const modelScale = narrow ? 0.95 : 1.12;
 
     if (root.current) {
       root.current.rotation.y = mx * 0.28 + Math.sin(t * 0.22) * 0.04;
       root.current.rotation.x = -0.2 - my * 0.08;
       root.current.scale.setScalar(modelScale * (1 + Math.sin(t * 0.9) * 0.008 + g * 0.1));
       root.current.position.z = g * 0.5;
-      root.current.position.y = narrow ? -0.18 : -0.28;
+      root.current.position.y = narrow ? -0.22 : -0.32;
     }
 
     state.camera.position.z = THREE.MathUtils.lerp(camZ0, narrow ? 0.7 : 0.42, g);

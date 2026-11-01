@@ -71,10 +71,10 @@ function PlungeStage({
     <div className="hero-night relative h-[100svh] overflow-hidden">
       <Atmosphere />
 
-      {/* Laptop — lower band, grounded with multi-layer shadow + cyan reflection */}
+      {/* Laptop — lower band, but still inside first viewport on desktop + phone */}
       <motion.div
         style={{ opacity: laptopOpacity }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 top-[44%] z-[1] sm:top-[42%] md:top-[38%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 top-[36%] z-[1] sm:top-[34%] md:top-[30%]"
       >
         <motion.div
           {...(reduce
@@ -107,14 +107,14 @@ function PlungeStage({
       {/* Copy — blur-reveal stagger on sky/void above laptop */}
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-[calc(4.5rem+env(safe-area-inset-top))] text-center sm:px-8 md:pt-[calc(5.1rem+env(safe-area-inset-top))]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-[calc(4.25rem+env(safe-area-inset-top))] text-center sm:px-8 md:pt-[calc(4.75rem+env(safe-area-inset-top))]"
       >
         <div className="mx-auto w-full max-w-xl md:max-w-3xl">
           <motion.div
             {...(reduce ? {} : reveal(0.08))}
-            className="mb-2.5 flex items-center justify-center gap-2.5 sm:mb-3.5 sm:gap-3"
+            className="mb-2 flex items-center justify-center gap-2 sm:mb-2.5 sm:gap-2.5"
           >
-            <span className="relative h-10 w-10 shrink-0 sm:h-12 sm:w-12 md:h-14 md:w-14">
+            <span className="relative h-9 w-9 shrink-0 sm:h-11 sm:w-11 md:h-12 md:w-12">
               <Image
                 src="/brand/emblem.png"
                 alt=""
@@ -124,14 +124,14 @@ function PlungeStage({
                 className="object-contain drop-shadow-[0_0_24px_rgba(94,235,245,0.35)]"
               />
             </span>
-            <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--hero-fg-soft)] sm:text-[13px]">
+            <p className="text-[11px] font-semibold tracking-[0.2em] text-[var(--hero-fg-soft)] sm:text-[12px]">
               {site.nameHe}
             </p>
           </motion.div>
 
           <motion.h1
             {...(reduce ? {} : reveal(0.18))}
-            className="display text-[clamp(1.75rem,5.6vw,3.4rem)] leading-[1.12] tracking-[-0.02em] text-[var(--hero-fg)]"
+            className="display text-[clamp(1.55rem,4.8vw,3rem)] leading-[1.12] tracking-[-0.02em] text-[var(--hero-fg)]"
           >
             הודעות מלקוחות{" "}
             <span className="hero-accent-text">בלי לרדוף אחריהם</span>
@@ -139,14 +139,14 @@ function PlungeStage({
 
           <motion.p
             {...(reduce ? {} : reveal(0.32))}
-            className="mx-auto mt-2.5 max-w-[22rem] text-[13px] leading-relaxed text-[var(--hero-fg-soft)] sm:mt-3.5 sm:max-w-md sm:text-[15px]"
+            className="mx-auto mt-2 max-w-[22rem] text-[12px] leading-relaxed text-[var(--hero-fg-soft)] sm:mt-2.5 sm:max-w-md sm:text-[14px]"
           >
             מקבלים דוגמה לפי העסק בוואטסאפ. ממשיכים רק אחרי שראיתם.
           </motion.p>
 
           <motion.div
             {...(reduce ? {} : reveal(0.44))}
-            className="pointer-events-auto mx-auto mt-4 flex w-full max-w-sm flex-col items-stretch gap-2 sm:mt-5 sm:max-w-none sm:items-center sm:gap-2.5"
+            className="pointer-events-auto mx-auto mt-3 flex w-full max-w-sm flex-col items-stretch gap-1.5 sm:mt-3.5 sm:max-w-none sm:items-center sm:gap-2"
           >
             <MagneticButton
               href={demoHref}
@@ -169,7 +169,7 @@ function PlungeStage({
 
           <motion.p
             {...(reduce ? {} : reveal(0.54))}
-            className="pointer-events-none mx-auto mt-3 max-w-sm text-[11px] leading-relaxed text-[var(--hero-fg-mute)] sm:mt-4 sm:text-xs"
+            className="pointer-events-none mx-auto mt-2.5 max-w-sm text-[11px] leading-relaxed text-[var(--hero-fg-mute)] sm:mt-3 sm:text-xs"
           >
             <bdi>3</bdi> אתרים באוויר ·{" "}
             <bdi className="text-cyan-bright" dir="ltr">
