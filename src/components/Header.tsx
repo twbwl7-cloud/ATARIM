@@ -20,7 +20,7 @@ export function Header() {
           onClick={() => setOpen(false)}
           aria-label="David Tubul — דף הבית"
         >
-          <span className="relative h-9 w-9 shrink-0 sm:h-11 sm:w-11 md:h-12 md:w-12">
+          <span className="relative h-8 w-8 shrink-0 sm:h-11 sm:w-11 md:h-12 md:w-12">
             <Image
               src="/brand/emblem.png"
               alt=""
@@ -31,7 +31,7 @@ export function Header() {
             />
           </span>
           <span
-            className="select-none text-[13px] font-semibold tracking-[0.14em] uppercase sm:text-[15px] sm:tracking-[0.16em] md:text-lg"
+            className="select-none text-[11px] font-semibold tracking-[0.12em] uppercase sm:text-[15px] sm:tracking-[0.16em] md:text-lg"
             style={{
               background: "var(--metal-gold)",
               WebkitBackgroundClip: "text",

@@ -199,7 +199,7 @@ export function WorkWheel() {
           </div>
 
           {/* Project meta under the frame — clear, no overlap */}
-          <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-5 text-center sm:pb-7 md:pb-8">
+          <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-24 text-center sm:pb-7 md:pb-8">
             <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
               {String(active + 1).padStart(2, "0")} מתוך{" "}
               {String(projects.length).padStart(2, "0")}

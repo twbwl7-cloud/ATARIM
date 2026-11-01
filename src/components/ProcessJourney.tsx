@@ -197,27 +197,31 @@ export function ProcessJourney() {
         />
         <div className="process-grain pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden />
 
-        <div className="relative z-10 mx-auto flex w-full max-w-6xl shrink-0 items-end justify-between gap-4 px-5 pt-16 sm:px-8 sm:pt-20">
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl shrink-0 items-end justify-between gap-3 px-4 pt-14 sm:gap-4 sm:px-8 sm:pt-20">
           <div className="min-w-0">
-            <p className="text-xs tracking-[0.16em] text-cyan-deep">איך זה עובד</p>
-            <h2 className="display mt-2 text-2xl text-ink sm:text-3xl md:text-4xl">
+            <p className="text-[10px] tracking-[0.16em] text-cyan-deep sm:text-xs">
+              איך זה עובד
+            </p>
+            <h2 className="display mt-1.5 text-[1.35rem] leading-tight text-ink sm:mt-2 sm:text-3xl md:text-4xl">
               איך אתר עולה לאוויר בחמישה צעדים
             </h2>
-            <p className="mt-2 max-w-md text-sm text-muted">
+            <p className="mt-1.5 max-w-md text-[12px] text-muted sm:mt-2 sm:text-sm">
               המסך נשאר. גללו — המפה בזיגזג. תמיד יש מלל על היעד הנוכחי.
             </p>
           </div>
-          <div className="hidden shrink-0 text-end sm:block">
-            <p className="display text-3xl text-cyan-deep/40 md:text-4xl">
+          <div className="shrink-0 text-end">
+            <p className="display text-2xl text-cyan-deep/35 sm:text-3xl md:text-4xl">
               <bdi>{current.n}</bdi>
             </p>
-            <p className="mt-1 text-[11px] tracking-[0.12em] text-muted">מתוך 05</p>
+            <p className="mt-0.5 text-[10px] tracking-[0.12em] text-muted sm:text-[11px]">
+              מתוך 05
+            </p>
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto grid min-h-0 w-full max-w-6xl flex-1 grid-cols-1 items-stretch gap-4 px-5 py-4 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:py-5">
+        <div className="relative z-10 mx-auto grid min-h-0 w-full max-w-6xl flex-1 grid-cols-1 items-stretch gap-3 px-4 pb-[5.5rem] pt-3 sm:gap-4 sm:px-8 sm:pb-6 sm:py-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:py-5">
           {/* Zigzag map */}
-          <div className="relative min-h-[42vh] overflow-hidden rounded-2xl border border-line/70 bg-paper/40 shadow-[var(--shadow-elevated)] lg:min-h-0">
+          <div className="relative min-h-[34vh] overflow-hidden rounded-2xl border border-line/70 bg-paper/40 shadow-[var(--shadow-elevated)] sm:min-h-[40vh] lg:min-h-0">
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(94,235,245,0.22),transparent_50%)]"
@@ -324,7 +328,7 @@ export function ProcessJourney() {
                         ? { duration: 2.4, repeat: Infinity, ease: "easeInOut" }
                         : { duration: 0.35 }
                     }
-                    className={`relative grid h-10 w-10 place-items-center rounded-full border-2 text-[11px] font-semibold sm:h-12 sm:w-12 sm:text-sm ${
+                    className={`relative grid h-8 w-8 place-items-center rounded-full border-2 text-[10px] font-semibold sm:h-12 sm:w-12 sm:text-sm ${
                       isActive
                         ? "border-gold bg-[linear-gradient(135deg,#e0c06a,#c9a24a)] text-ink"
                         : on
@@ -335,7 +339,7 @@ export function ProcessJourney() {
                     <bdi>{step.n}</bdi>
                   </motion.div>
                   <p
-                    className={`absolute top-full mt-1.5 whitespace-nowrap text-[10px] tracking-wide sm:text-[11px] ${
+                    className={`absolute top-full mt-1 hidden whitespace-nowrap text-[10px] tracking-wide sm:mt-1.5 sm:block sm:text-[11px] ${
                       side === "end" ? "end-0 text-end" : "start-0 text-start"
                     } ${isActive ? "font-semibold text-ink" : "text-muted"}`}
                   >
@@ -348,8 +352,8 @@ export function ProcessJourney() {
           </div>
 
           {/* Always-on step copy */}
-          <div className="relative flex min-h-[28vh] flex-col justify-center lg:min-h-0">
-            <div className="premium-panel relative overflow-hidden rounded-2xl p-5 sm:p-7 md:p-8">
+          <div className="relative flex min-h-0 flex-col justify-center lg:min-h-0">
+            <div className="premium-panel relative overflow-hidden rounded-2xl p-4 sm:p-7 md:p-8">
               <div
                 aria-hidden
                 className="process-shimmer pointer-events-none absolute inset-0 opacity-40"
@@ -363,13 +367,13 @@ export function ProcessJourney() {
                   transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                   className="relative z-[1]"
                 >
-                  <p className="text-[11px] tracking-[0.14em] text-cyan-deep">
+                  <p className="text-[10px] tracking-[0.14em] text-cyan-deep sm:text-[11px]">
                     צעד <bdi>{current.n}</bdi> מתוך 05 · על המפה עכשיו
                   </p>
-                  <h3 className="display mt-3 text-2xl text-ink sm:text-3xl md:text-4xl">
+                  <h3 className="display mt-2 text-xl text-ink sm:mt-3 sm:text-3xl md:text-4xl">
                     {current.title}
                   </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-muted md:text-[15px]">
+                  <p className="mt-2.5 text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-[15px]">
                     {current.body}
                   </p>
                   <motion.p
@@ -377,7 +381,7 @@ export function ProcessJourney() {
                     initial={{ opacity: 0, x: 8 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.12, duration: 0.35 }}
-                    className="mt-6 inline-flex items-center gap-2 rounded-md border border-gold/30 bg-champagne/40 px-3 py-2 text-[11px] tracking-[0.06em] text-ink-soft"
+                    className="mt-4 inline-flex items-center gap-2 rounded-md border border-gold/30 bg-champagne/40 px-3 py-2 text-[11px] tracking-[0.06em] text-ink-soft sm:mt-6"
                   >
                     תוצאה
                     <span className="font-semibold text-ink">{current.outcome}</span>
@@ -386,7 +390,7 @@ export function ProcessJourney() {
               </AnimatePresence>
 
               {/* Mini progress chips — always visible */}
-              <div className="relative z-[1] mt-7 flex flex-wrap gap-1.5">
+              <div className="relative z-[1] mt-4 flex flex-wrap gap-1.5 sm:mt-7">
                 {STEPS.map((step, i) => (
                   <span
                     key={step.n}

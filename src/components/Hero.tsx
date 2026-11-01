@@ -108,7 +108,7 @@ export function Hero() {
         {/* MacBook — pinned, intensity drives plunge into the screen */}
         <motion.div
           style={{ scale: laptopScale }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 top-[28%] z-[1] sm:top-[22%] md:top-[18%]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 top-[48%] z-[1] sm:top-[28%] md:top-[18%]"
         >
           <div className="hero-laptop-stage relative h-full w-full">
             <div className="hero-laptop-shadow !bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.22)_0%,transparent_70%)]" />
@@ -119,7 +119,7 @@ export function Hero() {
         {/* Opening copy — fades as we enter the machine */}
         <motion.div
           style={{ opacity: copyOpacity, y: copyY }}
-          className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center px-5 pt-[calc(5rem+env(safe-area-inset-top))] text-center sm:px-8"
+          className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center px-5 pt-[calc(4.75rem+env(safe-area-inset-top))] text-center sm:px-8"
         >
           <motion.p
             initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
@@ -144,13 +144,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.2, ease: EASE }}
-            className="mt-7 flex w-full max-w-sm flex-col items-stretch gap-2.5 sm:max-w-none sm:items-center sm:gap-3"
+            className="mt-5 flex w-full max-w-sm flex-col items-stretch gap-2.5 sm:mt-7 sm:max-w-none sm:items-center sm:gap-3"
           >
             <MagneticButton
               href={consultHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold min-h-12 justify-center rounded-md px-8 py-3.5 text-[15px] sm:px-10 sm:text-sm"
+              className="btn-gold min-h-11 justify-center rounded-md px-7 py-3 text-[14px] sm:min-h-12 sm:px-10 sm:py-3.5 sm:text-sm"
             >
               לשיחת ייעוץ בוואטסאפ
             </MagneticButton>
