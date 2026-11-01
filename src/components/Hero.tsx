@@ -50,15 +50,16 @@ export function Hero() {
     mass: 0.5,
   });
 
+  // Fade copy out before the MacBook fills the frame (avoids dark-on-dark)
   const copyOpacity = useTransform(
     scrollYProgress,
-    [0, 0.1, 0.28, 0.38],
-    [1, 1, 0.15, 0],
+    [0, 0.08, 0.18, 0.26],
+    [1, 1, 0.2, 0],
   );
-  const copyY = useTransform(scrollYProgress, [0, 0.35], [0, -36]);
+  const copyY = useTransform(scrollYProgress, [0, 0.28], [0, -28]);
   const hintOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.14, 0.32],
+    [0.04, 0.1, 0.2],
     [0, 1, 0],
   );
   const veilOpacity = useTransform(scrollYProgress, [0.78, 0.96], [0, 1]);
@@ -82,16 +83,10 @@ export function Hero() {
           >
             לשיחת ייעוץ בוואטסאפ
           </MagneticButton>
-          <a
-            href="#work"
-            className="text-sm font-semibold text-[#dff8fc] drop-shadow-[0_1px_8px_rgba(24,196,224,0.35)]"
-          >
+          <a href="#work" className="hero-caption">
             לראות עבודות חיות
           </a>
-          <p
-            className="text-sm font-semibold tracking-wide text-[#5eebf5]"
-            dir="ltr"
-          >
+          <p className="hero-caption hero-caption--phone" dir="ltr">
             {site.phoneDisplay}
           </p>
         </div>
@@ -160,25 +155,20 @@ export function Hero() {
             >
               לשיחת ייעוץ בוואטסאפ
             </MagneticButton>
-            <a
-              href="#work"
-              className="group relative inline-flex justify-center text-[15px] font-semibold tracking-wide text-[#0a8aa3] transition hover:text-cyan-deep sm:text-base"
-            >
+            <a href="#work" className="hero-caption group relative inline-flex justify-center">
               לראות עבודות חיות
-              <span className="absolute inset-x-0 -bottom-0.5 mx-auto h-px w-0 bg-cyan-deep transition-all duration-300 group-hover:w-full" />
+              <span className="absolute inset-x-0 -bottom-0.5 mx-auto h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
             </a>
           </motion.div>
 
-          <p className="mt-4 text-sm font-semibold tracking-[0.04em] text-cyan sm:text-[15px]">
-            <bdi className="text-[#18c4e0]" dir="ltr">
-              {site.phoneDisplay}
-            </bdi>
+          <p className="hero-caption hero-caption--phone mt-4">
+            <bdi dir="ltr">{site.phoneDisplay}</bdi>
           </p>
         </motion.div>
 
         <motion.p
           style={{ opacity: hintOpacity }}
-          className="pointer-events-none absolute inset-x-0 bottom-8 z-20 text-center text-[11px] font-medium tracking-[0.14em] text-cyan-deep/80"
+          className="hero-caption pointer-events-none absolute inset-x-0 bottom-8 z-20 text-center text-[11px] tracking-[0.14em]"
         >
           גללו — נכנסים למסך
         </motion.p>

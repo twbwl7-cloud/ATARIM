@@ -9,7 +9,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const ABOUT_BODY =
   "היי, אני דוד. בעולם שבו הרושם הראשוני קובע הכל, האתר שלך חייב להיות בלתי נשכח. כסטודנט למדעי המחשב ומפתח אתרי פרימיום, אני מחבר בין ארכיטקטורת קוד חכמה לעיצוב יוקרתי ללא פשרות – וללא תבניות. ההתמחות שלי היא ביצירת חוויות 3D אינטראקטיביות וממשקים שעוצרים את הגלילה. החזון שלך, הסטנדרט שלי. יחד ניצור נכס דיגיטלי שמרגיש, נראה ועובד ברמה הגבוהה ביותר.";
 
-/** About — portrait + exact copy · near page bottom · phone-tuned */
+/** About — portrait + exact copy · no duplicate large H2 */
 export function AboutIntro() {
   return (
     <section
@@ -50,10 +50,7 @@ export function AboutIntro() {
           <p className="text-[10px] font-semibold tracking-[0.18em] text-cyan-deep sm:text-xs">
             עליי
           </p>
-          <h2 className="display mt-2 text-2xl text-ink sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
-            היי, אני דוד
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[14px] leading-[1.75] text-muted sm:mt-5 sm:text-[15px] sm:leading-[1.75] md:mx-0 md:mt-6 md:text-lg md:leading-[1.8]">
+          <p className="mx-auto mt-4 max-w-xl text-[14px] leading-[1.75] text-ink-soft sm:mt-5 sm:text-[15px] sm:leading-[1.75] md:mx-0 md:mt-6 md:text-lg md:leading-[1.8]">
             {ABOUT_BODY}
           </p>
         </motion.div>
