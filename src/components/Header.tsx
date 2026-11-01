@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { nav } from "@/lib/site";
+import { navLinks, consultLink } from "@/lib/site";
 
-/** Full-width brand bar — no corner pill */
+/** Floating glass pill navbar — luxury agency chrome */
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -18,79 +17,60 @@ export function Header() {
   };
 
   return (
-    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[60] border-b border-white/[0.06] bg-[#050507]/80 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-[90rem] items-center gap-4 px-4 py-3 sm:px-6 md:gap-8 md:px-10 md:py-3.5">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-[60] px-3 pt-4 sm:px-5 sm:pt-5 md:px-8">
+      <div className="pointer-events-auto mx-auto flex max-w-5xl items-center gap-3 rounded-full border border-white/10 bg-black/20 px-3 py-2 shadow-[0_8px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:gap-4 sm:px-5 sm:py-2.5">
         <Link
           href="/"
-          className="group relative flex shrink-0 items-center gap-2 sm:gap-2.5"
+          className="shrink-0 select-none px-2 py-1 font-[family-name:var(--font-frank)] text-[11px] font-light tracking-[0.28em] text-[#e8d5a3] uppercase transition-colors duration-500 ease-in-out hover:text-gold sm:text-xs md:text-sm md:tracking-[0.32em]"
           onClick={() => setOpen(false)}
           aria-label="דוד טובול — דף הבית"
         >
-          <span className="relative h-8 w-8 shrink-0 sm:h-10 sm:w-10 md:h-11 md:w-11">
-            <Image
-              src="/brand/emblem.png"
-              alt=""
-              fill
-              sizes="44px"
-              priority
-              unoptimized
-              className="object-contain"
-            />
-          </span>
-          <span
-            className="select-none text-[11px] font-semibold tracking-[0.12em] uppercase sm:text-[15px] sm:tracking-[0.16em] md:text-lg"
-            style={{
-              background: "var(--metal-gold)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            David Tubul
-          </span>
+          DAVID TUBUL
         </Link>
 
         <nav
           aria-label="ניווט ראשי"
-          className="hidden min-w-0 flex-1 items-center justify-evenly md:flex"
+          className="hidden min-w-0 flex-1 items-center justify-center gap-1 md:flex lg:gap-2"
         >
-          {nav.map((item) => {
+          {navLinks.map((item) => {
             const active = isActive(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative whitespace-nowrap px-2 py-2 text-[13px] tracking-[0.06em] transition sm:px-3 lg:text-sm ${
-                  active ? "text-gold" : "text-muted hover:text-ink"
+                className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-light tracking-wide transition-colors duration-500 ease-in-out lg:px-4 ${
+                  active
+                    ? "text-gold"
+                    : "text-muted hover:text-[#D4AF37]"
                 }`}
               >
                 {item.label}
-                {active ? (
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-2 -bottom-px h-px bg-gradient-to-l from-transparent via-gold to-transparent sm:inset-x-3"
-                  />
-                ) : null}
               </Link>
             );
           })}
         </nav>
 
+        <Link
+          href={consultLink.href}
+          className="header-consult hidden shrink-0 rounded-full border border-white/20 px-4 py-1.5 text-[12px] font-light tracking-wide text-ink transition-all duration-500 ease-in-out hover:border-[#D4AF37]/55 hover:text-gold md:inline-flex lg:px-5 lg:text-[13px]"
+        >
+          {consultLink.label}
+        </Link>
+
         <button
           type="button"
           aria-expanded={open}
           aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-          className="ms-auto grid h-10 w-10 place-items-center rounded-md border border-line bg-paper/80 text-ink sm:h-11 sm:w-11 md:hidden"
+          className="ms-auto grid h-9 w-9 place-items-center rounded-full border border-white/15 text-ink md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="flex w-4 flex-col gap-1.5">
+          <span className="flex w-3.5 flex-col gap-1">
             <span
-              className={`h-px w-full bg-ink transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+              className={`h-px w-full bg-ink transition duration-500 ${open ? "translate-y-[2.5px] rotate-45" : ""}`}
             />
-            <span className={`h-px w-full bg-ink transition ${open ? "opacity-0" : ""}`} />
+            <span className={`h-px w-full bg-ink transition duration-500 ${open ? "opacity-0" : ""}`} />
             <span
-              className={`h-px w-full bg-ink transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+              className={`h-px w-full bg-ink transition duration-500 ${open ? "-translate-y-[2.5px] -rotate-45" : ""}`}
             />
           </span>
         </button>
@@ -102,21 +82,29 @@ export function Header() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="border-t border-white/[0.06] bg-[#050507]/95 px-4 py-3 backdrop-blur-xl md:hidden"
+            transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+            className="pointer-events-auto mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-black/40 p-3 backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col gap-1">
-              {nav.map((item) => (
+              {navLinks.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className={`rounded-md px-3 py-3 text-base ${
-                    isActive(item.href) ? "text-gold" : "text-ink hover:bg-mist/40"
+                  className={`rounded-2xl px-4 py-3 text-base font-light ${
+                    isActive(item.href) ? "text-gold" : "text-ink hover:text-[#D4AF37]"
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
+              <Link
+                href={consultLink.href}
+                onClick={() => setOpen(false)}
+                className="header-consult mt-1 rounded-full border border-white/20 px-4 py-3 text-center text-sm font-light text-ink"
+              >
+                {consultLink.label}
+              </Link>
             </div>
           </motion.div>
         )}

@@ -5,20 +5,20 @@ import { motion } from "framer-motion";
 
 const POINTS = [
   {
-    title: "Craftsmanship over templates",
+    title: "אומנות על פני תבניות",
     body: "כל נכס נכתב מאפס. תבנית מהמדף לא נושאת מותג שרוצה לשלוט בקטגוריה שלו.",
   },
   {
-    title: "Conversion-Driven Architecture",
-    body: "המבנה משרת פנייה אחת ברורה — שיחה, תור או הזמנה. Measurable ROI, לא קישוט.",
+    title: "ארכיטקטורת המרה",
+    body: "המבנה משרת פנייה אחת ברורה — שיחה, תור או הזמנה. תוצאה מדידה, לא קישוט.",
   },
   {
-    title: "High-End 3D Web Experiences",
+    title: "חוויות תלת־ממד יוקרתיות",
     body: "תנועה ותלת־ממד כשהם משרתים את המותג. וואו עם מטרה — בלי רעש שמייגע את הנייד.",
   },
   {
-    title: "Engineering as brand",
-    body: "הקוד, הדומיין והביצועים שלכם. Bespoke Digital Asset שנשאר אצלכם — לא נעול אצלנו.",
+    title: "הנדסה כמותג",
+    body: "הקוד, הדומיין והביצועים שלכם. נכס דיגיטלי שנשאר אצלכם — לא נעול אצלנו.",
   },
 ] as const;
 
@@ -30,14 +30,14 @@ export function WhyRare() {
         className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.06),transparent_60%)]"
       />
       <div className="relative mx-auto max-w-5xl">
-        <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
-          Why This Studio
+        <p className="text-[11px] font-light tracking-[0.22em] text-gold">
+          למה הסטודיו הזה
         </p>
-        <h2 className="display mt-4 max-w-2xl text-3xl font-light text-ink md:text-5xl">
+        <h2 className="display mt-4 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-5xl">
           לא בונים אתרים. בונים נכסים דיגיטליים ששולטים בשוק.
         </h2>
-        <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted md:text-base">
-          סוכנות ברמת $20K+ נמדדת במה שהיא מסרבת לעשות — לא רק במה שהיא מוכרת.
+        <p className="mt-5 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
+          סטודיו יוקרה נמדד במה שהוא מסרב לעשות — לא רק במה שהוא מוכר.
         </p>
 
         <ul className="mt-14 grid gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">
@@ -58,10 +58,10 @@ export function WhyRare() {
                 aria-hidden
                 className="mb-4 block h-px w-10 bg-gradient-to-l from-gold to-transparent"
               />
-              <h3 className="display text-xl font-light text-ink md:text-2xl">
+              <h3 className="display text-xl font-light tracking-wide text-ink md:text-2xl">
                 {p.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted md:text-[15px]">
+              <p className="mt-3 text-sm font-light leading-relaxed tracking-wide text-muted md:text-[15px]">
                 {p.body}
               </p>
             </motion.li>
@@ -71,15 +71,15 @@ export function WhyRare() {
         <div className="mt-16 flex flex-wrap items-center gap-6">
           <Link
             href="/work"
-            className="btn-gold rounded-md px-8 py-3.5 text-sm transition-all duration-500 ease-in-out"
+            className="btn-gold rounded-md px-8 py-3.5 text-sm font-light transition-all duration-500 ease-in-out"
           >
-            Explore Selected Work
+            לכל העבודות
           </Link>
           <Link
             href="/about"
-            className="text-sm tracking-[0.08em] text-muted transition-colors duration-500 ease-in-out hover:text-gold"
+            className="text-sm font-light tracking-wide text-muted transition-colors duration-500 ease-in-out hover:text-gold"
           >
-            Our Philosophy ←
+            לפילוסופיה ←
           </Link>
         </div>
       </div>

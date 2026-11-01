@@ -5,20 +5,20 @@ import { NextStepCTA } from "@/components/NextStepCTA";
 import { Testimonials } from "@/components/Testimonials";
 
 export const metadata: Metadata = {
-  title: "Our Philosophy",
+  title: "עליי",
   description:
-    "Craftsmanship over templates — פילוסופיית הסטודיו של דוד טובול. Bespoke Digital Assets.",
+    "אומנות על פני תבניות — פילוסופיית הסטודיו של דוד טובול. נכסים דיגיטליים מותאמים.",
 };
 
-/** Philosophy + proof → Contact */
+/** פילוסופיה + הוכחה → ייעוץ */
 export default function AboutPage() {
   return (
-    <div className="pt-20">
+    <div className="pt-24">
       <div className="mx-auto max-w-3xl px-5 pb-4 pt-10 text-center md:px-8 md:pt-14">
-        <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
-          Our Philosophy
+        <p className="text-[11px] font-light tracking-[0.22em] text-gold">
+          החזון שלנו
         </p>
-        <h1 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
+        <h1 className="display mt-4 text-3xl font-light tracking-wide text-ink md:text-5xl">
           מלאכה. לא תבניות. שליטה בשוק.
         </h1>
       </div>
@@ -27,7 +27,7 @@ export default function AboutPage() {
       <Testimonials />
       <NextStepCTA
         title="אם הפילוסופיה מדברת אליכם — בואו נדבר."
-        lead="Request a Consultation. עובדים רק עם מותגים שמוכנים לסטנדרט של Bespoke Digital Asset."
+        lead="עובדים רק עם מותגים שמוכנים לסטנדרט של נכס דיגיטלי שנבנה מאפס."
       />
     </div>
   );

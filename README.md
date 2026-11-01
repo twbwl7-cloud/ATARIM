@@ -1,16 +1,16 @@
-# דוד טובול — Bespoke Digital Assets
+# דוד טובול — נכסים דיגיטליים יוקרתיים
 
-אתר תדמית יוקרתי ברמת סוכנות ($20K+). Next.js App Router · RTL · Onyx + Champagne Gold.
+אתר תדמית RTL ברמת סטודיו יוקרה. Next.js App Router · Assistant + Frank Ruhl Libre · Onyx + Champagne Gold.
 
 ## משפך
 
 | עמוד | נתיב | תפקיד |
 |---|---|---|
-| ראשי | `/` | Hero → Selected Work → Philosophy → Next Step |
-| עבודות | `/work` | Gallery + Free direction → Case Studies |
-| Case Study | `/work/[slug]` | Challenge · Approach · Outcome → Contact |
-| פילוסופיה | `/about` | Our Philosophy + proof → Contact |
-| ייעוץ | `/contact` | Project Inquiry · Request a Consultation |
+| בית | `/` | הירו קולנועי → שערי ניווט → עבודות → למה → ייעוץ |
+| עבודות | `/work` | גלריה + כיוון ויזואלי → סיפורי מקרה |
+| סיפור מקרה | `/work/[slug]` | אתגר · גישה · תוצאה → ייעוץ |
+| עליי | `/about` | פילוסופיה + הוכחה → ייעוץ |
+| ייעוץ | `/contact` | פנייה לפרויקט · שיחת ייעוץ |
 
 ## הרצה
 

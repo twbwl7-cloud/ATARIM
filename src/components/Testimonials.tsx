@@ -29,11 +29,11 @@ export function Testimonials() {
       className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-24 md:px-8 md:py-32"
     >
       <div className="relative mx-auto max-w-6xl">
-        <p className="text-center text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
-          Client Proof
+        <p className="text-center text-[11px] font-light tracking-[0.22em] text-gold">
+          הוכחה מלקוחות
         </p>
-        <h2 className="display mt-4 text-center text-3xl font-light text-ink md:text-4xl">
-          Measurable ROI — במילים שלהם
+        <h2 className="display mt-4 text-center text-3xl font-light tracking-wide text-ink md:text-4xl">
+          תוצאה מדידה — במילים שלהם
         </h2>
 
         <ul className="mt-14 grid gap-6 md:mt-16 md:grid-cols-3 md:items-start md:gap-8">

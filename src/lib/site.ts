@@ -1,7 +1,7 @@
 export const site = {
   name: "David Tubul",
   nameHe: "דוד טובול",
-  tagline: "Bespoke Digital Assets",
+  tagline: "נכסים דיגיטליים שאי אפשר להתעלם מהם",
   taglineHe: "נכסים דיגיטליים שנבנים מאפס — לא מתבניות",
   short: "David Tubul",
   whatsapp:
@@ -16,7 +16,7 @@ export const site = {
 export function whatsappUrl(message?: string) {
   const text =
     message ??
-    "היי דוד, מעוניין ב־Project Inquiry. אשמח לשיחת ייעוץ קצרה.";
+    "היי דוד, מעוניין בפנייה לפרויקט. אשמח לשיחת ייעוץ קצרה.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
@@ -24,17 +24,17 @@ export const demoNiches = [
   {
     id: "clinic",
     label: "קליניקה / אסתטיקה",
-    hint: "Conversion architecture · כפתור לתור",
+    hint: "ארכיטקטורת המרה · כפתור לתור",
   },
   {
     id: "cakes",
     label: "עוגות / מזון",
-    hint: "High-end product experience · הזמנה",
+    hint: "חוויית מוצר יוקרתית · הזמנה",
   },
   {
     id: "barber",
     label: "מספרה / יופי",
-    hint: "Measurable ROI · תיאום מראש",
+    hint: "תוצאה מדידה · תיאום מראש",
   },
   {
     id: "realestate",
@@ -60,7 +60,7 @@ export function freeDemoWhatsAppUrl(nicheLabel: string, note?: string) {
     ? `\n\nמה חשוב בפרויקט:\n${note.trim()}`
     : "";
   return whatsappUrl(
-    `היי דוד, Project Inquiry — כיוון ל־${nicheLabel}.${detail}\nמעוניין בשיחת ייעוץ.`,
+    `היי דוד, פנייה לפרויקט — כיוון ל־${nicheLabel}.${detail}\nמעוניין בשיחת ייעוץ.`,
   );
 }
 
@@ -86,10 +86,10 @@ export const projects: Project[] = [
     id: "lulilac",
     title: "לולילק",
     client: "קליניקת אסתטיקה",
-    category: "Bespoke Brand Site",
-    format: "תדמית · Conversion",
+    category: "אתר תדמית מותאם",
+    format: "תדמית · המרה",
     summary:
-      "Conversion-Driven Architecture לקליניקה — גלריה שקטה, מסלול ברור לתור, בלי רעש שיווקי.",
+      "ארכיטקטורת המרה לקליניקה — גלריה שקטה, מסלול ברור לתור, בלי רעש שיווקי.",
     stack: ["Next.js", "Tailwind", "Motion"],
     accent: "cyan",
     featured: true,
@@ -97,19 +97,19 @@ export const projects: Project[] = [
     challenge:
       "מותג אסתטיקה שדורש נוכחות יוקרתית — לא עוד תבנית מרפאה. הלקוחות מגיעים מהנייד וצריכים לתאם תור בלי שיחת טלפון מיותרת.",
     approach:
-      "Bespoke Digital Asset: היררכיה ויזואלית אכזרית, גלריה כהוכחה, וכפתור תור יחיד שמשרת את המסר — לא מתחרה בו.",
+      "נכס דיגיטלי מותאם: היררכיה ויזואלית אכזרית, גלריה כהוכחה, וכפתור תור יחיד שמשרת את המסר — לא מתחרה בו.",
     outcome:
-      "אתר תדמית חי שמחזיק את רמת הקליניקה וממיר גלישה לפנייה. Measurable ROI נמדד בהודעות ובתורים — לא ב״לייקים״.",
-    role: "Strategy · Design · Engineering",
+      "אתר תדמית חי שמחזיק את רמת הקליניקה וממיר גלישה לפנייה. התוצאה נמדדת בהודעות ובתורים — לא ב״לייקים״.",
+    role: "אסטרטגיה · עיצוב · הנדסה",
   },
   {
     id: "cookk",
     title: "Cookk",
     client: "מותג עוגות",
-    category: "High-End Product Experience",
+    category: "חוויית מוצר יוקרתית",
     format: "תפריט · הזמנה",
     summary:
-      "High-End 3D Web Experience למותג מזון — רואים, בוחרים, שולחים הזמנה. בלי חיכוך מיותר.",
+      "חוויית אתר יוקרתית למותג מזון — רואים, בוחרים, שולחים הזמנה. בלי חיכוך מיותר.",
     stack: ["Next.js", "Tailwind"],
     accent: "ivory",
     featured: true,
@@ -119,14 +119,14 @@ export const projects: Project[] = [
     approach:
       "ארכיטקטורת המרה ממוקדת: תפריט חד, מסלול הזמנה קצר, ותנועה שמשרתת תיאבון — לא אנימציה לשם האנימציה.",
     outcome:
-      "חוויית הזמנה שמרגישה כמו דלפק יוקרה. הלקוח מסיים פעולה בלי שיחת רבע שעה — וזה Measurable ROI.",
-    role: "Concept · UX · Build",
+      "חוויית הזמנה שמרגישה כמו דלפק יוקרה. הלקוח מסיים פעולה בלי שיחת רבע שעה — וזו תוצאה מדידה.",
+    role: "קונספט · חוויית משתמש · בנייה",
   },
   {
     id: "luxe-barber",
     title: "לוקסי",
     client: "מספרה",
-    category: "Premium Booking System",
+    category: "מערכת תיאום פרימיום",
     format: "מספרה · תור",
     summary:
       "מערכת תיאום פרימיום — האתר עובד כמו קבלה דיגיטלית. הטלפון נשאר פנוי לעבודה.",
@@ -137,10 +137,10 @@ export const projects: Project[] = [
     challenge:
       "יומן מלא בטלפונים. האתר הקודם לא שידר את רמת הסלון ולא סגר תורים לבד.",
     approach:
-      "Conversion-Driven Architecture + High-End 3D Web Experience: אווירת פרימיום, מסלול תור אחד, ומיקרו־אינטראקציות שמחזקות אמון.",
+      "ארכיטקטורת המרה וחוויית תלת־ממד: אווירת פרימיום, מסלול תור אחד, ומיקרו־אינטראקציות שמחזקות אמון.",
     outcome:
       "לקוחות קובעים מהאתר. היומן מתמלא מהר יותר — בלי לרדוף אחרי שיחות שלא נענו.",
-    role: "Brand · Motion · Engineering",
+    role: "מותג · תנועה · הנדסה",
   },
 ];
 
@@ -172,29 +172,29 @@ export const testimonials = [
 export const formats = [
   {
     code: "01",
-    title: "Bespoke Brand Site",
+    title: "אתר תדמית מותאם",
     body: "נכס תדמית שנבנה מאפס — מי אתם, למה אתם, ואיך פונים. לא תבנית מהמדף.",
     lever: "אמון · פנייה",
     accent: "gold" as const,
   },
   {
     code: "02",
-    title: "Conversion Landing",
-    body: "עמוד אחד לקמפיין. Conversion-Driven Architecture עם CTA יחיד ומדויק.",
+    title: "עמוד נחיתה ממיר",
+    body: "עמוד אחד לקמפיין. ארכיטקטורת המרה עם קריאה לפעולה יחידה ומדויקת.",
     lever: "לחיצה → שיחה",
     accent: "cyan" as const,
   },
   {
     code: "03",
-    title: "Product Experience",
-    body: "תפריט / קטלוג / הזמנה. High-End experience בלי עגלה מנופחת כשאין צורך.",
+    title: "חוויית מוצר",
+    body: "תפריט / קטלוג / הזמנה. חוויה יוקרתית בלי עגלה מנופחת כשאין צורך.",
     lever: "ראיתי → הזמנתי",
     accent: "cyan" as const,
   },
   {
     code: "04",
-    title: "Booking Systems",
-    body: "תיאום מראש לקליניקות ומספרות — Measurable ROI ביומן, לא ברעש.",
+    title: "מערכות תיאום",
+    body: "תיאום מראש לקליניקות ומספרות — תוצאה מדידה ביומן, לא ברעש.",
     lever: "שקט · תורים",
     accent: "violet" as const,
   },
@@ -209,19 +209,19 @@ export const elements = [
   },
   {
     code: "02",
-    title: "Case Studies חיות",
+    title: "סיפורי מקרה חיים",
     body: "נכנסים לאתר אמיתי ולסיפור הפרויקט — לא לגלריית סטוק.",
     accentWord: "אמיתי",
   },
   {
     code: "03",
     title: "כפתור אחד",
-    body: "פעולה אחת ברורה. בלי עשרה CTAs שצועקים ביחד.",
+    body: "פעולה אחת ברורה. בלי עשר קריאות לפעולה שצועקות ביחד.",
     accentWord: "אחד",
   },
   {
     code: "04",
-    title: "Mobile-first Engineering",
+    title: "הנדסה לנייד קודם",
     body: "רוב ההחלטות קורות בטלפון. הארכיטקטורה מתחילה שם.",
     accentWord: "טלפון",
   },
@@ -247,38 +247,45 @@ export function getProject(id: string) {
 
 export const services = [
   {
-    title: "Bespoke Digital Assets",
+    title: "נכסים דיגיטליים מותאמים",
     body: "אתרי תדמית שנבנים מאפס — אסטרטגיה, עיצוב והנדסה כמקשה אחת. בלי תבניות.",
   },
   {
-    title: "High-End 3D Web Experiences",
+    title: "חוויות תלת־ממד יוקרתיות",
     body: "תנועה ותלת־ממד שמשרתים את המותג. וואו עם מטרה — לא רעש שמייגע את הנייד.",
   },
   {
-    title: "Conversion-Driven Architecture",
-    body: "מבנה שמודד פניות, תורים והזמנות. Measurable ROI מהיום הראשון באוויר.",
+    title: "ארכיטקטורת המרה",
+    body: "מבנה שמודד פניות, תורים והזמנות. תוצאה מדידה מהיום הראשון באוויר.",
   },
 ] as const;
 
 export const philosophy = [
   {
-    title: "Craftsmanship over templates",
+    title: "אומנות על פני תבניות",
     body: "כל פיקסל נכתב לפרויקט. תבנית מהמדף לא יכולה לשאת מותג שרוצה לשלוט בשוק שלו.",
   },
   {
-    title: "Engineering as brand",
+    title: "הנדסה כמותג",
     body: "הקוד הוא חלק מהמותג. ביצועים, RTL מדויק, ותנועה שקטה — זה מה שלקוחות מרגישים בלי לדעת למה.",
   },
   {
-    title: "Market dominance, not decoration",
+    title: "שליטה בשוק, לא קישוט",
     body: "האתר לא ״נראה יפה״. הוא נכס שמביא שיחות, תורים והזמנות — או שהוא לא שווה את ההשקעה.",
   },
 ] as const;
 
-/** Multi-page App Router — absolute routes only */
-export const nav = [
-  { href: "/", label: "ראשי" },
+/** Header links (Hebrew only) — ייעוץ is a separate outlined CTA */
+export const navLinks = [
+  { href: "/", label: "בית" },
   { href: "/work", label: "עבודות" },
-  { href: "/about", label: "פילוסופיה" },
-  { href: "/contact", label: "ייעוץ" },
+  { href: "/about", label: "עליי" },
+] as const;
+
+export const consultLink = { href: "/contact", label: "ייעוץ" } as const;
+
+/** Footer + shared nav (includes consultation) */
+export const nav = [
+  ...navLinks,
+  consultLink,
 ] as const;

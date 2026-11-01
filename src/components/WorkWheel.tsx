@@ -80,9 +80,9 @@ export function WorkWheel() {
     return (
       <section id="work" className="relative px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">Selected Work</p>
-          <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
-            Bespoke Digital Assets באוויר.
+          <p className="text-[11px] font-light tracking-[0.22em] text-gold">עבודות נבחרות</p>
+          <h2 className="display mt-4 text-3xl font-light tracking-wide text-ink md:text-5xl">
+            נכסים דיגיטליים באוויר.
           </h2>
           <ul className="mt-12 space-y-16">
             {projects.map((project, i) => (
@@ -99,7 +99,7 @@ export function WorkWheel() {
                     href={caseStudyHref(project)}
                     className="btn-gold mt-5 inline-flex rounded-md px-5 py-2.5 text-sm"
                   >
-                    Case Study — {project.title}
+                    סיפור מקרה — {project.title}
                   </a>
                 </div>
                 <div>
@@ -124,9 +124,9 @@ export function WorkWheel() {
 
           {/* Compact header — never fights the frame */}
           <div className="relative z-20 mx-auto w-full max-w-3xl shrink-0 px-5 pt-16 text-center sm:px-8 sm:pt-20 md:pt-20">
-            <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">Selected Work</p>
-            <h2 className="display mt-2 text-xl font-light text-ink sm:text-2xl md:text-3xl">
-              Bespoke Digital Assets באוויר.
+            <p className="text-[11px] font-light tracking-[0.22em] text-gold">עבודות נבחרות</p>
+            <h2 className="display mt-2 text-xl font-light tracking-wide text-ink sm:text-2xl md:text-3xl">
+              נכסים דיגיטליים באוויר.
             </h2>
           </div>
 
@@ -140,7 +140,7 @@ export function WorkWheel() {
                   href={caseStudyHref(project)}
                   aria-hidden={!isActive}
                   tabIndex={isActive ? 0 : -1}
-                  aria-label={`Case Study — ${project.title}`}
+                  aria-label={`סיפור מקרה — ${project.title}`}
                   initial={false}
                   animate={{
                     opacity: isActive ? 1 : 0,
@@ -179,7 +179,7 @@ export function WorkWheel() {
               href={caseStudyHref(current)}
               className="btn-gold mt-1 inline-flex rounded-md px-5 py-2.5 text-sm"
             >
-              Case Study — {current.title}
+              סיפור מקרה — {current.title}
             </a>
             <div className="mt-2 flex w-full max-w-xs items-center gap-3">
               <p className="shrink-0 text-[10px] font-medium tracking-[0.18em] text-muted uppercase">

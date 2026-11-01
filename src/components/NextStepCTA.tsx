@@ -13,12 +13,12 @@ type Props = {
   secondaryLabel?: string;
 };
 
-/** Massive elegant bottom CTA — every page ends at Contact / Inquiry */
+/** מסגרת סיום יוקרתית — כל עמוד מסתיים בייעוץ */
 export function NextStepCTA({
-  eyebrow = "Next Step",
+  eyebrow = "הצעד הבא",
   title = "מוכנים לפרויקט ברמת סוכנות?",
-  lead = "Project Inquiry קצר. בודקים התאמה, מגדירים כיוון, ורק אז בונים Bespoke Digital Asset.",
-  primaryLabel = "Request a Consultation",
+  lead = "פנייה קצרה. בודקים התאמה, מגדירים כיוון, ורק אז בונים נכס דיגיטלי מותאם.",
+  primaryLabel = "שיחת ייעוץ",
   secondaryLabel = "לעמוד הייעוץ",
 }: Props) {
   return (
@@ -35,13 +35,13 @@ export function NextStepCTA({
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.1),transparent_55%)]"
         />
         <div className="relative z-[1]">
-          <p className="text-[11px] font-medium tracking-[0.28em] text-gold uppercase">
+          <p className="text-[11px] font-light tracking-[0.28em] text-gold">
             {eyebrow}
           </p>
-          <h2 className="display mx-auto mt-5 max-w-3xl text-3xl font-light text-ink md:text-5xl">
+          <h2 className="display mx-auto mt-5 max-w-3xl text-3xl font-light tracking-wide text-ink md:text-5xl">
             {title}
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted md:text-base">
+          <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
             {lead}
           </p>
           <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
@@ -49,13 +49,13 @@ export function NextStepCTA({
               href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold justify-center rounded-md px-8 py-3.5 text-sm"
+              className="btn-gold justify-center rounded-md px-8 py-3.5 text-sm font-light"
             >
               {primaryLabel}
             </MagneticButton>
             <Link
               href="/contact"
-              className="btn-ghost rounded-md px-8 py-3.5 text-center text-sm transition-all duration-500 ease-in-out"
+              className="btn-ghost rounded-md px-8 py-3.5 text-center text-sm font-light transition-all duration-500 ease-in-out"
             >
               {secondaryLabel}
             </Link>

@@ -165,12 +165,79 @@ a {
   transition: color 0.5s ease-in-out;
 }
 
-/* Refined display — lighter weight, elegant tracking */
+/* Refined display — light weight, subtle tracking */
 .display {
   font-family: var(--font-frank), Georgia, serif;
-  letter-spacing: -0.015em;
-  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-weight: 300;
   line-height: 1.18;
+}
+
+/* Floating header consultation CTA — soft gold glow on hover */
+.header-consult {
+  box-shadow: none;
+}
+.header-consult:hover {
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.2),
+    0 0 24px rgba(212, 175, 55, 0.18);
+}
+
+/* Cinematic hero ambient mesh */
+.hero-mesh {
+  background:
+    radial-gradient(ellipse 55% 45% at 18% 28%, rgba(28, 48, 88, 0.38), transparent 62%),
+    radial-gradient(ellipse 50% 40% at 82% 22%, rgba(212, 175, 55, 0.12), transparent 58%),
+    radial-gradient(ellipse 60% 50% at 48% 78%, rgba(18, 36, 72, 0.32), transparent 65%),
+    radial-gradient(ellipse 40% 35% at 70% 60%, rgba(212, 175, 55, 0.06), transparent 55%),
+    #050507;
+  background-size: 140% 140%;
+  animation: hero-mesh-drift 28s ease-in-out infinite alternate;
+}
+
+@keyframes hero-mesh-drift {
+  0% {
+    background-position: 0% 20%, 100% 0%, 40% 100%, 80% 60%, 0 0;
+  }
+  100% {
+    background-position: 30% 0%, 70% 30%, 60% 70%, 40% 40%, 0 0;
+  }
+}
+
+.hero-scroll-line {
+  display: block;
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(
+    to bottom,
+    rgba(212, 175, 55, 0.05),
+    #d4af37 45%,
+    rgba(212, 175, 55, 0.05)
+  );
+  transform-origin: top center;
+  animation: hero-scroll-pulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes hero-scroll-pulse {
+  0% {
+    transform: scaleY(0.35) translateY(0);
+    opacity: 0.35;
+  }
+  45% {
+    transform: scaleY(1) translateY(6px);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.35) translateY(14px);
+    opacity: 0.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mesh,
+  .hero-scroll-line {
+    animation: none;
+  }
 }
 
 .eyebrow,

@@ -11,10 +11,10 @@ export function AboutSection() {
     >
       <div className="grid gap-12 md:grid-cols-[1.05fr_0.95fr] md:items-start md:gap-20">
         <div>
-          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
-            The Studio
+          <p className="text-[11px] font-light tracking-[0.22em] text-gold">
+            הסטודיו
           </p>
-          <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
+          <h2 className="display mt-4 text-3xl font-light tracking-wide text-ink md:text-5xl">
             הנדסת חוויות דיגיטליות ששולטות בשוק.
           </h2>
           <motion.p
@@ -28,8 +28,8 @@ export function AboutSection() {
             יחזור אליכם״ ובלי שרשרת פרילנסרים שמפרקת את המותג.
           </motion.p>
           <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
-            עובדים עם מותגים שלא מתפשרים על תבנית. המטרה: Bespoke Digital Asset
-            שמביא Measurable ROI — שיחות, תורים, הזמנות.
+            עובדים עם מותגים שלא מתפשרים על תבנית. המטרה: נכס דיגיטלי מותאם
+            שמביא תוצאה מדידה — שיחות, תורים, הזמנות.
           </p>
         </div>
 
