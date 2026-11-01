@@ -29,30 +29,25 @@ export function FreeDemo() {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="premium-panel relative overflow-hidden rounded-2xl px-5 py-10 sm:px-6 sm:py-12 md:px-12 md:py-16"
       >
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(680px_circle_at_12%_18%,rgba(24,196,224,0.16),transparent_48%),radial-gradient(520px_circle_at_88%_80%,rgba(201,162,74,0.1),transparent_45%)]"
-        />
-
-        <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <div className="relative z-[1] grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
-            <p className="text-xs tracking-[0.24em] text-cyan-deep">הצעה</p>
+            <p className="text-xs tracking-[0.16em] text-cyan-deep">הצעה</p>
             <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-              רואים לפני שמשלמים.
+              רואים לפני שמשלמים
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:mt-5 md:text-base">
-              בחרו סוג עסק, כתבו מה חסר, ושלחו בוואטסאפ. מקבלים דוגמה — בלי כרטיס
-              אשראי ובלי התחייבות.
+              בחרו סוג עסק, כתבו מה חסר, שלחו בוואטסאפ. מקבלים דוגמה — בלי כרטיס
+              אשראי.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-ink-soft sm:mt-6">
-              <li>· לא מתאים? עוצרים. בלי לחץ.</li>
-              <li>· לפי העסק שלכם — לא תבנית מוכנה.</li>
+              <li>· לא מתאים? עוצרים.</li>
+              <li>· לפי העסק שלכם — לא תבנית מהמדף.</li>
               <li>· ממשיכים רק אחרי שראיתם.</li>
             </ul>
           </div>
 
-          <div className="rounded-xl border border-cyan/25 bg-paper/70 p-4 sm:p-5 md:p-6">
-            <p className="text-[11px] tracking-[0.18em] text-muted">סוג עסק</p>
+          <div className="rounded-xl border border-line bg-paper/75 p-4 shadow-[var(--shadow-contact)] sm:p-5 md:p-6">
+            <p className="text-[11px] tracking-[0.12em] text-muted">סוג עסק</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {demoNiches.map((niche) => {
                 const active = niche.id === nicheId;
@@ -74,7 +69,7 @@ export function FreeDemo() {
             </div>
 
             <label className="mt-5 block sm:mt-6">
-              <span className="text-[11px] tracking-[0.18em] text-muted">
+              <span className="text-[11px] tracking-[0.12em] text-muted">
                 מה חשוב שיופיע? (לא חובה)
               </span>
               <textarea

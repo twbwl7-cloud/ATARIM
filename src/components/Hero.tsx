@@ -107,15 +107,15 @@ function PlungeStage({
         {/* Micro-trust — concrete, not fluff */}
         <p className="pointer-events-none mt-4 max-w-sm text-[11px] leading-relaxed text-muted sm:text-xs">
           3 אתרים באוויר · בלי כרטיס אשראי ·{" "}
-          <span className="ink-gold" dir="ltr">
+          <bdi className="text-cyan-deep" dir="ltr">
             052-318-2032
-          </span>
+          </bdi>
         </p>
       </motion.div>
 
       <motion.p
         style={{ opacity: hintOpacity }}
-        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 pb-[env(safe-area-inset-bottom)] text-[11px] tracking-[0.24em] text-muted sm:bottom-9"
+        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 pb-[env(safe-area-inset-bottom)] text-[11px] tracking-[0.14em] text-muted sm:bottom-9"
       >
         גללו להוכחה
       </motion.p>

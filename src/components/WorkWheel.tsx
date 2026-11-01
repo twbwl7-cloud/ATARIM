@@ -101,15 +101,15 @@ export function WorkWheel() {
     return (
       <section id="work" className="relative bg-sky px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-6xl">
-          <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
+          <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
           <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-            שלושה אתרים. נכנסים אליהם.
+            שלושה אתרים חיים. תבדקו בעצמכם.
           </h2>
           <ul className="mt-12 space-y-16">
             {projects.map((project, i) => (
               <li key={project.id} className="grid gap-8 md:grid-cols-2 md:items-center">
                 <div>
-                  <p className="text-[11px] tracking-[0.18em] text-gold">{project.client}</p>
+                  <p className="text-[11px] tracking-[0.12em] text-cyan-deep">{project.client}</p>
                   <h3 className="display mt-2 text-2xl text-ink md:text-3xl">{project.title}</h3>
                   <p className="mt-3 text-sm text-muted">{project.summary}</p>
                   <a
@@ -148,20 +148,21 @@ export function WorkWheel() {
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:px-6 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
-              <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
+              <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
               <h2 className="display mt-2 text-2xl text-ink sm:text-3xl md:text-4xl lg:text-5xl">
-                שלושה אתרים.{" "}
-                <span className="ink-gold">לחצו ונכנסים</span>.
+                שלושה אתרים חיים. תבדקו בעצמכם.
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                בטלפון — מסך טלפון. במחשב — מסך מחשב. כמו אצל הלקוח.
+                בטלפון תראו מסך טלפון. במחשב — מסך מחשב. כמו שהלקוח רואה.
               </p>
             </div>
 
             <div className="max-w-xs text-start md:text-left">
-              <p className="text-[11px] tracking-[0.2em] text-gold" dir="ltr">
-                {String(active + 1).padStart(2, "0")} /{" "}
-                {String(projects.length).padStart(2, "0")}
+              <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
+                <bdi dir="ltr">
+                  {String(active + 1).padStart(2, "0")} /{" "}
+                  {String(projects.length).padStart(2, "0")}
+                </bdi>
               </p>
               <p className="display mt-1 text-xl text-ink sm:text-2xl md:text-3xl">
                 {current.title}
