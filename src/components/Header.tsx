@@ -53,7 +53,7 @@ export function Header() {
 
         <nav
           aria-label="ניווט ראשי"
-          className="hidden min-w-0 flex-1 items-center justify-end gap-1 md:flex lg:gap-2"
+          className="hidden min-w-0 flex-1 items-center justify-evenly md:flex"
         >
           {nav.map((item) => {
             const active = isActive(item.href);
@@ -61,7 +61,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative whitespace-nowrap px-3 py-2 text-[13px] tracking-[0.04em] transition lg:px-4 lg:text-sm ${
+                className={`relative whitespace-nowrap px-2 py-2 text-[13px] tracking-[0.06em] transition sm:px-3 lg:text-sm ${
                   active ? "text-gold" : "text-muted hover:text-ink"
                 }`}
               >
@@ -69,7 +69,7 @@ export function Header() {
                 {active ? (
                   <span
                     aria-hidden
-                    className="absolute inset-x-3 -bottom-px h-px bg-gradient-to-l from-transparent via-gold to-transparent lg:inset-x-4"
+                    className="absolute inset-x-2 -bottom-px h-px bg-gradient-to-l from-transparent via-gold to-transparent sm:inset-x-3"
                   />
                 ) : null}
               </Link>
