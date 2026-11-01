@@ -103,7 +103,7 @@ export function WorkWheel() {
         <div className="mx-auto max-w-6xl">
           <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
           <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-            שלושה אתרים חיים. תבדקו בעצמכם.
+            שלושה אתרים באוויר. תבדקו בעצמכם.
           </h2>
           <ul className="mt-12 space-y-16">
             {projects.map((project, i) => (
@@ -154,7 +154,7 @@ export function WorkWheel() {
           <div className="relative z-20 mx-auto w-full max-w-3xl shrink-0 px-5 pt-16 text-center sm:px-8 sm:pt-20 md:pt-20">
             <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
             <h2 className="display mt-1.5 text-xl text-ink sm:text-2xl md:text-3xl">
-              שלושה אתרים חיים. תבדקו בעצמכם.
+              שלושה אתרים באוויר. תבדקו בעצמכם.
             </h2>
           </div>
 

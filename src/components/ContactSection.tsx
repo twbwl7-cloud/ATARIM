@@ -19,11 +19,12 @@ export function ContactSection() {
       >
         <div className="relative z-[1] max-w-2xl">
           <p className="text-xs tracking-[0.16em] text-cyan-deep">דברו איתי</p>
+          {/* H30 · יצירת קשר */}
           <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-            כתבו מה העסק. נחזור היום.
+            כתבו מה העסק. עונים באותו יום.
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-muted md:text-base">
-            וואטסאפ או שיחה קצרה. בלי טופס של עשר שדות.
+            וואטסאפ או שיחה קצרה. בלי טופס של עשר שדות ובלי דיוור בלי רשות.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <MagneticButton

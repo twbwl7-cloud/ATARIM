@@ -6,7 +6,7 @@ import { ContactSection } from "@/components/ContactSection";
 export const metadata: Metadata = {
   title: "עליי",
   description:
-    "דוד טובול — הנדסת ממשקים, אתרי פרימיום וחוויות 3D. 100% קוד נקי.",
+    "דוד טובול — בונה אתרים בקוד. דוגמה לפני תשלום. לולילק, Cookk, לוקסי.",
 };
 
 export default function AboutPage() {

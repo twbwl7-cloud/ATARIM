@@ -39,7 +39,7 @@ export function WhyRare() {
           לא בונים תבניות מהמדף. בונים אתר לעסק שלכם.
         </h2>
         <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:text-base">
-          מה שאנחנו מסרבים לעשות אומר יותר מכל סיסמה. ככה עובדים כשרוצים תוצאה, לא מצגת.
+          מה שאנחנו מסרבים לעשות אומר יותר מכל סיסמה. ככה עובדים כשרוצים הודעות מהאתר, לא מצגת.
         </p>
 
         <ul className="mt-10 grid gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-10">

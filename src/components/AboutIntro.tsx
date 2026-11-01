@@ -5,10 +5,14 @@ import { motion } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/**
+ * H29 about · V11 builder · X-filter
+ * Facts only — no מסע / חוויה / חזון / מושלם
+ */
 const ABOUT_BODY =
-  "היי, אני דוד. המסע שלי לעולם הפיתוח התחיל מתוך תשוקה אמיתית לחבר בין עיצוב מוקפד לטכנולוגיה חכמה. כסטודנט למדעי המחשב שחי את עולם הדיגיטל, הבנתי מהר מאוד שאתר הוא הרבה מעבר לשורות קוד – הוא חלון הראווה היוקרתי ביותר של העסק שלך. כיום, אני מתמחה בהנדסת ממשקים ובניית אתרי פרימיום וחוויות 3D אינטראקטיביות, ללא תבניות מוכנות (100% קוד נקי). המטרה שלי היא לקחת את החזון שלך ולהפוך אותו לנכס דיגיטלי שמרגיש, נראה ועובד מושלם.";
+  "היי, אני דוד. לומד מדעי המחשב באוניברסיטה הפתוחה. בונה אתרים בקוד — בלי תבניות מהמדף. שלושה אתרים חיים באוויר: לולילק, Cookk ולוקסי. כותבים בוואטסאפ, רואים דוגמה, וממשיכים רק אם זה מדויק לעסק שלכם.";
 
-/** About Me — exact copy · real portrait · light luxury */
+/** About — portrait + concrete copy · near page bottom */
 export function AboutIntro() {
   return (
     <section
@@ -45,7 +49,9 @@ export function AboutIntro() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.75, delay: 0.08, ease: EASE }}
         >
-          <p className="text-xs font-semibold tracking-[0.18em] text-cyan-deep">עליי</p>
+          <p className="text-xs font-semibold tracking-[0.18em] text-cyan-deep">
+            עליי
+          </p>
           <h2 className="display mt-3 text-3xl text-ink md:text-4xl lg:text-5xl">
             היי, אני דוד
           </h2>

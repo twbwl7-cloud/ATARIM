@@ -9,8 +9,8 @@ import { WhyRare } from "@/components/WhyRare";
 import { WorkWheel } from "@/components/WorkWheel";
 
 /**
- * Light luxury flow:
- * Hero (3D MacBook) → Trust → Work → Offer → Why → Process → Contact → About → Reviews
+ * Bright portfolio · Script 6 + book:
+ * Hero plunge into MacBook → Trust → Work → Offer → Why → Process map → Contact → About → Reviews
  */
 export default function HomePage() {
   return (

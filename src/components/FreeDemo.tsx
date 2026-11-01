@@ -32,18 +32,18 @@ export function FreeDemo() {
         <div className="relative z-[1] grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
             <p className="text-xs tracking-[0.16em] text-cyan-deep">הצעה</p>
-            {/* H01 · V11 */}
+            {/* L28 · להוריד סיכון · L29 צעד ראשון קטן */}
             <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-              דוגמה בחינם בלי לשלם קודם
+              דוגמה בחינם. רואים לפני שמשלמים.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:mt-5 md:text-base">
-              בחרו סוג עסק, כתבו מה חסר, שלחו בוואטסאפ. מקבלים דוגמה לפי מה
-              שכתבתם.
+              בחרו סוג עסק, כתבו מה חשוב שיופיע, שלחו בוואטסאפ. מקבלים עמוד לפי מה
+              שכתבתם — לא תבנית מהמדף.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-ink-soft sm:mt-6">
-              <li>· לא מתאים — עוצרים שם.</li>
-              <li>· לפי העסק שלכם, לא תבנית מהמדף.</li>
-              <li>· ממשיכים רק אחרי שראיתם.</li>
+              <li>· לא מתאים — עוצרים שם. בלי לחץ.</li>
+              <li>· לפי העסק שלכם, לא קטלוג מוכן.</li>
+              <li>· ממשיכים רק אחרי שראיתם את המסך.</li>
             </ul>
           </div>
 

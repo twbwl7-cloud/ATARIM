@@ -39,7 +39,7 @@ export function Testimonials() {
 
       <div className="relative mx-auto max-w-6xl">
         <h2 className="display text-center text-3xl text-ink md:text-4xl">
-          מה אומרים מי שכבר עשו את הצעד
+          מה כתבו אחרי שהאתר עלה
         </h2>
 
         <ul className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-3 md:items-start">
