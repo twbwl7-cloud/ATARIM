@@ -49,29 +49,27 @@ function PlungeStage({
 
   return (
     <div className="relative h-[100svh] overflow-hidden bg-sky">
-      {/* Scene: phone = lower half; desktop = full bleed behind copy */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[40%] z-0 md:inset-0 md:top-0">
+      {/* MacBook band — lower half on all viewports so copy never sits on black keys */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[46%] z-0 sm:top-[44%] md:top-[40%]">
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,rgba(94,235,245,0.45),transparent_48%),radial-gradient(ellipse_at_80%_70%,rgba(24,196,224,0.18),transparent_46%)]"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_18%,rgba(94,235,245,0.42),transparent_50%),radial-gradient(ellipse_at_78%_72%,rgba(24,196,224,0.16),transparent_48%)]"
         />
         <HeroScene intensity={reduce ? intensityRaw : intensity} />
-        {/* Soft lift so MacBook does not fight the copy on phone */}
         <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-sky to-transparent md:hidden"
+          className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-sky via-sky/80 to-transparent"
         />
       </div>
 
-      {/* Phone: readable band under header. Desktop: lower third over scene */}
+      {/* Copy always on sky above the laptop — phone + desktop */}
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="pointer-events-none absolute inset-x-0 z-10 px-5 pt-[calc(4.75rem+env(safe-area-inset-top))] text-center sm:px-8 md:inset-0 md:flex md:flex-col md:items-center md:justify-end md:pt-0 md:pb-[min(10vh,5.5rem)]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-[calc(4.6rem+env(safe-area-inset-top))] text-center sm:px-8 md:pt-[calc(5.25rem+env(safe-area-inset-top))]"
       >
         <div className="mx-auto w-full max-w-xl md:max-w-3xl">
-          {/* Brand — hero-level signal, not competing with H1 */}
-          <div className="mb-3 flex items-center justify-center gap-2.5 sm:mb-4 sm:gap-3">
-            <span className="relative h-11 w-11 shrink-0 sm:h-12 sm:w-12 md:h-14 md:w-14">
+          <div className="mb-2.5 flex items-center justify-center gap-2.5 sm:mb-3.5 sm:gap-3">
+            <span className="relative h-10 w-10 shrink-0 sm:h-12 sm:w-12 md:h-14 md:w-14">
               <Image
                 src="/brand/emblem.png"
                 alt=""
@@ -87,19 +85,17 @@ function PlungeStage({
           </div>
 
           {/* H01 · 5 מילים · [תוצאה] בלי [מה שמפחיד] */}
-          <h1 className="display text-[clamp(1.7rem,6.2vw,3.35rem)] leading-[1.14] text-ink">
-            הודעות מלקוחות
-            <br className="sm:hidden" />{" "}
+          <h1 className="display text-[clamp(1.75rem,5.6vw,3.4rem)] leading-[1.12] text-ink">
+            הודעות מלקוחות{" "}
             <span className="ink-cyan">בלי לרדוף אחריהם</span>
           </h1>
 
-          {/* S01 כותרת משנה · ≤20 · מסבירה מה מקבלים */}
-          <p className="mx-auto mt-3 max-w-[22rem] text-[13px] leading-relaxed text-ink-soft sm:mt-4 sm:max-w-md sm:text-[15px]">
+          {/* S01 כותרת משנה · ≤20 */}
+          <p className="mx-auto mt-2.5 max-w-[22rem] text-[13px] leading-relaxed text-ink-soft sm:mt-3.5 sm:max-w-md sm:text-[15px]">
             מקבלים דוגמה לפי העסק בוואטסאפ. ממשיכים רק אחרי שראיתם.
           </p>
 
-          <div className="pointer-events-auto mx-auto mt-5 flex w-full max-w-sm flex-col items-stretch gap-2.5 sm:mt-6 sm:max-w-none sm:items-center sm:gap-3">
-            {/* M01 · פועל + תוצאה */}
+          <div className="pointer-events-auto mx-auto mt-4 flex w-full max-w-sm flex-col items-stretch gap-2 sm:mt-5 sm:max-w-none sm:items-center sm:gap-2.5">
             <MagneticButton
               href={demoHref}
               target="_blank"
@@ -109,7 +105,6 @@ function PlungeStage({
               לקבלת דוגמה בוואטסאפ
             </MagneticButton>
             <p className="text-[11px] text-muted sm:text-xs">בלי כרטיס אשראי</p>
-            {/* M02 · חלש יותר */}
             <a
               href="#work"
               className="text-sm text-ink-faint underline-offset-4 transition hover:text-cyan-deep hover:underline"
@@ -118,8 +113,7 @@ function PlungeStage({
             </a>
           </div>
 
-          {/* שורת הוכחה · ≤8 יחידות · מספרים ב־bdi */}
-          <p className="pointer-events-none mx-auto mt-4 max-w-sm text-[11px] leading-relaxed text-muted sm:mt-5 sm:text-xs">
+          <p className="pointer-events-none mx-auto mt-3 max-w-sm text-[11px] leading-relaxed text-muted sm:mt-4 sm:text-xs">
             <bdi>3</bdi> אתרים באוויר ·{" "}
             <bdi className="text-cyan-deep" dir="ltr">
               {site.phoneDisplay}
@@ -130,7 +124,7 @@ function PlungeStage({
 
       <motion.p
         style={{ opacity: hintOpacity }}
-        className="pointer-events-none absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.12em] text-muted md:bottom-8"
+        className="pointer-events-none absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.12em] text-muted md:bottom-6"
       >
         גללו — יש הוכחה
       </motion.p>

@@ -131,13 +131,13 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     const mx = mouse.current.x;
     const my = mouse.current.y;
 
-    // Phone hero: MacBook sits in lower band under copy — frame tighter + lower
+    // Lower-band framing: laptop fills the bottom scene under sky copy
     const aspect = state.viewport.aspect || 1;
     const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 4.85 : 3.55;
-    const camY0 = narrow ? 1.15 : 1.32;
-    const modelScale = narrow ? 0.82 : 1;
-    const modelY = narrow ? -0.05 : -0.12;
+    const camZ0 = narrow ? 4.6 : 3.35;
+    const camY0 = narrow ? 0.95 : 1.05;
+    const modelScale = narrow ? 0.9 : 1.05;
+    const modelY = narrow ? -0.18 : -0.28;
 
     screenMat.uniforms.uTime.value = t;
     screenMat.uniforms.uGlow.value = g;
@@ -155,7 +155,7 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     state.camera.position.z = THREE.MathUtils.lerp(camZ0, narrow ? 0.7 : 0.45, g);
     state.camera.position.x = mx * 0.18 * (1 - g * 0.75);
     state.camera.position.y = camY0 + my * 0.1 * (1 - g * 0.6) - g * 0.15;
-    state.camera.lookAt(0, (narrow ? 0.55 : 0.45) + g * 0.35, root.current?.position.z ?? 0);
+    state.camera.lookAt(0, (narrow ? 0.35 : 0.28) + g * 0.35, root.current?.position.z ?? 0);
   });
 
   // Product-shot proportions — open lid built in XZ (closed), then hinged open
@@ -307,22 +307,22 @@ function GlbMacbook({
     const my = mouse.current.y;
     const aspect = state.viewport.aspect || 1;
     const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 4.85 : 3.55;
-    const camY0 = narrow ? 1.15 : 1.28;
-    const modelScale = narrow ? 0.82 : 1;
+    const camZ0 = narrow ? 4.6 : 3.35;
+    const camY0 = narrow ? 0.95 : 1.05;
+    const modelScale = narrow ? 0.9 : 1.05;
 
     if (root.current) {
       root.current.rotation.y = mx * 0.28 + Math.sin(t * 0.22) * 0.04;
       root.current.rotation.x = -0.2 - my * 0.08;
       root.current.scale.setScalar(modelScale * (1 + Math.sin(t * 0.9) * 0.008 + g * 0.1));
       root.current.position.z = g * 0.5;
-      root.current.position.y = narrow ? -0.05 : -0.12;
+      root.current.position.y = narrow ? -0.18 : -0.28;
     }
 
     state.camera.position.z = THREE.MathUtils.lerp(camZ0, narrow ? 0.7 : 0.42, g);
     state.camera.position.x = mx * 0.16 * (1 - g * 0.75);
     state.camera.position.y = camY0 + my * 0.09 * (1 - g * 0.6) - g * 0.12;
-    state.camera.lookAt(0, (narrow ? 0.45 : 0.42) + g * 0.3, root.current?.position.z ?? 0);
+    state.camera.lookAt(0, (narrow ? 0.35 : 0.28) + g * 0.3, root.current?.position.z ?? 0);
   });
 
   return (
