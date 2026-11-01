@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { ContactSection } from "@/components/ContactSection";
-import { PageHero } from "@/components/PageHero";
+import { FreeDemo } from "@/components/FreeDemo";
 import { WorkGrid } from "@/components/WorkGrid";
 import { WorkWheel } from "@/components/WorkWheel";
 
@@ -10,21 +9,17 @@ export const metadata: Metadata = {
     "תיק עבודות — אתרי תדמית חיים מאת דוד טובול. לולילק, Cookk, לוקסי.",
 };
 
+/** Full portfolio gallery + Free Demo */
 export default function WorkPage() {
   return (
     <div className="pt-20">
-      <PageHero
-        eyebrow="עבודות"
-        title="אתרים באוויר. תבדקו בעצמכם."
-        lead="לא מצגת. לוחצים ונכנסים לאתר אמיתי — קליניקה, עוגות ומספרה שכבר מביאים פניות."
-      />
       <WorkWheel />
       <WorkGrid
         id="catalog"
         eyebrow="קטלוג"
         title="כל העבודות במבט אחד"
       />
-      <ContactSection />
+      <FreeDemo />
     </div>
   );
 }

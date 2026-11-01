@@ -221,11 +221,10 @@ export const services = [
   },
 ] as const;
 
-/** אתר תדמית — ניווט עמודים אמיתי (לא עוגני משפך) */
+/** Multi-page App Router — absolute routes only (no #anchors) */
 export const nav = [
   { href: "/", label: "ראשי" },
   { href: "/work", label: "עבודות" },
-  { href: "/services", label: "שירותים" },
   { href: "/about", label: "אודות" },
   { href: "/contact", label: "צור קשר" },
 ] as const;
