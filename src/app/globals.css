@@ -461,6 +461,74 @@ a {
   }
 }
 
+/* Process zigzag map — continuous living motion */
+@keyframes process-flow {
+  to {
+    stroke-dashoffset: -760;
+  }
+}
+
+@keyframes process-orb-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(6%, 4%, 0) scale(1.12);
+    opacity: 0.9;
+  }
+}
+
+@keyframes process-orb-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate3d(-5%, -3%, 0) scale(0.92);
+    opacity: 0.75;
+  }
+}
+
+@keyframes process-shimmer {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -40% 0;
+  }
+}
+
+.process-flow-dash {
+  animation: process-flow 14s linear infinite;
+}
+
+.process-orb--a {
+  animation: process-orb-drift-a 11s var(--ease-premium) infinite;
+}
+
+.process-orb--b {
+  animation: process-orb-drift-b 15s var(--ease-premium) infinite;
+}
+
+.process-shimmer {
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 48%,
+    transparent 66%
+  );
+  background-size: 220% 100%;
+  animation: process-shimmer 5.5s ease-in-out infinite;
+}
+
+.process-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
 /* —— Hero night: organic glows, grid, grain, float —— */
 @keyframes hero-breathe-a {
   0%,
@@ -741,7 +809,11 @@ a {
   .hero-glow--b,
   .hero-glow--c,
   .hero-laptop-stage,
-  .hero-laptop-shadow {
+  .hero-laptop-shadow,
+  .process-flow-dash,
+  .process-orb--a,
+  .process-orb--b,
+  .process-shimmer {
     animation: none;
   }
 

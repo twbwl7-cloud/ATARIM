@@ -1,7 +1,6 @@
 "use client";
 
-/** A10 · P14 — social proof strip after hero (landing Trust beat). */
-/** P14 proof strip — facts only, X-filter clean */
+/** A10 · P14 — always-moving proof strip · bright · X-filter clean */
 const ITEMS = [
   "לולילק · אסתטיקה",
   "Cookk · עוגות",
@@ -16,8 +15,12 @@ export function TrustMarquee() {
   return (
     <section
       aria-label="הוכחות"
-      className="relative z-10 overflow-hidden border-y border-line bg-paper/55 py-4"
+      className="relative z-10 overflow-hidden border-y border-line bg-paper/80 py-4 backdrop-blur-sm"
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,var(--sky)_0%,transparent_12%,transparent_88%,var(--sky)_100%)]"
+      />
       <div className="marquee-track pe-12" dir="rtl">
         {loop.map((label, i) => (
           <span

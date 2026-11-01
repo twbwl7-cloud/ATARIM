@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -12,8 +12,9 @@ import {
 import { whatsappUrl } from "@/lib/site";
 
 /**
- * A05 map — pinned viewport · waypoints 01–05 advance on scroll
- * H01 «איך … בחמישה צעדים» · V11 builder voice · X-filter clean
+ * Luxury zigzag map · A05 pinned · continuous ambient motion
+ * H01 process · V11 voice · X-filter clean
+ * RTL: path starts on the right and snakes left/right down the map
  */
 const STEPS = [
   {
@@ -48,6 +49,30 @@ const STEPS = [
   },
 ] as const;
 
+/** ViewBox 1000×640 — zigzag waypoints (RTL: start right) */
+const NODES = [
+  { x: 820, y: 70 },
+  { x: 220, y: 170 },
+  { x: 780, y: 300 },
+  { x: 240, y: 430 },
+  { x: 760, y: 560 },
+] as const;
+
+function buildZigzagPath(nodes: readonly { x: number; y: number }[]) {
+  if (nodes.length === 0) return "";
+  let d = `M ${nodes[0].x} ${nodes[0].y}`;
+  for (let i = 1; i < nodes.length; i++) {
+    const prev = nodes[i - 1];
+    const curr = nodes[i];
+    const midY = (prev.y + curr.y) / 2;
+    d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
+  }
+  return d;
+}
+
+const PATH_D = buildZigzagPath(NODES);
+const PATH_LEN = 1680;
+
 export function ProcessJourney() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
@@ -68,21 +93,33 @@ export function ProcessJourney() {
 
   const rawIndex = useTransform(
     scrollYProgress,
-    [0.08, 0.88],
+    [0.06, 0.86],
     [0, STEPS.length - 0.001],
   );
-  const sprung = useSpring(rawIndex, { stiffness: 70, damping: 28, mass: 0.4 });
+  const sprung = useSpring(rawIndex, { stiffness: 64, damping: 26, mass: 0.42 });
 
   useMotionValueEvent(sprung, "change", (v) => {
     const next = Math.min(STEPS.length - 1, Math.max(0, Math.floor(v)));
     setActive((prev) => (prev === next ? prev : next));
   });
 
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const mapFill = useTransform(scrollYProgress, [0.08, 0.88], ["0%", "88%"]);
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.08, 0.16], [1, 0.55, 0]);
-  const ctaOpacity = useTransform(scrollYProgress, [0.86, 0.95], [0, 1]);
+  const pathDraw = useTransform(scrollYProgress, [0.05, 0.88], [0.08, 1]);
+  const dashOffset = useTransform(pathDraw, (p) => PATH_LEN * (1 - p));
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.07, 0.14], [1, 0.6, 0]);
+  const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.96], [0, 1]);
+  const orbX = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+
   const current = STEPS[active] ?? STEPS[0];
+  const activeNode = NODES[active] ?? NODES[0];
+
+  const travelerStyle = useMemo(
+    () => ({
+      left: `${(activeNode.x / 1000) * 100}%`,
+      top: `${(activeNode.y / 640) * 100}%`,
+    }),
+    [activeNode.x, activeNode.y],
+  );
 
   if (reduce) {
     return (
@@ -115,100 +152,227 @@ export function ProcessJourney() {
     <section
       id="process"
       ref={ref}
-      className="relative z-10 h-[340vh] bg-sky sm:h-[360vh]"
+      className="relative z-10 h-[360vh] bg-sky sm:h-[380vh]"
     >
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
+        {/* Living atmosphere */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(24,196,224,0.18),transparent_48%),radial-gradient(ellipse_at_80%_80%,rgba(201,162,74,0.1),transparent_50%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(24,196,224,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
         />
+        <motion.div
+          aria-hidden
+          style={{ x: orbX, y: orbY }}
+          className="process-orb process-orb--a pointer-events-none absolute -start-10 top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(94,235,245,0.35),transparent_70%)] blur-2xl"
+        />
+        <motion.div
+          aria-hidden
+          className="process-orb process-orb--b pointer-events-none absolute -end-8 bottom-28 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(201,162,74,0.22),transparent_72%)] blur-2xl"
+        />
+        <div className="process-grain pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden />
 
-        <div className="relative z-10 mx-auto w-full max-w-4xl shrink-0 px-5 pt-16 sm:px-8 sm:pt-20">
-          <p className="text-xs tracking-[0.16em] text-cyan-deep">איך זה עובד</p>
-          {/* H01 */}
-          <h2 className="display mt-2 text-2xl text-ink sm:text-3xl md:text-4xl">
-            איך אתר עולה לאוויר בחמישה צעדים
-          </h2>
-          <p className="mt-2 max-w-xl text-sm text-muted">
-            המסך נשאר. גללו — המפה זזה. כל יעד נגמר בתוצאה.
-          </p>
-          <div className="mt-4 h-px w-full max-w-xs overflow-hidden bg-ink/10">
-            <motion.div style={{ width: progressWidth }} className="h-full bg-cyan" />
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl shrink-0 items-end justify-between gap-4 px-5 pt-16 sm:px-8 sm:pt-20">
+          <div className="min-w-0">
+            <p className="text-xs tracking-[0.16em] text-cyan-deep">איך זה עובד</p>
+            <h2 className="display mt-2 text-2xl text-ink sm:text-3xl md:text-4xl">
+              איך אתר עולה לאוויר בחמישה צעדים
+            </h2>
+            <p className="mt-2 max-w-md text-sm text-muted">
+              המסך נשאר. גללו — המפה בזיגזג. תמיד יש מלל על היעד הנוכחי.
+            </p>
+          </div>
+          <div className="hidden shrink-0 text-end sm:block">
+            <p className="display text-3xl text-cyan-deep/40 md:text-4xl">
+              <bdi>{current.n}</bdi>
+            </p>
+            <p className="mt-1 text-[11px] tracking-[0.12em] text-muted">מתוך 05</p>
           </div>
         </div>
 
-        {/* Map path */}
-        <div className="relative z-10 mx-auto mt-6 w-full max-w-3xl shrink-0 px-5 sm:mt-8 sm:px-8">
-          <ol className="relative flex items-center justify-between gap-1">
-            <span
+        <div className="relative z-10 mx-auto grid min-h-0 w-full max-w-6xl flex-1 grid-cols-1 items-stretch gap-4 px-5 py-4 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:py-5">
+          {/* Zigzag map */}
+          <div className="relative min-h-[42vh] overflow-hidden rounded-2xl border border-line/70 bg-paper/40 shadow-[var(--shadow-elevated)] lg:min-h-0">
+            <div
               aria-hidden
-              className="absolute inset-x-[6%] top-1/2 h-px -translate-y-1/2 bg-ink/10"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(94,235,245,0.22),transparent_50%)]"
             />
-            <motion.span
+
+            <svg
+              viewBox="0 0 1000 640"
+              className="absolute inset-0 h-full w-full"
+              preserveAspectRatio="xMidYMid meet"
               aria-hidden
-              className="absolute start-[6%] top-1/2 h-px -translate-y-1/2 bg-gradient-to-l from-cyan to-gold"
-              style={{ width: mapFill }}
-            />
+            >
+              <defs>
+                <linearGradient id="mapStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#18c4e0" />
+                  <stop offset="55%" stopColor="#5eebf5" />
+                  <stop offset="100%" stopColor="#c9a24a" />
+                </linearGradient>
+                <filter id="mapGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="4" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Soft base path */}
+              <path
+                d={PATH_D}
+                fill="none"
+                stroke="rgba(10,22,40,0.1)"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+
+              {/* Drawn progress */}
+              <motion.path
+                d={PATH_D}
+                fill="none"
+                stroke="url(#mapStroke)"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeDasharray={PATH_LEN}
+                style={{ strokeDashoffset: dashOffset }}
+                filter="url(#mapGlow)"
+              />
+
+              {/* Ambient flowing dashes — always moving */}
+              <path
+                d={PATH_D}
+                fill="none"
+                stroke="rgba(94,235,245,0.45)"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeDasharray="10 28"
+                className="process-flow-dash"
+              />
+            </svg>
+
+            {/* Waypoints */}
             {STEPS.map((step, i) => {
+              const node = NODES[i];
               const on = i <= active;
-              const currentStep = i === active;
+              const isActive = i === active;
+              const side = i % 2 === 0 ? "end" : "start";
               return (
-                <li key={step.n} className="relative z-[1] flex flex-col items-center gap-1.5">
-                  <span
-                    className={`grid h-9 w-9 place-items-center rounded-full border-2 text-xs font-semibold transition duration-300 sm:h-11 sm:w-11 sm:text-sm ${
-                      currentStep
-                        ? "border-gold bg-gold text-ink shadow-[0_8px_24px_rgba(201,162,74,0.35)]"
+                <div
+                  key={step.n}
+                  className="absolute z-[2] -translate-x-1/2 -translate-y-1/2"
+                  style={{
+                    left: `${(node.x / 1000) * 100}%`,
+                    top: `${(node.y / 640) * 100}%`,
+                  }}
+                >
+                  <motion.div
+                    animate={
+                      isActive
+                        ? { scale: [1, 1.08, 1], boxShadow: [
+                            "0 0 0 0 rgba(201,162,74,0.0)",
+                            "0 0 0 14px rgba(201,162,74,0.18)",
+                            "0 0 0 0 rgba(201,162,74,0.0)",
+                          ] }
+                        : { scale: 1 }
+                    }
+                    transition={
+                      isActive
+                        ? { duration: 2.4, repeat: Infinity, ease: "easeInOut" }
+                        : { duration: 0.35 }
+                    }
+                    className={`relative grid h-10 w-10 place-items-center rounded-full border-2 text-[11px] font-semibold sm:h-12 sm:w-12 sm:text-sm ${
+                      isActive
+                        ? "border-gold bg-[linear-gradient(135deg,#e0c06a,#c9a24a)] text-ink"
                         : on
-                          ? "border-cyan bg-cyan/25 text-cyan-deep"
-                          : "border-line bg-sky text-muted"
+                          ? "border-cyan bg-cyan/30 text-cyan-deep"
+                          : "border-line bg-paper/90 text-muted"
+                    }`}
+                  >
+                    <bdi>{step.n}</bdi>
+                  </motion.div>
+                  <p
+                    className={`absolute top-full mt-1.5 whitespace-nowrap text-[10px] tracking-wide sm:text-[11px] ${
+                      side === "end" ? "end-0 text-end" : "start-0 text-start"
+                    } ${isActive ? "font-semibold text-ink" : "text-muted"}`}
+                  >
+                    {step.title}
+                  </p>
+                </div>
+              );
+            })}
+
+            {/* Traveler beacon on active node */}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute z-[3] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-bright shadow-[0_0_20px_rgba(94,235,245,0.9)]"
+              animate={{ left: travelerStyle.left, top: travelerStyle.top }}
+              transition={{ type: "spring", stiffness: 90, damping: 18 }}
+            />
+          </div>
+
+          {/* Always-on step copy */}
+          <div className="relative flex min-h-[28vh] flex-col justify-center lg:min-h-0">
+            <div className="premium-panel relative overflow-hidden rounded-2xl p-5 sm:p-7 md:p-8">
+              <div
+                aria-hidden
+                className="process-shimmer pointer-events-none absolute inset-0 opacity-40"
+              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={current.n}
+                  initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -12, filter: "blur(6px)" }}
+                  transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative z-[1]"
+                >
+                  <p className="text-[11px] tracking-[0.14em] text-cyan-deep">
+                    צעד <bdi>{current.n}</bdi> מתוך 05 · על המפה עכשיו
+                  </p>
+                  <h3 className="display mt-3 text-2xl text-ink sm:text-3xl md:text-4xl">
+                    {current.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-muted md:text-[15px]">
+                    {current.body}
+                  </p>
+                  <motion.p
+                    key={`${current.n}-out`}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.12, duration: 0.35 }}
+                    className="mt-6 inline-flex items-center gap-2 rounded-md border border-gold/30 bg-champagne/40 px-3 py-2 text-[11px] tracking-[0.06em] text-ink-soft"
+                  >
+                    תוצאה
+                    <span className="font-semibold text-ink">{current.outcome}</span>
+                  </motion.p>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Mini progress chips — always visible */}
+              <div className="relative z-[1] mt-7 flex flex-wrap gap-1.5">
+                {STEPS.map((step, i) => (
+                  <span
+                    key={step.n}
+                    className={`rounded-md px-2 py-1 text-[10px] tracking-wide transition ${
+                      i === active
+                        ? "bg-gold/90 text-ink"
+                        : i < active
+                          ? "bg-cyan/25 text-cyan-deep"
+                          : "bg-ink/5 text-muted"
                     }`}
                   >
                     <bdi>{step.n}</bdi>
                   </span>
-                  <span
-                    className={`hidden text-[10px] tracking-wide sm:block ${
-                      currentStep ? "text-ink" : "text-muted"
-                    }`}
-                  >
-                    {step.title}
-                  </span>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-
-        {/* Active step card */}
-        <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-2xl flex-1 items-center px-5 py-6 sm:px-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current.n}
-              initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -16, filter: "blur(6px)" }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full"
-            >
-              <p className="display text-sm text-cyan-deep">
-                צעד <bdi>{current.n}</bdi> מתוך 05
-              </p>
-              <h3 className="display mt-2 text-3xl text-ink sm:text-4xl md:text-5xl">
-                {current.title}
-              </h3>
-              <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted md:text-base">
-                {current.body}
-              </p>
-              <p className="mt-5 inline-flex items-center gap-2 rounded-md border border-line bg-paper/70 px-3 py-2 text-[11px] tracking-[0.06em] text-ink-soft shadow-[var(--shadow-contact)]">
-                תוצאה
-                <span className="font-semibold text-ink">{current.outcome}</span>
-              </p>
-            </motion.div>
-          </AnimatePresence>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         <motion.div
           style={{ opacity: ctaOpacity }}
-          className="relative z-20 mx-auto flex w-full max-w-3xl flex-col gap-4 border-t border-line bg-sky/95 px-5 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6"
+          className="relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-4 border-t border-line bg-sky/95 px-5 py-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-5"
         >
           <div>
             <p className="display text-lg text-ink sm:text-xl">
@@ -238,9 +402,9 @@ export function ProcessJourney() {
 
         <motion.p
           style={{ opacity: hintOpacity }}
-          className="pointer-events-none absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.14em] text-muted"
+          className="pointer-events-none absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.14em] text-muted"
         >
-          גללו — היעד הבא
+          גללו — היעד הבא על המפה
         </motion.p>
       </div>
     </section>
