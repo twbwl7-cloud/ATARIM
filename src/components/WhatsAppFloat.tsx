@@ -16,7 +16,7 @@ export function WhatsAppFloat() {
       initial={{ opacity: 0, scale: 0.85, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 1.1, type: "spring", stiffness: 260, damping: 20 }}
-      className="group fixed bottom-5 left-5 z-40 flex max-w-[calc(100vw-2.5rem)] items-center gap-2.5 rounded-xl border border-line bg-paper/95 p-1.5 pe-3 shadow-[var(--shadow-elevated)] backdrop-blur-xl sm:gap-3 sm:p-2 sm:pe-4 md:bottom-8 md:left-8"
+      className="group fixed bottom-5 left-5 z-40 flex max-w-[min(18rem,calc(100vw-2.5rem))] items-center gap-2 rounded-xl border border-line bg-paper/95 p-1.5 pe-3 shadow-[var(--shadow-elevated)] backdrop-blur-xl sm:max-w-none sm:gap-3 sm:p-2 sm:pe-4 md:bottom-8 md:left-8"
     >
       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-[#25D366] text-white sm:h-12 sm:w-12">
         <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden>

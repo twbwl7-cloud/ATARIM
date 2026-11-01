@@ -338,8 +338,8 @@ a {
   position: fixed;
   inset: 0;
   z-index: 50;
-  opacity: 0.045;
-  mix-blend-mode: soft-light;
+  opacity: 0.03;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -652,7 +652,7 @@ a {
 }
 
 .hero-accent-text {
-  background: linear-gradient(118deg, #e8fcff 0%, #5eebf5 38%, #18c4e0 78%, #e0c06a 120%);
+  background: linear-gradient(118deg, #0a8aa3 0%, #18c4e0 42%, #c9a24a 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

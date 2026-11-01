@@ -464,13 +464,13 @@ export function HeroScene({
 
   return (
     <div
-      className={`absolute inset-0 ${theme === "night" ? "bg-[#0a0f1c]" : "bg-[#c5eef8]"}`}
+      className={`absolute inset-0 ${theme === "night" ? "bg-[#0a0f1c]" : "bg-transparent"}`}
     >
       <div
         className={`pointer-events-none absolute inset-0 ${
           theme === "night"
             ? "bg-[radial-gradient(ellipse_at_50%_40%,rgba(24,196,224,0.18),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(94,235,245,0.1),transparent_58%)]"
-            : "bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.4),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(24,196,224,0.18),transparent_58%)]"
+            : "bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.28),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(24,196,224,0.12),transparent_58%)]"
         }`}
       />
       <SceneErrorBoundary theme={theme} onError={() => setOk(false)}>

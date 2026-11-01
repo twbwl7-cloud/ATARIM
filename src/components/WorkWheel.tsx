@@ -13,14 +13,14 @@ import { projectHref, projects, type Project } from "@/lib/site";
 
 function PhonePreview({ project, priority }: { project: Project; priority?: boolean }) {
   return (
-    <div className="phone-frame mx-auto w-[min(72vw,280px)] sm:w-[min(58vw,300px)]">
+    <div className="phone-frame mx-auto w-[min(48vw,200px)] sm:w-[220px]">
       <div className="phone-screen">
         <Image
           src={`/work/mobile/${project.id}.jpg`}
           alt={`תצוגת מובייל — ${project.title}`}
           fill
           className="object-cover object-top"
-          sizes="(max-width: 768px) 72vw, 300px"
+          sizes="260px"
           priority={priority}
           quality={90}
         />
@@ -35,7 +35,7 @@ function DesktopPreview({ project, priority }: { project: Project; priority?: bo
     : "davidwebsitebuilder.vercel.app";
 
   return (
-    <div className="desktop-frame mx-auto w-full max-w-3xl">
+    <div className="desktop-frame mx-auto w-full max-w-md lg:max-w-lg">
       <div className="desktop-chrome">
         <div className="desktop-chrome-dots" aria-hidden>
           <span />
@@ -50,7 +50,7 @@ function DesktopPreview({ project, priority }: { project: Project; priority?: bo
           alt={`תצוגת מחשב — ${project.title}`}
           fill
           className="object-cover object-top"
-          sizes="(max-width: 1024px) 90vw, 768px"
+          sizes="(max-width: 1024px) 55vw, 512px"
           priority={priority}
           quality={90}
         />
@@ -63,7 +63,7 @@ function openLive(href: string) {
   window.open(href, "_blank", "noopener,noreferrer");
 }
 
-/** A05 pinned work · device-correct frames · curiosity gap P05 */
+/** A05 pinned work · smaller frames · no text overlap */
 export function WorkWheel() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
@@ -109,8 +109,12 @@ export function WorkWheel() {
             {projects.map((project, i) => (
               <li key={project.id} className="grid gap-8 md:grid-cols-2 md:items-center">
                 <div>
-                  <p className="text-[11px] tracking-[0.12em] text-cyan-deep">{project.client}</p>
-                  <h3 className="display mt-2 text-2xl text-ink md:text-3xl">{project.title}</h3>
+                  <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
+                    {project.client}
+                  </p>
+                  <h3 className="display mt-2 text-2xl text-ink md:text-3xl">
+                    {project.title}
+                  </h3>
                   <p className="mt-3 text-sm text-muted">{project.summary}</p>
                   <a
                     href={projectHref(project)}
@@ -139,54 +143,23 @@ export function WorkWheel() {
 
   return (
     <section id="work" ref={ref} className="relative bg-sky">
-      <div className="relative h-[280vh] sm:h-[300vh] md:h-[320vh]">
+      <div className="relative h-[260vh] sm:h-[280vh] md:h-[300vh]">
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_15%,rgba(24,196,224,0.22),transparent_50%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_10%,rgba(24,196,224,0.18),transparent_48%)]"
           />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:px-6 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
-            <div className="max-w-md">
-              <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
-              <h2 className="display mt-2 text-2xl text-ink sm:text-3xl md:text-4xl lg:text-5xl">
-                שלושה אתרים חיים. תבדקו בעצמכם.
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted">
-                בטלפון תראו מסך טלפון. במחשב — מסך מחשב. כמו שהלקוח רואה.
-              </p>
-            </div>
-
-            <div className="max-w-xs text-start md:text-left">
-              <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
-                <bdi dir="ltr">
-                  {String(active + 1).padStart(2, "0")} /{" "}
-                  {String(projects.length).padStart(2, "0")}
-                </bdi>
-              </p>
-              <p className="display mt-1 text-xl text-ink sm:text-2xl md:text-3xl">
-                {current.title}
-              </p>
-              <p className="mt-1 text-sm text-muted">{current.client}</p>
-              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-soft sm:text-sm">
-                {current.summary}
-              </p>
-              <a
-                href={projectHref(current)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  openLive(projectHref(current));
-                }}
-                className="btn-gold relative z-30 mt-3 inline-flex rounded-md px-5 py-2.5 text-sm sm:mt-4"
-              >
-                כניסה ל{current.title}
-              </a>
-            </div>
+          {/* Compact header — never fights the frame */}
+          <div className="relative z-20 mx-auto w-full max-w-3xl shrink-0 px-5 pt-16 text-center sm:px-8 sm:pt-20 md:pt-20">
+            <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
+            <h2 className="display mt-1.5 text-xl text-ink sm:text-2xl md:text-3xl">
+              שלושה אתרים חיים. תבדקו בעצמכם.
+            </h2>
           </div>
 
-          <div className="relative z-10 flex flex-1 items-center justify-center px-4 pb-4 pt-2 sm:px-6">
+          {/* Frame band — smaller, centered, clear of copy */}
+          <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-6 py-2 sm:px-12">
             {projects.map((project, i) => {
               const isActive = i === active;
               return (
@@ -205,19 +178,19 @@ export function WorkWheel() {
                   initial={false}
                   animate={{
                     opacity: isActive ? 1 : 0,
-                    y: isActive ? 0 : 18,
-                    scale: isActive ? 1 : 0.96,
+                    y: isActive ? 0 : 14,
+                    scale: isActive ? 1 : 0.97,
                     pointerEvents: isActive ? "auto" : "none",
                   }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className={`absolute inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-8 ${
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className={`absolute inset-x-4 flex items-center justify-center sm:inset-x-10 ${
                     isActive ? "z-20" : "z-10"
                   }`}
                 >
                   <div className="md:hidden">
                     <PhonePreview project={project} priority={i === 0} />
                   </div>
-                  <div className="hidden md:block">
+                  <div className="hidden w-full md:block">
                     <DesktopPreview project={project} priority={i === 0} />
                   </div>
                 </motion.a>
@@ -225,22 +198,37 @@ export function WorkWheel() {
             })}
           </div>
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-5 pb-6 sm:px-6 sm:pb-8 md:px-8">
-            <p className="text-[10px] tracking-[0.18em] text-muted sm:text-xs">
-              גללו — האתר הבא
+          {/* Project meta under the frame — clear, no overlap */}
+          <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-5 text-center sm:pb-7 md:pb-8">
+            <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
+              <bdi dir="ltr">
+                {String(active + 1).padStart(2, "0")} /{" "}
+                {String(projects.length).padStart(2, "0")}
+              </bdi>
+              {" · "}
+              {current.client}
             </p>
-            <div className="h-px min-w-0 flex-1 overflow-hidden bg-ink/10 sm:w-40 sm:flex-none">
-              <motion.div style={{ width: progressWidth }} className="h-full bg-gold" />
-            </div>
-            <div className="flex gap-2">
-              {projects.map((p, i) => (
-                <span
-                  key={p.id}
-                  className={`h-1.5 w-1.5 rounded-full transition ${
-                    i === active ? "scale-125 bg-gold" : "bg-ink/20"
-                  }`}
-                />
-              ))}
+            <p className="display text-xl text-ink sm:text-2xl">{current.title}</p>
+            <p className="max-w-md text-sm text-muted">{current.summary}</p>
+            <a
+              href={projectHref(current)}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault();
+                openLive(projectHref(current));
+              }}
+              className="btn-gold mt-1 inline-flex rounded-md px-5 py-2.5 text-sm"
+            >
+              כניסה ל{current.title}
+            </a>
+            <div className="mt-2 flex w-full max-w-xs items-center gap-3">
+              <p className="shrink-0 text-[10px] tracking-[0.14em] text-muted">
+                גללו — האתר הבא
+              </p>
+              <div className="h-px min-w-0 flex-1 overflow-hidden bg-ink/10">
+                <motion.div style={{ width: progressWidth }} className="h-full bg-gold" />
+              </div>
             </div>
           </div>
         </div>
