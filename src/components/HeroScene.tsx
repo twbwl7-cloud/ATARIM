@@ -15,8 +15,8 @@ import * as THREE from "three";
 import type { MotionValue } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 
-const VOID_DAY = "#c5eef8";
-const VOID_NIGHT = "#0a0f1c";
+const VOID_DAY = "#09090b";
+const VOID_NIGHT = "#050507";
 const GLB_CANDIDATES = [
   "/models/MacbookProProledXDR4K.glb",
   "/models/macbook-pro-proledxdr-4k.glb",
@@ -62,17 +62,17 @@ function screenMaterial() {
           streaks += band * soft * (0.55 + hash(fi * 1.9) * 0.5);
         }
 
-        vec3 deep = vec3(0.04, 0.1, 0.16);
-        vec3 cyan = vec3(0.12, 0.72, 0.86);
-        vec3 ice = vec3(0.55, 0.92, 0.98);
-        vec3 white = vec3(0.92, 0.98, 1.0);
+        vec3 deep = vec3(0.04, 0.04, 0.05);
+        vec3 champagne = vec3(0.83, 0.69, 0.22);
+        vec3 warm = vec3(0.91, 0.84, 0.64);
+        vec3 white = vec3(0.96, 0.96, 0.97);
 
-        vec3 col = mix(deep, cyan, streaks * 0.8);
-        col = mix(col, ice, smoothstep(0.35, 0.9, streaks) * 0.75);
-        col = mix(col, white, smoothstep(0.65, 1.25, streaks) * 0.55);
+        vec3 col = mix(deep, champagne, streaks * 0.55);
+        col = mix(col, warm, smoothstep(0.35, 0.9, streaks) * 0.45);
+        col = mix(col, white, smoothstep(0.65, 1.25, streaks) * 0.35);
 
         float cx = length(uv - vec2(0.5, 0.48));
-        col += (1.0 - smoothstep(0.0, 0.55, cx)) * uGlow * vec3(0.1, 0.35, 0.42);
+        col += (1.0 - smoothstep(0.0, 0.55, cx)) * uGlow * vec3(0.35, 0.28, 0.12);
 
         float vig = smoothstep(1.2, 0.3, length(uv - 0.5));
         col *= mix(0.72, 1.0, vig);
@@ -249,18 +249,18 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
             <circleGeometry args={[0.012, 16]} />
             <meshStandardMaterial color="#1c1812" metalness={0.8} roughness={0.2} />
           </mesh>
-          <pointLight position={[0, -0.35, screenH / 2]} intensity={1.15} color="#5eebf5" distance={5} />
-          <pointLight position={[0, -0.12, screenH / 2]} intensity={0.6} color="#18c4e0" distance={3} />
+          <pointLight position={[0, -0.35, screenH / 2]} intensity={0.85} color="#d4af37" distance={5} />
+          <pointLight position={[0, -0.12, screenH / 2]} intensity={0.4} color="#e8d5a3" distance={3} />
         </group>
 
-        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.1} color="#e8fcff" distance={12} />
-        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.5} color="#18c4e0" distance={9} />
+        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.0} color="#f5f5f7" distance={12} />
+        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.35} color="#d4af37" distance={9} />
         <spotLight
           position={[0, 3.8, 2.8]}
           angle={0.48}
-          penumbra={0.7}
-          intensity={1.4}
-          color="#dff8fc"
+          penumbra={0.75}
+          intensity={1.15}
+          color="#f5f5f7"
         />
     </group>
   );
@@ -342,9 +342,9 @@ function GlbMacbook({
   return (
     <group ref={root}>
       <primitive object={cloned} />
-      <pointLight position={[1.6, 2.4, 2.2]} intensity={1.15} color="#e8fcff" distance={12} />
-      <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.5} color="#18c4e0" distance={9} />
-      <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.7} intensity={1.4} color="#dff8fc" />
+      <pointLight position={[1.6, 2.4, 2.2]} intensity={1.0} color="#f5f5f7" distance={12} />
+      <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.35} color="#d4af37" distance={9} />
+      <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.75} intensity={1.15} color="#f5f5f7" />
     </group>
   );
 }
@@ -380,9 +380,9 @@ function MacbookSwitcher({ intensity }: { intensity: MotionValue<number> }) {
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.42} />
-      <directionalLight position={[4, 6, 3]} intensity={1.15} color="#e8fcff" />
-      <directionalLight position={[-3, 2, -2]} intensity={0.35} color="#18c4e0" />
+      <ambientLight intensity={0.38} />
+      <directionalLight position={[4, 6, 3]} intensity={1.05} color="#f5f5f7" />
+      <directionalLight position={[-3, 2, -2]} intensity={0.28} color="#d4af37" />
     </>
   );
 }
@@ -406,14 +406,14 @@ function HeroFallback({ theme = "day" }: { theme?: "day" | "night" }) {
   const night = theme === "night";
   return (
     <div
-      className={`absolute inset-0 overflow-hidden ${night ? "bg-[#0a0f1c]" : "bg-[#c5eef8]"}`}
+      className={`absolute inset-0 overflow-hidden ${night ? "bg-[#050507]" : "bg-[#09090b]"}`}
       aria-hidden
     >
       <div
         className={`pointer-events-none absolute inset-0 ${
           night
-            ? "bg-[radial-gradient(ellipse_at_50%_40%,rgba(24,196,224,0.22),transparent_55%),radial-gradient(ellipse_at_70%_80%,rgba(94,235,245,0.12),transparent_50%)]"
-            : "bg-[radial-gradient(ellipse_at_50%_30%,rgba(94,235,245,0.5),transparent_52%),radial-gradient(ellipse_at_70%_80%,rgba(24,196,224,0.22),transparent_48%)]"
+            ? "bg-[radial-gradient(ellipse_at_50%_40%,rgba(212,175,55,0.12),transparent_55%),radial-gradient(ellipse_at_70%_80%,rgba(212,175,55,0.08),transparent_50%)]"
+            : "bg-[radial-gradient(ellipse_at_50%_30%,rgba(212,175,55,0.12),transparent_52%),radial-gradient(ellipse_at_70%_80%,rgba(212,175,55,0.12),transparent_48%)]"
         }`}
       />
       <div className="absolute inset-x-0 bottom-0 top-[6%] overflow-hidden px-3 sm:px-8 md:px-14">
@@ -476,13 +476,13 @@ export function HeroScene({
 
   return (
     <div
-      className={`absolute inset-0 ${theme === "night" ? "bg-[#0a0f1c]" : "bg-transparent"}`}
+      className={`absolute inset-0 ${theme === "night" ? "bg-[#050507]" : "bg-transparent"}`}
     >
       <div
         className={`pointer-events-none absolute inset-0 ${
           theme === "night"
-            ? "bg-[radial-gradient(ellipse_at_50%_40%,rgba(24,196,224,0.18),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(94,235,245,0.1),transparent_58%)]"
-            : "bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.28),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(24,196,224,0.12),transparent_58%)]"
+            ? "bg-[radial-gradient(ellipse_at_50%_40%,rgba(212,175,55,0.1),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(212,175,55,0.06),transparent_58%)]"
+            : "bg-[radial-gradient(ellipse_at_50%_38%,rgba(212,175,55,0.1),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(212,175,55,0.06),transparent_58%)]"
         }`}
       />
       <SceneErrorBoundary theme={theme} onError={() => setOk(false)}>

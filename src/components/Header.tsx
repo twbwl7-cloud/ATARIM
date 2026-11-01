@@ -18,7 +18,7 @@ export function Header() {
   };
 
   return (
-    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[60] border-b border-white/[0.06] bg-[#050507]/78 backdrop-blur-xl">
+    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[60] border-b border-white/[0.06] bg-[#050507]/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-[90rem] items-center gap-4 px-4 py-3 sm:px-6 md:gap-8 md:px-10 md:py-3.5">
         <Link
           href="/"

@@ -4,9 +4,9 @@ import { nav, site, whatsappUrl } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="relative z-10 border-t border-line bg-paper">
-      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between md:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-14 sm:py-16 md:flex-row md:items-end md:justify-between md:px-8">
         <div className="max-w-md">
-          <p className="display text-2xl text-ink md:text-3xl">{site.nameHe}</p>
+          <p className="display text-2xl font-light text-ink md:text-3xl">{site.nameHe}</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
             {site.tagline}.
           </p>

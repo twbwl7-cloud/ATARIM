@@ -7,7 +7,7 @@ const PILLARS = [
   {
     n: "01",
     word: "בהירות",
-    ink: "ink-cyan" as const,
+    ink: "ink-gold" as const,
     line: (
       <>
         מה הלקוח מבין ב<span className="ink-gold">שנייה</span> הראשונה
@@ -20,17 +20,17 @@ const PILLARS = [
     ink: "ink-gold" as const,
     line: (
       <>
-        כל מסך מביא <span className="ink-cyan">הודעה</span> — לא קישוט
+        כל מסך מביא <span className="ink-gold">הודעה</span> — לא קישוט
       </>
     ),
   },
   {
     n: "03",
     word: "קצב",
-    ink: "ink-rose" as const,
+    ink: "ink-gold" as const,
     line: (
       <>
-        גלילה רגועה. בלי <span className="ink-cyan">רעש</span> בטלפון
+        גלילה רגועה. בלי <span className="ink-gold">רעש</span> בטלפון
       </>
     ),
   },
@@ -41,14 +41,14 @@ const PILLARS = [
     line: (
       <>
         אתרים חיים + אנשים{" "}
-        <span className="ink-cyan">אמיתיים</span> שמדברים
+        <span className="ink-gold">אמיתיים</span> שמדברים
       </>
     ),
   },
   {
     n: "05",
     word: "פעולה",
-    ink: "ink-cyan" as const,
+    ink: "ink-gold" as const,
     line: (
       <>
         כפתור אחד ברור — וואטסאפ או <span className="ink-gold">תור</span>
@@ -69,7 +69,7 @@ export function PinnedPillars() {
     <section
       ref={wrap}
       id="pillars"
-      className="section-void relative z-10 overflow-hidden px-5 py-16 sm:py-20 md:px-8 md:py-28"
+      className="section-void relative z-10 overflow-hidden px-5 py-24 md:px-8 md:py-32"
       aria-label="חמש מילים"
     >
       <div
@@ -84,8 +84,8 @@ export function PinnedPillars() {
       <div className="relative mx-auto max-w-5xl">
         <div className="mb-8 flex items-end justify-between gap-4 sm:mb-12">
           <div>
-            <p className="text-xs tracking-[0.28em] text-gold">השיטה</p>
-            <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
+            <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">השיטה</p>
+            <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
               חמש מילים שמחזיקות{" "}
               <span className="ink-gold">אתר</span>
             </h2>
@@ -97,7 +97,7 @@ export function PinnedPillars() {
           <div className="hidden h-px w-28 overflow-hidden bg-white/10 sm:block md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-gold via-gold to-cyan"
+              className="h-full bg-gradient-to-l from-transparent via-gold to-transparent"
             />
           </div>
         </div>

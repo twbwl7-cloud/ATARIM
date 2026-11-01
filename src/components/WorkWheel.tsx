@@ -82,17 +82,17 @@ export function WorkWheel() {
 
   if (reduce) {
     return (
-      <section id="work" className="relative px-5 py-16 md:px-8 md:py-24">
+      <section id="work" className="relative px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
-          <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
+          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">עבודות באוויר</p>
+          <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
             שלושה אתרים באוויר. תבדקו בעצמכם.
           </h2>
           <ul className="mt-12 space-y-16">
             {projects.map((project, i) => (
               <li key={project.id} className="grid gap-8 md:grid-cols-2 md:items-center">
                 <div>
-                  <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
+                  <p className="text-[11px] tracking-[0.16em] text-gold">
                     {project.client}
                   </p>
                   <h3 className="display mt-2 text-2xl text-ink md:text-3xl">
@@ -130,8 +130,8 @@ export function WorkWheel() {
 
           {/* Compact header — never fights the frame */}
           <div className="relative z-20 mx-auto w-full max-w-3xl shrink-0 px-5 pt-16 text-center sm:px-8 sm:pt-20 md:pt-20">
-            <p className="text-xs tracking-[0.16em] text-gold">עבודות באוויר</p>
-            <h2 className="display mt-1.5 text-xl text-ink sm:text-2xl md:text-3xl">
+            <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">עבודות באוויר</p>
+            <h2 className="display mt-2 text-xl font-light text-ink sm:text-2xl md:text-3xl">
               שלושה אתרים באוויר. תבדקו בעצמכם.
             </h2>
           </div>
@@ -175,13 +175,13 @@ export function WorkWheel() {
 
           {/* Project meta under the frame — clear, no overlap */}
           <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-20 text-center sm:pb-7 md:pb-8">
-            <p className="text-[11px] font-semibold tracking-[0.12em] text-cyan-deep sm:text-xs">
+            <p className="text-[11px] font-medium tracking-[0.16em] text-gold sm:text-xs">
               {String(active + 1).padStart(2, "0")} מתוך{" "}
               {String(projects.length).padStart(2, "0")}
               <span aria-hidden> · </span>
               {current.client}
             </p>
-            <p className="display text-lg text-ink sm:text-xl md:text-2xl">
+            <p className="display text-lg font-light text-ink sm:text-xl md:text-2xl">
               {current.title}
             </p>
             <p className="max-w-md text-xs font-medium text-ink-soft sm:text-sm">
@@ -200,7 +200,7 @@ export function WorkWheel() {
               כניסה ל{current.title}
             </a>
             <div className="mt-2 flex w-full max-w-xs items-center gap-3">
-              <p className="shrink-0 text-[10px] font-semibold tracking-[0.14em] text-cyan-deep">
+              <p className="shrink-0 text-[10px] font-medium tracking-[0.18em] text-muted uppercase">
                 גללו — האתר הבא
               </p>
               <div className="h-px min-w-0 flex-1 overflow-hidden bg-ink/10">

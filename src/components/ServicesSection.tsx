@@ -6,9 +6,9 @@ import { services } from "@/lib/site";
 export function ServicesSection() {
   return (
     <section className="section-void relative z-10 overflow-hidden border-y border-line">
-      <div className="relative mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-24">
-        <p className="text-xs tracking-[0.16em] text-gold">מה עושים יחד</p>
-        <h2 className="display mt-3 max-w-xl text-3xl text-ink md:text-5xl">
+      <div className="relative mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">מה עושים יחד</p>
+        <h2 className="display mt-4 max-w-xl text-3xl font-light text-ink md:text-5xl">
           שלושה דברים שאני בונה
         </h2>
         <div className="mt-12 grid gap-4 md:grid-cols-2">

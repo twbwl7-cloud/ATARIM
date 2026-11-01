@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 
 /**
  * Words book · V11 הבנאי · H18 מה שלא עושים · L28 להוריד סיכון
- * Exact positioning language — what we refuse, what you get
  */
 const POINTS = [
   {
@@ -27,41 +26,44 @@ const POINTS = [
 
 export function WhyRare() {
   return (
-    <section className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-16 sm:py-20 md:px-8 md:py-28">
+    <section className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-24 md:px-8 md:py-32">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(201,162,74,0.14),transparent_60%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.06),transparent_60%)]"
       />
       <div className="relative mx-auto max-w-5xl">
-        <p className="text-xs tracking-[0.16em] text-gold">למה איתי</p>
-        {/* H18 · מה שלא עושים · V11 הבנאי */}
-        <h2 className="display mt-3 max-w-2xl text-3xl text-ink md:text-5xl">
+        <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
+          למה איתי
+        </p>
+        <h2 className="display mt-4 max-w-2xl text-3xl font-light text-ink md:text-5xl">
           לא בונים תבניות מהמדף. בונים אתר לעסק שלכם.
         </h2>
-        <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:text-base">
+        <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted md:text-base">
           מה שאנחנו מסרבים לעשות אומר יותר מכל סיסמה. ככה עובדים כשרוצים הודעות מהאתר, לא מצגת.
         </p>
 
-        <ul className="mt-10 grid gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-10">
+        <ul className="mt-14 grid gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">
           {POINTS.map((p, i) => (
             <motion.li
               key={p.title}
-              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{
-                delay: i * 0.1,
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
+                delay: i * 0.08,
+                duration: 0.7,
+                ease: [0.22, 1, 0.36, 1],
               }}
-              className="border-t border-line pt-5"
+              className="border-t border-white/10 pt-6"
             >
               <span
                 aria-hidden
-                className="mb-3 block h-px w-10 bg-gradient-to-l from-gold to-transparent"
+                className="mb-4 block h-px w-10 bg-gradient-to-l from-gold to-transparent"
               />
-              <h3 className="display text-xl text-ink md:text-2xl">{p.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">
+              <h3 className="display text-xl font-light text-ink md:text-2xl">
+                {p.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted md:text-[15px]">
                 {p.body}
               </p>
             </motion.li>

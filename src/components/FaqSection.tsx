@@ -33,10 +33,10 @@ export function FaqSection() {
   return (
     <section
       id="faq"
-      className="relative z-10 mx-auto max-w-3xl px-5 py-16 sm:py-20 md:px-8 md:py-28"
+      className="relative z-10 mx-auto max-w-3xl px-5 py-24 md:px-8 md:py-32"
     >
-      <p className="text-center text-xs tracking-[0.16em] text-gold">שאלות נפוצות</p>
-      <h2 className="display mt-3 text-center text-3xl text-ink md:text-4xl">
+      <p className="text-center text-[11px] font-medium tracking-[0.22em] text-gold uppercase">שאלות נפוצות</p>
+      <h2 className="display mt-4 text-center text-3xl font-light text-ink md:text-4xl">
         מה שואלים לפני שפונים
       </h2>
 

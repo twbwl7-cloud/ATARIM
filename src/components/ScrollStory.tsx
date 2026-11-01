@@ -18,7 +18,7 @@ export function ScrollStory() {
   return (
     <section
       ref={ref}
-      className="section-void relative z-10 border-y border-line/30 px-5 py-20 sm:py-28 md:px-8 md:py-36"
+      className="section-void relative z-10 border-y border-line/30 px-5 py-24 md:px-8 md:py-32"
     >
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center justify-between gap-4 sm:mb-8">
@@ -26,7 +26,7 @@ export function ScrollStory() {
           <div className="h-px w-16 overflow-hidden bg-white/10 sm:w-24 md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-gold via-gold to-cyan"
+              className="h-full bg-gradient-to-l from-transparent via-gold to-transparent"
             />
           </div>
         </div>

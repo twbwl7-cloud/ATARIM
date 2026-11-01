@@ -68,10 +68,10 @@ export function Hero() {
   if (reduce) {
     return (
       <section className="relative flex min-h-[100svh] flex-col overflow-hidden px-5 pb-16 pt-[calc(5rem+env(safe-area-inset-top))] text-center">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">
+        <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
           {site.nameHe}
         </p>
-        <h1 className="display mt-3 text-[clamp(1.65rem,5vw,3.2rem)] text-ink">
+        <h1 className="display mt-3 text-[clamp(1.65rem,5vw,3.0rem)] font-light text-ink">
           אתרים שאי אפשר <span className="hero-accent-text">להתעלם</span> מהם
         </h1>
         <p className="mx-auto mt-4 max-w-md text-sm text-muted">
@@ -129,7 +129,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease: EASE }}
-            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold sm:text-sm"
+            className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold sm:text-sm"
           >
             {site.nameHe}
           </motion.p>
@@ -138,7 +138,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.95, delay: 0.08, ease: EASE }}
-            className="display mt-3 max-w-2xl text-[clamp(1.75rem,5.2vw,3.35rem)] leading-[1.12] tracking-[-0.02em] text-ink"
+            className="display mt-3 max-w-2xl text-[clamp(1.7rem,4.8vw,3.1rem)] font-light leading-[1.16] tracking-[-0.015em] text-ink"
           >
             אתרים שאי אפשר{" "}
             <span className="hero-accent-text">להתעלם</span> מהם

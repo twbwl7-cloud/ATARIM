@@ -25,7 +25,7 @@ export function PageHero({
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE }}
-          className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold sm:text-xs"
+          className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold sm:text-xs"
         >
           {eyebrow}
         </motion.p>
@@ -33,7 +33,7 @@ export function PageHero({
           initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.85, delay: 0.06, ease: EASE }}
-          className="display mt-3 text-[clamp(1.75rem,4.5vw,3rem)] leading-[1.15] tracking-[-0.02em] text-ink"
+          className="display mt-3 text-[clamp(1.65rem,4.2vw,2.75rem)] font-light leading-[1.2] tracking-[-0.015em] text-ink"
         >
           {title}
         </motion.h1>

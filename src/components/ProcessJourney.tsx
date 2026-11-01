@@ -149,16 +149,16 @@ export function ProcessJourney() {
 
   if (reduce) {
     return (
-      <section id="process" className="relative z-10 px-5 py-16 md:px-8 md:py-24">
+      <section id="process" className="relative z-10 px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-3xl">
-          <p className="text-xs tracking-[0.16em] text-cyan-deep">איך זה עובד</p>
-          <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
+          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">איך זה עובד</p>
+          <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
             איך אתר עולה לאוויר בחמישה צעדים
           </h2>
           <ol className="mt-10 space-y-10">
             {STEPS.map((step) => (
               <li key={step.n} className="border-t border-line pt-5">
-                <p className="text-sm text-cyan-deep">
+                <p className="text-sm text-gold">
                   <bdi>{step.n}</bdi>
                 </p>
                 <h3 className="display mt-1 text-2xl text-ink">{step.title}</h3>
@@ -184,12 +184,12 @@ export function ProcessJourney() {
         {/* Living atmosphere */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(24,196,224,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
         />
         <motion.div
           aria-hidden
           style={{ x: orbX, y: orbY }}
-          className="process-orb process-orb--a pointer-events-none absolute -start-10 top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(94,235,245,0.35),transparent_70%)] blur-2xl"
+          className="process-orb process-orb--a pointer-events-none absolute -start-10 top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.35),transparent_70%)] blur-2xl"
         />
         <motion.div
           aria-hidden
@@ -199,7 +199,7 @@ export function ProcessJourney() {
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl shrink-0 items-end justify-between gap-3 px-4 pt-14 sm:gap-4 sm:px-8 sm:pt-20">
           <div className="min-w-0">
-            <p className="text-[10px] tracking-[0.16em] text-cyan-deep sm:text-xs">
+            <p className="text-[10px] tracking-[0.18em] text-gold sm:text-xs">
               איך זה עובד
             </p>
             <h2 className="display mt-1.5 text-[1.35rem] leading-tight text-ink sm:mt-2 sm:text-3xl md:text-4xl">
@@ -210,7 +210,7 @@ export function ProcessJourney() {
             </p>
           </div>
           <div className="shrink-0 text-end">
-            <p className="display text-2xl text-cyan-deep/35 sm:text-3xl md:text-4xl">
+            <p className="display text-2xl font-light text-gold/30 sm:text-3xl md:text-4xl">
               <bdi>{current.n}</bdi>
             </p>
             <p className="mt-0.5 text-[10px] tracking-[0.12em] text-muted sm:text-[11px]">
@@ -221,10 +221,10 @@ export function ProcessJourney() {
 
         <div className="relative z-10 mx-auto grid min-h-0 w-full max-w-6xl flex-1 grid-cols-1 items-stretch gap-3 px-4 pb-[5.5rem] pt-3 sm:gap-4 sm:px-8 sm:pb-6 sm:py-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:py-5">
           {/* Zigzag map */}
-          <div className="relative min-h-[34vh] overflow-hidden rounded-2xl border border-line/70 bg-paper/40 shadow-[var(--shadow-elevated)] sm:min-h-[40vh] lg:min-h-0">
+          <div className="relative min-h-[34vh] overflow-hidden rounded-2xl border border-line/70 bg-paper/40  sm:min-h-[40vh] lg:min-h-0">
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(94,235,245,0.22),transparent_50%)]"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(212,175,55,0.1),transparent_50%)]"
             />
 
             <svg
@@ -235,8 +235,8 @@ export function ProcessJourney() {
             >
               <defs>
                 <linearGradient id="mapStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#18c4e0" />
-                  <stop offset="55%" stopColor="#5eebf5" />
+                  <stop offset="0%" stopColor="#a8892a" />
+                  <stop offset="55%" stopColor="#d4af37" />
                   <stop offset="100%" stopColor="#c9a24a" />
                 </linearGradient>
                 <filter id="mapGlow" x="-20%" y="-20%" width="140%" height="140%">
@@ -275,7 +275,7 @@ export function ProcessJourney() {
               <path
                 d={PATH_D}
                 fill="none"
-                stroke="rgba(94,235,245,0.35)"
+                stroke="rgba(212,175,55,0.35)"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeDasharray="10 28"
@@ -332,7 +332,7 @@ export function ProcessJourney() {
                       isActive
                         ? "border-gold bg-[linear-gradient(135deg,#e0c06a,#c9a24a)] text-ink"
                         : on
-                          ? "border-cyan bg-cyan/30 text-cyan-deep"
+                          ? "border-gold bg-gold/20 text-gold"
                           : "border-line bg-paper/90 text-muted"
                     }`}
                   >
@@ -367,7 +367,7 @@ export function ProcessJourney() {
                   transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                   className="relative z-[1]"
                 >
-                  <p className="text-[10px] tracking-[0.14em] text-cyan-deep sm:text-[11px]">
+                  <p className="text-[10px] tracking-[0.16em] text-gold sm:text-[11px]">
                     צעד <bdi>{current.n}</bdi> מתוך 05 · על המפה עכשיו
                   </p>
                   <h3 className="display mt-2 text-xl text-ink sm:mt-3 sm:text-3xl md:text-4xl">
@@ -398,7 +398,7 @@ export function ProcessJourney() {
                       i === active
                         ? "bg-gold/90 text-ink"
                         : i < active
-                          ? "bg-cyan/25 text-cyan-deep"
+                          ? "bg-gold/20 text-gold"
                           : "bg-ink/5 text-muted"
                     }`}
                   >

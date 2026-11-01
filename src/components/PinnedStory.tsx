@@ -118,7 +118,7 @@ function StrikeLine({
         <motion.span
           aria-hidden
           style={{ scaleX, originX: 1 }}
-          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-cyan"
+          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gold"
         />
       </span>
     </motion.li>

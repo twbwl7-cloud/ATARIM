@@ -7,25 +7,25 @@ const ACCENT = {
   gold: {
     num: "text-gold-bright",
     border: "border-gold/35 hover:border-gold/60",
-    glow: "group-hover:shadow-[0_0_40px_rgba(240,208,120,0.22)]",
+    glow: "",
     chip: "bg-gold/15 text-gold-bright",
   },
   rose: {
-    num: "text-cyan-deep",
-    border: "border-cyan/30 hover:border-cyan/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(24,196,224,0.18)]",
-    chip: "bg-cyan/15 text-cyan-deep",
+    num: "text-gold",
+    border: "border-white/10 hover:border-gold/35",
+    glow: "",
+    chip: "bg-gold/15 text-gold",
   },
   cyan: {
     num: "text-gold-bright",
     border: "border-gold/35 hover:border-gold/60",
-    glow: "group-hover:shadow-[0_0_40px_rgba(62,220,200,0.22)]",
+    glow: "",
     chip: "bg-gold/15 text-gold-bright",
   },
   violet: {
     num: "text-violet",
-    border: "border-violet/30 hover:border-violet/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(176,154,255,0.18)]",
+    border: "border-white/10 hover:border-gold/35",
+    glow: "",
     chip: "bg-violet/15 text-violet",
   },
 } as const;
@@ -34,7 +34,7 @@ export function FormatsElements() {
   return (
     <section
       id="formats"
-      className="section-void relative z-10 overflow-hidden border-y border-line/30 px-5 py-16 sm:py-20 md:px-8 md:py-28"
+      className="section-void relative z-10 overflow-hidden border-y border-line/30 px-5 py-24 md:px-8 md:py-32"
     >
       <div aria-hidden className="aurora" />
       <div
@@ -48,20 +48,20 @@ export function FormatsElements() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-10 max-w-2xl md:mb-14">
-          <p className="text-xs tracking-[0.24em] text-gold">פורמטים</p>
-          <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
+          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">פורמטים</p>
+          <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
             תדמית קודם. שאר הפורמטים —{" "}
             <span className="ink-gold">כשצריך</span>.
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
             הליבה היא אתר תדמית. דף נחיתה, הזמנה ותור — רק כשהעסק באמת צריך{" "}
-            <span className="ink-cyan">הודעה</span> מהם.
+            <span className="ink-gold">הודעה</span> מהם.
           </p>
         </div>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
-            <p className="mb-4 text-[11px] tracking-[0.22em] text-cyan-deep">
+            <p className="mb-4 text-[11px] tracking-[0.22em] text-gold">
               סוגי אתרים
             </p>
             <ul className="grid gap-3 sm:gap-4">
@@ -74,7 +74,7 @@ export function FormatsElements() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ delay: i * 0.05, duration: 0.45 }}
-                    className={`group relative overflow-hidden rounded-2xl border bg-white/[0.03] p-5 transition duration-300 md:p-6 ${a.border} ${a.glow}`}
+                    className={`group relative overflow-hidden rounded-2xl border bg-white/[0.03] p-5 transition-all duration-500 ease-in-out md:p-6 ${a.border} ${a.glow}`}
                   >
                     <div className="flex gap-4 md:gap-5">
                       <span className={`display text-2xl md:text-3xl ${a.num}`}>
@@ -121,7 +121,7 @@ export function FormatsElements() {
                     {el.title.includes(" ") ? (
                       <>
                         {el.title.split(" ").slice(0, -1).join(" ")}{" "}
-                        <span className="ink-cyan">
+                        <span className="ink-gold">
                           {el.title.split(" ").slice(-1)}
                         </span>
                       </>

@@ -41,7 +41,7 @@ export function Curtain() {
               fill
               priority
               unoptimized
-              className="object-contain drop-shadow-[0_0_40px_rgba(94,235,245,0.45)]"
+              className="object-contain opacity-90"
             />
           </motion.div>
           <motion.p
@@ -49,7 +49,7 @@ export function Curtain() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.4, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-            className="display text-xl tracking-[0.12em] text-[#5eebf5] sm:text-2xl"
+            className="display text-xl font-light tracking-[0.2em] text-gold sm:text-2xl"
           >
             דוד טובול
           </motion.p>

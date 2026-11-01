@@ -12,7 +12,7 @@ const STRIKES = [
   {
     plain: "אתר יפה שלא מביא ",
     accent: "הודעה",
-    ink: "ink-cyan" as const,
+    ink: "ink-gold" as const,
   },
   {
     plain: "אנימציה כבדה שנתקעת ב",
@@ -56,7 +56,7 @@ function StrikeLine({
         <motion.span
           aria-hidden
           style={{ scaleX, originX: 1 }}
-          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-gold to-cyan/70"
+          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-gold to-gold/70"
         />
       </span>
     </motion.li>
@@ -107,7 +107,7 @@ export function FailedBefore() {
             className="mt-8 max-w-xl text-sm leading-relaxed text-muted sm:mt-10 sm:text-base"
           >
             אני לא מוכר באנר. בונים דף שמביא{" "}
-            <span className="ink-cyan">הודעה</span> — ואז הוואטסאפ כבר קל יותר.
+            <span className="ink-gold">הודעה</span> — ואז הוואטסאפ כבר קל יותר.
           </motion.p>
 
           <motion.div

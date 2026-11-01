@@ -22,8 +22,8 @@ export function PremiumCursor() {
   const rawX = useMotionValue(-100);
   const rawY = useMotionValue(-100);
 
-  const auraX = useSpring(rawX, { stiffness: 120, damping: 22, mass: 0.35 });
-  const auraY = useSpring(rawY, { stiffness: 120, damping: 22, mass: 0.35 });
+  const auraX = useSpring(rawX, { stiffness: 80, damping: 26, mass: 0.45 });
+  const auraY = useSpring(rawY, { stiffness: 80, damping: 26, mass: 0.45 });
 
   useEffect(() => {
     const mq = window.matchMedia(FINE);
@@ -133,7 +133,7 @@ function CursorPart({
             ? "rgba(212,175,55,0.22)"
             : "rgba(212,175,55,0.08)",
       }}
-      transition={{ type: "spring", stiffness: 280, damping: 24, mass: 0.25 }}
+      transition={{ type: "spring", stiffness: 140, damping: 28, mass: 0.4 }}
     />
   );
 }

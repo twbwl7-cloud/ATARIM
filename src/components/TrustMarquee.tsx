@@ -15,7 +15,7 @@ export function TrustMarquee() {
   return (
     <section
       aria-label="הוכחות"
-      className="relative z-10 overflow-hidden border-y border-line bg-paper/60 py-4 backdrop-blur-md"
+      className="relative z-10 overflow-hidden border-y border-line bg-white/[0.02] py-5 backdrop-blur-md"
     >
       <div
         aria-hidden
@@ -25,7 +25,7 @@ export function TrustMarquee() {
         {loop.map((label, i) => (
           <span
             key={`${label}-${i}`}
-            className="display shrink-0 text-sm tracking-[0.04em] text-ink-soft sm:text-base"
+            className="display shrink-0 text-sm font-light tracking-[0.08em] text-muted sm:text-base"
           >
             {label}
             <span className="accent-dot" aria-hidden />

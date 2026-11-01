@@ -3,35 +3,33 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-/** Exact user about body — without the small duplicate "היי, אני דוד" opener */
 const ABOUT_BODY =
   "בעולם שבו הרושם הראשוני קובע הכל, האתר שלך חייב להיות בלתי נשכח. כסטודנט למדעי המחשב ומפתח אתרי פרימיום, אני מחבר בין ארכיטקטורת קוד חכמה לעיצוב יוקרתי ללא פשרות – וללא תבניות. ההתמחות שלי היא ביצירת חוויות 3D אינטראקטיביות וממשקים שעוצרים את הגלילה. החזון שלך, הסטנדרט שלי. יחד ניצור נכס דיגיטלי שמרגיש, נראה ועובד ברמה הגבוהה ביותר.";
 
-/** About — large H2 only · exact body · near page bottom */
 export function AboutIntro() {
   return (
     <section
       id="about-intro"
-      className="section-void relative z-10 overflow-hidden border-y border-line px-4 py-14 sm:px-5 sm:py-20 md:px-8 md:py-28"
+      className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-24 md:px-8 md:py-32"
     >
-      <div className="relative mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-14 lg:gap-16">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-16 lg:gap-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.7, ease: EASE }}
+          transition={{ duration: 0.8, ease: EASE }}
           className="mx-auto"
         >
-          <div className="relative h-44 w-44 sm:h-64 sm:w-64 md:h-72 md:w-72">
-            <div className="absolute inset-0 rounded-full border-[2px] border-[#D4AF37] p-[3px] shadow-[0_12px_40px_rgba(10,22,40,0.14),0_0_0_6px_rgba(212,175,55,0.12)]">
+          <div className="relative h-48 w-48 sm:h-64 sm:w-64 md:h-72 md:w-72">
+            <div className="absolute inset-0 rounded-full border border-[#D4AF37]/50 p-[3px]">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-paper">
                 <Image
                   src="/brand/david-portrait.jpg"
                   alt="דוד טובול"
                   fill
-                  sizes="(max-width: 640px) 176px, 288px"
+                  sizes="(max-width: 640px) 192px, 288px"
                   className="object-cover object-[center_18%]"
                   priority
                 />
@@ -41,19 +39,19 @@ export function AboutIntro() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.75, delay: 0.08, ease: EASE }}
+          transition={{ duration: 0.85, delay: 0.08, ease: EASE }}
           className="text-center md:text-start"
         >
-          <p className="text-[10px] font-semibold tracking-[0.18em] text-gold sm:text-xs">
+          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
             עליי
           </p>
-          <h2 className="display mt-2 text-2xl font-semibold text-ink sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="display mt-3 text-3xl font-light text-ink sm:text-4xl md:text-5xl">
             היי, אני דוד
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[14px] leading-[1.75] text-ink-soft sm:mt-5 sm:text-[15px] sm:leading-[1.75] md:mx-0 md:mt-6 md:text-lg md:leading-[1.8]">
+          <p className="mx-auto mt-6 max-w-xl text-[15px] leading-[1.8] text-ink-soft md:mx-0 md:text-lg md:leading-[1.85]">
             {ABOUT_BODY}
           </p>
         </motion.div>
