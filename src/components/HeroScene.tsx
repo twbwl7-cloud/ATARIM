@@ -15,7 +15,7 @@ import * as THREE from "three";
 import type { MotionValue } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 
-const VOID = "#0b0a09";
+const VOID = "#c5eef8";
 const GLB_CANDIDATES = [
   "/models/MacbookProProledXDR4K.glb",
   "/models/macbook-pro-proledxdr-4k.glb",
@@ -61,17 +61,17 @@ function screenMaterial() {
           streaks += band * soft * (0.55 + hash(fi * 1.9) * 0.5);
         }
 
-        vec3 deep = vec3(0.06, 0.05, 0.03);
-        vec3 brass = vec3(0.72, 0.58, 0.28);
-        vec3 warm = vec3(0.88, 0.78, 0.55);
-        vec3 bone = vec3(0.95, 0.91, 0.84);
+        vec3 deep = vec3(0.04, 0.1, 0.16);
+        vec3 cyan = vec3(0.12, 0.72, 0.86);
+        vec3 ice = vec3(0.55, 0.92, 0.98);
+        vec3 white = vec3(0.92, 0.98, 1.0);
 
-        vec3 col = mix(deep, brass, streaks * 0.75);
-        col = mix(col, warm, smoothstep(0.35, 0.9, streaks) * 0.7);
-        col = mix(col, bone, smoothstep(0.65, 1.25, streaks) * 0.55);
+        vec3 col = mix(deep, cyan, streaks * 0.8);
+        col = mix(col, ice, smoothstep(0.35, 0.9, streaks) * 0.75);
+        col = mix(col, white, smoothstep(0.65, 1.25, streaks) * 0.55);
 
         float cx = length(uv - vec2(0.5, 0.48));
-        col += (1.0 - smoothstep(0.0, 0.55, cx)) * uGlow * vec3(0.28, 0.2, 0.08);
+        col += (1.0 - smoothstep(0.0, 0.55, cx)) * uGlow * vec3(0.1, 0.35, 0.42);
 
         float vig = smoothstep(1.2, 0.3, length(uv - 0.5));
         col *= mix(0.72, 1.0, vig);
@@ -241,18 +241,18 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
             <circleGeometry args={[0.012, 16]} />
             <meshStandardMaterial color="#1c1812" metalness={0.8} roughness={0.2} />
           </mesh>
-          <pointLight position={[0, -0.35, screenH / 2]} intensity={1.1} color="#e8d5a3" distance={5} />
-          <pointLight position={[0, -0.12, screenH / 2]} intensity={0.55} color="#c4a35a" distance={3} />
+          <pointLight position={[0, -0.35, screenH / 2]} intensity={1.15} color="#5eebf5" distance={5} />
+          <pointLight position={[0, -0.12, screenH / 2]} intensity={0.6} color="#18c4e0" distance={3} />
         </group>
 
-        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.05} color="#f0e6d2" distance={12} />
-        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.42} color="#c4a35a" distance={9} />
+        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.1} color="#e8fcff" distance={12} />
+        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.5} color="#18c4e0" distance={9} />
         <spotLight
           position={[0, 3.8, 2.8]}
           angle={0.48}
           penumbra={0.7}
-          intensity={1.35}
-          color="#f2ebe0"
+          intensity={1.4}
+          color="#dff8fc"
         />
       </group>
     </Float>
@@ -329,9 +329,9 @@ function GlbMacbook({
     <Float speed={0.7} rotationIntensity={0.02} floatIntensity={0.08}>
       <group ref={root}>
         <primitive object={cloned} />
-        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.15} color="#f0e6d2" distance={12} />
-        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.45} color="#c4a35a" distance={9} />
-        <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.7} intensity={1.4} color="#f2ebe0" />
+        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.15} color="#e8fcff" distance={12} />
+        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.5} color="#18c4e0" distance={9} />
+        <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.7} intensity={1.4} color="#dff8fc" />
       </group>
     </Float>
   );
@@ -368,9 +368,9 @@ function MacbookSwitcher({ intensity }: { intensity: MotionValue<number> }) {
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.28} />
-      <directionalLight position={[4, 6, 3]} intensity={1.05} color="#f2ebe0" />
-      <directionalLight position={[-3, 2, -2]} intensity={0.25} color="#8a7340" />
+      <ambientLight intensity={0.42} />
+      <directionalLight position={[4, 6, 3]} intensity={1.15} color="#e8fcff" />
+      <directionalLight position={[-3, 2, -2]} intensity={0.35} color="#18c4e0" />
     </>
   );
 }
@@ -391,9 +391,9 @@ function canUseWebGL() {
 
 function HeroFallback() {
   return (
-    <div className="absolute inset-0 bg-[#0b0a09]" aria-hidden>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(196,163,90,0.16),transparent_52%),radial-gradient(ellipse_at_72%_62%,rgba(184,116,92,0.08),transparent_48%),radial-gradient(circle_at_50%_78%,rgba(11,10,9,0.6),transparent_58%)]" />
-      <div className="pointer-events-none absolute inset-x-[12%] top-[18%] bottom-[28%] rounded-[2rem] border border-white/6 bg-[linear-gradient(160deg,rgba(34,30,24,0.55),rgba(12,11,9,0.2))] shadow-[0_40px_80px_rgba(0,0,0,0.45)]" />
+    <div className="absolute inset-0 bg-[#c5eef8]" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.55),transparent_52%),radial-gradient(ellipse_at_72%_62%,rgba(24,196,224,0.28),transparent_48%),radial-gradient(circle_at_50%_78%,rgba(197,238,248,0.7),transparent_58%)]" />
+      <div className="pointer-events-none absolute inset-x-[14%] top-[22%] bottom-[30%] rounded-[2rem] border border-cyan/25 bg-[linear-gradient(160deg,rgba(255,255,255,0.35),rgba(24,196,224,0.08))] shadow-[0_40px_80px_rgba(10,88,110,0.12)]" />
     </div>
   );
 }
@@ -428,8 +428,8 @@ export function HeroScene({ intensity }: { intensity: MotionValue<number> }) {
   if (!ok) return <HeroFallback />;
 
   return (
-    <div className="absolute inset-0 bg-[#0b0a09]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(196,163,90,0.12),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(11,10,9,0.55),transparent_58%)]" />
+    <div className="absolute inset-0 bg-[#c5eef8]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.4),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(24,196,224,0.18),transparent_58%)]" />
       <SceneErrorBoundary onError={() => setOk(false)}>
         <Canvas
           dpr={[1, 1.5]}

@@ -33,13 +33,13 @@ export function PinnedStory() {
   return (
     <section
       ref={ref}
-      className="relative z-10 h-[240vh] bg-paper sm:h-[260vh]"
+      className="relative z-10 h-[240vh] bg-paper/70 sm:h-[260vh]"
       aria-label="מה כבר ניסיתם"
     >
       <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(184,137,45,0.1),transparent_50%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(24,196,224,0.18),transparent_50%)]"
         />
         <div className="relative mx-auto w-full max-w-5xl px-5 sm:px-8">
           <p className="text-xs tracking-[0.28em] text-gold">בואו נהיה כנים</p>
@@ -118,7 +118,7 @@ function StrikeLine({
         <motion.span
           aria-hidden
           style={{ scaleX, originX: 1 }}
-          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gold"
+          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-cyan"
         />
       </span>
     </motion.li>

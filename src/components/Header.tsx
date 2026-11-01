@@ -44,7 +44,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-line bg-paper/75 px-2 py-1 backdrop-blur-md md:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-cyan/25 bg-paper/70 px-2 py-1 backdrop-blur-md md:flex">
           {nav.map((item) => {
             const pathOnly = item.href.split("#")[0] || "/";
             const active = !item.href.includes("#") && pathname === pathOnly;
@@ -53,7 +53,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={`rounded-md px-3.5 py-2 text-sm transition ${
-                  active ? "text-gold-deep" : "text-muted hover:text-ink"
+                  active ? "text-cyan-deep" : "text-muted hover:text-ink"
                 }`}
               >
                 {item.label}

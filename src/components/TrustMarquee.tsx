@@ -15,7 +15,7 @@ export function TrustMarquee() {
   return (
     <section
       aria-label="הוכחות"
-      className="relative z-10 overflow-hidden border-y border-line bg-paper/80 py-4"
+      className="relative z-10 overflow-hidden border-y border-line bg-paper/55 py-4"
     >
       <div className="marquee-track pe-12" dir="rtl">
         {loop.map((label, i) => (

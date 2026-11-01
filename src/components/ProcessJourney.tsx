@@ -52,11 +52,11 @@ export function ProcessJourney() {
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="process" ref={ref} className="relative z-10 h-[320vh] bg-day sm:h-[340vh]">
+    <section id="process" ref={ref} className="relative z-10 h-[320vh] bg-sky sm:h-[340vh]">
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(184,137,45,0.1),transparent_50%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(24,196,224,0.2),transparent_50%)]"
         />
 
         <div className="relative z-10 mx-auto w-full max-w-3xl shrink-0 px-5 pt-20 sm:px-8 sm:pt-24">
@@ -89,7 +89,7 @@ export function ProcessJourney() {
               <li key={step.n} className="relative flex gap-5 md:gap-10">
                 <span
                   aria-hidden
-                  className="relative z-10 mt-1.5 h-6 w-6 shrink-0 rounded-full border-2 border-gold bg-day md:mt-2 md:h-10 md:w-10"
+                  className="relative z-10 mt-1.5 h-6 w-6 shrink-0 rounded-full border-2 border-cyan bg-sky md:mt-2 md:h-10 md:w-10"
                 />
                 <div className="min-w-0 pb-1">
                   <p className="display text-sm text-gold-deep">{step.n}</p>
@@ -110,7 +110,7 @@ export function ProcessJourney() {
 
         <motion.div
           style={{ opacity: ctaOpacity }}
-          className="relative z-20 mx-auto flex w-full max-w-3xl flex-col gap-4 border-t border-line bg-day/95 px-5 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6"
+          className="relative z-20 mx-auto flex w-full max-w-3xl flex-col gap-4 border-t border-line bg-sky/95 px-5 py-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6"
         >
           <div>
             <p className="display text-lg text-ink sm:text-xl">

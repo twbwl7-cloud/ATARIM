@@ -99,7 +99,7 @@ export function WorkWheel() {
 
   if (reduce) {
     return (
-      <section id="work" className="relative bg-day px-5 py-16 md:px-8 md:py-24">
+      <section id="work" className="relative bg-sky px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
           <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
@@ -138,12 +138,12 @@ export function WorkWheel() {
   }
 
   return (
-    <section id="work" ref={ref} className="relative bg-day">
+    <section id="work" ref={ref} className="relative bg-sky">
       <div className="relative h-[280vh] sm:h-[300vh] md:h-[320vh]">
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_15%,rgba(184,137,45,0.12),transparent_50%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_15%,rgba(24,196,224,0.22),transparent_50%)]"
           />
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:px-6 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">

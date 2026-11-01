@@ -31,7 +31,7 @@ export function Curtain() {
             initial={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35 }}
-            className="display text-2xl tracking-[0.08em] text-[#f5f7fa] sm:text-3xl"
+            className="display text-2xl tracking-[0.08em] text-[#5eebf5] sm:text-3xl"
           >
             דוד טובול
           </motion.p>
