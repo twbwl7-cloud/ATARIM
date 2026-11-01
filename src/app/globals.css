@@ -829,7 +829,7 @@ a {
 
 .hero-laptop-stage {
   position: relative;
-  animation: hero-float 6s var(--ease-premium) infinite;
+  /* Stable product shot — no perpetual float bounce */
 }
 
 /* Silky screen zoom — overflow clips growth; only transform scales */
@@ -881,11 +881,11 @@ a {
   border-radius: 100%;
   background:
     radial-gradient(ellipse at center, rgba(0, 0, 0, 0.72) 0%, transparent 70%),
-    radial-gradient(ellipse at center, rgba(24, 196, 224, 0.28) 0%, transparent 72%);
-  filter: blur(10px);
+    radial-gradient(ellipse at center, rgba(212, 175, 55, 0.12) 0%, transparent 72%);
+  filter: blur(12px);
   transform: translateX(-50%);
-  animation: hero-shadow-breathe 6s var(--ease-premium) infinite;
   pointer-events: none;
+  opacity: 0.9;
 }
 
 .header-glass-night {

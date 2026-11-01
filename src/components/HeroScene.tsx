@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, useGLTF } from "@react-three/drei";
+import { Environment, useGLTF } from "@react-three/drei";
 import React, {
   Component,
   Suspense,
@@ -86,8 +86,9 @@ function screenMaterial() {
 function alu(color = "#1a1c20") {
   return new THREE.MeshStandardMaterial({
     color: new THREE.Color(color),
-    metalness: 0.92,
-    roughness: 0.32,
+    metalness: 0.96,
+    roughness: 0.28,
+    envMapIntensity: 1.15,
   });
 }
 
@@ -127,13 +128,12 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
   useFrame((state) => {
     const t = state.clock.elapsedTime;
     const g = glow.current;
-    mouse.current.x = THREE.MathUtils.lerp(mouse.current.x, state.pointer.x, 0.06);
-    mouse.current.y = THREE.MathUtils.lerp(mouse.current.y, state.pointer.y, 0.06);
+    // Soft pointer follow — no idle bob / spin
+    mouse.current.x = THREE.MathUtils.lerp(mouse.current.x, state.pointer.x, 0.04);
+    mouse.current.y = THREE.MathUtils.lerp(mouse.current.y, state.pointer.y, 0.04);
     const mx = mouse.current.x;
     const my = mouse.current.y;
 
-    // Plunge: product shot → deep into the display (g=0→1)
-    // Same desktop framing on phone — keep the MacBook hero identical
     const camZ0 = 3.55;
     const camZ1 = 0.2;
     const camY0 = 1.05;
@@ -145,28 +145,25 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     screenMat.uniforms.uGlow.value = g;
 
     if (root.current) {
-      root.current.rotation.y =
-        mx * 0.28 * mouseFade + Math.sin(t * 0.25) * 0.04 * (1 - g);
-      root.current.rotation.x =
-        -0.22 - my * 0.08 * mouseFade + Math.sin(t * 0.35) * 0.015 * (1 - g);
-      root.current.rotation.z = mx * -0.02 * mouseFade;
-      const breath = modelScale * (1 + Math.sin(t * 0.95) * 0.008 * (1 - g) + g * 0.18);
-      root.current.scale.setScalar(breath);
-      root.current.position.y = modelY + Math.sin(t * 0.8) * 0.025 * (1 - g) + g * 0.12;
-      root.current.position.z = g * 0.85;
+      root.current.rotation.y = mx * 0.12 * mouseFade;
+      root.current.rotation.x = -0.22 - my * 0.04 * mouseFade;
+      root.current.rotation.z = 0;
+      root.current.scale.setScalar(modelScale * (1 + g * 0.14));
+      root.current.position.y = modelY + g * 0.1;
+      root.current.position.z = g * 0.7;
     }
 
     state.camera.position.z = THREE.MathUtils.lerp(camZ0, camZ1, g);
-    state.camera.position.x = mx * 0.18 * mouseFade;
+    state.camera.position.x = mx * 0.08 * mouseFade;
     state.camera.position.y = THREE.MathUtils.lerp(
-      camY0 + my * 0.1 * mouseFade,
+      camY0 + my * 0.05 * mouseFade,
       0.58,
       g,
     );
     state.camera.lookAt(
       0,
       THREE.MathUtils.lerp(0.28, 0.72, g),
-      (root.current?.position.z ?? 0) + g * 0.4,
+      (root.current?.position.z ?? 0) + g * 0.35,
     );
   });
 
@@ -199,8 +196,7 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
   }, []);
 
   return (
-    <Float speed={0.7} rotationIntensity={0.02} floatIntensity={0.08}>
-      <group ref={root}>
+    <group ref={root}>
         {/* base */}
         <mesh castShadow receiveShadow material={bodyMat} position={[0, 0, 0.12]}>
           <boxGeometry args={[W, H, D]} />
@@ -266,8 +262,7 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
           intensity={1.4}
           color="#dff8fc"
         />
-      </group>
-    </Float>
+    </group>
   );
 }
 
@@ -311,13 +306,11 @@ function GlbMacbook({
   });
 
   useFrame((state) => {
-    const t = state.clock.elapsedTime;
     const g = glow.current;
-    mouse.current.x = THREE.MathUtils.lerp(mouse.current.x, state.pointer.x, 0.06);
-    mouse.current.y = THREE.MathUtils.lerp(mouse.current.y, state.pointer.y, 0.06);
+    mouse.current.x = THREE.MathUtils.lerp(mouse.current.x, state.pointer.x, 0.04);
+    mouse.current.y = THREE.MathUtils.lerp(mouse.current.y, state.pointer.y, 0.04);
     const mx = mouse.current.x;
     const my = mouse.current.y;
-    // Same desktop MacBook framing on every viewport
     const camZ0 = 3.15;
     const camZ1 = 0.18;
     const camY0 = 0.92;
@@ -325,39 +318,34 @@ function GlbMacbook({
     const mouseFade = 1 - g * 0.92;
 
     if (root.current) {
-      root.current.rotation.y =
-        mx * 0.28 * mouseFade + Math.sin(t * 0.22) * 0.04 * (1 - g);
-      root.current.rotation.x = -0.2 - my * 0.08 * mouseFade;
-      root.current.scale.setScalar(
-        modelScale * (1 + Math.sin(t * 0.9) * 0.008 * (1 - g) + g * 0.18),
-      );
-      root.current.position.z = g * 0.85;
-      root.current.position.y = -0.32 + g * 0.12;
+      root.current.rotation.y = mx * 0.12 * mouseFade;
+      root.current.rotation.x = -0.2 - my * 0.04 * mouseFade;
+      root.current.scale.setScalar(modelScale * (1 + g * 0.14));
+      root.current.position.z = g * 0.7;
+      root.current.position.y = -0.32 + g * 0.1;
     }
 
     state.camera.position.z = THREE.MathUtils.lerp(camZ0, camZ1, g);
-    state.camera.position.x = mx * 0.16 * mouseFade;
+    state.camera.position.x = mx * 0.08 * mouseFade;
     state.camera.position.y = THREE.MathUtils.lerp(
-      camY0 + my * 0.09 * mouseFade,
+      camY0 + my * 0.05 * mouseFade,
       0.55,
       g,
     );
     state.camera.lookAt(
       0,
       THREE.MathUtils.lerp(0.28, 0.7, g),
-      (root.current?.position.z ?? 0) + g * 0.4,
+      (root.current?.position.z ?? 0) + g * 0.35,
     );
   });
 
   return (
-    <Float speed={0.7} rotationIntensity={0.02} floatIntensity={0.08}>
-      <group ref={root}>
-        <primitive object={cloned} />
-        <pointLight position={[1.6, 2.4, 2.2]} intensity={1.15} color="#e8fcff" distance={12} />
-        <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.5} color="#18c4e0" distance={9} />
-        <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.7} intensity={1.4} color="#dff8fc" />
-      </group>
-    </Float>
+    <group ref={root}>
+      <primitive object={cloned} />
+      <pointLight position={[1.6, 2.4, 2.2]} intensity={1.15} color="#e8fcff" distance={12} />
+      <pointLight position={[-1.4, 1.4, 1.6]} intensity={0.5} color="#18c4e0" distance={9} />
+      <spotLight position={[0, 3.8, 2.8]} angle={0.48} penumbra={0.7} intensity={1.4} color="#dff8fc" />
+    </group>
   );
 }
 
@@ -523,7 +511,7 @@ export function HeroScene({
         >
           <Suspense fallback={null}>
             <Lights />
-            <Environment preset="city" environmentIntensity={0.4} />
+            <Environment preset="studio" environmentIntensity={0.55} />
             <MacbookSwitcher intensity={intensity} />
           </Suspense>
         </Canvas>
