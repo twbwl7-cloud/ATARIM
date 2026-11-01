@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useScroll,
   useSpring,
@@ -71,12 +72,17 @@ function buildZigzagPath(nodes: readonly { x: number; y: number }[]) {
 }
 
 const PATH_D = buildZigzagPath(NODES);
-const PATH_LEN = 1680;
+const PATH_LEN_FALLBACK = 1680;
 
 export function ProcessJourney() {
   const ref = useRef<HTMLElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
   const [active, setActive] = useState(0);
   const [reduce, setReduce] = useState(false);
+  const [pathLen, setPathLen] = useState(PATH_LEN_FALLBACK);
+
+  const tipX = useMotionValue(NODES[0].x);
+  const tipY = useMotionValue(NODES[0].y);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -86,40 +92,60 @@ export function ProcessJourney() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
+  useEffect(() => {
+    if (reduce) return;
+    const syncLen = () => {
+      const path = pathRef.current;
+      if (!path) return;
+      const len = path.getTotalLength();
+      if (len > 0) {
+        setPathLen(len);
+        const p = progress.get();
+        const pt = path.getPointAtLength(Math.min(1, Math.max(0, p)) * len);
+        tipX.set(pt.x);
+        tipY.set(pt.y);
+      }
+    };
+    const id = requestAnimationFrame(syncLen);
+    return () => cancelAnimationFrame(id);
+  }, [reduce, progress, tipX, tipY]);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
 
-  const rawIndex = useTransform(
-    scrollYProgress,
-    [0.06, 0.86],
-    [0, STEPS.length - 0.001],
-  );
-  const sprung = useSpring(rawIndex, { stiffness: 64, damping: 26, mass: 0.42 });
-
-  useMotionValueEvent(sprung, "change", (v) => {
-    const next = Math.min(STEPS.length - 1, Math.max(0, Math.floor(v)));
-    setActive((prev) => (prev === next ? prev : next));
+  /** One shared 0→1 progress drives blue bar + gold tip together */
+  const progressRaw = useTransform(scrollYProgress, [0.06, 0.86], [0, 1]);
+  const progress = useSpring(progressRaw, {
+    stiffness: 64,
+    damping: 26,
+    mass: 0.42,
   });
 
-  const pathDraw = useTransform(scrollYProgress, [0.05, 0.88], [0.08, 1]);
-  const dashOffset = useTransform(pathDraw, (p) => PATH_LEN * (1 - p));
+  useMotionValueEvent(progress, "change", (p) => {
+    const clamped = Math.min(1, Math.max(0, p));
+    const next = Math.min(
+      STEPS.length - 1,
+      Math.max(0, Math.floor(clamped * (STEPS.length - 0.001))),
+    );
+    setActive((prev) => (prev === next ? prev : next));
+
+    const path = pathRef.current;
+    if (!path) return;
+    const len = path.getTotalLength() || pathLen;
+    const pt = path.getPointAtLength(clamped * len);
+    tipX.set(pt.x);
+    tipY.set(pt.y);
+  });
+
+  const dashOffset = useTransform(progress, (p) => pathLen * (1 - Math.min(1, Math.max(0, p))));
   const hintOpacity = useTransform(scrollYProgress, [0, 0.07, 0.14], [1, 0.6, 0]);
   const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.96], [0, 1]);
   const orbX = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   const current = STEPS[active] ?? STEPS[0];
-  const activeNode = NODES[active] ?? NODES[0];
-
-  const travelerStyle = useMemo(
-    () => ({
-      left: `${(activeNode.x / 1000) * 100}%`,
-      top: `${(activeNode.y / 640) * 100}%`,
-    }),
-    [activeNode.x, activeNode.y],
-  );
 
   if (reduce) {
     return (
@@ -225,16 +251,18 @@ export function ProcessJourney() {
                 stroke="rgba(10,22,40,0.1)"
                 strokeWidth="3"
                 strokeLinecap="round"
+                strokeDasharray="6 10"
               />
 
-              {/* Drawn progress */}
+              {/* Drawn progress — same progress as gold tip */}
               <motion.path
+                ref={pathRef}
                 d={PATH_D}
                 fill="none"
                 stroke="url(#mapStroke)"
                 strokeWidth="3.5"
                 strokeLinecap="round"
-                strokeDasharray={PATH_LEN}
+                strokeDasharray={pathLen}
                 style={{ strokeDashoffset: dashOffset }}
                 filter="url(#mapGlow)"
               />
@@ -243,11 +271,26 @@ export function ProcessJourney() {
               <path
                 d={PATH_D}
                 fill="none"
-                stroke="rgba(94,235,245,0.45)"
+                stroke="rgba(94,235,245,0.35)"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeDasharray="10 28"
                 className="process-flow-dash"
+              />
+
+              {/* Gold tip — locked to the leading edge of the blue bar */}
+              <motion.circle
+                r="9"
+                style={{ cx: tipX, cy: tipY }}
+                fill="#c9a24a"
+                stroke="#f0e2c4"
+                strokeWidth="2"
+                filter="url(#mapGlow)"
+              />
+              <motion.circle
+                r="3.5"
+                style={{ cx: tipX, cy: tipY }}
+                fill="#fff8e8"
               />
             </svg>
 
@@ -302,13 +345,6 @@ export function ProcessJourney() {
               );
             })}
 
-            {/* Traveler beacon on active node */}
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute z-[3] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-bright shadow-[0_0_20px_rgba(94,235,245,0.9)]"
-              animate={{ left: travelerStyle.left, top: travelerStyle.top }}
-              transition={{ type: "spring", stiffness: 90, damping: 18 }}
-            />
           </div>
 
           {/* Always-on step copy */}
