@@ -40,7 +40,7 @@ export function WorkGrid({
           את האתר החי.
         </p>
 
-        <ul className="mt-14 divide-y divide-white/10 border-y border-white/10">
+        <ul className="mt-14 divide-y divide-black/5 border-y border-black/5">
           {list.map((project, i) => {
             const href = caseStudyHref(project);
             const n = String(i + 1).padStart(2, "0");

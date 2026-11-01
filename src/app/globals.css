@@ -2,49 +2,47 @@
 @import "lenis/dist/lenis.css";
 
 /*
-  $20K+ Dark Luxury Agency System
-  Deep Onyx · Off-White · Muted Ash · Champagne Gold (accents only)
-  No bright cyan / pastel / cartoon motion.
+  Light Luxury — boutique / minimalist architecture
+  Pearl off-white · Soft charcoal · Muted gold accents
 */
 :root {
-  --sky: #050507;
-  --sky-deep: #09090b;
-  --paper: #0c0c0f;
-  --mist: #121216;
+  --sky: #f9f8f6;
+  --sky-deep: #f3f1ed;
+  --paper: #ffffff;
+  --mist: #efece6;
 
-  --ink: #f5f5f7;
-  --ink-soft: #e4e4e7;
-  --ink-faint: #a1a1aa;
+  --ink: #1a1a1a;
+  --ink-soft: #2e2e2e;
+  --ink-faint: #6b6b6b;
 
-  /* Legacy cyan tokens remapped → ash / gold (no bright blue) */
-  --cyan: #a1a1aa;
-  --cyan-bright: #d4d4d8;
-  --cyan-deep: #d4af37;
-  --teal: #a1a1aa;
+  --cyan: #6b6b6b;
+  --cyan-bright: #2e2e2e;
+  --cyan-deep: #c5a059;
+  --teal: #6b6b6b;
 
-  --gold: #d4af37;
-  --gold-bright: #e8d5a3;
-  --gold-deep: #a8892a;
-  --champagne: #e8d5a3;
+  --gold: #c5a059;
+  --gold-bright: #d4b87a;
+  --gold-deep: #9a7a3e;
+  --champagne: #d4b87a;
 
   --blush: var(--sky-deep);
   --sea: var(--ink-faint);
 
-  --line: rgba(245, 245, 247, 0.1);
-  --line-gold: rgba(212, 175, 55, 0.35);
-  --line-cyan: rgba(212, 175, 55, 0.2);
+  --line: rgba(26, 26, 26, 0.08);
+  --line-gold: rgba(197, 160, 89, 0.4);
+  --line-cyan: rgba(197, 160, 89, 0.22);
 
   --shadow-contact: none;
-  --shadow-soft: none;
-  --shadow-elevated: none;
+  --shadow-soft: 0 12px 40px rgba(26, 26, 26, 0.06);
+  --shadow-elevated: 0 20px 60px rgba(26, 26, 26, 0.08);
 
   --metal-gold: linear-gradient(
     118deg,
-    #f7ebc8 0%,
-    #e8d5a3 24%,
-    #d4af37 52%,
-    #8f7128 78%,
-    #e0c06a 100%
+    #e8d5a8 0%,
+    #d4b87a 24%,
+    #c5a059 52%,
+    #9a7a3e 78%,
+    #d4b87a 100%
   );
 
   --metal-cyan: var(--metal-gold);
@@ -54,10 +52,10 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-lux: ease-in-out;
 
-  --void-night: #050507;
-  --void-navy: #09090b;
-  --void-teal: #0c0c0f;
-  --baby-pink-glow: rgba(212, 175, 55, 0.18);
+  --void-night: #f9f8f6;
+  --void-navy: #f3f1ed;
+  --void-teal: #efece6;
+  --baby-pink-glow: rgba(197, 160, 89, 0.16);
 
   --rich-black: var(--sky);
   --rich-black-elevated: var(--paper);
@@ -66,7 +64,7 @@
   --rose-gold: var(--gold);
   --baby-pink: var(--gold-bright);
   --garnet: var(--gold-deep);
-  --violet: #71717a;
+  --violet: #6b6b6b;
   --platinum: var(--ink-soft);
   --platinum-dim: var(--ink-faint);
   --ivory: var(--ink);
@@ -127,27 +125,27 @@ body {
   color: var(--ink);
 }
 
-/* Deep onyx void — gold breath only, no cyan wash */
+/* Pearl luxury field */
 body {
-  background-color: #050507;
+  background-color: #f9f8f6;
   background-image: radial-gradient(
-      ellipse 80% 50% at 50% -10%,
-      rgba(212, 175, 55, 0.06),
+      ellipse 70% 45% at 50% -8%,
+      rgba(197, 160, 89, 0.08),
       transparent 55%
     ),
     radial-gradient(
-      ellipse 60% 40% at 80% 100%,
-      rgba(212, 175, 55, 0.03),
+      ellipse 50% 35% at 90% 100%,
+      rgba(197, 160, 89, 0.05),
       transparent 50%
     ),
-    linear-gradient(180deg, #050507 0%, #09090b 50%, #050507 100%);
+    linear-gradient(180deg, #f9f8f6 0%, #f3f1ed 48%, #f9f8f6 100%);
   background-attachment: fixed;
   font-family: var(--font-rubik), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-@media (pointer: fine) and (hover: hover) {
+@media (pointer: fine) and (hover: hover) and (min-width: 768px) {
   html.has-premium-cursor,
   html.has-premium-cursor * {
     cursor: none !important;
@@ -155,8 +153,8 @@ body {
 }
 
 ::selection {
-  background: rgba(212, 175, 55, 0.28);
-  color: #f5f5f7;
+  background: rgba(197, 160, 89, 0.28);
+  color: #1a1a1a;
 }
 
 a {
@@ -179,18 +177,17 @@ a {
 }
 .header-consult:hover {
   box-shadow:
-    0 0 0 1px rgba(212, 175, 55, 0.2),
-    0 0 24px rgba(212, 175, 55, 0.18);
+    0 0 0 1px rgba(197, 160, 89, 0.25),
+    0 0 22px rgba(197, 160, 89, 0.18);
 }
 
-/* Cinematic hero ambient mesh */
+/* Soft pearl ambient for hero */
 .hero-mesh {
   background:
-    radial-gradient(ellipse 55% 45% at 18% 28%, rgba(28, 48, 88, 0.38), transparent 62%),
-    radial-gradient(ellipse 50% 40% at 82% 22%, rgba(212, 175, 55, 0.12), transparent 58%),
-    radial-gradient(ellipse 60% 50% at 48% 78%, rgba(18, 36, 72, 0.32), transparent 65%),
-    radial-gradient(ellipse 40% 35% at 70% 60%, rgba(212, 175, 55, 0.06), transparent 55%),
-    #050507;
+    radial-gradient(ellipse 55% 45% at 18% 28%, rgba(197, 160, 89, 0.1), transparent 62%),
+    radial-gradient(ellipse 50% 40% at 82% 22%, rgba(255, 255, 255, 0.7), transparent 58%),
+    radial-gradient(ellipse 60% 50% at 48% 78%, rgba(239, 236, 230, 0.9), transparent 65%),
+    #f9f8f6;
   background-size: 140% 140%;
   animation: hero-mesh-drift 28s ease-in-out infinite alternate;
 }
@@ -210,12 +207,42 @@ a {
   height: 50px;
   background: linear-gradient(
     to bottom,
-    rgba(212, 175, 55, 0.05),
-    #d4af37 45%,
-    rgba(212, 175, 55, 0.05)
+    rgba(197, 160, 89, 0.05),
+    #c5a059 45%,
+    rgba(197, 160, 89, 0.05)
   );
   transform-origin: top center;
   animation: hero-scroll-pulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* Instant difference-blend cursor */
+.instant-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 999px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  will-change: transform;
+  transition:
+    width 0.25s ease-out,
+    height 0.25s ease-out,
+    margin 0.25s ease-out,
+    background-color 0.2s ease-out,
+    border-color 0.2s ease-out;
+}
+.instant-cursor.is-hover {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  background-color: transparent;
+  border-color: #fff;
 }
 
 @keyframes hero-scroll-pulse {
@@ -272,28 +299,30 @@ a {
   color: var(--gold);
 }
 
-/* Premium glass — thin border, blur, no heavy shadow */
+/* Premium glass — light */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px) saturate(1.15);
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  backdrop-filter: blur(20px) saturate(1.1);
+  box-shadow: var(--shadow-soft);
 }
 
 .premium-panel {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px) saturate(1.1);
-  box-shadow: none;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(26, 26, 26, 0.07);
+  backdrop-filter: blur(20px) saturate(1.05);
+  box-shadow: var(--shadow-soft);
   transition:
     border-color 0.5s ease-in-out,
-    background 0.5s ease-in-out;
+    background 0.5s ease-in-out,
+    box-shadow 0.5s ease-in-out;
 }
 
 .premium-panel:hover {
-  border-color: rgba(212, 175, 55, 0.22);
-  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(197, 160, 89, 0.35);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-elevated);
 }
 
 .premium-panel::before {
@@ -304,7 +333,7 @@ a {
   border-radius: inherit;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.55) 0%,
     transparent 36%
   );
   opacity: 0.85;
@@ -313,19 +342,21 @@ a {
 .btn-gold {
   position: relative;
   overflow: hidden;
-  background: var(--metal-gold);
-  color: #1a1408;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 100%);
+  color: #f9f8f6;
+  font-weight: 400;
+  letter-spacing: 0.04em;
   box-shadow: none;
   transition:
     filter 0.5s ease-in-out,
     opacity 0.5s ease-in-out,
-    border-color 0.5s ease-in-out;
+    background 0.5s ease-in-out;
 }
 
 .btn-gold:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.12);
+  background: linear-gradient(135deg, #c5a059 0%, #9a7a3e 100%);
+  color: #1a1a1a;
 }
 
 .btn-shimmer::after {
@@ -376,9 +407,9 @@ a {
 }
 
 .btn-ghost {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(26, 26, 26, 0.12);
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(12px);
   transition:
     border-color 0.5s ease-in-out,
@@ -387,16 +418,16 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(212, 175, 55, 0.45);
-  color: var(--gold-bright);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(197, 160, 89, 0.55);
+  color: var(--gold-deep);
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .section-void,
 .section-rose {
   background: radial-gradient(
     ellipse at 50% 0%,
-    rgba(212, 175, 55, 0.04),
+    rgba(197, 160, 89, 0.06),
     transparent 55%
   );
 }
@@ -439,8 +470,8 @@ a {
   inset: -8% -4%;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 30% 20%, rgba(212, 175, 55, 0.08), transparent 45%),
-    radial-gradient(ellipse at 75% 70%, rgba(212, 175, 55, 0.04), transparent 48%);
+    radial-gradient(ellipse at 30% 20%, rgba(197, 160, 89, 0.1), transparent 45%),
+    radial-gradient(ellipse at 75% 70%, rgba(197, 160, 89, 0.05), transparent 48%);
 }
 
 .noise {
@@ -448,8 +479,8 @@ a {
   position: fixed;
   inset: 0;
   z-index: 50;
-  opacity: 0.028;
-  mix-blend-mode: soft-light;
+  opacity: 0.018;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -458,7 +489,7 @@ a {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  background: linear-gradient(165deg, #050507 0%, #09090b 55%, #0c0c0f 100%);
+  background: linear-gradient(165deg, #f9f8f6 0%, #f3f1ed 55%, #efece6 100%);
   transform-origin: top;
 }
 

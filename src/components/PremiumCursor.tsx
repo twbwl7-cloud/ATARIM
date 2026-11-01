@@ -1,32 +1,21 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  type MotionValue,
-} from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const FINE = "(pointer: fine) and (hover: hover)";
+const ENABLE =
+  "(pointer: fine) and (hover: hover) and (min-width: 768px)";
 
 /**
- * Two-part luxury cursor — instant gold dot + spring outer aura.
- * Desktop / fine pointer only; touch devices keep the native cursor.
+ * Instant difference-blend cursor — 1:1 tracking, zero position lag.
+ * Scale/border animate via CSS only; X/Y updates are direct DOM writes.
  */
 export function PremiumCursor() {
+  const elRef = useRef<HTMLDivElement>(null);
+  const hoveringRef = useRef(false);
   const [enabled, setEnabled] = useState(false);
-  const [hovering, setHovering] = useState(false);
-  const [visible, setVisible] = useState(false);
-
-  const rawX = useMotionValue(-100);
-  const rawY = useMotionValue(-100);
-
-  const auraX = useSpring(rawX, { stiffness: 80, damping: 26, mass: 0.45 });
-  const auraY = useSpring(rawY, { stiffness: 80, damping: 26, mass: 0.45 });
 
   useEffect(() => {
-    const mq = window.matchMedia(FINE);
+    const mq = window.matchMedia(ENABLE);
     const sync = () => setEnabled(mq.matches);
     sync();
     mq.addEventListener("change", sync);
@@ -36,29 +25,43 @@ export function PremiumCursor() {
   useEffect(() => {
     if (!enabled) return;
 
-    document.documentElement.classList.add("has-premium-cursor");
-
-    const onMove = (e: MouseEvent) => {
-      rawX.set(e.clientX);
-      rawY.set(e.clientY);
-      setVisible(true);
-    };
-
-    const onLeave = () => setVisible(false);
-    const onEnter = () => setVisible(true);
+    const root = document.documentElement;
+    root.classList.add("has-premium-cursor");
 
     const isInteractive = (el: EventTarget | null) => {
       if (!(el instanceof Element)) return false;
       return Boolean(
         el.closest(
-          "a, button, [role='button'], input, textarea, select, label, .cursor-magnet",
+          "a, button, [role='button'], input, textarea, select, label, .cursor-magnet, .premium-panel",
         ),
       );
     };
 
-    const onOver = (e: MouseEvent) => setHovering(isInteractive(e.target));
+    const onMove = (e: MouseEvent) => {
+      const node = elRef.current;
+      if (!node) return;
+      // Instant 1:1 — no spring, no transition on transform
+      node.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      node.style.opacity = "1";
+    };
+
+    const onLeave = () => {
+      if (elRef.current) elRef.current.style.opacity = "0";
+    };
+
+    const onEnter = () => {
+      if (elRef.current) elRef.current.style.opacity = "1";
+    };
+
+    const setHover = (next: boolean) => {
+      if (hoveringRef.current === next) return;
+      hoveringRef.current = next;
+      elRef.current?.classList.toggle("is-hover", next);
+    };
+
+    const onOver = (e: MouseEvent) => setHover(isInteractive(e.target));
     const onOut = (e: MouseEvent) => {
-      if (!isInteractive(e.relatedTarget)) setHovering(false);
+      if (!isInteractive(e.relatedTarget)) setHover(false);
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
@@ -68,72 +71,23 @@ export function PremiumCursor() {
     document.addEventListener("mouseout", onOut);
 
     return () => {
-      document.documentElement.classList.remove("has-premium-cursor");
+      root.classList.remove("has-premium-cursor");
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseout", onOut);
     };
-  }, [enabled, rawX, rawY]);
+  }, [enabled]);
 
   if (!enabled) return null;
 
   return (
     <div
-      className="premium-cursor pointer-events-none fixed inset-0 z-[9999]"
+      ref={elRef}
+      className="instant-cursor"
       aria-hidden
-      style={{ opacity: visible ? 1 : 0 }}
-    >
-      <CursorPart x={auraX} y={auraY} hovering={hovering} variant="aura" />
-      <CursorPart x={rawX} y={rawY} hovering={hovering} variant="dot" />
-    </div>
-  );
-}
-
-function CursorPart({
-  x,
-  y,
-  hovering,
-  variant,
-}: {
-  x: MotionValue<number>;
-  y: MotionValue<number>;
-  hovering: boolean;
-  variant: "dot" | "aura";
-}) {
-  const isDot = variant === "dot";
-
-  return (
-    <motion.div
-      className={
-        isDot
-          ? "absolute top-0 left-0 rounded-full bg-[#D4AF37]"
-          : "absolute top-0 left-0 rounded-full border border-[#D4AF37]/55 bg-[rgba(212,175,55,0.08)]"
-      }
-      style={{
-        x,
-        y,
-        width: isDot ? 6 : 40,
-        height: isDot ? 6 : 40,
-        marginLeft: isDot ? -3 : -20,
-        marginTop: isDot ? -3 : -20,
-        mixBlendMode: hovering && !isDot ? "difference" : "normal",
-        boxShadow: isDot
-          ? "0 0 10px rgba(212,175,55,0.55)"
-          : hovering
-            ? "0 0 28px rgba(212,175,55,0.35)"
-            : "0 0 18px rgba(212,175,55,0.18)",
-      }}
-      animate={{
-        scale: isDot ? (hovering ? 0.55 : 1) : hovering ? 1.55 : 1,
-        backgroundColor: isDot
-          ? "#D4AF37"
-          : hovering
-            ? "rgba(212,175,55,0.22)"
-            : "rgba(212,175,55,0.08)",
-      }}
-      transition={{ type: "spring", stiffness: 140, damping: 28, mass: 0.4 }}
+      style={{ opacity: 0, transform: "translate3d(-100px, -100px, 0)" }}
     />
   );
 }

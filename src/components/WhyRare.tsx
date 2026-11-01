@@ -27,7 +27,7 @@ export function WhyRare() {
     <section className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-24 md:px-8 md:py-32">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.06),transparent_60%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(197,160,89,0.08),transparent_60%)]"
       />
       <div className="relative mx-auto max-w-5xl">
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
@@ -52,7 +52,7 @@ export function WhyRare() {
                 duration: 0.7,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="border-t border-white/10 pt-6"
+              className="border-t border-black/5 pt-6"
             >
               <span
                 aria-hidden

@@ -64,7 +64,7 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="relative z-10 border-y border-white/10 bg-white/[0.02]">
+      <section className="relative z-10 border-y border-black/5 bg-white/50">
         <div className="mx-auto grid max-w-5xl gap-12 px-5 py-24 md:grid-cols-3 md:gap-10 md:px-8 md:py-32">
           {[
             ["האתגר", project.challenge],
@@ -91,7 +91,7 @@ export default async function CaseStudyPage({ params }: Props) {
           {project.stack.map((tech) => (
             <li
               key={tech}
-              className="rounded-md border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-light tracking-wide text-ink-soft"
+              className="rounded-md border border-black/5 bg-white/60 px-3 py-1.5 text-xs font-light tracking-wide text-ink-soft"
             >
               {tech}
             </li>
@@ -99,7 +99,7 @@ export default async function CaseStudyPage({ params }: Props) {
         </ul>
 
         {next && next.id !== project.id ? (
-          <div className="mt-16 border-t border-white/10 pt-10">
+          <div className="mt-16 border-t border-black/5 pt-10">
             <p className="text-[11px] font-light tracking-[0.22em] text-gold">
               הסיפור הבא
             </p>

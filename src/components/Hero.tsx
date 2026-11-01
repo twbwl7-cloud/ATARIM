@@ -1,21 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/MagneticButton";
 import { whatsappUrl } from "@/lib/site";
 
+const HeroGlass = dynamic(
+  () => import("@/components/HeroGlass").then((m) => m.HeroGlass),
+  { ssr: false, loading: () => null },
+);
+
 const INTRO_MSG =
   "היי דוד, מעוניין בשיחת ייעוץ. אשמח לפתיחת פנייה לפרויקט.";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const TITLE_LINES = [
-  "נכסים דיגיטליים",
-  "שאי אפשר",
-  "להתעלם מהם",
-] as const;
+const TITLE_LINES = ["נכסים דיגיטליים", "שאי אפשר להתעלם מהם."] as const;
 
 export function Hero() {
   const [reduce, setReduce] = useState(false);
@@ -30,46 +32,38 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-[#050507]">
-      {/* Ambient mesh — deep navy + champagne gold, slow drift */}
+    <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-[#F9F8F6]">
       <div className="hero-mesh pointer-events-none absolute inset-0" aria-hidden />
-      <div
-        className="hero-grain pointer-events-none absolute inset-0 opacity-[0.045]"
-        aria-hidden
-      />
+      {!reduce ? <HeroGlass /> : null}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[42%] bg-gradient-to-t from-[#050507] via-[#050507]/70 to-transparent"
+        className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-b from-[#F9F8F6]/35 via-transparent to-[#F9F8F6]/85"
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-5 pb-24 pt-[calc(6.5rem+env(safe-area-inset-top))] text-center sm:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-5 pb-24 pt-[calc(6.5rem+env(safe-area-inset-top))] text-center sm:px-8">
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mb-6 text-[11px] font-light tracking-[0.28em] text-gold sm:mb-8 sm:text-xs"
+          className="mb-6 text-[11px] font-light tracking-[0.22em] text-[#C5A059] sm:mb-8 sm:text-xs"
         >
-          סטודיו לפיתוח אתרים
+          דוד טובול — סטודיו לחוויות רשת
         </motion.p>
 
-        <h1 className="display max-w-4xl text-[clamp(2.35rem,7.2vw,5.4rem)] font-light leading-[1.12] tracking-wide text-ink">
+        <h1 className="display max-w-3xl text-[clamp(2.2rem,6.4vw,4.75rem)] font-light leading-[1.18] tracking-[0.01em] text-[#1A1A1A]">
           {TITLE_LINES.map((line, i) => (
-            <span key={line} className="block overflow-hidden py-[0.06em]">
+            <span key={line} className="block overflow-hidden py-[0.04em]">
               <motion.span
                 className="block"
                 initial={reduce ? false : { y: "100%" }}
                 animate={{ y: "0%" }}
                 transition={{
                   duration: 1.05,
-                  delay: 0.12 + i * 0.16,
+                  delay: 0.1 + i * 0.14,
                   ease: EASE,
                 }}
               >
-                {i === 2 ? (
-                  <span className="hero-accent-text">{line}</span>
-                ) : (
-                  line
-                )}
+                {line}
               </motion.span>
             </span>
           ))}
@@ -78,42 +72,42 @@ export function Hero() {
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.72, ease: EASE }}
-          className="mx-auto mt-7 max-w-lg text-sm font-light leading-relaxed tracking-wide text-muted sm:mt-8 sm:text-[15px]"
+          transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
+          className="mx-auto mt-7 max-w-2xl text-[15px] font-light leading-[1.85] tracking-wide text-[#6B6B6B] sm:mt-8 sm:text-base md:text-[17px] md:leading-[1.9]"
         >
-          אתרי תדמית יוקרתיים בקוד מותאם — ארכיטקטורת המרה, חוויות תלת־ממד,
-          ותוצאות שנמדדות בפניות אמיתיות.
+          בלי תבניות מוכנות, בלי פשרות על איכות. אני מתכנן ובונה אתרים מאפס, עם
+          עיצוב נקי, אנימציות חלקות, וחוויית משתמש שפשוט עובדת. תהליך אישי בגובה
+          העיניים, מהשורת קוד הראשונה ועד לאוויר.
         </motion.p>
 
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, delay: 0.88, ease: EASE }}
-          className="mt-8 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center"
+          transition={{ duration: 0.85, delay: 0.72, ease: EASE }}
+          className="mt-9 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-11 sm:max-w-none sm:flex-row sm:items-center sm:justify-center"
         >
-          <Link
-            href="/work"
-            className="btn-gold inline-flex min-h-11 items-center justify-center rounded-md px-8 py-3 text-[14px] font-light tracking-wide sm:min-h-12 sm:px-10 sm:text-sm"
-          >
-            תיק עבודות
-          </Link>
           <MagneticButton
             href={introHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-ghost min-h-11 justify-center rounded-md px-8 py-3 text-[14px] font-light tracking-wide sm:min-h-12 sm:text-sm"
+            className="btn-gold min-h-11 justify-center rounded-full px-9 py-3 text-[14px] font-light tracking-wide sm:min-h-12 sm:px-11 sm:text-sm"
           >
-            שיחת ייעוץ
+            בואו נדבר
           </MagneticButton>
+          <Link
+            href="/work"
+            className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full px-9 py-3 text-[14px] font-light tracking-wide sm:min-h-12 sm:px-10 sm:text-sm"
+          >
+            תיק עבודות
+          </Link>
         </motion.div>
       </div>
 
-      {/* Delicate champagne scroll line */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-7 z-20 flex flex-col items-center gap-3 sm:bottom-9"
         aria-hidden
       >
-        <span className="text-[10px] font-light tracking-[0.22em] text-muted/70">
+        <span className="text-[10px] font-light tracking-[0.22em] text-[#6B6B6B]/70">
           גללו
         </span>
         <span className="hero-scroll-line" />

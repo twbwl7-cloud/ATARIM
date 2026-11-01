@@ -20,7 +20,7 @@ export function ContactSection() {
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(212,175,55,0.08),transparent_50%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(197,160,89,0.12),transparent_50%)]"
         />
         <div className="relative z-[1] max-w-2xl">
           <p className="text-[11px] font-light tracking-[0.22em] text-gold">

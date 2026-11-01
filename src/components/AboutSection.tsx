@@ -43,7 +43,7 @@ export function AboutSection() {
           {philosophy.map((item) => (
             <div
               key={item.title}
-              className="border-t border-white/10 pt-6 first:border-t-0 first:pt-0 md:first:border-t md:first:pt-6"
+              className="border-t border-black/5 pt-6 first:border-t-0 first:pt-0 md:first:border-t md:first:pt-6"
             >
               <h3 className="display text-xl font-light text-ink md:text-2xl">
                 {item.title}

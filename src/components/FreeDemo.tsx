@@ -48,7 +48,7 @@ export function FreeDemo() {
             </ul>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-md sm:p-5 md:p-6">
+          <div className="rounded-xl border border-black/5 bg-white/60 p-4 backdrop-blur-md sm:p-5 md:p-6">
             <p className="text-[11px] tracking-[0.16em] text-muted uppercase">סוג עסק</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {demoNiches.map((niche) => {
@@ -61,7 +61,7 @@ export function FreeDemo() {
                     className={`rounded-md px-3 py-2 text-sm transition-all duration-500 ease-in-out sm:px-3.5 ${
                       active
                         ? "border border-gold/50 bg-gold/15 text-gold"
-                        : "border border-white/10 text-ink hover:border-gold/35"
+                        : "border border-black/5 text-ink hover:border-gold/35"
                     }`}
                   >
                     {niche.label}
@@ -80,7 +80,7 @@ export function FreeDemo() {
                 rows={3}
                 maxLength={280}
                 placeholder="למשל: כפתור לתור, תפריט עוגות, מראה שקט למספרה…"
-                className="mt-2 w-full resize-none rounded-md border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-ink outline-none transition-all duration-500 ease-in-out placeholder:text-muted/70 focus:border-gold/40"
+                className="mt-2 w-full resize-none rounded-md border border-black/5 bg-white/60 px-4 py-3 text-sm text-ink outline-none transition-all duration-500 ease-in-out placeholder:text-muted/70 focus:border-gold/40"
               />
             </label>
 

@@ -22,7 +22,7 @@ export function NextStepCTA({
   secondaryLabel = "לעמוד הייעוץ",
 }: Props) {
   return (
-    <section className="relative z-10 border-t border-white/10 px-5 py-24 md:px-8 md:py-32">
+    <section className="relative z-10 border-t border-black/5 px-5 py-24 md:px-8 md:py-32">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -32,7 +32,7 @@ export function NextStepCTA({
       >
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.1),transparent_55%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(197,160,89,0.12),transparent_55%)]"
         />
         <div className="relative z-[1]">
           <p className="text-[11px] font-light tracking-[0.28em] text-gold">

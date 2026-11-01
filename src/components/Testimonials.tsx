@@ -53,7 +53,7 @@ export function Testimonials() {
                 <p className="text-sm leading-relaxed text-ink-soft md:text-[15px]">
                   “{t.quote}”
                 </p>
-                <div className="mt-8 border-t border-white/10 pt-5">
+                <div className="mt-8 border-t border-black/5 pt-5">
                   <p className="text-sm font-medium text-ink">{t.name}</p>
                   <p className="mt-1 text-xs tracking-wide text-gold">{t.role}</p>
                 </div>
