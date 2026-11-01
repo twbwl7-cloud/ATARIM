@@ -133,13 +133,12 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     const my = mouse.current.y;
 
     // Plunge: product shot → deep into the display (g=0→1)
-    const aspect = state.viewport.aspect || 1;
-    const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 4.85 : 3.55;
-    const camZ1 = narrow ? 0.32 : 0.2;
-    const camY0 = narrow ? 0.95 : 1.05;
-    const modelScale = narrow ? 0.82 : 1.0;
-    const modelY = narrow ? -0.28 : -0.38;
+    // Same desktop framing on phone — keep the MacBook hero identical
+    const camZ0 = 3.55;
+    const camZ1 = 0.2;
+    const camY0 = 1.05;
+    const modelScale = 1.0;
+    const modelY = -0.38;
     const mouseFade = 1 - g * 0.92;
 
     screenMat.uniforms.uTime.value = t;
@@ -161,12 +160,12 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     state.camera.position.x = mx * 0.18 * mouseFade;
     state.camera.position.y = THREE.MathUtils.lerp(
       camY0 + my * 0.1 * mouseFade,
-      narrow ? 0.62 : 0.58,
+      0.58,
       g,
     );
     state.camera.lookAt(
       0,
-      THREE.MathUtils.lerp(narrow ? 0.35 : 0.28, 0.72, g),
+      THREE.MathUtils.lerp(0.28, 0.72, g),
       (root.current?.position.z ?? 0) + g * 0.4,
     );
   });
@@ -318,12 +317,11 @@ function GlbMacbook({
     mouse.current.y = THREE.MathUtils.lerp(mouse.current.y, state.pointer.y, 0.06);
     const mx = mouse.current.x;
     const my = mouse.current.y;
-    const aspect = state.viewport.aspect || 1;
-    const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 4.35 : 3.15;
-    const camZ1 = narrow ? 0.3 : 0.18;
-    const camY0 = narrow ? 0.82 : 0.92;
-    const modelScale = narrow ? 0.95 : 1.12;
+    // Same desktop MacBook framing on every viewport
+    const camZ0 = 3.15;
+    const camZ1 = 0.18;
+    const camY0 = 0.92;
+    const modelScale = 1.12;
     const mouseFade = 1 - g * 0.92;
 
     if (root.current) {
@@ -334,19 +332,19 @@ function GlbMacbook({
         modelScale * (1 + Math.sin(t * 0.9) * 0.008 * (1 - g) + g * 0.18),
       );
       root.current.position.z = g * 0.85;
-      root.current.position.y = (narrow ? -0.22 : -0.32) + g * 0.12;
+      root.current.position.y = -0.32 + g * 0.12;
     }
 
     state.camera.position.z = THREE.MathUtils.lerp(camZ0, camZ1, g);
     state.camera.position.x = mx * 0.16 * mouseFade;
     state.camera.position.y = THREE.MathUtils.lerp(
       camY0 + my * 0.09 * mouseFade,
-      narrow ? 0.6 : 0.55,
+      0.55,
       g,
     );
     state.camera.lookAt(
       0,
-      THREE.MathUtils.lerp(narrow ? 0.35 : 0.28, 0.7, g),
+      THREE.MathUtils.lerp(0.28, 0.7, g),
       (root.current?.position.z ?? 0) + g * 0.4,
     );
   });

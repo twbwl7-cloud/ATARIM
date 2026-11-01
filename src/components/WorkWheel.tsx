@@ -11,31 +11,14 @@ import {
 } from "framer-motion";
 import { projectHref, projects, type Project } from "@/lib/site";
 
-function PhonePreview({ project, priority }: { project: Project; priority?: boolean }) {
-  return (
-    <div className="phone-frame mx-auto w-[min(42vw,180px)] sm:w-[200px]">
-      <div className="phone-screen">
-        <Image
-          src={`/work/mobile/${project.id}.jpg`}
-          alt={`תצוגת מובייל — ${project.title}`}
-          fill
-          className="object-cover object-top"
-          sizes="260px"
-          priority={priority}
-          quality={90}
-        />
-      </div>
-    </div>
-  );
-}
-
+/** Same desktop browser frame on phone and desktop — one premium version */
 function DesktopPreview({ project, priority }: { project: Project; priority?: boolean }) {
   const host = project.liveUrl
     ? project.liveUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
     : "davidwebsitebuilder.vercel.app";
 
   return (
-    <div className="desktop-frame mx-auto w-full max-w-sm lg:max-w-md">
+    <div className="desktop-frame mx-auto w-full max-w-[min(100%,22rem)] sm:max-w-sm lg:max-w-md">
       <div className="desktop-chrome">
         <div className="desktop-chrome-dots" aria-hidden>
           <span />
@@ -50,7 +33,7 @@ function DesktopPreview({ project, priority }: { project: Project; priority?: bo
           alt={`תצוגת מחשב — ${project.title}`}
           fill
           className="object-cover object-top"
-          sizes="(max-width: 1024px) 55vw, 512px"
+          sizes="(max-width: 768px) 90vw, (max-width: 1024px) 55vw, 512px"
           priority={priority}
           quality={90}
         />
@@ -126,12 +109,7 @@ export function WorkWheel() {
                   </a>
                 </div>
                 <div>
-                  <div className="md:hidden">
-                    <PhonePreview project={project} priority={i === 0} />
-                  </div>
-                  <div className="hidden md:block">
-                    <DesktopPreview project={project} priority={i === 0} />
-                  </div>
+                  <DesktopPreview project={project} priority={i === 0} />
                 </div>
               </li>
             ))}
@@ -159,7 +137,7 @@ export function WorkWheel() {
           </div>
 
           {/* Frame band — deliberately compact so meta never fights it */}
-          <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-8 py-1 sm:px-16 md:px-24">
+          <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-4 py-1 sm:px-16 md:px-24">
             {projects.map((project, i) => {
               const isActive = i === active;
               return (
@@ -187,10 +165,7 @@ export function WorkWheel() {
                     isActive ? "z-20" : "z-10"
                   }`}
                 >
-                  <div className="md:hidden">
-                    <PhonePreview project={project} priority={i === 0} />
-                  </div>
-                  <div className="hidden w-full md:block">
+                  <div className="w-full">
                     <DesktopPreview project={project} priority={i === 0} />
                   </div>
                 </motion.a>
@@ -199,7 +174,7 @@ export function WorkWheel() {
           </div>
 
           {/* Project meta under the frame — clear, no overlap */}
-          <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-24 text-center sm:pb-7 md:pb-8">
+          <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-20 text-center sm:pb-7 md:pb-8">
             <p className="text-[11px] font-semibold tracking-[0.12em] text-cyan-deep sm:text-xs">
               {String(active + 1).padStart(2, "0")} מתוך{" "}
               {String(projects.length).padStart(2, "0")}

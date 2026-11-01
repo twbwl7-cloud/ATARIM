@@ -339,7 +339,7 @@ export function ProcessJourney() {
                     <bdi>{step.n}</bdi>
                   </motion.div>
                   <p
-                    className={`absolute top-full mt-1 hidden whitespace-nowrap text-[10px] tracking-wide sm:mt-1.5 sm:block sm:text-[11px] ${
+                    className={`absolute top-full mt-1 whitespace-nowrap text-[9px] tracking-wide sm:mt-1.5 sm:text-[11px] ${
                       side === "end" ? "end-0 text-end" : "start-0 text-start"
                     } ${isActive ? "font-semibold text-ink" : "text-muted"}`}
                   >

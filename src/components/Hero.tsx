@@ -109,7 +109,7 @@ export function Hero() {
         {/* MacBook — pinned, intensity drives plunge into the screen */}
         <motion.div
           style={{ scale: laptopScale }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 top-[48%] z-[1] sm:top-[28%] md:top-[18%]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 top-[22%] z-[1] sm:top-[20%] md:top-[18%]"
         >
           <div className="hero-laptop-stage relative h-full w-full">
             <div className="hero-laptop-shadow !bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.22)_0%,transparent_70%)]" />
