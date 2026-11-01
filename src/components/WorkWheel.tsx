@@ -13,7 +13,7 @@ import { projectHref, projects, type Project } from "@/lib/site";
 
 function PhonePreview({ project, priority }: { project: Project; priority?: boolean }) {
   return (
-    <div className="phone-frame mx-auto w-[min(48vw,200px)] sm:w-[220px]">
+    <div className="phone-frame mx-auto w-[min(42vw,180px)] sm:w-[200px]">
       <div className="phone-screen">
         <Image
           src={`/work/mobile/${project.id}.jpg`}
@@ -35,7 +35,7 @@ function DesktopPreview({ project, priority }: { project: Project; priority?: bo
     : "davidwebsitebuilder.vercel.app";
 
   return (
-    <div className="desktop-frame mx-auto w-full max-w-md lg:max-w-lg">
+    <div className="desktop-frame mx-auto w-full max-w-sm lg:max-w-md">
       <div className="desktop-chrome">
         <div className="desktop-chrome-dots" aria-hidden>
           <span />
@@ -158,8 +158,8 @@ export function WorkWheel() {
             </h2>
           </div>
 
-          {/* Frame band — smaller, centered, clear of copy */}
-          <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-6 py-2 sm:px-12">
+          {/* Frame band — deliberately compact so meta never fights it */}
+          <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-8 py-1 sm:px-16 md:px-24">
             {projects.map((project, i) => {
               const isActive = i === active;
               return (
@@ -201,15 +201,15 @@ export function WorkWheel() {
           {/* Project meta under the frame — clear, no overlap */}
           <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-5 text-center sm:pb-7 md:pb-8">
             <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
-              <bdi dir="ltr">
-                {String(active + 1).padStart(2, "0")} /{" "}
-                {String(projects.length).padStart(2, "0")}
-              </bdi>
-              {" · "}
+              {String(active + 1).padStart(2, "0")} מתוך{" "}
+              {String(projects.length).padStart(2, "0")}
+              <span aria-hidden> · </span>
               {current.client}
             </p>
-            <p className="display text-xl text-ink sm:text-2xl">{current.title}</p>
-            <p className="max-w-md text-sm text-muted">{current.summary}</p>
+            <p className="display text-lg text-ink sm:text-xl md:text-2xl">
+              {current.title}
+            </p>
+            <p className="max-w-md text-xs text-muted sm:text-sm">{current.summary}</p>
             <a
               href={projectHref(current)}
               target="_blank"

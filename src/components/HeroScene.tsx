@@ -132,14 +132,13 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     const mx = mouse.current.x;
     const my = mouse.current.y;
 
-    // Lower-band framing: laptop fills the bottom scene under sky copy
+    // Day lower-band: keep full machine readable, never crop the lid
     const aspect = state.viewport.aspect || 1;
     const narrow = aspect < 0.85;
-    // Night hero: laptop sits higher in the lower band — keep full machine in frame
-    const camZ0 = narrow ? 4.35 : 3.15;
-    const camY0 = narrow ? 0.82 : 0.92;
-    const modelScale = narrow ? 0.95 : 1.12;
-    const modelY = narrow ? -0.22 : -0.32;
+    const camZ0 = narrow ? 4.85 : 3.55;
+    const camY0 = narrow ? 0.95 : 1.05;
+    const modelScale = narrow ? 0.82 : 1.0;
+    const modelY = narrow ? -0.28 : -0.38;
 
     screenMat.uniforms.uTime.value = t;
     screenMat.uniforms.uGlow.value = g;

@@ -25,7 +25,8 @@ const reveal = (delay: number) => ({
 
 export function Hero() {
   const [reduce, setReduce] = useState(false);
-  const intensity = useMotionValue(0.35);
+  // Day hero floats at product distance — no plunge / scrub intensity
+  const intensity = useMotionValue(0);
   const consultHref = whatsappUrl(CONSULT_MSG);
 
   useEffect(() => {
@@ -44,16 +45,16 @@ export function Hero() {
       />
       <div className="hero-grain pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply" aria-hidden />
 
-      {/* MacBook — lower band, floating, NOT scroll-scrubbed */}
+      {/* MacBook — lower band only · floats · NOT scroll-scrubbed */}
       {!reduce && (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[42%] z-[1] sm:top-[40%] md:top-[36%]">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[58%] z-[1] sm:top-[46%] md:top-[38%]">
           <motion.div
             initial={{ opacity: 0, y: 28, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1, delay: 0.35, ease: EASE }}
-            className="hero-laptop-stage relative h-full w-full"
+            className="hero-laptop-stage relative h-full w-full scale-[0.92] sm:scale-100"
           >
-            <div className="hero-laptop-shadow !bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.28)_0%,transparent_70%)]" />
+            <div className="hero-laptop-shadow !bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.22)_0%,transparent_70%)]" />
             <HeroScene intensity={intensity} theme="day" />
             <div
               aria-hidden
@@ -62,12 +63,12 @@ export function Hero() {
           </motion.div>
           <div
             aria-hidden
-            className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-sky via-sky/80 to-transparent"
+            className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-sky via-sky/85 to-transparent sm:h-24"
           />
         </div>
       )}
 
-      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col items-center px-5 pb-8 pt-[calc(5rem+env(safe-area-inset-top))] text-center sm:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col items-center px-5 pb-[42%] pt-[calc(5rem+env(safe-area-inset-top))] text-center sm:pb-[38%] sm:px-8 md:pb-10">
         <motion.p
           {...(reduce ? {} : reveal(0.05))}
           className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-deep sm:text-sm"
