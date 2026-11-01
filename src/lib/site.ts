@@ -1,7 +1,7 @@
 export const site = {
   name: "David Tubul",
   nameHe: "דוד טובול",
-  tagline: "לקוחות כותבים קודם — אתם עונים אחר כך",
+  tagline: "אתר שמביא הודעות — לא רק יופי",
   short: "David Tubul",
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { nav } from "@/lib/site";
+import { nav, whatsappUrl } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
@@ -63,13 +63,17 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/#free-demo"
+          <a
+            href={whatsappUrl(
+              "היי דוד, רוצה דוגמה בחינם לאתר של העסק שלי — בלי התחייבות.",
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-gold inline-flex rounded-md px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
             onClick={() => setOpen(false)}
           >
             דוגמה בחינם
-          </Link>
+          </a>
           <button
             type="button"
             aria-expanded={open}
