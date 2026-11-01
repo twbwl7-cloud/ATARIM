@@ -20,8 +20,8 @@ import { whatsappUrl } from "@/lib/site";
 const STEPS = [
   {
     n: "01",
-    title: "הודעה בוואטסאפ",
-    body: "כותבים מה העסק ומה חסר. קובעים שיחה — בלי התחייבות ובלי כרטיס אשראי.",
+    title: "שיחת היכרות",
+    body: "כותבים מה העסק ומה חסר. קובעים שיחה קצרה — בלי לחץ ובלי כרטיס אשראי.",
     outcome: "מועד ביומן",
   },
   {
@@ -32,9 +32,9 @@ const STEPS = [
   },
   {
     n: "03",
-    title: "דוגמה לפני תשלום",
-    body: "רואים עמוד ראשי בסגנון שלכם. לא מתאים — עוצרים. בלי מופע מכירות.",
-    outcome: "רואים לפני שמשלמים",
+    title: "כיוון ויזואלי",
+    body: "רואים מסך בסגנון שלכם לפני שבונים הכל. לא מתאים — עוצרים. בלי מופע מכירות.",
+    outcome: "רואים לפני שבונים",
   },
   {
     n: "04",
@@ -416,20 +416,22 @@ export function ProcessJourney() {
         >
           <div>
             <p className="display text-lg text-ink sm:text-xl">
-              רוצים קודם לראות דוגמה?
+              מוכנים לשיחת היכרות?
             </p>
-            <p className="mt-1 text-sm text-muted">בחינם. בלי התחייבות.</p>
+            <p className="mt-1 text-sm text-muted">
+              בלי משפך. פשוט נדבר על העסק שלכם.
+            </p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
             <a
-              href="#free-demo"
+              href="/contact"
               className="btn-gold rounded-md px-6 py-3 text-center text-sm"
             >
-              לקבלת דוגמה בחינם
+              לעמוד צור קשר
             </a>
             <a
               href={whatsappUrl(
-                "היי דוד, בא לי לקבוע שיחה קצרה על אתר לעסק שלי.",
+                "היי דוד, ראיתי את אתר התדמית. בא לי לשיחת היכרות קצרה.",
               )}
               target="_blank"
               rel="noopener noreferrer"

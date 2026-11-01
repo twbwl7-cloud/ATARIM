@@ -13,7 +13,7 @@ const ABOUT_BODY =
 export function AboutIntro() {
   return (
     <section
-      id="about"
+      id="about-intro"
       className="section-void relative z-10 overflow-hidden border-y border-line px-4 py-14 sm:px-5 sm:py-20 md:px-8 md:py-28"
     >
       <div className="relative mx-auto grid max-w-6xl items-center gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-14 lg:gap-16">

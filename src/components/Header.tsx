@@ -5,11 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { nav, whatsappUrl } from "@/lib/site";
+import { nav } from "@/lib/site";
 
+/** Brand chrome — max 5 links, no hard-sell CTA in the bar */
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
@@ -18,7 +24,7 @@ export function Header() {
           href="/"
           className="group relative flex shrink-0 items-center gap-2 sm:gap-2.5"
           onClick={() => setOpen(false)}
-          aria-label="David Tubul — דף הבית"
+          aria-label="דוד טובול — דף הבית"
         >
           <span className="relative h-8 w-8 shrink-0 sm:h-11 sm:w-11 md:h-12 md:w-12">
             <Image
@@ -46,8 +52,7 @@ export function Header() {
 
         <nav className="glass hidden items-center gap-1 rounded-full px-2 py-1 md:flex">
           {nav.map((item) => {
-            const pathOnly = item.href.split("#")[0] || "/";
-            const active = !item.href.includes("#") && pathname === pathOnly;
+            const active = isActive(item.href);
             return (
               <Link
                 key={item.href}
@@ -62,36 +67,23 @@ export function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <a
-            href={whatsappUrl(
-              "היי דוד, בא לי לשיחת ייעוץ בוואטסאפ על אתר לעסק שלי.",
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold btn-shimmer cursor-magnet relative inline-flex overflow-hidden rounded-md px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
-            onClick={() => setOpen(false)}
-          >
-            ייעוץ בוואטסאפ
-          </a>
-          <button
-            type="button"
-            aria-expanded={open}
-            aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-            className="grid h-10 w-10 place-items-center rounded-md border border-line bg-paper/80 text-ink sm:h-11 sm:w-11 md:hidden"
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="flex w-4 flex-col gap-1.5">
-              <span
-                className={`h-px w-full bg-ink transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
-              />
-              <span className={`h-px w-full bg-ink transition ${open ? "opacity-0" : ""}`} />
-              <span
-                className={`h-px w-full bg-ink transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
-              />
-            </span>
-          </button>
-        </div>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-label={open ? "סגור תפריט" : "פתח תפריט"}
+          className="grid h-10 w-10 place-items-center rounded-md border border-line bg-paper/80 text-ink sm:h-11 sm:w-11 md:hidden"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="flex w-4 flex-col gap-1.5">
+            <span
+              className={`h-px w-full bg-ink transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+            />
+            <span className={`h-px w-full bg-ink transition ${open ? "opacity-0" : ""}`} />
+            <span
+              className={`h-px w-full bg-ink transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+            />
+          </span>
+        </button>
       </div>
 
       <AnimatePresence>

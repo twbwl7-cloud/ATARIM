@@ -10,7 +10,7 @@ export function Footer() {
           <p className="mt-2 text-sm leading-relaxed text-muted">
             {site.tagline}.
           </p>
-          <p className="mt-3 text-sm text-cyan-deep">
+          <p className="mt-3 text-sm text-gold">
             <bdi dir="ltr">{site.phoneDisplay}</bdi>
           </p>
         </div>
@@ -19,7 +19,7 @@ export function Footer() {
             <Link
               key={item.href}
               href={item.href}
-              className="transition hover:text-cyan-deep"
+              className="transition hover:text-gold"
             >
               {item.label}
             </Link>
@@ -28,7 +28,7 @@ export function Footer() {
             href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-ink transition hover:text-cyan-deep"
+            className="font-medium text-ink transition hover:text-gold"
           >
             וואטסאפ
           </a>
@@ -38,7 +38,13 @@ export function Footer() {
         <p>
           © 2026 {site.nameHe} · {site.phoneDisplay}
         </p>
-        <p>התכנים באתר להמחשה. מחיר סופי אחרי שיחה. אין דיוור בלי הסכמה.</p>
+        <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+          <span>מדיניות פרטיות</span>
+          <span aria-hidden>·</span>
+          <span>הצהרת נגישות</span>
+          <span aria-hidden>·</span>
+          <span>התכנים להמחשה. מחיר סופי אחרי שיחה.</span>
+        </p>
       </div>
     </footer>
   );

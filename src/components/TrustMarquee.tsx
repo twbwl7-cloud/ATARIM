@@ -1,11 +1,11 @@
 "use client";
 
-/** A10 · P14 — always-moving proof strip · bright · X-filter clean */
+/** A10 · P14 — always-moving proof strip · brand, not landing scarcity */
 const ITEMS = [
   "לולילק · אסתטיקה",
   "Cookk · עוגות",
   "לוקסי · מספרה",
-  "דוגמה לפני תשלום",
+  "אתרי תדמית בקוד",
   "הקוד והדומיין שלכם",
   "וואטסאפ · 052-318-2032",
 ];

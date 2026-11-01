@@ -48,14 +48,14 @@ export function FormatsElements() {
 
       <div className="relative mx-auto max-w-7xl">
         <div className="mb-10 max-w-2xl md:mb-14">
-          <p className="text-xs tracking-[0.24em] text-gold">מה בונים</p>
+          <p className="text-xs tracking-[0.24em] text-gold">פורמטים</p>
           <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-            נחיתה. תדמית. הזמנה.{" "}
-            <span className="ink-gold">תור</span>.
+            תדמית קודם. שאר הפורמטים —{" "}
+            <span className="ink-gold">כשצריך</span>.
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
-            ארבעה פורמטים. בוחרים אחד — ובונים רק מה שמביא{" "}
-            <span className="ink-cyan">הודעה</span>.
+            הליבה היא אתר תדמית. דף נחיתה, הזמנה ותור — רק כשהעסק באמת צריך{" "}
+            <span className="ink-cyan">הודעה</span> מהם.
           </p>
         </div>
 

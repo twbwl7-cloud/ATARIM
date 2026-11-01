@@ -10,9 +10,9 @@ export function AboutSection() {
       className="relative z-10 mx-auto grid max-w-7xl gap-10 overflow-hidden px-5 py-16 sm:py-20 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-16 md:px-8 md:py-28"
     >
       <div>
-        <p className="text-xs tracking-[0.16em] text-cyan-deep">עליי</p>
+        <p className="text-xs tracking-[0.16em] text-gold">אודות</p>
         <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-          דוד טובול. בונה אתרים שמביאים הודעות מלקוחות.
+          דוד טובול. בונה אתרי תדמית שמביאים הודעות מלקוחות.
         </h2>
         <motion.p
           initial={{ opacity: 0, y: 12 }}

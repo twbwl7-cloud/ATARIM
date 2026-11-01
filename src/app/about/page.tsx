@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
 import { AboutIntro } from "@/components/AboutIntro";
-import { ServicesSection } from "@/components/ServicesSection";
+import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
+import { PageHero } from "@/components/PageHero";
+import { WhyRare } from "@/components/WhyRare";
 
 export const metadata: Metadata = {
-  title: "עליי",
+  title: "אודות",
   description:
-    "דוד טובול — בונה אתרים בקוד. דוגמה לפני תשלום. לולילק, Cookk, לוקסי.",
+    "דוד טובול — בונה אתרי תדמית בקוד. סטודנט למדעי המחשב, בלי תבניות.",
 };
 
 export default function AboutPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-20">
+      <PageHero
+        eyebrow="אודות"
+        title="מי עומד מאחורי האתר."
+        lead="בעסקי שירות קונים אדם, לא לוגו. הנה מי אני, איך עובדים, ומה אני מסרב לעשות."
+      />
       <AboutIntro />
-      <ServicesSection />
+      <AboutSection />
+      <WhyRare />
       <ContactSection />
     </div>
   );

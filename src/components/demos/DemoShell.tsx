@@ -52,7 +52,7 @@ export function DemoShell({ demo }: Props) {
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-3 md:px-8">
           <Link
-            href="/#work"
+            href="/work"
             className="text-xs tracking-wide transition hover:opacity-80"
             style={{ color: palette.soft }}
           >

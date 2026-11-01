@@ -15,7 +15,7 @@ export const site = {
 export function whatsappUrl(message?: string) {
   const text =
     message ??
-    "היי דוד, ראיתי את האתר. בא לי דוגמה בחינם לעסק שלי.";
+    "היי דוד, ראיתי את אתר התדמית. בא לי לשיחת היכרות קצרה.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 
@@ -143,16 +143,16 @@ export const testimonials = [
 export const formats = [
   {
     code: "01",
-    title: "דף נחיתה",
-    body: "עמוד אחד לקמפיין. מה מוכרים, למה אתכם, וכפתור שפותח שיחה.",
-    lever: "לחיצה → הודעה",
+    title: "אתר תדמית",
+    body: "מי אתם, מה עושים, ולמה אצלכם. אחרי זה וואטסאפ או תור.",
+    lever: "ברור · עובד",
     accent: "gold" as const,
   },
   {
     code: "02",
-    title: "אתר תדמית",
-    body: "מי אתם, מה עושים, ולמה אצלכם. אחרי זה וואטסאפ או תור.",
-    lever: "ברור · עובד",
+    title: "דף נחיתה",
+    body: "עמוד אחד לקמפיין. מה מוכרים, למה אתכם, וכפתור שפותח שיחה.",
+    lever: "לחיצה → הודעה",
     accent: "cyan" as const,
   },
   {
@@ -208,26 +208,24 @@ export function projectIsExternal(project: Project) {
 
 export const services = [
   {
-    title: "אתר תדמית עם כפתור ברור",
-    body: "מי אתם, מה עושים, ואז וואטסאפ או תור. בלי להתבלבל.",
+    title: "אתרי תדמית פרימיום",
+    body: "בית, עבודות, שירותים, אודות וצור קשר — חלון ראווה דיגיטלי שמביא שיחה, לא עגלה.",
   },
   {
-    title: "הזמנות בלי בלגן",
-    body: "תפריט, בחירה, שליחה. מי שרוצה להזמין — מזמין.",
+    title: "חוויות תנועה ו-3D",
+    body: "גלילה חלקה (Lenis), מסכים שנשארים, ואנימציה שמשרתת את המסר — לא רעש.",
   },
   {
-    title: "מספרות וקליניקות",
-    body: "תיאום מראש בלי טלפונים רצופים. האתר קובע את התור.",
+    title: "ממותג עד עלייה לאוויר",
+    body: "אפיון, עיצוב, קוד ודומיין שלכם. הקוד אצלכם מהיום הראשון.",
   },
 ] as const;
 
+/** אתר תדמית — ניווט עמודים אמיתי (לא עוגני משפך) */
 export const nav = [
-  { href: "/", label: "בית" },
-  { href: "/#work", label: "עבודות" },
-  { href: "/#pillars", label: "השיטה" },
-  { href: "/#formats", label: "פורמטים" },
-  { href: "/#free-demo", label: "דוגמה בחינם" },
-  { href: "/#reviews", label: "מה אומרים" },
-  { href: "/about", label: "עליי" },
-  { href: "/#contact", label: "דברו איתי" },
+  { href: "/", label: "ראשי" },
+  { href: "/work", label: "עבודות" },
+  { href: "/services", label: "שירותים" },
+  { href: "/about", label: "אודות" },
+  { href: "/contact", label: "צור קשר" },
 ] as const;

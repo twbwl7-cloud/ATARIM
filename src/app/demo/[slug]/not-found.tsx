@@ -8,7 +8,7 @@ export default function DemoNotFound() {
         <h1 className="display mt-3 text-3xl">הדימו לא נמצא</h1>
         <p className="mt-3 text-sm text-muted">ייתכן שהקישור שגוי או שהפרויקט הוסר.</p>
         <Link
-          href="/#work"
+          href="/work"
           className="mt-8 inline-flex rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-rich-black"
         >
           חזרה לתיק עבודות

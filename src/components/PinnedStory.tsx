@@ -71,10 +71,10 @@ export function PinnedStory() {
               <span className="ink-gold">הודעה</span> — ואז הוואטסאפ כבר קל יותר.
             </p>
             <a
-              href="#free-demo"
+              href="/contact"
               className="btn-gold mt-6 inline-flex rounded-md px-6 py-3 text-sm"
             >
-              רוצים לראות דוגמה בחינם?
+              לשיחת היכרות
             </a>
           </motion.div>
         </div>

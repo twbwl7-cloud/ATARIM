@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "דוד טובול — אתרים בקוד לעסקים. דוגמה לפני תשלום. לולילק, Cookk, לוקסי.",
+    "דוד טובול — אתר תדמית יוקרתי בקוד. לולילק, Cookk, לוקסי. שיחת היכרות בוואטסאפ.",
   openGraph: {
     title: site.name,
     description: site.tagline,
