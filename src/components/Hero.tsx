@@ -82,10 +82,16 @@ export function Hero() {
           >
             לשיחת ייעוץ בוואטסאפ
           </MagneticButton>
-          <a href="#work" className="text-sm text-muted">
+          <a
+            href="#work"
+            className="text-sm font-semibold text-[#dff8fc] drop-shadow-[0_1px_8px_rgba(24,196,224,0.35)]"
+          >
             לראות עבודות חיות
           </a>
-          <p className="text-xs text-cyan-deep" dir="ltr">
+          <p
+            className="text-sm font-semibold tracking-wide text-[#5eebf5]"
+            dir="ltr"
+          >
             {site.phoneDisplay}
           </p>
         </div>
@@ -156,15 +162,15 @@ export function Hero() {
             </MagneticButton>
             <a
               href="#work"
-              className="group relative inline-flex justify-center text-sm text-muted transition hover:text-cyan-deep"
+              className="group relative inline-flex justify-center text-[15px] font-semibold tracking-wide text-[#0a8aa3] transition hover:text-cyan-deep sm:text-base"
             >
               לראות עבודות חיות
               <span className="absolute inset-x-0 -bottom-0.5 mx-auto h-px w-0 bg-cyan-deep transition-all duration-300 group-hover:w-full" />
             </a>
           </motion.div>
 
-          <p className="mt-4 text-[11px] text-muted sm:text-xs">
-            <bdi className="text-cyan-deep" dir="ltr">
+          <p className="mt-4 text-sm font-semibold tracking-[0.04em] text-cyan sm:text-[15px]">
+            <bdi className="text-[#18c4e0]" dir="ltr">
               {site.phoneDisplay}
             </bdi>
           </p>
@@ -172,7 +178,7 @@ export function Hero() {
 
         <motion.p
           style={{ opacity: hintOpacity }}
-          className="pointer-events-none absolute inset-x-0 bottom-8 z-20 text-center text-[11px] tracking-[0.14em] text-muted"
+          className="pointer-events-none absolute inset-x-0 bottom-8 z-20 text-center text-[11px] font-medium tracking-[0.14em] text-cyan-deep/80"
         >
           גללו — נכנסים למסך
         </motion.p>

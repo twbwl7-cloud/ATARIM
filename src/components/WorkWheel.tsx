@@ -200,7 +200,7 @@ export function WorkWheel() {
 
           {/* Project meta under the frame — clear, no overlap */}
           <div className="relative z-20 mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center gap-2 px-5 pb-24 text-center sm:pb-7 md:pb-8">
-            <p className="text-[11px] tracking-[0.12em] text-cyan-deep">
+            <p className="text-[11px] font-semibold tracking-[0.12em] text-cyan-deep sm:text-xs">
               {String(active + 1).padStart(2, "0")} מתוך{" "}
               {String(projects.length).padStart(2, "0")}
               <span aria-hidden> · </span>
@@ -209,7 +209,9 @@ export function WorkWheel() {
             <p className="display text-lg text-ink sm:text-xl md:text-2xl">
               {current.title}
             </p>
-            <p className="max-w-md text-xs text-muted sm:text-sm">{current.summary}</p>
+            <p className="max-w-md text-xs font-medium text-ink-soft sm:text-sm">
+              {current.summary}
+            </p>
             <a
               href={projectHref(current)}
               target="_blank"
@@ -223,7 +225,7 @@ export function WorkWheel() {
               כניסה ל{current.title}
             </a>
             <div className="mt-2 flex w-full max-w-xs items-center gap-3">
-              <p className="shrink-0 text-[10px] tracking-[0.14em] text-muted">
+              <p className="shrink-0 text-[10px] font-semibold tracking-[0.14em] text-cyan-deep">
                 גללו — האתר הבא
               </p>
               <div className="h-px min-w-0 flex-1 overflow-hidden bg-ink/10">

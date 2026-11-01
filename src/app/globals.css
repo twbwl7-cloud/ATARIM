@@ -529,6 +529,152 @@ a {
   mix-blend-mode: multiply;
 }
 
+/* —— Ambient side margins: breathe + flow + parallax (desktop) —— */
+.ambient-margins {
+  --par-x: 0px;
+  --par-y: 0px;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-margins__side {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: min(18vw, 220px);
+  transform: translate3d(var(--par-x), var(--par-y), 0);
+  will-change: transform;
+}
+
+.ambient-margins__side--start {
+  inset-inline-start: 0;
+}
+
+.ambient-margins__side--end {
+  inset-inline-end: 0;
+  transform: translate3d(calc(var(--par-x) * -0.7), calc(var(--par-y) * 0.85), 0);
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(28px);
+  opacity: 0.08;
+  animation: ambient-breathe 7.5s var(--ease-premium) infinite;
+}
+
+.ambient-orb--cyan {
+  background: radial-gradient(circle, rgba(94, 235, 245, 0.9) 0%, transparent 70%);
+}
+
+.ambient-orb--gold {
+  background: radial-gradient(circle, rgba(224, 192, 106, 0.85) 0%, transparent 70%);
+}
+
+.ambient-orb--a {
+  top: 12%;
+  inset-inline-start: 8%;
+  width: 140px;
+  height: 140px;
+  animation-duration: 8.5s;
+}
+
+.ambient-orb--b {
+  top: 42%;
+  inset-inline-start: 18%;
+  width: 110px;
+  height: 110px;
+  animation-duration: 10s;
+  animation-delay: -2s;
+  opacity: 0.07;
+}
+
+.ambient-orb--c {
+  top: 72%;
+  inset-inline-start: 4%;
+  width: 160px;
+  height: 160px;
+  animation-duration: 9s;
+  animation-delay: -4s;
+  opacity: 0.06;
+}
+
+.ambient-orb--d {
+  top: 18%;
+  inset-inline-end: 6%;
+  width: 130px;
+  height: 130px;
+  animation-duration: 9.5s;
+  animation-delay: -1s;
+}
+
+.ambient-orb--e {
+  top: 48%;
+  inset-inline-end: 14%;
+  width: 150px;
+  height: 150px;
+  animation-duration: 11s;
+  animation-delay: -3s;
+  opacity: 0.07;
+}
+
+.ambient-orb--f {
+  top: 78%;
+  inset-inline-end: 2%;
+  width: 120px;
+  height: 120px;
+  animation-duration: 8s;
+  animation-delay: -5s;
+  opacity: 0.06;
+}
+
+.ambient-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 140%;
+  color: rgba(24, 196, 224, 0.55);
+  opacity: 0.09;
+}
+
+.ambient-wave--1 {
+  animation: ambient-wave-flow 22s linear infinite;
+}
+
+.ambient-wave--2 {
+  color: rgba(201, 162, 74, 0.5);
+  animation: ambient-wave-flow 28s linear infinite reverse;
+  opacity: 0.85;
+}
+
+@keyframes ambient-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes ambient-wave-flow {
+  from {
+    transform: translateY(-12%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@media (max-width: 768px) {
+  .ambient-margins {
+    display: none;
+  }
+}
+
 /* —— Hero night: organic glows, grid, grain, float —— */
 @keyframes hero-breathe-a {
   0%,
@@ -813,7 +959,10 @@ a {
   .process-flow-dash,
   .process-orb--a,
   .process-orb--b,
-  .process-shimmer {
+  .process-shimmer,
+  .ambient-orb,
+  .ambient-wave--1,
+  .ambient-wave--2 {
     animation: none;
   }
 
