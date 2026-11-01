@@ -12,12 +12,11 @@ import {
 import { projectHref, projects, type Project } from "@/lib/site";
 
 function PhonePreview({ project, priority }: { project: Project; priority?: boolean }) {
-  const src = `/work/mobile/${project.id}.jpg`;
   return (
     <div className="phone-frame mx-auto w-[min(72vw,280px)] sm:w-[min(58vw,300px)]">
       <div className="phone-screen">
         <Image
-          src={src}
+          src={`/work/mobile/${project.id}.jpg`}
           alt={`תצוגת מובייל — ${project.title}`}
           fill
           className="object-cover object-top"
@@ -31,7 +30,6 @@ function PhonePreview({ project, priority }: { project: Project; priority?: bool
 }
 
 function DesktopPreview({ project, priority }: { project: Project; priority?: boolean }) {
-  const src = `/work/desktop/${project.id}.jpg`;
   const host = project.liveUrl
     ? project.liveUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
     : "davidwebsitebuilder.vercel.app";
@@ -48,7 +46,7 @@ function DesktopPreview({ project, priority }: { project: Project; priority?: bo
       </div>
       <div className="desktop-screen">
         <Image
-          src={src}
+          src={`/work/desktop/${project.id}.jpg`}
           alt={`תצוגת מחשב — ${project.title}`}
           fill
           className="object-cover object-top"
@@ -65,6 +63,7 @@ function openLive(href: string) {
   window.open(href, "_blank", "noopener,noreferrer");
 }
 
+/** A05 pinned work · device-correct frames · curiosity gap P05 */
 export function WorkWheel() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
@@ -100,10 +99,10 @@ export function WorkWheel() {
 
   if (reduce) {
     return (
-      <section id="work" className="relative bg-[var(--ink)] px-5 py-16 md:px-8 md:py-24">
+      <section id="work" className="relative bg-day px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
-          <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
+          <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
             שלושה אתרים. נכנסים אליהם.
           </h2>
           <ul className="mt-12 space-y-16">
@@ -111,7 +110,7 @@ export function WorkWheel() {
               <li key={project.id} className="grid gap-8 md:grid-cols-2 md:items-center">
                 <div>
                   <p className="text-[11px] tracking-[0.18em] text-gold">{project.client}</p>
-                  <h3 className="display mt-2 text-2xl text-ivory md:text-3xl">{project.title}</h3>
+                  <h3 className="display mt-2 text-2xl text-ink md:text-3xl">{project.title}</h3>
                   <p className="mt-3 text-sm text-muted">{project.summary}</p>
                   <a
                     href={projectHref(project)}
@@ -139,18 +138,18 @@ export function WorkWheel() {
   }
 
   return (
-    <section id="work" ref={ref} className="relative bg-[var(--ink)]">
+    <section id="work" ref={ref} className="relative bg-day">
       <div className="relative h-[280vh] sm:h-[300vh] md:h-[320vh]">
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,rgba(196,163,90,0.1),transparent_55%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_15%,rgba(184,137,45,0.12),transparent_50%)]"
           />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:px-6 sm:pt-22 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 pt-20 sm:px-6 md:flex-row md:items-end md:justify-between md:px-8 md:pt-24">
             <div className="max-w-md">
               <p className="text-xs tracking-[0.22em] text-gold">עבודות באוויר</p>
-              <h2 className="display mt-2 text-2xl text-ivory sm:text-3xl md:text-4xl lg:text-5xl">
+              <h2 className="display mt-2 text-2xl text-ink sm:text-3xl md:text-4xl lg:text-5xl">
                 שלושה אתרים.{" "}
                 <span className="ink-gold">לחצו ונכנסים</span>.
               </h2>
@@ -164,11 +163,11 @@ export function WorkWheel() {
                 {String(active + 1).padStart(2, "0")} /{" "}
                 {String(projects.length).padStart(2, "0")}
               </p>
-              <p className="display mt-1 text-xl text-ivory sm:text-2xl md:text-3xl">
+              <p className="display mt-1 text-xl text-ink sm:text-2xl md:text-3xl">
                 {current.title}
               </p>
               <p className="mt-1 text-sm text-muted">{current.client}</p>
-              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-platinum sm:text-sm">
+              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-soft sm:text-sm">
                 {current.summary}
               </p>
               <a
@@ -214,11 +213,9 @@ export function WorkWheel() {
                     isActive ? "z-20" : "z-10"
                   }`}
                 >
-                  {/* Mobile: phone frame + mobile screenshot */}
                   <div className="md:hidden">
                     <PhonePreview project={project} priority={i === 0} />
                   </div>
-                  {/* Desktop: laptop chrome + desktop screenshot */}
                   <div className="hidden md:block">
                     <DesktopPreview project={project} priority={i === 0} />
                   </div>
@@ -228,10 +225,10 @@ export function WorkWheel() {
           </div>
 
           <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-5 pb-6 sm:px-6 sm:pb-8 md:px-8">
-            <p className="text-[10px] tracking-[0.18em] text-muted sm:text-xs sm:tracking-[0.24em]">
+            <p className="text-[10px] tracking-[0.18em] text-muted sm:text-xs">
               גללו — האתר הבא
             </p>
-            <div className="h-px min-w-0 flex-1 overflow-hidden bg-white/10 sm:w-40 sm:flex-none">
+            <div className="h-px min-w-0 flex-1 overflow-hidden bg-ink/10 sm:w-40 sm:flex-none">
               <motion.div style={{ width: progressWidth }} className="h-full bg-gold" />
             </div>
             <div className="flex gap-2">
@@ -239,7 +236,7 @@ export function WorkWheel() {
                 <span
                   key={p.id}
                   className={`h-1.5 w-1.5 rounded-full transition ${
-                    i === active ? "scale-125 bg-gold" : "bg-white/25"
+                    i === active ? "scale-125 bg-gold" : "bg-ink/20"
                   }`}
                 />
               ))}

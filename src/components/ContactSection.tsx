@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { site, whatsappUrl } from "@/lib/site";
+import { MagneticButton } from "@/components/MagneticButton";
 
 export function ContactSection() {
   return (
@@ -15,36 +16,34 @@ export function ContactSection() {
         viewport={{ once: true }}
         className="premium-panel relative overflow-hidden rounded-2xl px-5 py-10 sm:px-6 sm:py-12 md:px-14 md:py-16"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_circle_at_90%_10%,rgba(196,163,90,0.12),transparent_50%),radial-gradient(500px_circle_at_10%_90%,rgba(184,116,92,0.08),transparent_45%)]" />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-l from-transparent via-gold/45 to-transparent"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(700px_circle_at_90%_10%,rgba(184,137,45,0.12),transparent_50%)]"
         />
         <div className="relative max-w-2xl">
           <p className="text-xs tracking-[0.24em] text-gold">דברו איתי</p>
-          <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
+          <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
             כתבו מה העסק.{" "}
             <span className="ink-gold">נחזור היום</span>.
           </h2>
           <p className="mt-5 text-sm leading-relaxed text-muted md:text-base">
-            וואטסאפ או טלפון. בלי טופס של עשר שדות ובלי{" "}
-            <span className="ink-rose">התחייבות</span>.
+            וואטסאפ או טלפון. בלי טופס של עשר שדות ובלי התחייבות.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a
+            <MagneticButton
               href="#free-demo"
-              className="btn-gold rounded-md px-7 py-3.5 text-center text-sm"
+              className="btn-gold justify-center rounded-md px-7 py-3.5 text-sm"
             >
               לקבלת דוגמה בחינם
-            </a>
-            <a
+            </MagneticButton>
+            <MagneticButton
               href={whatsappUrl("היי דוד, בא לי לקבוע שיחה קצרה.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost rounded-md px-7 py-3.5 text-center text-sm"
+              className="btn-ghost justify-center rounded-md px-7 py-3.5 text-sm"
             >
               לשיחה בוואטסאפ
-            </a>
+            </MagneticButton>
             <a
               href={`tel:+${site.whatsapp}`}
               className="btn-ghost rounded-md px-7 py-3.5 text-center text-sm"
@@ -53,7 +52,7 @@ export function ContactSection() {
               {site.phoneDisplay}
             </a>
           </div>
-          <p className="mt-5 text-[11px] leading-relaxed text-muted/80">
+          <p className="mt-5 text-[11px] leading-relaxed text-muted/90">
             שליחת הודעה = הסכמה שנחזור אליכם על הבקשה. לא שולחים דיוור בלי רשות.
           </p>
         </div>

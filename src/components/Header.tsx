@@ -27,7 +27,7 @@ export function Header() {
               fill
               sizes="48px"
               unoptimized
-              className="object-contain drop-shadow-[0_6px_18px_rgba(0,0,0,0.55)]"
+              className="object-contain"
             />
           </span>
           <span
@@ -44,7 +44,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-line bg-paper/75 px-2 py-1 backdrop-blur-md md:flex">
           {nav.map((item) => {
             const pathOnly = item.href.split("#")[0] || "/";
             const active = !item.href.includes("#") && pathname === pathOnly;
@@ -52,8 +52,8 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-md px-4 py-2 text-sm transition ${
-                  active ? "text-gold-bright" : "text-muted hover:text-ivory"
+                className={`rounded-md px-3.5 py-2 text-sm transition ${
+                  active ? "text-gold-deep" : "text-muted hover:text-ink"
                 }`}
               >
                 {item.label}
@@ -74,18 +74,16 @@ export function Header() {
             type="button"
             aria-expanded={open}
             aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-            className="grid h-10 w-10 place-items-center rounded-md border border-white/15 text-ivory sm:h-11 sm:w-11 md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-md border border-line bg-paper/80 text-ink sm:h-11 sm:w-11 md:hidden"
             onClick={() => setOpen((v) => !v)}
           >
             <span className="flex w-4 flex-col gap-1.5">
               <span
-                className={`h-px w-full bg-ivory transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+                className={`h-px w-full bg-ink transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
               />
+              <span className={`h-px w-full bg-ink transition ${open ? "opacity-0" : ""}`} />
               <span
-                className={`h-px w-full bg-ivory transition ${open ? "opacity-0" : ""}`}
-              />
-              <span
-                className={`h-px w-full bg-ivory transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+                className={`h-px w-full bg-ink transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
               />
             </span>
           </button>
@@ -106,7 +104,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-3 text-base text-ivory hover:bg-white/5"
+                  className="rounded-xl px-3 py-3 text-base text-ink hover:bg-mist/60"
                 >
                   {item.label}
                 </Link>

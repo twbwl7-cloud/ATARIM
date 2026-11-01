@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="rtl"
       className={`${rubik.variable} ${frank.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col overflow-x-hidden bg-[var(--ink)] font-sans text-ivory">
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-day font-sans text-ink">
         <LenisProvider>
           <div className="noise" aria-hidden />
           <SiteChrome>{children}</SiteChrome>

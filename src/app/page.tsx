@@ -1,29 +1,29 @@
 import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
-import { FailedBefore } from "@/components/FailedBefore";
-import { FormatsElements } from "@/components/FormatsElements";
 import { FreeDemo } from "@/components/FreeDemo";
 import { Hero } from "@/components/Hero";
-import { PinnedPillars } from "@/components/PinnedPillars";
+import { PinnedStory } from "@/components/PinnedStory";
 import { ProcessJourney } from "@/components/ProcessJourney";
-import { ScrollStory } from "@/components/ScrollStory";
 import { Testimonials } from "@/components/Testimonials";
+import { TrustMarquee } from "@/components/TrustMarquee";
 import { WhyRare } from "@/components/WhyRare";
 import { WorkWheel } from "@/components/WorkWheel";
 
+/**
+ * AIDA + book scroll story (P07) + demo curtain/motion + landing sticky CTA.
+ * Levers: P01 first look · P05 curiosity · P14 proof · A05 pinned · A10 marquee
+ */
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <TrustMarquee />
       <WorkWheel />
+      <PinnedStory />
       <WhyRare />
       <ProcessJourney />
       <FreeDemo />
       <Testimonials />
-      <FailedBefore />
-      <PinnedPillars />
-      <ScrollStory />
-      <FormatsElements />
       <AboutSection />
       <ContactSection />
     </>

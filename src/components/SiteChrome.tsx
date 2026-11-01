@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { Curtain } from "@/components/Curtain";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
@@ -17,6 +18,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <Curtain />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
