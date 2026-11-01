@@ -52,67 +52,68 @@ function PlungeStage({
 
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-[16vh] text-center sm:pb-[11vh] md:pb-[8vh]"
+        className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-end px-5 pb-[14vh] text-center sm:pb-[10vh] md:pb-[7vh]"
       >
-        <motion.div
-          style={{ scale: logoScale, y: logoY }}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mb-3 h-20 w-20 sm:mb-4 sm:h-24 sm:w-24 md:h-28 md:w-28"
-        >
-          <Image
-            src="/brand/emblem.png"
-            alt=""
-            fill
-            priority
-            unoptimized
-            className="object-contain drop-shadow-[0_12px_28px_rgba(24,196,224,0.45)]"
-          />
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.55 }}
-          className="display text-[clamp(2.2rem,7vw,4.2rem)] text-ink"
-        >
-          דוד טובול
-        </motion.p>
-
-        {/* Script 6 · ≤8 words */}
-        <h1 className="display mt-2 max-w-2xl text-[clamp(1.2rem,3.6vw,1.85rem)] leading-[1.2] text-ink-soft">
-          לקוחות כותבים{" "}
-          <span className="ink-cyan">קודם</span>
-          {" — "}
-          אתם עונים אחר כך
-        </h1>
-
-        <p className="mt-3 max-w-sm text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm">
-          דוגמה של העמוד שלכם בחינם. לפני שקל אחד.
-        </p>
-
-        <div className="pointer-events-auto mt-5 flex w-full max-w-md flex-col items-stretch gap-2.5 sm:mt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
-          <MagneticButton
-            href="#free-demo"
-            className="btn-gold justify-center rounded-md px-7 py-3.5 text-sm"
+        <div className="relative w-full max-w-xl rounded-2xl bg-[linear-gradient(180deg,rgba(197,238,248,0.2)_0%,rgba(231,247,252,0.88)_28%,rgba(231,247,252,0.95)_100%)] px-4 pb-5 pt-3 backdrop-blur-[2px] sm:px-6 sm:pb-6">
+          <motion.div
+            style={{ scale: logoScale, y: logoY }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto mb-2 h-20 w-20 sm:mb-3 sm:h-24 sm:w-24 md:h-28 md:w-28"
           >
-            לקבלת דוגמה בחינם
-          </MagneticButton>
-          <MagneticButton
-            href="#work"
-            className="btn-ghost justify-center rounded-md px-7 py-3.5 text-sm"
+            <Image
+              src="/brand/emblem.png"
+              alt=""
+              fill
+              priority
+              unoptimized
+              className="object-contain drop-shadow-[0_12px_28px_rgba(24,196,224,0.45)]"
+            />
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.55 }}
+            className="display text-[clamp(2.2rem,7vw,4.2rem)] text-ink"
           >
-            לפתיחת אתרים חיים
-          </MagneticButton>
+            דוד טובול
+          </motion.p>
+
+          <h1 className="display mt-2 max-w-2xl text-[clamp(1.2rem,3.6vw,1.85rem)] leading-[1.2] text-ink-soft">
+            לקוחות כותבים{" "}
+            <span className="ink-cyan">קודם</span>
+            {" — "}
+            אתם עונים אחר כך
+          </h1>
+
+          <p className="mt-3 max-w-sm mx-auto text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm">
+            דוגמה של העמוד שלכם בחינם. לפני שקל אחד.
+          </p>
+
+          <div className="pointer-events-auto mt-5 flex w-full flex-col items-stretch gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3">
+            <MagneticButton
+              href="#free-demo"
+              className="btn-gold justify-center rounded-md px-7 py-3.5 text-sm"
+            >
+              לקבלת דוגמה בחינם
+            </MagneticButton>
+            <MagneticButton
+              href="#work"
+              className="btn-ghost justify-center rounded-md px-7 py-3.5 text-sm"
+            >
+              לפתיחת אתרים חיים
+            </MagneticButton>
+          </div>
+
+          <p className="pointer-events-none mt-4 text-[11px] text-muted">
+            בלי התחייבות · עונים בוואטסאפ ·{" "}
+            <span className="ink-gold" dir="ltr">
+              052-318-2032
+            </span>
+          </p>
         </div>
-
-        <p className="pointer-events-none mt-4 text-[11px] text-muted">
-          בלי התחייבות · עונים בוואטסאפ ·{" "}
-          <span className="ink-gold" dir="ltr">
-            052-318-2032
-          </span>
-        </p>
       </motion.div>
 
       <motion.p
