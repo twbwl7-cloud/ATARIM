@@ -15,7 +15,8 @@ import * as THREE from "three";
 import type { MotionValue } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 
-const VOID = "#c5eef8";
+const VOID_DAY = "#c5eef8";
+const VOID_NIGHT = "#050a12";
 const GLB_CANDIDATES = [
   "/models/MacbookProProledXDR4K.glb",
   "/models/macbook-pro-proledxdr-4k.glb",
@@ -389,11 +390,21 @@ function canUseWebGL() {
   }
 }
 
-/** Static product shot when WebGL is missing/fails — never leave an empty cyan slab */
-function HeroFallback() {
+/** Static product shot when WebGL is missing/fails — never leave an empty slab */
+function HeroFallback({ theme = "day" }: { theme?: "day" | "night" }) {
+  const night = theme === "night";
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#c5eef8]" aria-hidden>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(94,235,245,0.5),transparent_52%),radial-gradient(ellipse_at_70%_80%,rgba(24,196,224,0.22),transparent_48%)]" />
+    <div
+      className={`absolute inset-0 overflow-hidden ${night ? "bg-[#050a12]" : "bg-[#c5eef8]"}`}
+      aria-hidden
+    >
+      <div
+        className={`pointer-events-none absolute inset-0 ${
+          night
+            ? "bg-[radial-gradient(ellipse_at_50%_40%,rgba(24,196,224,0.22),transparent_55%),radial-gradient(ellipse_at_70%_80%,rgba(94,235,245,0.12),transparent_50%)]"
+            : "bg-[radial-gradient(ellipse_at_50%_30%,rgba(94,235,245,0.5),transparent_52%),radial-gradient(ellipse_at_70%_80%,rgba(24,196,224,0.22),transparent_48%)]"
+        }`}
+      />
       <div className="absolute inset-x-0 bottom-0 top-[6%] flex items-end justify-center px-3 sm:px-8 md:px-14">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -402,11 +413,12 @@ function HeroFallback() {
           width={1600}
           height={1000}
           decoding="async"
-          className="h-[min(72%,28rem)] w-auto max-w-[min(100%,52rem)] object-contain object-bottom drop-shadow-[0_28px_50px_rgba(10,22,40,0.2)] sm:h-[min(78%,34rem)]"
-          style={{
-            // Ref plate is light gray — blend into תכלת sky
-            mixBlendMode: "multiply",
-          }}
+          className={`h-[min(72%,28rem)] w-auto max-w-[min(100%,52rem)] object-contain object-bottom sm:h-[min(78%,34rem)] ${
+            night
+              ? "drop-shadow-[0_32px_60px_rgba(0,0,0,0.65)]"
+              : "drop-shadow-[0_28px_50px_rgba(10,22,40,0.2)]"
+          }`}
+          style={night ? undefined : { mixBlendMode: "multiply" }}
         />
       </div>
     </div>
@@ -414,7 +426,7 @@ function HeroFallback() {
 }
 
 class SceneErrorBoundary extends Component<
-  { children: ReactNode; onError: () => void },
+  { children: ReactNode; onError: () => void; theme: "day" | "night" },
   { failed: boolean }
 > {
   state = { failed: false };
@@ -428,24 +440,39 @@ class SceneErrorBoundary extends Component<
   }
 
   render() {
-    if (this.state.failed) return <HeroFallback />;
+    if (this.state.failed) return <HeroFallback theme={this.props.theme} />;
     return this.props.children;
   }
 }
 
-export function HeroScene({ intensity }: { intensity: MotionValue<number> }) {
+export function HeroScene({
+  intensity,
+  theme = "day",
+}: {
+  intensity: MotionValue<number>;
+  theme?: "day" | "night";
+}) {
   const [ok, setOk] = useState(true);
+  const voidColor = theme === "night" ? VOID_NIGHT : VOID_DAY;
 
   useEffect(() => {
     if (!canUseWebGL()) setOk(false);
   }, []);
 
-  if (!ok) return <HeroFallback />;
+  if (!ok) return <HeroFallback theme={theme} />;
 
   return (
-    <div className="absolute inset-0 bg-[#c5eef8]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.4),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(24,196,224,0.18),transparent_58%)]" />
-      <SceneErrorBoundary onError={() => setOk(false)}>
+    <div
+      className={`absolute inset-0 ${theme === "night" ? "bg-[#050a12]" : "bg-[#c5eef8]"}`}
+    >
+      <div
+        className={`pointer-events-none absolute inset-0 ${
+          theme === "night"
+            ? "bg-[radial-gradient(ellipse_at_50%_40%,rgba(24,196,224,0.18),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(94,235,245,0.1),transparent_58%)]"
+            : "bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.4),transparent_52%),radial-gradient(circle_at_50%_78%,rgba(24,196,224,0.18),transparent_58%)]"
+        }`}
+      />
+      <SceneErrorBoundary theme={theme} onError={() => setOk(false)}>
         <Canvas
           dpr={[1, 1.5]}
           camera={{ position: [0, 1.35, 3.6], fov: 30 }}
@@ -456,7 +483,7 @@ export function HeroScene({ intensity }: { intensity: MotionValue<number> }) {
             failIfMajorPerformanceCaveat: false,
           }}
           onCreated={({ gl }) => {
-            gl.setClearColor(VOID, 0);
+            gl.setClearColor(voidColor, 0);
             gl.toneMapping = THREE.ACESFilmicToneMapping;
             gl.toneMappingExposure = 1.14;
             gl.domElement.addEventListener(

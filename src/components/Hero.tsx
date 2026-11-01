@@ -19,12 +19,31 @@ const HeroScene = dynamic(
 );
 
 /**
- * Words book · S01 מסך פתיחה
- * H01 התוצאה בלי המחיר · V11 הבנאי · M01 כפתור ראשי · X-filter
- * Landing: Hook → micro-proof → one CTA · mobile-first 375
+ * Words book · S01 / H01 / V11 / M01
+ * Visual: Awwwards dark night + תכלת organic light (anti-AI texture)
  */
 const DEMO_MSG =
   "היי דוד, רוצה דוגמה בחינם לאתר של העסק שלי. בלי התחייבות.";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+const reveal = (delay: number) => ({
+  initial: { opacity: 0, y: 22, filter: "blur(10px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  transition: { duration: 0.85, delay, ease: EASE },
+});
+
+function Atmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
+      <div className="hero-glow hero-glow--a" />
+      <div className="hero-glow hero-glow--b" />
+      <div className="hero-glow hero-glow--c" />
+      <div className="hero-grid" />
+      <div className="hero-grain" />
+    </div>
+  );
+}
 
 function PlungeStage({
   progress,
@@ -40,35 +59,61 @@ function PlungeStage({
     mass: 0.55,
   });
 
-  const textOpacity = useTransform(progress, [0, 0.12, 0.3], [1, 0.8, 0]);
-  const textY = useTransform(progress, [0, 0.3], [0, -18]);
-  const hintOpacity = useTransform(progress, [0, 0.08, 0.2], [1, 0.5, 0]);
-  const veilOpacity = useTransform(progress, [0.72, 0.92, 1], [0, 0.55, 1]);
+  const textOpacity = useTransform(progress, [0, 0.12, 0.3], [1, 0.78, 0]);
+  const textY = useTransform(progress, [0, 0.3], [0, -16]);
+  const hintOpacity = useTransform(progress, [0, 0.08, 0.2], [1, 0.45, 0]);
+  const veilOpacity = useTransform(progress, [0.7, 0.92, 1], [0, 0.55, 1]);
+  const laptopOpacity = useTransform(progress, [0, 0.15, 0.35], [1, 0.85, 0.15]);
 
   const demoHref = whatsappUrl(DEMO_MSG);
 
   return (
-    <div className="relative h-[100svh] overflow-hidden bg-sky">
-      {/* MacBook band — lower half on all viewports so copy never sits on black keys */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[46%] z-0 sm:top-[44%] md:top-[40%]">
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_18%,rgba(94,235,245,0.42),transparent_50%),radial-gradient(ellipse_at_78%_72%,rgba(24,196,224,0.16),transparent_48%)]"
-        />
-        <HeroScene intensity={reduce ? intensityRaw : intensity} />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-sky via-sky/80 to-transparent"
-        />
-      </div>
+    <div className="hero-night relative h-[100svh] overflow-hidden">
+      <Atmosphere />
 
-      {/* Copy always on sky above the laptop — phone + desktop */}
+      {/* Laptop — lower band, grounded with multi-layer shadow + cyan reflection */}
+      <motion.div
+        style={{ opacity: laptopOpacity }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 top-[44%] z-[1] sm:top-[42%] md:top-[38%]"
+      >
+        <motion.div
+          {...(reduce
+            ? {}
+            : {
+                initial: { opacity: 0, y: 36, filter: "blur(12px)" },
+                animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+                transition: { duration: 1.05, delay: 0.55, ease: EASE },
+              })}
+          className="relative h-full w-full"
+        >
+          <div className="hero-laptop-stage absolute inset-0">
+            <div className="hero-laptop-shadow" />
+            <div className="absolute inset-0">
+              <HeroScene intensity={reduce ? intensityRaw : intensity} theme="night" />
+            </div>
+            {/* Cyan floor reflection under machine */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-[18%] bottom-[4%] h-[18%] rounded-[100%] bg-[radial-gradient(ellipse_at_center,rgba(94,235,245,0.22)_0%,transparent_70%)] blur-md mix-blend-screen"
+            />
+          </div>
+        </motion.div>
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[var(--void-night)] via-[rgba(5,10,18,0.65)] to-transparent"
+        />
+      </motion.div>
+
+      {/* Copy — blur-reveal stagger on sky/void above laptop */}
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
-        className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-[calc(4.6rem+env(safe-area-inset-top))] text-center sm:px-8 md:pt-[calc(5.25rem+env(safe-area-inset-top))]"
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-[calc(4.5rem+env(safe-area-inset-top))] text-center sm:px-8 md:pt-[calc(5.1rem+env(safe-area-inset-top))]"
       >
         <div className="mx-auto w-full max-w-xl md:max-w-3xl">
-          <div className="mb-2.5 flex items-center justify-center gap-2.5 sm:mb-3.5 sm:gap-3">
+          <motion.div
+            {...(reduce ? {} : reveal(0.08))}
+            className="mb-2.5 flex items-center justify-center gap-2.5 sm:mb-3.5 sm:gap-3"
+          >
             <span className="relative h-10 w-10 shrink-0 sm:h-12 sm:w-12 md:h-14 md:w-14">
               <Image
                 src="/brand/emblem.png"
@@ -76,63 +121,76 @@ function PlungeStage({
                 fill
                 priority
                 unoptimized
-                className="object-contain drop-shadow-[0_8px_18px_rgba(10,88,110,0.18)]"
+                className="object-contain drop-shadow-[0_0_24px_rgba(94,235,245,0.35)]"
               />
             </span>
-            <p className="text-[12px] font-semibold tracking-[0.14em] text-ink-soft sm:text-[13px] sm:tracking-[0.16em]">
+            <p className="text-[12px] font-semibold tracking-[0.2em] text-[var(--hero-fg-soft)] sm:text-[13px]">
               {site.nameHe}
             </p>
-          </div>
+          </motion.div>
 
-          {/* H01 · 5 מילים · [תוצאה] בלי [מה שמפחיד] */}
-          <h1 className="display text-[clamp(1.75rem,5.6vw,3.4rem)] leading-[1.12] text-ink">
+          <motion.h1
+            {...(reduce ? {} : reveal(0.18))}
+            className="display text-[clamp(1.75rem,5.6vw,3.4rem)] leading-[1.12] tracking-[-0.02em] text-[var(--hero-fg)]"
+          >
             הודעות מלקוחות{" "}
-            <span className="ink-cyan">בלי לרדוף אחריהם</span>
-          </h1>
+            <span className="hero-accent-text">בלי לרדוף אחריהם</span>
+          </motion.h1>
 
-          {/* S01 כותרת משנה · ≤20 */}
-          <p className="mx-auto mt-2.5 max-w-[22rem] text-[13px] leading-relaxed text-ink-soft sm:mt-3.5 sm:max-w-md sm:text-[15px]">
+          <motion.p
+            {...(reduce ? {} : reveal(0.32))}
+            className="mx-auto mt-2.5 max-w-[22rem] text-[13px] leading-relaxed text-[var(--hero-fg-soft)] sm:mt-3.5 sm:max-w-md sm:text-[15px]"
+          >
             מקבלים דוגמה לפי העסק בוואטסאפ. ממשיכים רק אחרי שראיתם.
-          </p>
+          </motion.p>
 
-          <div className="pointer-events-auto mx-auto mt-4 flex w-full max-w-sm flex-col items-stretch gap-2 sm:mt-5 sm:max-w-none sm:items-center sm:gap-2.5">
+          <motion.div
+            {...(reduce ? {} : reveal(0.44))}
+            className="pointer-events-auto mx-auto mt-4 flex w-full max-w-sm flex-col items-stretch gap-2 sm:mt-5 sm:max-w-none sm:items-center sm:gap-2.5"
+          >
             <MagneticButton
               href={demoHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-gold min-h-12 justify-center rounded-md px-7 py-3.5 text-[15px] sm:min-h-0 sm:px-10 sm:text-sm"
+              className="btn-hero min-h-12 justify-center rounded-md px-7 py-3.5 text-[15px] sm:min-h-0 sm:px-10 sm:text-sm"
             >
               לקבלת דוגמה בוואטסאפ
             </MagneticButton>
-            <p className="text-[11px] text-muted sm:text-xs">בלי כרטיס אשראי</p>
+            <p className="text-[11px] text-[var(--hero-fg-mute)] sm:text-xs">
+              בלי כרטיס אשראי
+            </p>
             <a
               href="#work"
-              className="text-sm text-ink-faint underline-offset-4 transition hover:text-cyan-deep hover:underline"
+              className="text-sm text-[var(--hero-fg-mute)] underline-offset-4 transition hover:text-cyan-bright hover:underline"
             >
               לראות עבודות חיות
             </a>
-          </div>
+          </motion.div>
 
-          <p className="pointer-events-none mx-auto mt-3 max-w-sm text-[11px] leading-relaxed text-muted sm:mt-4 sm:text-xs">
+          <motion.p
+            {...(reduce ? {} : reveal(0.54))}
+            className="pointer-events-none mx-auto mt-3 max-w-sm text-[11px] leading-relaxed text-[var(--hero-fg-mute)] sm:mt-4 sm:text-xs"
+          >
             <bdi>3</bdi> אתרים באוויר ·{" "}
-            <bdi className="text-cyan-deep" dir="ltr">
+            <bdi className="text-cyan-bright" dir="ltr">
               {site.phoneDisplay}
             </bdi>
-          </p>
+          </motion.p>
         </div>
       </motion.div>
 
       <motion.p
         style={{ opacity: hintOpacity }}
-        className="pointer-events-none absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.12em] text-muted md:bottom-6"
+        className="pointer-events-none absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.16em] text-[var(--hero-fg-mute)] md:bottom-6"
       >
         גללו — יש הוכחה
       </motion.p>
 
+      {/* Plunge into day sections */}
       <motion.div
         aria-hidden
         style={{ opacity: veilOpacity }}
-        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(94,235,245,0.28)_0%,rgba(197,238,248,0.94)_52%,#c5eef8_78%)]"
+        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(94,235,245,0.2)_0%,rgba(197,238,248,0.92)_52%,#c5eef8_78%)]"
       />
     </div>
   );
@@ -159,21 +217,26 @@ export function Hero() {
 
   if (reduce) {
     return (
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center bg-sky px-5 pt-24 text-center">
-        <p className="text-[12px] tracking-[0.14em] text-ink-soft">{site.nameHe}</p>
-        <h1 className="display mt-3 max-w-xl text-3xl text-ink md:text-5xl">
-          הודעות מלקוחות <span className="ink-cyan">בלי לרדוף אחריהם</span>
+      <section className="hero-night relative flex min-h-[100svh] flex-col items-center justify-center px-5 pt-24 text-center">
+        <Atmosphere />
+        <p className="relative z-10 text-[12px] tracking-[0.2em] text-[var(--hero-fg-soft)]">
+          {site.nameHe}
+        </p>
+        <h1 className="relative z-10 display mt-3 max-w-xl text-3xl text-[var(--hero-fg)] md:text-5xl">
+          הודעות מלקוחות <span className="hero-accent-text">בלי לרדוף אחריהם</span>
         </h1>
-        <p className="mt-4 max-w-sm text-sm text-ink-soft">
+        <p className="relative z-10 mt-4 max-w-sm text-sm text-[var(--hero-fg-soft)]">
           מקבלים דוגמה לפי העסק בוואטסאפ. ממשיכים רק אחרי שראיתם.
         </p>
         <a
           href={demoHref}
-          className="btn-gold mt-8 min-h-12 rounded-md px-7 py-3.5 text-[15px]"
+          className="btn-hero relative z-10 mt-8 min-h-12 rounded-md px-7 py-3.5 text-[15px]"
         >
           לקבלת דוגמה בוואטסאפ
         </a>
-        <p className="mt-2 text-[11px] text-muted">בלי כרטיס אשראי</p>
+        <p className="relative z-10 mt-2 text-[11px] text-[var(--hero-fg-mute)]">
+          בלי כרטיס אשראי
+        </p>
       </section>
     );
   }
@@ -181,7 +244,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative h-[165vh] bg-sky sm:h-[190vh] md:h-[220vh]"
+      className="relative h-[165vh] bg-[var(--void-night)] sm:h-[190vh] md:h-[220vh]"
     >
       <div className="sticky top-0 h-[100svh]">
         <PlungeStage progress={scrollYProgress} reduce={false} />

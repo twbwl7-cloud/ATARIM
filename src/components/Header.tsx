@@ -3,13 +3,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { nav, whatsappUrl } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [overHero, setOverHero] = useState(pathname === "/");
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      setOverHero(false);
+      return;
+    }
+    const onScroll = () => {
+      // Hero sticky plunge ~165–220vh — night chrome while still in first viewport band
+      setOverHero(window.scrollY < window.innerHeight * 0.85);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
+
+  const night = overHero && pathname === "/";
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
@@ -31,7 +48,7 @@ export function Header() {
             />
           </span>
           <span
-            className="select-none text-[13px] font-semibold tracking-[0.12em] uppercase sm:text-[15px] sm:tracking-[0.14em] md:text-lg"
+            className="select-none text-[13px] font-semibold tracking-[0.14em] uppercase sm:text-[15px] sm:tracking-[0.16em] md:text-lg"
             style={{
               background: "var(--metal-gold)",
               WebkitBackgroundClip: "text",
@@ -44,7 +61,13 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-cyan/25 bg-paper/70 px-2 py-1 backdrop-blur-md md:flex">
+        <nav
+          className={`hidden items-center gap-1 rounded-full px-2 py-1 md:flex ${
+            night
+              ? "header-glass-night"
+              : "border border-cyan/25 bg-paper/70 backdrop-blur-md"
+          }`}
+        >
           {nav.map((item) => {
             const pathOnly = item.href.split("#")[0] || "/";
             const active = !item.href.includes("#") && pathname === pathOnly;
@@ -53,7 +76,13 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={`rounded-md px-3.5 py-2 text-sm transition ${
-                  active ? "text-cyan-deep" : "text-muted hover:text-ink"
+                  night
+                    ? active
+                      ? "text-cyan-bright"
+                      : "text-[rgba(210,235,245,0.72)] hover:text-[#e8fcff]"
+                    : active
+                      ? "text-cyan-deep"
+                      : "text-muted hover:text-ink"
                 }`}
               >
                 {item.label}
@@ -69,7 +98,9 @@ export function Header() {
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-gold inline-flex rounded-md px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
+            className={`inline-flex rounded-md px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm ${
+              night ? "btn-hero" : "btn-gold"
+            }`}
             onClick={() => setOpen(false)}
           >
             דוגמה בחינם
@@ -78,16 +109,28 @@ export function Header() {
             type="button"
             aria-expanded={open}
             aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-            className="grid h-10 w-10 place-items-center rounded-md border border-line bg-paper/80 text-ink sm:h-11 sm:w-11 md:hidden"
+            className={`grid h-10 w-10 place-items-center rounded-md sm:h-11 sm:w-11 md:hidden ${
+              night
+                ? "border border-cyan/25 bg-[rgba(6,14,24,0.7)] text-[#e8fcff] backdrop-blur-md"
+                : "border border-line bg-paper/80 text-ink"
+            }`}
             onClick={() => setOpen((v) => !v)}
           >
             <span className="flex w-4 flex-col gap-1.5">
               <span
-                className={`h-px w-full bg-ink transition ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+                className={`h-px w-full transition ${night ? "bg-[#e8fcff]" : "bg-ink"} ${
+                  open ? "translate-y-[3.5px] rotate-45" : ""
+                }`}
               />
-              <span className={`h-px w-full bg-ink transition ${open ? "opacity-0" : ""}`} />
               <span
-                className={`h-px w-full bg-ink transition ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+                className={`h-px w-full transition ${night ? "bg-[#e8fcff]" : "bg-ink"} ${
+                  open ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`h-px w-full transition ${night ? "bg-[#e8fcff]" : "bg-ink"} ${
+                  open ? "-translate-y-[3.5px] -rotate-45" : ""
+                }`}
               />
             </span>
           </button>
@@ -100,7 +143,11 @@ export function Header() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="glass mx-4 overflow-hidden rounded-2xl p-4 sm:mx-5 md:hidden"
+            className={`mx-4 overflow-hidden rounded-2xl p-4 sm:mx-5 md:hidden ${
+              night
+                ? "header-glass-night"
+                : "glass"
+            }`}
           >
             <div className="flex flex-col gap-1">
               {nav.map((item) => (
@@ -108,7 +155,11 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-3 text-base text-ink hover:bg-mist/60"
+                  className={`rounded-xl px-3 py-3 text-base ${
+                    night
+                      ? "text-[#e8fcff] hover:bg-white/5"
+                      : "text-ink hover:bg-mist/60"
+                  }`}
                 >
                   {item.label}
                 </Link>
