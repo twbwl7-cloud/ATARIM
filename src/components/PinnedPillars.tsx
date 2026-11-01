@@ -97,7 +97,7 @@ export function PinnedPillars() {
           <div className="hidden h-px w-28 overflow-hidden bg-white/10 sm:block md:w-40">
             <motion.div
               style={{ width: bar }}
-              className="h-full bg-gradient-to-l from-gold via-gold to-pink"
+              className="h-full bg-gradient-to-l from-gold via-gold to-cyan"
             />
           </div>
         </div>

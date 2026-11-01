@@ -30,7 +30,7 @@ export function Testimonials() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-[rgba(255,182,193,0.22)] blur-3xl"
+        className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-[rgba(201,162,74,0.14)] blur-3xl"
       />
       <div
         aria-hidden

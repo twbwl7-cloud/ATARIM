@@ -113,7 +113,7 @@ export function CraftProcess() {
         <div className="absolute start-8 top-1/2 h-48 w-px -translate-y-1/2 overflow-hidden bg-white/10 lg:start-12">
           <motion.div
             style={{ scaleY: rail, originY: 0 }}
-            className="h-full w-full bg-gradient-to-b from-gold-bright via-pink to-garnet/60"
+            className="h-full w-full bg-gradient-to-b from-gold-bright via-cyan to-cyan-deep/60"
           />
         </div>
 

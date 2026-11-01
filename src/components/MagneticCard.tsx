@@ -13,7 +13,7 @@ import {
 
 const accents = {
   gold: "from-gold/30 via-transparent to-transparent",
-  pink: "from-pink/25 via-transparent to-transparent",
+  cyan: "from-cyan/25 via-transparent to-transparent",
   ivory: "from-ivory/18 via-transparent to-transparent",
 } as const;
 
@@ -150,7 +150,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
               <Link
                 href={href}
                 onClick={(e) => e.stopPropagation()}
-                className="text-xs text-muted underline-offset-4 transition group-hover:text-pink group-hover:underline"
+                className="text-xs text-muted underline-offset-4 transition group-hover:text-cyan-deep group-hover:underline"
               >
                 לחצו לדימו חי · ריחוף חושף פרטים
               </Link>
@@ -170,7 +170,7 @@ export function MagneticCard({ project, index = 0 }: Props) {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-right scale-x-0 bg-gradient-to-l from-gold-bright via-gold to-pink transition duration-500 group-hover:scale-x-100" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] origin-right scale-x-0 bg-gradient-to-l from-gold-bright via-gold to-cyan transition duration-500 group-hover:scale-x-100" />
     </motion.article>
   );
 }

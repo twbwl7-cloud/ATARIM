@@ -26,7 +26,8 @@
   --gold-deep: #8f7128;
   --champagne: #f0e2c4;
 
-  --blush: #d4b8c8;
+  /* No pink/rose — blush aliases map to soft sky / gold accents only */
+  --blush: var(--sky-deep);
   --sea: var(--cyan);
 
   --line: rgba(10, 22, 40, 0.12);
@@ -69,19 +70,19 @@
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Hero night — deep navy + תכלת + baby pink */
+  /* Hero night — deep navy + תכלת only (no pink) */
   --void-night: #0a0f1c;
   --void-navy: #07131f;
   --void-teal: #0a1c28;
-  --baby-pink-glow: #ffb6c1;
+  --baby-pink-glow: rgba(94, 235, 245, 0.35);
 
   --rich-black: var(--ink);
   --rich-black-elevated: var(--paper);
   --rich-black-soft: var(--sky-deep);
   --gold-dim: var(--gold-deep);
-  --rose-gold: var(--blush);
-  --baby-pink: var(--blush);
-  --garnet: #8a4a5c;
+  --rose-gold: var(--gold);
+  --baby-pink: var(--cyan-bright);
+  --garnet: var(--cyan-deep);
   --violet: #5a6a8a;
   --platinum: var(--ink-soft);
   --platinum-dim: var(--ink-faint);
@@ -103,11 +104,11 @@
   --color-gold-dim: var(--gold-deep);
   --color-gold-deep: var(--gold-deep);
   --color-champagne: var(--champagne);
-  --color-pink: var(--blush);
-  --color-blush: var(--blush);
+  --color-pink: var(--cyan);
+  --color-blush: var(--sky-deep);
   --color-platinum: var(--ink-soft);
-  --color-garnet: var(--garnet);
-  --color-rose-gold: var(--blush);
+  --color-garnet: var(--cyan-deep);
+  --color-rose-gold: var(--gold);
   --color-cyan: var(--cyan);
   --color-cyan-bright: var(--cyan-bright);
   --color-teal: var(--teal);
@@ -208,7 +209,7 @@ a {
 }
 
 .rose-text {
-  color: #9a5a6a;
+  color: var(--cyan-deep);
 }
 
 .ink-gold,
@@ -221,7 +222,7 @@ a {
 }
 
 .ink-rose {
-  color: #9a5a6a;
+  color: var(--cyan-deep);
 }
 
 .glass {
@@ -680,8 +681,8 @@ a {
   border-radius: 70% 30% 55% 45% / 40% 60% 40% 60%;
   background: radial-gradient(
     ellipse at 50% 50%,
-    rgba(255, 182, 193, 0.38) 0%,
-    rgba(94, 235, 245, 0.12) 48%,
+    rgba(201, 162, 74, 0.22) 0%,
+    rgba(94, 235, 245, 0.14) 48%,
     transparent 72%
   );
   animation: hero-breathe-b 15s var(--ease-out-expo) infinite;
@@ -698,7 +699,7 @@ a {
   border-radius: 48% 52% 38% 62% / 42% 58% 42% 58%;
   background: radial-gradient(
     ellipse at 45% 40%,
-    rgba(255, 182, 193, 0.32) 0%,
+    rgba(94, 235, 245, 0.28) 0%,
     transparent 68%
   );
   animation: hero-breathe-a 15s var(--ease-premium) infinite reverse;
@@ -706,7 +707,7 @@ a {
 
 .reviews-night {
   background:
-    radial-gradient(90% 70% at 88% 20%, rgba(255, 182, 193, 0.14), transparent 48%),
+    radial-gradient(90% 70% at 88% 20%, rgba(201, 162, 74, 0.12), transparent 48%),
     radial-gradient(70% 60% at 10% 80%, rgba(24, 196, 224, 0.08), transparent 50%),
     linear-gradient(180deg, #0a0f1c 0%, #07131f 55%, #0a0f1c 100%);
 }

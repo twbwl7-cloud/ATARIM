@@ -56,7 +56,7 @@ function StrikeLine({
         <motion.span
           aria-hidden
           style={{ scaleX, originX: 1 }}
-          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-gold to-pink/70"
+          className="absolute inset-y-[48%] start-0 end-0 h-[2px] bg-gradient-to-l from-gold-bright via-gold to-cyan/70"
         />
       </span>
     </motion.li>

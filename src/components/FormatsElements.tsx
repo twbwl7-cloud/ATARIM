@@ -11,10 +11,10 @@ const ACCENT = {
     chip: "bg-gold/15 text-gold-bright",
   },
   rose: {
-    num: "text-pink",
-    border: "border-pink/30 hover:border-pink/55",
-    glow: "group-hover:shadow-[0_0_40px_rgba(245,208,220,0.18)]",
-    chip: "bg-pink/15 text-pink",
+    num: "text-cyan-deep",
+    border: "border-cyan/30 hover:border-cyan/55",
+    glow: "group-hover:shadow-[0_0_40px_rgba(24,196,224,0.18)]",
+    chip: "bg-cyan/15 text-cyan-deep",
   },
   cyan: {
     num: "text-gold-bright",
@@ -61,7 +61,7 @@ export function FormatsElements() {
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
-            <p className="mb-4 text-[11px] tracking-[0.22em] text-pink">
+            <p className="mb-4 text-[11px] tracking-[0.22em] text-cyan-deep">
               סוגי אתרים
             </p>
             <ul className="grid gap-3 sm:gap-4">

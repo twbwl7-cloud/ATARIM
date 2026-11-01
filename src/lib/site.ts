@@ -70,7 +70,7 @@ export type Project = {
   category: string;
   summary: string;
   stack: string[];
-  accent: "gold" | "pink" | "ivory";
+  accent: "gold" | "cyan" | "ivory";
   featured?: boolean;
   liveUrl?: string;
   format?: string;
@@ -85,7 +85,7 @@ export const projects: Project[] = [
     format: "תדמית · תור",
     summary: "גלריה נקייה. כפתור לתור שלא צועק מעל התמונות.",
     stack: ["Next.js", "Tailwind", "Motion"],
-    accent: "pink",
+    accent: "cyan",
     featured: true,
     liveUrl: "https://tobol.vercel.app",
   },
@@ -153,7 +153,7 @@ export const formats = [
     title: "אתר תדמית",
     body: "מי אתם, מה עושים, ולמה אצלכם. אחרי זה וואטסאפ או תור.",
     lever: "ברור · עובד",
-    accent: "rose" as const,
+    accent: "cyan" as const,
   },
   {
     code: "03",

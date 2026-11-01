@@ -99,7 +99,7 @@ export function Hero() {
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(94,235,245,0.4),transparent_48%),radial-gradient(ellipse_at_10%_55%,rgba(255,182,193,0.14),transparent_46%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(94,235,245,0.4),transparent_48%),radial-gradient(ellipse_at_10%_55%,rgba(24,196,224,0.16),transparent_46%)]"
         />
         <div
           className="hero-grain pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply"
