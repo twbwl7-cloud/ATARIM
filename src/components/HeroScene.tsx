@@ -430,21 +430,23 @@ function HeroFallback({ theme = "day" }: { theme?: "day" | "night" }) {
             : "bg-[radial-gradient(ellipse_at_50%_30%,rgba(94,235,245,0.5),transparent_52%),radial-gradient(ellipse_at_70%_80%,rgba(24,196,224,0.22),transparent_48%)]"
         }`}
       />
-      <div className="absolute inset-x-0 bottom-0 top-[6%] flex items-end justify-center px-3 sm:px-8 md:px-14">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/brand/macbook-ref.jpg"
-          alt=""
-          width={1600}
-          height={1000}
-          decoding="async"
-          className={`h-[min(72%,28rem)] w-auto max-w-[min(100%,52rem)] object-contain object-bottom sm:h-[min(78%,34rem)] ${
-            night
-              ? "drop-shadow-[0_32px_60px_rgba(0,0,0,0.65)]"
-              : "drop-shadow-[0_28px_50px_rgba(10,22,40,0.2)]"
-          }`}
-          style={night ? undefined : { mixBlendMode: "multiply" }}
-        />
+      <div className="absolute inset-x-0 bottom-0 top-[6%] overflow-hidden px-3 sm:px-8 md:px-14">
+        <div className="flex h-full items-end justify-center transition-transform duration-[400ms] ease-in-out hover:scale-105 will-change-transform">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/brand/macbook-ref.jpg"
+            alt=""
+            width={1600}
+            height={1000}
+            decoding="async"
+            className={`h-[min(72%,28rem)] w-auto max-w-[min(100%,52rem)] object-contain object-bottom sm:h-[min(78%,34rem)] ${
+              night
+                ? "drop-shadow-[0_32px_60px_rgba(0,0,0,0.65)]"
+                : "drop-shadow-[0_28px_50px_rgba(10,22,40,0.2)]"
+            }`}
+            style={night ? undefined : { mixBlendMode: "multiply" }}
+          />
+        </div>
       </div>
     </div>
   );

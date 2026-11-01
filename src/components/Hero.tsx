@@ -113,7 +113,12 @@ export function Hero() {
         >
           <div className="hero-laptop-stage relative h-full w-full">
             <div className="hero-laptop-shadow !bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.22)_0%,transparent_70%)]" />
-            <HeroScene intensity={intensity} theme="day" />
+            {/* Overflow clip + transform-only hover zoom — no layout shift */}
+            <div className="hero-laptop-zoom pointer-events-auto absolute inset-0 overflow-hidden">
+              <div className="hero-laptop-media relative h-full w-full">
+                <HeroScene intensity={intensity} theme="day" />
+              </div>
+            </div>
           </div>
         </motion.div>
 
