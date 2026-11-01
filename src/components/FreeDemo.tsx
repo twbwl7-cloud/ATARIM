@@ -31,18 +31,20 @@ export function FreeDemo() {
       >
         <div className="relative z-[1] grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
-            <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">הצעה</p>
+            <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
+              Soft Entry
+            </p>
             <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
-              דוגמה בחינם. רואים לפני שמשלמים.
+              כיוון ויזואלי לפני התחייבות.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:mt-5 md:text-base">
-              בחרו סוג עסק, כתבו מה חשוב שיופיע, שלחו בוואטסאפ. מקבלים עמוד לפי מה
-              שכתבתם — לא תבנית מהמדף.
+              בחרו נישה, ציינו מה חייב להופיע, שלחו Project Inquiry. מקבלים כיוון
+              Bespoke — לא תבנית מהמדף.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-ink-soft sm:mt-6">
-              <li>· לא מתאים — עוצרים שם. בלי לחץ.</li>
-              <li>· לפי העסק שלכם, לא קטלוג מוכן.</li>
-              <li>· ממשיכים רק אחרי שראיתם את המסך.</li>
+              <li>· לא מתאים — עוצרים. בלי לחץ מכירה.</li>
+              <li>· לפי המותג שלכם, לא קטלוג מוכן.</li>
+              <li>· ממשיכים רק אחרי שראיתם את הסטנדרט.</li>
             </ul>
           </div>
 

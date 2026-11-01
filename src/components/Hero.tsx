@@ -21,7 +21,8 @@ const HeroScene = dynamic(
  * Luxury hero — brand + MacBook only.
  * No spinning orb / glass rectangle behind the title.
  */
-const INTRO_MSG = "היי דוד, ראיתי את אתר התדמית. בא לי לשיחת היכרות קצרה.";
+const INTRO_MSG =
+  "היי דוד, מעוניין ב־Project Inquiry. אשמח ל־Request a Consultation.";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -72,14 +73,16 @@ export function Hero() {
           {site.nameHe}
         </p>
         <h1 className="display mt-3 text-[clamp(1.65rem,5vw,3.0rem)] font-light text-ink">
-          אתרים שאי אפשר <span className="hero-accent-text">להתעלם</span> מהם
+          Digital assets שאי אפשר{" "}
+          <span className="hero-accent-text">להתעלם</span> מהם
         </h1>
         <p className="mx-auto mt-4 max-w-md text-sm text-muted">
-          סטודיו לבניית אתרי תדמית בקוד — בלי תבניות, עם עבודות חיות למטה.
+          Bespoke Digital Assets · Conversion-Driven Architecture · High-End 3D
+          Web Experiences.
         </p>
         <div className="mt-7 flex flex-col items-center gap-3">
           <Link href="/work" className="btn-gold rounded-md px-8 py-3.5 text-sm">
-            לתיק העבודות
+            Selected Work
           </Link>
           <MagneticButton
             href={introHref}
@@ -87,7 +90,7 @@ export function Hero() {
             rel="noopener noreferrer"
             className="btn-ghost rounded-md px-8 py-3 text-sm"
           >
-            לשיחת היכרות
+            Request a Consultation
           </MagneticButton>
         </div>
       </section>
@@ -140,7 +143,7 @@ export function Hero() {
             transition={{ duration: 0.95, delay: 0.08, ease: EASE }}
             className="display mt-3 max-w-2xl text-[clamp(1.7rem,4.8vw,3.1rem)] font-light leading-[1.16] tracking-[-0.015em] text-ink"
           >
-            אתרים שאי אפשר{" "}
+            Digital assets שאי אפשר{" "}
             <span className="hero-accent-text">להתעלם</span> מהם
           </motion.h1>
 
@@ -150,8 +153,8 @@ export function Hero() {
             transition={{ duration: 0.75, delay: 0.14, ease: EASE }}
             className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted sm:text-[15px]"
           >
-            סטודיו לאתרי תדמית בקוד — מלאכה, בהירות, ואתרים חיים שאפשר לבדוק
-            עכשיו.
+            Bespoke Digital Assets עם Conversion-Driven Architecture ו־High-End
+            3D Web Experiences — נכסים שנמדדים ב־Measurable ROI.
           </motion.p>
 
           <motion.div
@@ -164,7 +167,7 @@ export function Hero() {
               href="/work"
               className="pointer-events-auto btn-gold inline-flex min-h-11 items-center justify-center rounded-md px-7 py-3 text-[14px] sm:min-h-12 sm:px-10 sm:py-3.5 sm:text-sm"
             >
-              לתיק העבודות
+              Selected Work
             </Link>
             <MagneticButton
               href={introHref}
@@ -172,7 +175,7 @@ export function Hero() {
               rel="noopener noreferrer"
               className="pointer-events-auto btn-ghost min-h-11 justify-center rounded-md px-7 py-3 text-[14px] sm:min-h-12 sm:px-8 sm:text-sm"
             >
-              לשיחת היכרות
+              Request a Consultation
             </MagneticButton>
           </motion.div>
         </motion.div>

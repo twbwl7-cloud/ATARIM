@@ -1,15 +1,16 @@
-# דוד טובול — אתר תדמית
+# דוד טובול — Bespoke Digital Assets
 
-אתר תדמית רב־עמודים (Next.js App Router). אוניקס + זהב, RTL, Lenis, Framer Motion, R3F.
+אתר תדמית יוקרתי ברמת סוכנות ($20K+). Next.js App Router · RTL · Onyx + Champagne Gold.
 
-## עמודים
+## משפך
 
-| עמוד | נתיב | תוכן |
+| עמוד | נתיב | תפקיד |
 |---|---|---|
-| ראשי | `/` | Hero · תצוגת עבודות קצרה · למה איתי |
-| עבודות | `/work` | גלריית פורטפוליו מלאה · Free Demo |
-| אודות | `/about` | עליי · המלצות |
-| צור קשר | `/contact` | דברו איתי · תהליך 5 שלבים |
+| ראשי | `/` | Hero → Selected Work → Philosophy → Next Step |
+| עבודות | `/work` | Gallery + Free direction → Case Studies |
+| Case Study | `/work/[slug]` | Challenge · Approach · Outcome → Contact |
+| פילוסופיה | `/about` | Our Philosophy + proof → Contact |
+| ייעוץ | `/contact` | Project Inquiry · Request a Consultation |
 
 ## הרצה
 
@@ -23,4 +24,4 @@ npm run dev -- --port 43128 --hostname 127.0.0.1
 
 ## וואטסאפ
 
-`052-318-2032` · ניתן לדרוס עם `NEXT_PUBLIC_WHATSAPP_NUMBER`
+`052-318-2032` · `NEXT_PUBLIC_WHATSAPP_NUMBER`

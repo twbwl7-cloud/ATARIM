@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { projectHref, projects, type Project } from "@/lib/site";
+import { caseStudyHref, projects, type Project } from "@/lib/site";
 
 /** Same desktop browser frame on phone and desktop — one premium version */
 function DesktopPreview({ project, priority }: { project: Project; priority?: boolean }) {
@@ -42,11 +42,7 @@ function DesktopPreview({ project, priority }: { project: Project; priority?: bo
   );
 }
 
-function openLive(href: string) {
-  window.open(href, "_blank", "noopener,noreferrer");
-}
-
-/** A05 pinned work · smaller frames · no text overlap */
+/** A05 pinned work → Case Studies */
 export function WorkWheel() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
@@ -84,9 +80,9 @@ export function WorkWheel() {
     return (
       <section id="work" className="relative px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">עבודות באוויר</p>
+          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">Selected Work</p>
           <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
-            שלושה אתרים באוויר. תבדקו בעצמכם.
+            Bespoke Digital Assets באוויר.
           </h2>
           <ul className="mt-12 space-y-16">
             {projects.map((project, i) => (
@@ -100,12 +96,10 @@ export function WorkWheel() {
                   </h3>
                   <p className="mt-3 text-sm text-muted">{project.summary}</p>
                   <a
-                    href={projectHref(project)}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={caseStudyHref(project)}
                     className="btn-gold mt-5 inline-flex rounded-md px-5 py-2.5 text-sm"
                   >
-                    כניסה ל{project.title}
+                    Case Study — {project.title}
                   </a>
                 </div>
                 <div>
@@ -125,14 +119,14 @@ export function WorkWheel() {
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_10%,rgba(24,196,224,0.18),transparent_48%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_10%,rgba(212,175,55,0.1),transparent_48%)]"
           />
 
           {/* Compact header — never fights the frame */}
           <div className="relative z-20 mx-auto w-full max-w-3xl shrink-0 px-5 pt-16 text-center sm:px-8 sm:pt-20 md:pt-20">
-            <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">עבודות באוויר</p>
+            <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">Selected Work</p>
             <h2 className="display mt-2 text-xl font-light text-ink sm:text-2xl md:text-3xl">
-              שלושה אתרים באוויר. תבדקו בעצמכם.
+              Bespoke Digital Assets באוויר.
             </h2>
           </div>
 
@@ -143,16 +137,10 @@ export function WorkWheel() {
               return (
                 <motion.a
                   key={project.id}
-                  href={projectHref(project)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={caseStudyHref(project)}
                   aria-hidden={!isActive}
                   tabIndex={isActive ? 0 : -1}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openLive(projectHref(project));
-                  }}
-                  aria-label={`כניסה לאתר ${project.title}`}
+                  aria-label={`Case Study — ${project.title}`}
                   initial={false}
                   animate={{
                     opacity: isActive ? 1 : 0,
@@ -160,7 +148,7 @@ export function WorkWheel() {
                     scale: isActive ? 1 : 0.97,
                     pointerEvents: isActive ? "auto" : "none",
                   }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   className={`absolute inset-x-4 flex items-center justify-center sm:inset-x-10 ${
                     isActive ? "z-20" : "z-10"
                   }`}
@@ -188,16 +176,10 @@ export function WorkWheel() {
               {current.summary}
             </p>
             <a
-              href={projectHref(current)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => {
-                e.preventDefault();
-                openLive(projectHref(current));
-              }}
+              href={caseStudyHref(current)}
               className="btn-gold mt-1 inline-flex rounded-md px-5 py-2.5 text-sm"
             >
-              כניסה ל{current.title}
+              Case Study — {current.title}
             </a>
             <div className="mt-2 flex w-full max-w-xs items-center gap-3">
               <p className="shrink-0 text-[10px] font-medium tracking-[0.18em] text-muted uppercase">

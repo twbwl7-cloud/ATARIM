@@ -1,26 +1,24 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
-/**
- * Words book · V11 הבנאי · H18 מה שלא עושים · L28 להוריד סיכון
- */
 const POINTS = [
   {
-    title: "לא מוכרים לפני שהכרנו",
-    body: "קודם שיחת היכרות וכיוון ברור. לא מתאים — עוצרים. בלי לחץ ובלי כרטיס אשראי.",
+    title: "Craftsmanship over templates",
+    body: "כל נכס נכתב מאפס. תבנית מהמדף לא נושאת מותג שרוצה לשלוט בקטגוריה שלו.",
   },
   {
-    title: "לא מעבירים בין חמישה אנשים",
-    body: "כותבים לי. אני בונה. אתם מקבלים אתר שעובד בטלפון — בלי «מישהו מהצוות יחזור».",
+    title: "Conversion-Driven Architecture",
+    body: "המבנה משרת פנייה אחת ברורה — שיחה, תור או הזמנה. Measurable ROI, לא קישוט.",
   },
   {
-    title: "לא נועלים את הקוד אצלנו",
-    body: "הקוד והדומיין שלכם. רוצים לעבור הלאה? לוקחים הכל. בלי לבנות מאפס.",
+    title: "High-End 3D Web Experiences",
+    body: "תנועה ותלת־ממד כשהם משרתים את המותג. וואו עם מטרה — בלי רעש שמייגע את הנייד.",
   },
   {
-    title: "לא שמים תנועה בשביל הרעש",
-    body: "אנימציה שמביאה הודעה — כן. גימיק שתוקע את האייפון של הלקוחה — לא.",
+    title: "Engineering as brand",
+    body: "הקוד, הדומיין והביצועים שלכם. Bespoke Digital Asset שנשאר אצלכם — לא נעול אצלנו.",
   },
 ] as const;
 
@@ -33,13 +31,13 @@ export function WhyRare() {
       />
       <div className="relative mx-auto max-w-5xl">
         <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
-          למה איתי
+          Why This Studio
         </p>
         <h2 className="display mt-4 max-w-2xl text-3xl font-light text-ink md:text-5xl">
-          לא בונים תבניות מהמדף. בונים אתר לעסק שלכם.
+          לא בונים אתרים. בונים נכסים דיגיטליים ששולטים בשוק.
         </h2>
         <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted md:text-base">
-          מה שאנחנו מסרבים לעשות אומר יותר מכל סיסמה. ככה עובדים כשרוצים הודעות מהאתר, לא מצגת.
+          סוכנות ברמת $20K+ נמדדת במה שהיא מסרבת לעשות — לא רק במה שהיא מוכרת.
         </p>
 
         <ul className="mt-14 grid gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">
@@ -69,6 +67,21 @@ export function WhyRare() {
             </motion.li>
           ))}
         </ul>
+
+        <div className="mt-16 flex flex-wrap items-center gap-6">
+          <Link
+            href="/work"
+            className="btn-gold rounded-md px-8 py-3.5 text-sm transition-all duration-500 ease-in-out"
+          >
+            Explore Selected Work
+          </Link>
+          <Link
+            href="/about"
+            className="text-sm tracking-[0.08em] text-muted transition-colors duration-500 ease-in-out hover:text-gold"
+          >
+            Our Philosophy ←
+          </Link>
+        </div>
       </div>
     </section>
   );

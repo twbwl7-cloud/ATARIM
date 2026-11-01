@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const ABOUT_BODY =
-  "בעולם שבו הרושם הראשוני קובע הכל, האתר שלך חייב להיות בלתי נשכח. כסטודנט למדעי המחשב ומפתח אתרי פרימיום, אני מחבר בין ארכיטקטורת קוד חכמה לעיצוב יוקרתי ללא פשרות – וללא תבניות. ההתמחות שלי היא ביצירת חוויות 3D אינטראקטיביות וממשקים שעוצרים את הגלילה. החזון שלך, הסטנדרט שלי. יחד ניצור נכס דיגיטלי שמרגיש, נראה ועובד ברמה הגבוהה ביותר.";
+  "בעולם שבו הרושם הראשוני קובע מי שולט בשוק, הנכס הדיגיטלי שלכם חייב להיות בלתי מתפשר. אני מחבר ארכיטקטורת קוד מדויקת לעיצוב יוקרה — בלי תבניות, בלי קיצורי דרך. ההתמחות: High-End 3D Web Experiences וממשקים שעוצרים גלישה וממירים לפנייה. החזון שלכם. הסטנדרט של סוכנות $20K+.";
 
 export function AboutIntro() {
   return (
@@ -46,10 +46,10 @@ export function AboutIntro() {
           className="text-center md:text-start"
         >
           <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
-            עליי
+            Our Philosophy
           </p>
           <h2 className="display mt-3 text-3xl font-light text-ink sm:text-4xl md:text-5xl">
-            היי, אני דוד
+            Craftsmanship. Not templates.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-[15px] leading-[1.8] text-ink-soft md:mx-0 md:text-lg md:leading-[1.85]">
             {ABOUT_BODY}

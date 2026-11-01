@@ -1,7 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { projectHref, projectIsExternal, projects, type Project } from "@/lib/site";
+import {
+  caseStudyHref,
+  projects,
+  type Project,
+} from "@/lib/site";
 
 type Props = {
   items?: Project[];
@@ -11,31 +16,33 @@ type Props = {
   limit?: number;
 };
 
-/**
- * Numbered work rows — depth-agency style: enter the live site, not a card grid.
- */
+/** Numbered work rows → Case Studies (not raw live jump only) */
 export function WorkGrid({
   items = projects,
-  title = "עבודות שאפשר להיכנס אליהן",
-  eyebrow = "01 · עבודות",
+  title = "Selected Work",
+  eyebrow = "Portfolio",
   id = "work",
   limit,
 }: Props) {
   const list = typeof limit === "number" ? items.slice(0, limit) : items;
 
   return (
-    <section id={id} className="section-void relative z-10 px-5 py-20 md:px-8 md:py-28">
+    <section id={id} className="section-void relative z-10 px-5 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-5xl">
-        <p className="text-xs tracking-[0.22em] text-gold">{eyebrow}</p>
-        <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">{title}</h2>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted md:text-base">
-          כל אחד נבנה מאפס, בלי תבנית. נכנסים לאתר החי ומנסים בעצמכם.
+        <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
+          {eyebrow}
+        </p>
+        <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
+          {title}
+        </h2>
+        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted md:text-base">
+          כל פרויקט הוא Bespoke Digital Asset. נכנסים ל־Case Study — ואפשר גם
+          לבדוק את האתר החי.
         </p>
 
-        <ul className="mt-12 divide-y divide-white/10 border-y border-white/10">
+        <ul className="mt-14 divide-y divide-white/10 border-y border-white/10">
           {list.map((project, i) => {
-            const href = projectHref(project);
-            const external = projectIsExternal(project);
+            const href = caseStudyHref(project);
             const n = String(i + 1).padStart(2, "0");
             return (
               <motion.li
@@ -43,13 +50,11 @@ export function WorkGrid({
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.35 }}
-                transition={{ delay: i * 0.05, duration: 0.5 }}
+                transition={{ delay: i * 0.05, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               >
-                <a
+                <Link
                   href={href}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                  className="group flex flex-col gap-3 py-7 transition md:flex-row md:items-center md:justify-between md:gap-8 md:py-8"
+                  className="group flex flex-col gap-3 py-8 transition-all duration-500 ease-in-out md:flex-row md:items-center md:justify-between md:gap-8 md:py-10"
                 >
                   <div className="flex min-w-0 flex-1 gap-4 md:gap-6">
                     <span className="display pt-1 text-sm text-gold/80">{n}</span>
@@ -57,7 +62,7 @@ export function WorkGrid({
                       <p className="text-[11px] tracking-[0.16em] text-muted">
                         {project.format ?? project.category}
                       </p>
-                      <h3 className="display mt-1 text-2xl text-ivory transition group-hover:text-gold-bright md:text-3xl">
+                      <h3 className="display mt-1 text-2xl font-light text-ink transition-colors duration-500 group-hover:text-gold md:text-3xl">
                         {project.title}
                       </h3>
                       <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
@@ -65,10 +70,10 @@ export function WorkGrid({
                       </p>
                     </div>
                   </div>
-                  <span className="shrink-0 self-start text-sm text-gold transition group-hover:translate-x-[-4px] md:self-center">
-                    ← כניסה לאתר
+                  <span className="shrink-0 self-start text-sm tracking-wide text-gold md:self-center">
+                    Case Study ←
                   </span>
-                </a>
+                </Link>
               </motion.li>
             );
           })}
