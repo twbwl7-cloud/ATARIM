@@ -81,8 +81,8 @@ export function ProcessJourney() {
   const [reduce, setReduce] = useState(false);
   const [pathLen, setPathLen] = useState(PATH_LEN_FALLBACK);
 
-  const tipX = useMotionValue(NODES[0].x);
-  const tipY = useMotionValue(NODES[0].y);
+  const tipX = useMotionValue<number>(NODES[0].x);
+  const tipY = useMotionValue<number>(NODES[0].y);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -91,6 +91,19 @@ export function ProcessJourney() {
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+
+  /** One shared 0→1 progress drives blue bar + gold tip together */
+  const progressRaw = useTransform(scrollYProgress, [0.06, 0.86], [0, 1]);
+  const progress = useSpring(progressRaw, {
+    stiffness: 64,
+    damping: 26,
+    mass: 0.42,
+  });
 
   useEffect(() => {
     if (reduce) return;
@@ -109,19 +122,6 @@ export function ProcessJourney() {
     const id = requestAnimationFrame(syncLen);
     return () => cancelAnimationFrame(id);
   }, [reduce, progress, tipX, tipY]);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  /** One shared 0→1 progress drives blue bar + gold tip together */
-  const progressRaw = useTransform(scrollYProgress, [0.06, 0.86], [0, 1]);
-  const progress = useSpring(progressRaw, {
-    stiffness: 64,
-    damping: 26,
-    mass: 0.42,
-  });
 
   useMotionValueEvent(progress, "change", (p) => {
     const clamped = Math.min(1, Math.max(0, p));
