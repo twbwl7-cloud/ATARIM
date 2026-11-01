@@ -2,58 +2,51 @@
 @import "lenis/dist/lenis.css";
 
 /*
-  Logo Cyan Day — תכלת בהיר from the emblem.
-  Deep navy ink + electric cyan + logo gold.
-  Bright sky (not white, not black void).
+  $20K Onyx Luxury — deep midnight void + ethereal white + champagne gold.
+  No bright cyan day, no pink. Hypnotic / exclusive / ultra-minimal.
 */
 :root {
-  --sky: #c5eef8;
-  --sky-deep: #9fdff0;
-  --paper: #e7f7fc;
-  --mist: #b6e6f3;
+  --sky: #050507;
+  --sky-deep: #0a0b10;
+  --paper: #101218;
+  --mist: #161821;
 
-  --ink: #0a1628;
-  --ink-soft: #1a2d45;
-  --ink-faint: #4a6280;
+  --ink: #f5f5f7;
+  --ink-soft: #d8d8de;
+  --ink-faint: #8b8d97;
 
-  --cyan: #18c4e0;
-  --cyan-bright: #5eebf5;
-  --cyan-deep: #0a8aa3;
-  --teal: #2bb8c9;
+  --cyan: #5eebf5;
+  --cyan-bright: #9af3fa;
+  --cyan-deep: #d4af37;
+  --teal: #7ad7e8;
 
-  --gold: #c9a24a;
-  --gold-bright: #e0c06a;
-  --gold-deep: #8f7128;
-  --champagne: #f0e2c4;
+  --gold: #d4af37;
+  --gold-bright: #e6c280;
+  --gold-deep: #a8892a;
+  --champagne: #e6c280;
 
-  /* No pink/rose — blush aliases map to soft sky / gold accents only */
   --blush: var(--sky-deep);
   --sea: var(--cyan);
 
-  --line: rgba(10, 22, 40, 0.12);
-  --line-gold: rgba(201, 162, 74, 0.4);
-  --line-cyan: rgba(24, 196, 224, 0.45);
+  --line: rgba(245, 245, 247, 0.1);
+  --line-gold: rgba(212, 175, 55, 0.45);
+  --line-cyan: rgba(94, 235, 245, 0.28);
 
-  /* Apple-tier contact shadows — light from above-left */
   --shadow-contact:
-    0 1px 1px rgba(10, 22, 40, 0.04),
-    0 2px 4px rgba(10, 22, 40, 0.04),
-    0 8px 16px rgba(10, 88, 110, 0.06),
-    0 20px 40px rgba(10, 22, 40, 0.07);
+    0 1px 1px rgba(0, 0, 0, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.35);
 
   --shadow-soft: var(--shadow-contact);
 
   --shadow-elevated:
-    0 1px 0 rgba(255, 255, 255, 0.65) inset,
-    0 1px 2px rgba(10, 22, 40, 0.05),
-    0 6px 12px rgba(10, 88, 110, 0.08),
-    0 24px 48px rgba(10, 22, 40, 0.1);
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 12px 40px rgba(0, 0, 0, 0.45);
 
   --metal-gold: linear-gradient(
     118deg,
     #f7ebc8 0%,
-    #e8c978 22%,
-    #c9a24a 52%,
+    #e6c280 22%,
+    #d4af37 52%,
     #8f7128 78%,
     #e0c06a 100%
   );
@@ -70,20 +63,19 @@
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Hero night — deep navy + תכלת only (no pink) */
-  --void-night: #0a0f1c;
-  --void-navy: #07131f;
-  --void-teal: #0a1c28;
-  --baby-pink-glow: rgba(94, 235, 245, 0.35);
+  --void-night: #050507;
+  --void-navy: #0a0b10;
+  --void-teal: #101218;
+  --baby-pink-glow: rgba(212, 175, 55, 0.28);
 
-  --rich-black: var(--ink);
+  --rich-black: var(--sky);
   --rich-black-elevated: var(--paper);
-  --rich-black-soft: var(--sky-deep);
+  --rich-black-soft: var(--mist);
   --gold-dim: var(--gold-deep);
   --rose-gold: var(--gold);
-  --baby-pink: var(--cyan-bright);
-  --garnet: var(--cyan-deep);
-  --violet: #5a6a8a;
+  --baby-pink: var(--gold-bright);
+  --garnet: var(--gold-deep);
+  --violet: #6a7088;
   --platinum: var(--ink-soft);
   --platinum-dim: var(--ink-faint);
   --ivory: var(--ink);
@@ -144,24 +136,32 @@ body {
   color: var(--ink);
 }
 
-/* Soft luxury sky — faint gold + navy touches, slow living shift */
+/* Living onyx void — faint gold + cyan breath */
 body {
-  background-color: var(--sky);
+  background-color: #050507;
   background-image: linear-gradient(
-    125deg,
-    #d4f3fa 0%,
-    #c5eef8 22%,
-    #e8f4f8 38%,
-    rgba(240, 226, 196, 0.35) 52%,
-    #b8e8f4 68%,
-    rgba(10, 22, 40, 0.04) 82%,
-    #daf5fb 100%
+    135deg,
+    #050507 0%,
+    #0a0b10 28%,
+    #101218 46%,
+    rgba(212, 175, 55, 0.07) 58%,
+    #0a0b10 72%,
+    rgba(94, 235, 245, 0.04) 86%,
+    #050507 100%
   );
   background-size: 200% 200%;
-  animation: gradientMove 15s ease infinite;
+  animation: gradientMove 18s ease infinite;
   font-family: var(--font-rubik), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Custom cursor — desktop fine pointer only */
+@media (pointer: fine) and (hover: hover) {
+  html.has-premium-cursor,
+  html.has-premium-cursor * {
+    cursor: none !important;
+  }
 }
 
 @keyframes gradientMove {
@@ -177,8 +177,8 @@ body {
 }
 
 ::selection {
-  background: rgba(24, 196, 224, 0.35);
-  color: var(--ink);
+  background: rgba(212, 175, 55, 0.35);
+  color: #050507;
 }
 
 a {
@@ -226,17 +226,17 @@ a {
 }
 
 .glass {
-  background: rgba(247, 252, 254, 0.72);
-  border: 1px solid rgba(10, 22, 40, 0.08);
-  backdrop-filter: blur(18px) saturate(1.2);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(1.25);
   box-shadow: var(--shadow-elevated);
 }
 
 .premium-panel {
   position: relative;
-  background:
-    linear-gradient(165deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.42) 100%);
-  border: 1px solid rgba(10, 22, 40, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(1.2);
   box-shadow: var(--shadow-elevated);
 }
 
@@ -248,20 +248,22 @@ a {
   border-radius: inherit;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.55) 0%,
-    transparent 28%
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 32%
   );
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 .btn-gold {
+  position: relative;
+  overflow: hidden;
   background: var(--metal-gold);
   color: #1a1408;
   font-weight: 600;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
-    0 1px 2px rgba(10, 22, 40, 0.06),
-    0 8px 20px rgba(201, 162, 74, 0.28);
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 0 20px rgba(212, 175, 55, 0.25),
+    0 10px 28px rgba(0, 0, 0, 0.35);
   transition:
     transform 0.32s var(--ease-out-expo),
     filter 0.2s ease,
@@ -269,12 +271,41 @@ a {
 }
 
 .btn-gold:hover {
-  filter: brightness(1.04);
-  transform: translateY(-2px);
+  filter: brightness(1.06);
+  transform: translateY(-2px) scale(1.02);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.55) inset,
-    0 2px 4px rgba(10, 22, 40, 0.06),
-    0 14px 28px rgba(201, 162, 74, 0.32);
+    0 0 28px rgba(212, 175, 55, 0.45),
+    0 16px 36px rgba(0, 0, 0, 0.4);
+}
+
+/* Continuous gold shimmer sweep across CTAs */
+.btn-shimmer::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  transform: translateX(-120%);
+  animation: btnShimmer 4s ease-in-out infinite;
+}
+
+@keyframes btnShimmer {
+  0%,
+  18% {
+    transform: translateX(-120%);
+  }
+  45%,
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 .btn-gold:focus-visible,
@@ -304,9 +335,9 @@ a {
 }
 
 .btn-ghost {
-  border: 1px solid rgba(10, 22, 40, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.04);
   transition:
     border-color 0.25s var(--ease-premium),
     color 0.25s ease,
@@ -315,18 +346,17 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(24, 196, 224, 0.5);
-  color: var(--cyan-deep);
-  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(212, 175, 55, 0.55);
+  color: var(--gold-bright);
+  background: rgba(255, 255, 255, 0.08);
   transform: translateY(-1px);
 }
 
 .section-void,
 .section-rose {
-  /* Transparent base so the living body gradient shows through */
   background: radial-gradient(
     ellipse at 50% 0%,
-    rgba(24, 196, 224, 0.12),
+    rgba(212, 175, 55, 0.08),
     transparent 52%
   );
 }
@@ -337,7 +367,7 @@ a {
   height: 0.35em;
   margin-inline: 0.35em;
   border-radius: 999px;
-  background: var(--cyan);
+  background: var(--gold);
   vertical-align: middle;
 }
 
@@ -371,7 +401,7 @@ a {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  background: linear-gradient(165deg, #061018 0%, #0a2a38 55%, #0a1628 100%);
+  background: linear-gradient(165deg, #050507 0%, #0a0b10 55%, #101218 100%);
   transform-origin: top;
 }
 
@@ -409,9 +439,9 @@ a {
 .desktop-frame {
   position: relative;
   border-radius: 0.85rem;
-  background: linear-gradient(180deg, #dff4fa 0%, #b8e4f0 100%);
+  background: linear-gradient(180deg, #161821 0%, #0c0d12 100%);
   padding: 0.55rem 0.55rem 0.7rem;
-  border: 1px solid rgba(10, 22, 40, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: var(--shadow-elevated);
 }
 
@@ -447,8 +477,8 @@ a {
 .desktop-url {
   flex: 1;
   border-radius: 0.4rem;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(10, 22, 40, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.28rem 0.65rem;
   font-size: 0.65rem;
   color: var(--ink-faint);
@@ -552,14 +582,13 @@ a {
   mix-blend-mode: multiply;
 }
 
-/* Hero secondary captions — readable on light OR dark (difference blend) */
+/* Hero secondary captions — ethereal on onyx */
 .hero-caption {
-  color: #ffffff;
-  font-weight: 700;
+  color: #f5f5f7;
+  font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.02em;
-  mix-blend-mode: difference;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
 }
 
 .hero-caption--phone {
@@ -758,7 +787,7 @@ a {
 }
 
 .hero-accent-text {
-  background: linear-gradient(118deg, #0a8aa3 0%, #18c4e0 42%, #c9a24a 100%);
+  background: linear-gradient(118deg, #f7ebc8 0%, #d4af37 42%, #e6c280 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

@@ -16,9 +16,14 @@ const HeroScene = dynamic(
   { ssr: false, loading: () => null },
 );
 
+const HeroOrb = dynamic(
+  () => import("@/components/HeroOrb").then((m) => m.HeroOrb),
+  { ssr: false, loading: () => null },
+);
+
 /**
  * A05 pinned plunge — screen stays, MacBook grows until we enter the display,
- * then the next section opens. Day theme · Script 6 / book copy (no X01–X16).
+ * then the next section opens. Onyx night + liquid orb · Script 6 copy.
  */
 const CONSULT_MSG =
   "היי דוד, בא לי לשיחת ייעוץ בוואטסאפ על אתר לעסק שלי.";
@@ -99,24 +104,29 @@ export function Hero() {
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(94,235,245,0.4),transparent_48%),radial-gradient(ellipse_at_10%_55%,rgba(24,196,224,0.16),transparent_46%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(212,175,55,0.14),transparent_48%),radial-gradient(ellipse_at_15%_60%,rgba(94,235,245,0.08),transparent_46%)]"
         />
         <div
-          className="hero-grain pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-multiply"
+          className="hero-grain pointer-events-none absolute inset-0 opacity-[0.045]"
           aria-hidden
         />
+
+        {/* Hypnotic liquid glass behind the title */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[58%] sm:h-[52%]">
+          <HeroOrb />
+        </div>
 
         {/* MacBook — pinned, intensity drives plunge into the screen */}
         <motion.div
           style={{ scale: laptopScale }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 top-[22%] z-[1] sm:top-[20%] md:top-[18%]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 top-[22%] z-[2] sm:top-[20%] md:top-[18%]"
         >
           <div className="hero-laptop-stage relative h-full w-full">
-            <div className="hero-laptop-shadow !bg-[radial-gradient(ellipse_at_center,rgba(10,22,40,0.22)_0%,transparent_70%)]" />
+            <div className="hero-laptop-shadow !bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.55)_0%,transparent_70%)]" />
             {/* Overflow clip + transform-only hover zoom — no layout shift */}
             <div className="hero-laptop-zoom pointer-events-auto absolute inset-0 overflow-hidden">
               <div className="hero-laptop-media relative h-full w-full">
-                <HeroScene intensity={intensity} theme="day" />
+                <HeroScene intensity={intensity} theme="night" />
               </div>
             </div>
           </div>
@@ -131,7 +141,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8, ease: EASE }}
-            className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-deep sm:text-sm"
+            className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold sm:text-sm"
           >
             David Web Design &amp; Development
           </motion.p>
@@ -181,11 +191,11 @@ export function Hero() {
           גללו — נכנסים למסך
         </motion.p>
 
-        {/* Screen veil — cyan fill as we enter, then Trust opens */}
+        {/* Screen veil — onyx dissolve into the next section */}
         <motion.div
           aria-hidden
           style={{ opacity: veilOpacity }}
-          className="pointer-events-none absolute inset-0 z-30 bg-[radial-gradient(ellipse_at_50%_45%,#5eebf5_0%,#c5eef8_55%,#c5eef8_100%)]"
+          className="pointer-events-none absolute inset-0 z-30 bg-[radial-gradient(ellipse_at_50%_45%,#161821_0%,#0a0b10_55%,#050507_100%)]"
         />
       </div>
     </section>

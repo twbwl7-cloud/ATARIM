@@ -33,7 +33,7 @@ export function WhyRare() {
         className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(201,162,74,0.14),transparent_60%)]"
       />
       <div className="relative mx-auto max-w-5xl">
-        <p className="text-xs tracking-[0.16em] text-cyan-deep">למה איתי</p>
+        <p className="text-xs tracking-[0.16em] text-gold">למה איתי</p>
         {/* H18 · מה שלא עושים · V11 הבנאי */}
         <h2 className="display mt-3 max-w-2xl text-3xl text-ink md:text-5xl">
           לא בונים תבניות מהמדף. בונים אתר לעסק שלכם.
@@ -46,13 +46,13 @@ export function WhyRare() {
           {POINTS.map((p, i) => (
             <motion.li
               key={p.title}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.35 }}
               transition={{
-                delay: i * 0.05,
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1],
+                delay: i * 0.1,
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1],
               }}
               className="border-t border-line pt-5"
             >

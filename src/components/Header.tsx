@@ -44,7 +44,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-cyan/25 bg-paper/75 px-2 py-1 backdrop-blur-md md:flex">
+        <nav className="glass hidden items-center gap-1 rounded-full px-2 py-1 md:flex">
           {nav.map((item) => {
             const pathOnly = item.href.split("#")[0] || "/";
             const active = !item.href.includes("#") && pathname === pathOnly;
@@ -52,8 +52,8 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-md px-3.5 py-2 text-sm transition ${
-                  active ? "text-cyan-deep" : "text-muted hover:text-ink"
+                className={`cursor-magnet rounded-md px-3.5 py-2 text-sm transition ${
+                  active ? "text-gold" : "text-muted hover:text-ink"
                 }`}
               >
                 {item.label}
@@ -69,7 +69,7 @@ export function Header() {
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-gold inline-flex rounded-md px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
+            className="btn-gold btn-shimmer cursor-magnet relative inline-flex overflow-hidden rounded-md px-3 py-2 text-[12px] sm:px-4 sm:py-2.5 sm:text-sm"
             onClick={() => setOpen(false)}
           >
             ייעוץ בוואטסאפ

@@ -47,7 +47,7 @@ export function AboutIntro() {
           transition={{ duration: 0.75, delay: 0.08, ease: EASE }}
           className="text-center md:text-start"
         >
-          <p className="text-[10px] font-semibold tracking-[0.18em] text-cyan-deep sm:text-xs">
+          <p className="text-[10px] font-semibold tracking-[0.18em] text-gold sm:text-xs">
             עליי
           </p>
           <h2 className="display mt-2 text-2xl font-semibold text-ink sm:mt-3 sm:text-3xl md:text-4xl lg:text-5xl">

@@ -23,15 +23,15 @@ export function FreeDemo() {
       className="relative z-10 mx-auto max-w-7xl px-5 py-16 sm:py-20 md:px-8 md:py-28"
     >
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="premium-panel relative overflow-hidden rounded-2xl px-5 py-10 sm:px-6 sm:py-12 md:px-12 md:py-16"
       >
         <div className="relative z-[1] grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
-            <p className="text-xs tracking-[0.16em] text-cyan-deep">הצעה</p>
+            <p className="text-xs tracking-[0.16em] text-gold">הצעה</p>
             {/* L28 · להוריד סיכון · L29 צעד ראשון קטן */}
             <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
               דוגמה בחינם. רואים לפני שמשלמים.

@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Curtain } from "@/components/Curtain";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { PremiumCursor } from "@/components/PremiumCursor";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 
 /** Portfolio chrome stays off demo landings so each /demo/* feels like its own site. */
@@ -18,6 +19,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <PremiumCursor />
       <Curtain />
       <Header />
       <main className="relative z-[1] flex-1">{children}</main>

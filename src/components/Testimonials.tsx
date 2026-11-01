@@ -12,7 +12,7 @@ function Stars() {
         <svg
           key={i}
           viewBox="0 0 20 20"
-          className="h-3.5 w-3.5 fill-[#c9a24a]"
+          className="h-3.5 w-3.5 fill-[#d4af37]"
         >
           <path d="M10 1.5l2.35 5.2 5.65.55-4.3 3.75 1.3 5.45L10 13.9 4.99 16.45l1.3-5.45-4.3-3.75 5.65-.55L10 1.5z" />
         </svg>
@@ -46,10 +46,10 @@ export function Testimonials() {
           {testimonials.map((t, i) => (
             <motion.li
               key={t.projectId}
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ delay: i * 0.12, duration: 0.65, ease: EASE }}
+              transition={{ delay: i * 0.12, duration: 0.8, ease: EASE }}
               className={`premium-panel flex flex-col rounded-2xl p-5 sm:p-6 ${
                 i === 1 ? "md:mt-6" : i === 2 ? "md:mt-3" : ""
               }`}
@@ -61,7 +61,7 @@ export function Testimonials() {
                 </p>
                 <div className="mt-6 border-t border-line pt-4">
                   <p className="text-sm font-semibold text-ink">{t.name}</p>
-                  <p className="mt-1 text-xs text-cyan-deep">{t.role}</p>
+                  <p className="mt-1 text-xs text-gold">{t.role}</p>
                 </div>
               </div>
             </motion.li>

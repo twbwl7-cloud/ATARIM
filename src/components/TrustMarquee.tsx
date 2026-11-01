@@ -15,7 +15,7 @@ export function TrustMarquee() {
   return (
     <section
       aria-label="הוכחות"
-      className="relative z-10 overflow-hidden border-y border-line bg-paper/80 py-4 backdrop-blur-sm"
+      className="relative z-10 overflow-hidden border-y border-line bg-paper/60 py-4 backdrop-blur-md"
     >
       <div
         aria-hidden

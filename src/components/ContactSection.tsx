@@ -18,7 +18,7 @@ export function ContactSection() {
         className="premium-panel relative overflow-hidden rounded-2xl px-5 py-10 sm:px-6 sm:py-12 md:px-14 md:py-16"
       >
         <div className="relative z-[1] max-w-2xl">
-          <p className="text-xs tracking-[0.16em] text-cyan-deep">דברו איתי</p>
+          <p className="text-xs tracking-[0.16em] text-gold">דברו איתי</p>
           {/* H30 · יצירת קשר */}
           <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
             כתבו מה העסק. עונים באותו יום.

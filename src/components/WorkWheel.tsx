@@ -130,7 +130,7 @@ export function WorkWheel() {
 
           {/* Compact header — never fights the frame */}
           <div className="relative z-20 mx-auto w-full max-w-3xl shrink-0 px-5 pt-16 text-center sm:px-8 sm:pt-20 md:pt-20">
-            <p className="text-xs tracking-[0.16em] text-cyan-deep">עבודות באוויר</p>
+            <p className="text-xs tracking-[0.16em] text-gold">עבודות באוויר</p>
             <h2 className="display mt-1.5 text-xl text-ink sm:text-2xl md:text-3xl">
               שלושה אתרים באוויר. תבדקו בעצמכם.
             </h2>
