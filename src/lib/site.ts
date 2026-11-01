@@ -224,6 +224,8 @@ export const services = [
 export const nav = [
   { href: "/", label: "בית" },
   { href: "/#work", label: "עבודות" },
+  { href: "/#pillars", label: "השיטה" },
+  { href: "/#formats", label: "פורמטים" },
   { href: "/#free-demo", label: "דוגמה בחינם" },
   { href: "/#reviews", label: "מה אומרים" },
   { href: "/about", label: "עליי" },

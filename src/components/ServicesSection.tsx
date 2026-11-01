@@ -7,7 +7,7 @@ export function ServicesSection() {
   return (
     <section className="section-void relative z-10 overflow-hidden border-y border-line">
       <div className="relative mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-24">
-        <p className="text-xs tracking-[0.16em] text-cyan-deep">מה עושים יחד</p>
+        <p className="text-xs tracking-[0.16em] text-gold">מה עושים יחד</p>
         <h2 className="display mt-3 max-w-xl text-3xl text-ink md:text-5xl">
           שלושה דברים שאני בונה
         </h2>

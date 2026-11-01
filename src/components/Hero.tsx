@@ -25,15 +25,15 @@ const HeroOrb = dynamic(
  * A05 pinned plunge — screen stays, MacBook grows until we enter the display,
  * then the next section opens. Onyx night + liquid orb · Script 6 copy.
  */
-const CONSULT_MSG =
-  "היי דוד, בא לי לשיחת ייעוץ בוואטסאפ על אתר לעסק שלי.";
+const DEMO_HREF_MSG =
+  "היי דוד, רוצה דוגמה בחינם לעסק שלי. בלי התחייבות.";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const [reduce, setReduce] = useState(false);
-  const consultHref = whatsappUrl(CONSULT_MSG);
+  const consultHref = whatsappUrl(DEMO_HREF_MSG);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -73,12 +73,15 @@ export function Hero() {
   if (reduce) {
     return (
       <section className="relative flex min-h-[100svh] flex-col overflow-hidden px-5 pb-16 pt-[calc(5rem+env(safe-area-inset-top))] text-center">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-deep">
-          David Web Design &amp; Development
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold">
+          דוד טובול · אתר תדמית
         </p>
         <h1 className="display mt-3 text-[clamp(1.65rem,5vw,3.2rem)] text-ink">
-          אתרים שאי אפשר <span className="hero-accent-text">להתעלם</span> מהם.
+          אתר שמביא <span className="hero-accent-text">הודעות</span> — לא רק יופי
         </h1>
+        <p className="mx-auto mt-4 max-w-md text-sm text-muted">
+          דוגמה בחינם לעסק שלכם. שלושה אתרים חיים למטה. בלי התחייבות.
+        </p>
         <div className="mt-7 flex flex-col items-center gap-3">
           <MagneticButton
             href={consultHref}
@@ -86,13 +89,14 @@ export function Hero() {
             rel="noopener noreferrer"
             className="btn-gold rounded-md px-8 py-3.5 text-sm"
           >
-            לשיחת ייעוץ בוואטסאפ
+            לקבלת דוגמה בחינם בוואטסאפ
           </MagneticButton>
           <a href="#work" className="hero-caption">
-            לראות עבודות חיות
+            לראות אתרים חיים ↓
           </a>
-          <p className="hero-caption hero-caption--phone" dir="ltr">
-            {site.phoneDisplay}
+          <p className="text-[11px] text-muted">
+            3 אתרים באוויר · בלי כרטיס אשראי ·{" "}
+            <bdi dir="ltr">{site.phoneDisplay}</bdi>
           </p>
         </div>
       </section>
@@ -143,7 +147,7 @@ export function Hero() {
             transition={{ duration: 0.8, ease: EASE }}
             className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gold sm:text-sm"
           >
-            David Web Design &amp; Development
+            דוד טובול · אתר תדמית
           </motion.p>
 
           <motion.h1
@@ -152,9 +156,18 @@ export function Hero() {
             transition={{ duration: 0.9, delay: 0.08, ease: EASE }}
             className="display mt-3 max-w-2xl text-[clamp(1.65rem,5vw,3.2rem)] leading-[1.14] tracking-[-0.02em] text-ink"
           >
-            אתרים שאי אפשר{" "}
-            <span className="hero-accent-text">להתעלם</span> מהם.
+            אתר שמביא{" "}
+            <span className="hero-accent-text">הודעות</span> — לא רק יופי
           </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.14, ease: EASE }}
+            className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted sm:text-[15px]"
+          >
+            דוגמה בחינם לעסק שלכם. שלושה אתרים חיים למטה. בלי התחייבות.
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -168,18 +181,19 @@ export function Hero() {
               rel="noopener noreferrer"
               className="pointer-events-auto btn-gold min-h-11 justify-center rounded-md px-7 py-3 text-[14px] sm:min-h-12 sm:px-10 sm:py-3.5 sm:text-sm"
             >
-              לשיחת ייעוץ בוואטסאפ
+              לקבלת דוגמה בחינם בוואטסאפ
             </MagneticButton>
             <a
               href="#work"
               className="hero-caption group relative inline-flex pointer-events-auto justify-center"
             >
-              לראות עבודות חיות
+              לראות אתרים חיים ↓
               <span className="absolute inset-x-0 -bottom-0.5 mx-auto h-px w-0 bg-current transition-all duration-300 group-hover:w-full" />
             </a>
           </motion.div>
 
-          <p className="hero-caption hero-caption--phone mt-4">
+          <p className="mt-4 text-[11px] tracking-[0.04em] text-muted sm:text-xs">
+            3 אתרים באוויר · בלי כרטיס אשראי ·{" "}
             <bdi dir="ltr">{site.phoneDisplay}</bdi>
           </p>
         </motion.div>

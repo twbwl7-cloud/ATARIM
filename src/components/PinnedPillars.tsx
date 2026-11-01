@@ -84,13 +84,13 @@ export function PinnedPillars() {
       <div className="relative mx-auto max-w-5xl">
         <div className="mb-8 flex items-end justify-between gap-4 sm:mb-12">
           <div>
-            <p className="text-xs tracking-[0.28em] text-platinum">השיטה</p>
+            <p className="text-xs tracking-[0.28em] text-gold">השיטה</p>
             <h2 className="display mt-3 text-3xl text-ivory md:text-5xl">
-              חמש מילים לפני{" "}
-              <span className="ink-gold">עלייה לאוויר</span>
+              חמש מילים שמחזיקות{" "}
+              <span className="ink-gold">אתר</span>
             </h2>
             <p className="mt-3 max-w-md text-sm text-muted">
-              זה מה שבודקים לפני שמעלים ל
+              בלי סיסמאות. זה מה שבודקים לפני שמעלים ל
               <span className="ink-gold">אוויר</span>.
             </p>
           </div>

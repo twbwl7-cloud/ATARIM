@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const LINE =
-  "לא זוכרים תבנית. זוכרים את הרגע שבו לחצו וכתבו לכם בוואטסאפ.";
+  "לקוחות לא זוכרים תבנית. הם זוכרים את הרגע שבו לחצו וקבעו תור.";
 
 export function ScrollStory() {
   const ref = useRef<HTMLElement>(null);
