@@ -389,11 +389,26 @@ function canUseWebGL() {
   }
 }
 
+/** Static product shot when WebGL is missing/fails — never leave an empty cyan slab */
 function HeroFallback() {
   return (
-    <div className="absolute inset-0 bg-[#c5eef8]" aria-hidden>
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(94,235,245,0.55),transparent_52%),radial-gradient(ellipse_at_72%_62%,rgba(24,196,224,0.28),transparent_48%),radial-gradient(circle_at_50%_78%,rgba(197,238,248,0.7),transparent_58%)]" />
-      <div className="pointer-events-none absolute inset-x-[14%] top-[22%] bottom-[30%] rounded-[2rem] border border-cyan/25 bg-[linear-gradient(160deg,rgba(255,255,255,0.35),rgba(24,196,224,0.08))] shadow-[0_40px_80px_rgba(10,88,110,0.12)]" />
+    <div className="absolute inset-0 overflow-hidden bg-[#c5eef8]" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_30%,rgba(94,235,245,0.5),transparent_52%),radial-gradient(ellipse_at_70%_80%,rgba(24,196,224,0.22),transparent_48%)]" />
+      <div className="absolute inset-x-0 bottom-0 top-[6%] flex items-end justify-center px-3 sm:px-8 md:px-14">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/macbook-ref.jpg"
+          alt=""
+          width={1600}
+          height={1000}
+          decoding="async"
+          className="h-[min(72%,28rem)] w-auto max-w-[min(100%,52rem)] object-contain object-bottom drop-shadow-[0_28px_50px_rgba(10,22,40,0.2)] sm:h-[min(78%,34rem)]"
+          style={{
+            // Ref plate is light gray — blend into תכלת sky
+            mixBlendMode: "multiply",
+          }}
+        />
+      </div>
     </div>
   );
 }
