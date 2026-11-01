@@ -94,7 +94,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <a
             href={whatsappUrl(
-              "היי דוד, רוצה דוגמה בחינם לאתר של העסק שלי — בלי התחייבות.",
+              "היי דוד, בא לי לשיחת ייעוץ בוואטסאפ על אתר לעסק שלי.",
             )}
             target="_blank"
             rel="noopener noreferrer"
@@ -103,7 +103,7 @@ export function Header() {
             }`}
             onClick={() => setOpen(false)}
           >
-            דוגמה בחינם
+            ייעוץ בוואטסאפ
           </a>
           <button
             type="button"

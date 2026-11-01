@@ -8,20 +8,17 @@ import { TrustMarquee } from "@/components/TrustMarquee";
 import { WhyRare } from "@/components/WhyRare";
 import { WorkWheel } from "@/components/WorkWheel";
 
-/**
- * Script 6 Phase 1 page order (sell first):
- * Hook → Trust → Proof (live sites) → Offer → Why → Process → Social → Close
- */
+/** Hook → Social proof → Live work → Offer → Why → Process → Close */
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <Testimonials />
       <TrustMarquee />
       <WorkWheel />
       <FreeDemo />
       <WhyRare />
       <ProcessJourney />
-      <Testimonials />
       <AboutSection />
       <ContactSection />
     </>

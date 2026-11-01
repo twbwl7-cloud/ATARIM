@@ -16,7 +16,7 @@ import type { MotionValue } from "framer-motion";
 import { useMotionValueEvent } from "framer-motion";
 
 const VOID_DAY = "#c5eef8";
-const VOID_NIGHT = "#050a12";
+const VOID_NIGHT = "#0a0f1c";
 const GLB_CANDIDATES = [
   "/models/MacbookProProledXDR4K.glb",
   "/models/macbook-pro-proledxdr-4k.glb",
@@ -396,7 +396,7 @@ function HeroFallback({ theme = "day" }: { theme?: "day" | "night" }) {
   const night = theme === "night";
   return (
     <div
-      className={`absolute inset-0 overflow-hidden ${night ? "bg-[#050a12]" : "bg-[#c5eef8]"}`}
+      className={`absolute inset-0 overflow-hidden ${night ? "bg-[#0a0f1c]" : "bg-[#c5eef8]"}`}
       aria-hidden
     >
       <div
@@ -464,7 +464,7 @@ export function HeroScene({
 
   return (
     <div
-      className={`absolute inset-0 ${theme === "night" ? "bg-[#050a12]" : "bg-[#c5eef8]"}`}
+      className={`absolute inset-0 ${theme === "night" ? "bg-[#0a0f1c]" : "bg-[#c5eef8]"}`}
     >
       <div
         className={`pointer-events-none absolute inset-0 ${

@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import {
   motion,
@@ -18,19 +17,16 @@ const HeroScene = dynamic(
   { ssr: false, loading: () => null },
 );
 
-/**
- * Words book · S01 / H01 / V11 / M01
- * Visual: Awwwards dark night + תכלת organic light (anti-AI texture)
- */
+/** Exact copy from user brief — do not invent alternate headlines */
 const DEMO_MSG =
-  "היי דוד, רוצה דוגמה בחינם לאתר של העסק שלי. בלי התחייבות.";
+  "היי דוד, בא לי לשיחת ייעוץ בוואטסאפ על אתר לעסק שלי.";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const reveal = (delay: number) => ({
-  initial: { opacity: 0, y: 22, filter: "blur(10px)" },
+  initial: { opacity: 0, y: 24, filter: "blur(12px)" },
   animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  transition: { duration: 0.85, delay, ease: EASE },
+  transition: { duration: 0.9, delay, ease: EASE },
 });
 
 function Atmosphere() {
@@ -39,6 +35,7 @@ function Atmosphere() {
       <div className="hero-glow hero-glow--a" />
       <div className="hero-glow hero-glow--b" />
       <div className="hero-glow hero-glow--c" />
+      <div className="hero-glow hero-glow--pink" />
       <div className="hero-grid" />
       <div className="hero-grain" />
     </div>
@@ -65,13 +62,12 @@ function PlungeStage({
   const veilOpacity = useTransform(progress, [0.7, 0.92, 1], [0, 0.55, 1]);
   const laptopOpacity = useTransform(progress, [0, 0.15, 0.35], [1, 0.85, 0.15]);
 
-  const demoHref = whatsappUrl(DEMO_MSG);
+  const consultHref = whatsappUrl(DEMO_MSG);
 
   return (
     <div className="hero-night relative h-[100svh] overflow-hidden">
       <Atmosphere />
 
-      {/* Laptop — lower band, but still inside first viewport on desktop + phone */}
       <motion.div
         style={{ opacity: laptopOpacity }}
         className="pointer-events-none absolute inset-x-0 bottom-0 top-[36%] z-[1] sm:top-[34%] md:top-[30%]"
@@ -82,7 +78,7 @@ function PlungeStage({
             : {
                 initial: { opacity: 0, y: 36, filter: "blur(12px)" },
                 animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-                transition: { duration: 1.05, delay: 0.55, ease: EASE },
+                transition: { duration: 1.1, delay: 0.62, ease: EASE },
               })}
           className="relative h-full w-full"
         >
@@ -91,7 +87,6 @@ function PlungeStage({
             <div className="absolute inset-0">
               <HeroScene intensity={reduce ? intensityRaw : intensity} theme="night" />
             </div>
-            {/* Cyan floor reflection under machine */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-x-[18%] bottom-[4%] h-[18%] rounded-[100%] bg-[radial-gradient(ellipse_at_center,rgba(94,235,245,0.22)_0%,transparent_70%)] blur-md mix-blend-screen"
@@ -100,76 +95,63 @@ function PlungeStage({
         </motion.div>
         <div
           aria-hidden
-          className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[var(--void-night)] via-[rgba(5,10,18,0.65)] to-transparent"
+          className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[var(--void-night)] via-[rgba(10,15,28,0.7)] to-transparent"
         />
       </motion.div>
 
-      {/* Copy — blur-reveal stagger on sky/void above laptop */}
       <motion.div
         style={{ opacity: textOpacity, y: textY }}
         className="pointer-events-none absolute inset-x-0 top-0 z-10 px-5 pt-[calc(4.25rem+env(safe-area-inset-top))] text-center sm:px-8 md:pt-[calc(4.75rem+env(safe-area-inset-top))]"
       >
-        <div className="mx-auto w-full max-w-xl md:max-w-3xl">
-          <motion.div
-            {...(reduce ? {} : reveal(0.08))}
-            className="mb-2 flex items-center justify-center gap-2 sm:mb-2.5 sm:gap-2.5"
+        <div className="mx-auto w-full max-w-2xl md:max-w-3xl">
+          <motion.p
+            {...(reduce ? {} : reveal(0.06))}
+            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-bright sm:text-sm"
           >
-            <span className="relative h-9 w-9 shrink-0 sm:h-11 sm:w-11 md:h-12 md:w-12">
-              <Image
-                src="/brand/emblem.png"
-                alt=""
-                fill
-                priority
-                unoptimized
-                className="object-contain drop-shadow-[0_0_24px_rgba(94,235,245,0.35)]"
-              />
-            </span>
-            <p className="text-[11px] font-semibold tracking-[0.2em] text-[var(--hero-fg-soft)] sm:text-[12px]">
-              {site.nameHe}
-            </p>
-          </motion.div>
+            David Web Design &amp; Development
+          </motion.p>
 
           <motion.h1
-            {...(reduce ? {} : reveal(0.18))}
-            className="display text-[clamp(1.55rem,4.8vw,3rem)] leading-[1.12] tracking-[-0.02em] text-[var(--hero-fg)]"
+            {...(reduce ? {} : reveal(0.16))}
+            className="display mt-3 text-[clamp(1.55rem,5vw,3.1rem)] leading-[1.15] tracking-[-0.02em] text-[var(--hero-fg)]"
           >
-            הודעות מלקוחות{" "}
-            <span className="hero-accent-text">בלי לרדוף אחריהם</span>
+            חוויות דיגיטליות שאי אפשר{" "}
+            <span className="hero-accent-text">להתעלם</span> מהן.
           </motion.h1>
 
           <motion.p
-            {...(reduce ? {} : reveal(0.32))}
-            className="mx-auto mt-2 max-w-[22rem] text-[12px] leading-relaxed text-[var(--hero-fg-soft)] sm:mt-2.5 sm:max-w-md sm:text-[14px]"
+            {...(reduce ? {} : reveal(0.3))}
+            className="mx-auto mt-3 max-w-xl text-[13px] leading-relaxed text-[var(--hero-fg-soft)] sm:mt-4 sm:text-[15px]"
           >
-            מקבלים דוגמה לפי העסק בוואטסאפ. ממשיכים רק אחרי שראיתם.
+            אני דוד. אני בונה אתרי פרימיום ומערכות אינטראקטיביות שהופכות מבקרים
+            ללקוחות. בלי תבניות גנריות, בלי בולשיט. 100% קוד נקי, 100% תוצאות
+            לעסק שלך.
           </motion.p>
 
           <motion.div
             {...(reduce ? {} : reveal(0.44))}
-            className="pointer-events-auto mx-auto mt-3 flex w-full max-w-sm flex-col items-stretch gap-1.5 sm:mt-3.5 sm:max-w-none sm:items-center sm:gap-2"
+            className="pointer-events-auto mx-auto mt-4 flex w-full max-w-sm flex-col items-stretch gap-2.5 sm:mt-5 sm:max-w-none sm:items-center sm:gap-3"
           >
             <MagneticButton
-              href={demoHref}
+              href={consultHref}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-hero min-h-12 justify-center rounded-md px-7 py-3.5 text-[15px] sm:min-h-0 sm:px-10 sm:text-sm"
             >
-              לקבלת דוגמה בוואטסאפ
+              לשיחת ייעוץ בוואטסאפ
             </MagneticButton>
-            <p className="text-[11px] text-[var(--hero-fg-mute)] sm:text-xs">
-              בלי כרטיס אשראי
-            </p>
             <a
               href="#work"
-              className="text-sm text-[var(--hero-fg-mute)] underline-offset-4 transition hover:text-cyan-bright hover:underline"
+              className="group relative inline-flex justify-center text-sm text-[var(--hero-fg-soft)] transition hover:text-cyan-bright"
             >
               לראות עבודות חיות
+              <span className="absolute inset-x-0 -bottom-0.5 mx-auto h-px w-0 bg-cyan-bright transition-all duration-400 group-hover:w-full" />
             </a>
           </motion.div>
 
           <motion.p
             {...(reduce ? {} : reveal(0.54))}
-            className="pointer-events-none mx-auto mt-2.5 max-w-sm text-[11px] leading-relaxed text-[var(--hero-fg-mute)] sm:mt-3 sm:text-xs"
+            className="pointer-events-none mx-auto mt-3 max-w-sm text-[11px] leading-relaxed text-[var(--hero-fg-mute)] sm:mt-3.5 sm:text-xs"
           >
             <bdi>3</bdi> אתרים באוויר ·{" "}
             <bdi className="text-cyan-bright" dir="ltr">
@@ -186,11 +168,10 @@ function PlungeStage({
         גללו — יש הוכחה
       </motion.p>
 
-      {/* Plunge into day sections */}
       <motion.div
         aria-hidden
         style={{ opacity: veilOpacity }}
-        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(94,235,245,0.2)_0%,rgba(197,238,248,0.92)_52%,#c5eef8_78%)]"
+        className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(circle_at_50%_50%,rgba(94,235,245,0.16)_0%,rgba(10,15,28,0.92)_55%,#0a0f1c_82%)]"
       />
     </div>
   );
@@ -213,30 +194,30 @@ export function Hero() {
     offset: ["start start", "end end"],
   });
 
-  const demoHref = whatsappUrl(DEMO_MSG);
+  const consultHref = whatsappUrl(DEMO_MSG);
 
   if (reduce) {
     return (
       <section className="hero-night relative flex min-h-[100svh] flex-col items-center justify-center px-5 pt-24 text-center">
         <Atmosphere />
-        <p className="relative z-10 text-[12px] tracking-[0.2em] text-[var(--hero-fg-soft)]">
-          {site.nameHe}
+        <p className="relative z-10 text-[11px] font-semibold uppercase tracking-[0.22em] text-cyan-bright">
+          David Web Design &amp; Development
         </p>
-        <h1 className="relative z-10 display mt-3 max-w-xl text-3xl text-[var(--hero-fg)] md:text-5xl">
-          הודעות מלקוחות <span className="hero-accent-text">בלי לרדוף אחריהם</span>
+        <h1 className="relative z-10 display mt-3 max-w-2xl text-3xl text-[var(--hero-fg)] md:text-5xl">
+          חוויות דיגיטליות שאי אפשר{" "}
+          <span className="hero-accent-text">להתעלם</span> מהן.
         </h1>
-        <p className="relative z-10 mt-4 max-w-sm text-sm text-[var(--hero-fg-soft)]">
-          מקבלים דוגמה לפי העסק בוואטסאפ. ממשיכים רק אחרי שראיתם.
+        <p className="relative z-10 mt-4 max-w-xl text-sm text-[var(--hero-fg-soft)]">
+          אני דוד. אני בונה אתרי פרימיום ומערכות אינטראקטיביות שהופכות מבקרים
+          ללקוחות. בלי תבניות גנריות, בלי בולשיט. 100% קוד נקי, 100% תוצאות לעסק
+          שלך.
         </p>
         <a
-          href={demoHref}
+          href={consultHref}
           className="btn-hero relative z-10 mt-8 min-h-12 rounded-md px-7 py-3.5 text-[15px]"
         >
-          לקבלת דוגמה בוואטסאפ
+          לשיחת ייעוץ בוואטסאפ
         </a>
-        <p className="relative z-10 mt-2 text-[11px] text-[var(--hero-fg-mute)]">
-          בלי כרטיס אשראי
-        </p>
       </section>
     );
   }
