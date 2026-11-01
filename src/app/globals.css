@@ -897,4 +897,10 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .hero-laptop-zoom:hover .hero-laptop-media,
+  .desktop-frame:hover .desktop-screen img,
+  .phone-frame:hover .phone-screen img {
+    transform: none;
+  }
 }
