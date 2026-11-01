@@ -32,16 +32,17 @@ export function FreeDemo() {
         <div className="relative z-[1] grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
             <p className="text-xs tracking-[0.16em] text-cyan-deep">הצעה</p>
+            {/* H01 · V11 */}
             <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-              רואים לפני שמשלמים
+              דוגמה בחינם בלי לשלם קודם
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted md:mt-5 md:text-base">
-              בחרו סוג עסק, כתבו מה חסר, שלחו בוואטסאפ. מקבלים דוגמה — בלי כרטיס
-              אשראי.
+              בחרו סוג עסק, כתבו מה חסר, שלחו בוואטסאפ. מקבלים דוגמה לפי מה
+              שכתבתם.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-ink-soft sm:mt-6">
-              <li>· לא מתאים? עוצרים.</li>
-              <li>· לפי העסק שלכם — לא תבנית מהמדף.</li>
+              <li>· לא מתאים — עוצרים שם.</li>
+              <li>· לפי העסק שלכם, לא תבנית מהמדף.</li>
               <li>· ממשיכים רק אחרי שראיתם.</li>
             </ul>
           </div>

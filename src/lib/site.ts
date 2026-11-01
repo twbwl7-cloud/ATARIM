@@ -1,7 +1,8 @@
 export const site = {
   name: "David Tubul",
   nameHe: "דוד טובול",
-  tagline: "אתר שמביא הודעות — לא רק יופי",
+  /* H01 · התוצאה בלי המחיר · V11 הבנאי */
+  tagline: "הודעות מלקוחות בלי לרדוף אחריהם",
   short: "David Tubul",
   whatsapp:
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
@@ -15,7 +16,7 @@ export const site = {
 export function whatsappUrl(message?: string) {
   const text =
     message ??
-    "היי דוד, ראיתי את האתר. בא לי לדבר על אתר לעסק שלי.";
+    "היי דוד, ראיתי את האתר. בא לי דוגמה בחינם לעסק שלי.";
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
 }
 

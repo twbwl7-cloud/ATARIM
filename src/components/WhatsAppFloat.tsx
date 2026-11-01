@@ -24,9 +24,9 @@ export function WhatsAppFloat() {
         </svg>
       </span>
       <span className="flex min-w-0 flex-col pe-1">
-        <span className="text-[10px] text-muted sm:text-[11px]">בא לראות קודם?</span>
+        <span className="text-[10px] text-muted sm:text-[11px]">בלי כרטיס אשראי</span>
         <span className="truncate text-xs font-semibold text-ink transition group-hover:text-cyan-deep sm:text-sm">
-          וואטסאפ · לקבלת דוגמה
+          לקבלת דוגמה בוואטסאפ
         </span>
       </span>
     </motion.a>

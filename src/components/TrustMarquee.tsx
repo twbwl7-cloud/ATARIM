@@ -1,12 +1,13 @@
 "use client";
 
 /** A10 · P14 — social proof strip after hero (landing Trust beat). */
+/** P14 proof strip — facts only, X-filter clean */
 const ITEMS = [
   "לולילק · אסתטיקה",
   "Cookk · עוגות",
   "לוקסי · מספרה",
-  "דוגמה בחינם לפני תשלום",
-  "קוד והדומיין שלכם",
+  "דוגמה לפני תשלום",
+  "הקוד והדומיין שלכם",
   "וואטסאפ · 052-318-2032",
 ];
 

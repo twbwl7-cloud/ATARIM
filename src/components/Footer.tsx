@@ -8,7 +8,7 @@ export function Footer() {
         <div className="max-w-md">
           <p className="display text-2xl text-ink md:text-3xl">{site.nameHe}</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            אתר שמביא הודעות — לא רק יופי.
+            {site.tagline}.
           </p>
           <p className="mt-3 text-sm text-cyan-deep">
             <bdi dir="ltr">{site.phoneDisplay}</bdi>

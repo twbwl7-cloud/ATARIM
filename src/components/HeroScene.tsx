@@ -131,13 +131,13 @@ function ProceduralMacbook({ intensity }: { intensity: MotionValue<number> }) {
     const mx = mouse.current.x;
     const my = mouse.current.y;
 
-    // Portrait phones: pull back + shrink so the full open MacBook matches desktop framing
+    // Phone hero: MacBook sits in lower band under copy — frame tighter + lower
     const aspect = state.viewport.aspect || 1;
     const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 5.4 : 3.6;
-    const camY0 = narrow ? 1.55 : 1.35;
-    const modelScale = narrow ? 0.72 : 1;
-    const modelY = narrow ? 0.22 : -0.15;
+    const camZ0 = narrow ? 4.85 : 3.55;
+    const camY0 = narrow ? 1.15 : 1.32;
+    const modelScale = narrow ? 0.82 : 1;
+    const modelY = narrow ? -0.05 : -0.12;
 
     screenMat.uniforms.uTime.value = t;
     screenMat.uniforms.uGlow.value = g;
@@ -307,22 +307,22 @@ function GlbMacbook({
     const my = mouse.current.y;
     const aspect = state.viewport.aspect || 1;
     const narrow = aspect < 0.85;
-    const camZ0 = narrow ? 5.4 : 3.6;
-    const camY0 = narrow ? 1.5 : 1.3;
-    const modelScale = narrow ? 0.72 : 1;
+    const camZ0 = narrow ? 4.85 : 3.55;
+    const camY0 = narrow ? 1.15 : 1.28;
+    const modelScale = narrow ? 0.82 : 1;
 
     if (root.current) {
       root.current.rotation.y = mx * 0.28 + Math.sin(t * 0.22) * 0.04;
       root.current.rotation.x = -0.2 - my * 0.08;
       root.current.scale.setScalar(modelScale * (1 + Math.sin(t * 0.9) * 0.008 + g * 0.1));
       root.current.position.z = g * 0.5;
-      root.current.position.y = narrow ? 0.2 : -0.12;
+      root.current.position.y = narrow ? -0.05 : -0.12;
     }
 
-    state.camera.position.z = THREE.MathUtils.lerp(camZ0, narrow ? 0.65 : 0.42, g);
+    state.camera.position.z = THREE.MathUtils.lerp(camZ0, narrow ? 0.7 : 0.42, g);
     state.camera.position.x = mx * 0.16 * (1 - g * 0.75);
     state.camera.position.y = camY0 + my * 0.09 * (1 - g * 0.6) - g * 0.12;
-    state.camera.lookAt(0, (narrow ? 0.5 : 0.42) + g * 0.3, root.current?.position.z ?? 0);
+    state.camera.lookAt(0, (narrow ? 0.45 : 0.42) + g * 0.3, root.current?.position.z ?? 0);
   });
 
   return (

@@ -12,7 +12,7 @@ export function AboutSection() {
       <div>
         <p className="text-xs tracking-[0.16em] text-cyan-deep">עליי</p>
         <h2 className="display mt-3 text-3xl text-ink md:text-5xl">
-          דוד טובול. בונה אתרים שמביאים הודעות.
+          דוד טובול. בונה אתרים שמביאים הודעות מלקוחות.
         </h2>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
