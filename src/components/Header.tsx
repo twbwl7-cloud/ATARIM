@@ -18,7 +18,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40">
+    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[60]">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:px-5 md:gap-4 md:px-8 md:py-3.5">
         <Link
           href="/"
@@ -32,6 +32,7 @@ export function Header() {
               alt=""
               fill
               sizes="48px"
+              priority
               unoptimized
               className="object-contain"
             />
@@ -50,14 +51,17 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="glass hidden items-center gap-1 rounded-full px-2 py-1 md:flex">
+        <nav
+          aria-label="ניווט ראשי"
+          className="glass hidden shrink-0 items-center gap-0.5 rounded-full px-1.5 py-1 md:flex lg:gap-1 lg:px-2"
+        >
           {nav.map((item) => {
             const active = isActive(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`cursor-magnet rounded-md px-3.5 py-2 text-sm transition ${
+                className={`whitespace-nowrap rounded-md px-2.5 py-2 text-[13px] transition lg:px-3.5 lg:text-sm ${
                   active ? "text-gold" : "text-muted hover:text-ink"
                 }`}
               >

@@ -37,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="he"
       dir="rtl"
+      data-scroll-behavior="smooth"
       className={`${heebo.variable} ${frank.variable} h-full antialiased`}
     >
       <body className="relative isolate flex min-h-full flex-col overflow-x-hidden font-sans text-ink">
