@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PremiumCursor } from "@/components/PremiumCursor";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { WhatsAppReassurance } from "@/components/WhatsAppReassurance";
 
 /** Portfolio chrome stays off demo landings so each /demo/* feels like its own site. */
 export function SiteChrome({ children }: { children: ReactNode }) {
@@ -29,6 +30,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         <Footer />
       </div>
       <WhatsAppFloat />
+      <WhatsAppReassurance />
     </>
   );
 }

@@ -5,6 +5,7 @@ export function AmbientGlow() {
       <span className="ambient-orb ambient-orb--tr" />
       <span className="ambient-orb ambient-orb--bl" />
       <span className="ambient-orb ambient-orb--mid" />
+      <span className="ambient-dots" />
     </div>
   );
 }

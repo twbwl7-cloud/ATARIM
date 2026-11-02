@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { CtaReassurance } from "@/components/CtaReassurance";
 import { MagneticButton } from "@/components/MagneticButton";
+import { TrustMetrics } from "@/components/TrustMetrics";
 import { whatsappUrl } from "@/lib/site";
 
 type Props = {
@@ -59,6 +61,10 @@ export function NextStepCTA({
             >
               {secondaryLabel}
             </Link>
+          </div>
+          <div className="mt-5 flex flex-col items-center gap-3">
+            <CtaReassurance />
+            <TrustMetrics />
           </div>
         </div>
       </motion.div>

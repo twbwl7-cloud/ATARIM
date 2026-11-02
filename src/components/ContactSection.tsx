@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { site, whatsappUrl } from "@/lib/site";
+import { CtaReassurance } from "@/components/CtaReassurance";
 import { MagneticButton } from "@/components/MagneticButton";
+import { site, whatsappUrl } from "@/lib/site";
 
 /** פנייה בלעדית — מסגרת ייעוץ, לא טופס המוני */
 export function ContactSection() {
@@ -60,6 +61,7 @@ export function ContactSection() {
           <p className="mt-6 text-[11px] font-light tracking-wide text-muted">
             מענה באותו יום עסקים · בלי דיוור בלי רשות · בלי לחץ מכירה
           </p>
+          <CtaReassurance className="mt-3 !text-start !max-w-none" />
         </div>
       </motion.div>
     </section>

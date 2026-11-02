@@ -4,7 +4,10 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { CtaReassurance } from "@/components/CtaReassurance";
 import { MagneticButton } from "@/components/MagneticButton";
+import { TrustBadges } from "@/components/TrustBadges";
+import { TrustMetrics } from "@/components/TrustMetrics";
 import { whatsappUrl } from "@/lib/site";
 
 const HeroGlass = dynamic(
@@ -138,6 +141,10 @@ export function Hero() {
               תיק עבודות
             </Link>
           </div>
+
+          <CtaReassurance className="mt-1" />
+          <TrustBadges />
+          <TrustMetrics />
         </motion.div>
       </div>
 
