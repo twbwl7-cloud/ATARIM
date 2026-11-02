@@ -484,6 +484,45 @@ a {
   background: #f9f8f6;
 }
 
+/* Portal card glass assets — separate gently on hover */
+.portal-glass {
+  opacity: 0.55;
+  transform: rotate(16deg) translate3d(0, 0, 0);
+  transition:
+    transform 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.7s ease;
+}
+.portal-glass--b {
+  opacity: 0.45;
+  transform: rotate(10deg) translate3d(0, 0, 0);
+}
+.portal-glass--c {
+  opacity: 0.4;
+  transform: rotate(22deg) translate3d(0, 0, 0);
+}
+.group:hover .portal-glass--a {
+  opacity: 0.7;
+  transform: rotate(12deg) translate3d(10px, -22px, 0);
+}
+.group:hover .portal-glass--b {
+  opacity: 0.62;
+  transform: rotate(6deg) translate3d(-8px, -14px, 0);
+}
+.group:hover .portal-glass--c {
+  opacity: 0.58;
+  transform: rotate(26deg) translate3d(14px, -8px, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-glass,
+  .group:hover .portal-glass--a,
+  .group:hover .portal-glass--b,
+  .group:hover .portal-glass--c {
+    transition: none;
+    transform: none;
+  }
+}
+
 .btn-gold-shell {
   display: inline-flex;
   width: 100%;
