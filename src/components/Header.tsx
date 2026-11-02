@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { BrandLogo } from "@/components/BrandLogo";
 import { navLinks, consultLink } from "@/lib/site";
 
 /** Floating cream glass pill — black + premium gold */
@@ -20,14 +21,13 @@ export function Header() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[60] px-3 pt-3 sm:px-5 sm:pt-5 md:px-8">
       <div className="pointer-events-auto mx-auto flex max-w-5xl items-center gap-2 rounded-full border border-[#C5A059]/30 bg-[#FAF9F6]/80 px-3 py-2 shadow-[0_8px_32px_rgba(18,18,18,0.06)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-2.5">
-        <Link
+        <BrandLogo
+          tone="light"
+          size="sm"
           href="/"
-          className="logo-gold logo-float shrink-0 select-none px-1.5 py-1 font-[family-name:var(--font-frank)] text-[10px] font-light tracking-[0.22em] uppercase sm:px-2 sm:text-xs md:text-sm md:tracking-[0.32em]"
+          className="px-1"
           onClick={() => setOpen(false)}
-          aria-label="David Tubul — דף הבית"
-        >
-          DAVID TUBUL
-        </Link>
+        />
 
         <nav
           aria-label="ניווט ראשי"

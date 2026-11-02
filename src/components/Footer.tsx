@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/BrandLogo";
 import { PremiumContactForm } from "@/components/PremiumContactForm";
 import { nav, site, whatsappUrl } from "@/lib/site";
 
@@ -17,9 +18,7 @@ export function Footer() {
           aria-label="סיום עמוד"
         >
           <div className="min-w-0">
-            <p className="select-none text-sm font-light uppercase tracking-[0.28em] text-[#C5A059] sm:text-base md:tracking-[0.32em]">
-              DAVID TUBUL
-            </p>
+            <BrandLogo tone="dark" size="md" href={false} />
             <p className="mt-2 max-w-sm text-xs font-light leading-relaxed text-white/40 sm:text-[13px]">
               {site.tagline}
             </p>

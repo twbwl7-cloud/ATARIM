@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 40">
+  <defs>
+    <linearGradient id="dt-gold" x1="0" y1="0" x2="48" y2="40">
+      <stop offset="0%" stop-color="#C5A059"/>
+      <stop offset="100%" stop-color="#E8D399"/>
+    </linearGradient>
+  </defs>
+  <!-- Squared D -->
+  <rect x="2" y="4" width="4.5" height="32" fill="url(#dt-gold)"/>
+  <rect x="2" y="4" width="18" height="4.5" fill="url(#dt-gold)"/>
+  <rect x="15.5" y="4" width="4.5" height="32" fill="url(#dt-gold)"/>
+  <rect x="2" y="31.5" width="18" height="4.5" fill="url(#dt-gold)"/>
+  <!-- T -->
+  <rect x="24" y="4" width="22" height="4.5" fill="url(#dt-gold)"/>
+  <rect x="32.75" y="4" width="4.5" height="32" fill="url(#dt-gold)"/>
+</svg>
