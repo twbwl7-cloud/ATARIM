@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { BrandLogo } from "@/components/BrandLogo";
 import { CtaReassurance } from "@/components/CtaReassurance";
 import { LiveAvailability } from "@/components/LiveAvailability";
 import { MagneticButton } from "@/components/MagneticButton";
@@ -63,14 +64,17 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-4 pt-[calc(5rem+env(safe-area-inset-top))] text-center sm:px-8 sm:pb-6 md:pb-7">
-        <motion.p
+        <motion.div
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mb-3 text-[11px] font-medium tracking-[0.22em] text-[#C5A059] sm:mb-4 sm:text-xs"
+          className="mb-3 flex flex-col items-center gap-2 sm:mb-4"
         >
-          דוד טובול — הנדסת חוויות רשת בהזמנה אישית
-        </motion.p>
+          <BrandLogo tone="light" size="sm" href={false} />
+          <p className="text-[11px] font-medium tracking-[0.22em] text-[#C5A059] sm:text-xs">
+            הנדסת חוויות רשת בהזמנה אישית
+          </p>
+        </motion.div>
         <motion.span
           aria-hidden
           initial={reduce ? false : { opacity: 0, scaleX: 0.4 }}

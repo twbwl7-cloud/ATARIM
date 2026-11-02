@@ -4,50 +4,64 @@ import Link from "next/link";
 type BrandLogoProps = {
   /** Wordmark against cream (light) or black footer (dark) */
   tone?: "light" | "dark";
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
+  /** Show wordmark next to the DT icon (default true) */
+  showWordmark?: boolean;
   href?: string | false;
   className?: string;
   onClick?: () => void;
 };
 
+const SIZES = {
+  sm: { icon: 24, text: "text-[10px] sm:text-[11px] md:text-xs", gap: "gap-2.5 sm:gap-3" },
+  md: { icon: 32, text: "text-[11px] sm:text-xs md:text-sm", gap: "gap-3" },
+  lg: { icon: 88, text: "text-lg sm:text-2xl", gap: "gap-4 sm:gap-5" },
+} as const;
+
 /**
  * Official studio mark: rectilinear DT monogram + horizontal DAVID TUBUL.
- * Uses static SVG asset for reliable gold rendering across browsers.
+ * Static SVG for reliable gold rendering across browsers.
  */
 export function BrandLogo({
   tone = "light",
   size = "sm",
+  showWordmark = true,
   href = "/",
   className = "",
   onClick,
 }: BrandLogoProps) {
-  const iconPx = size === "md" ? 32 : 24;
+  const s = SIZES[size];
   const textClass = tone === "dark" ? "text-white" : "text-[#121212]";
+  const goldText = tone === "dark" ? "text-[#E8D399]" : "text-[#C5A059]";
+
+  const stacked = size === "lg";
 
   const mark = (
     <span
-      className={`inline-flex items-center gap-2.5 sm:gap-3 ${className}`}
+      className={`inline-flex ${stacked ? "flex-col" : "flex-row items-center"} ${s.gap} ${className}`}
       dir="ltr"
     >
       <Image
         src="/brand/dt-monogram.svg"
         alt=""
-        width={iconPx}
-        height={Math.round(iconPx * (40 / 48))}
+        width={s.icon}
+        height={Math.round(s.icon * (40 / 48))}
         className="shrink-0"
-        priority={size === "sm"}
+        priority
         unoptimized
       />
-      <span
-        className={`select-none text-[10px] font-medium uppercase leading-none tracking-[0.25em] sm:text-[11px] md:text-xs ${textClass}`}
-        style={{
-          fontFamily: "var(--font-rubik), ui-sans-serif, system-ui, sans-serif",
-          fontStyle: "normal",
-          transform: "none",
-        }}
-      >
-        DAVID TUBUL
-      </span>
+      {showWordmark ? (
+        <span
+          className={`select-none font-medium uppercase leading-none tracking-[0.25em] ${s.text} ${stacked ? goldText : textClass}`}
+          style={{
+            fontFamily: "var(--font-rubik), ui-sans-serif, system-ui, sans-serif",
+            fontStyle: "normal",
+            transform: "none",
+          }}
+        >
+          DAVID TUBUL
+        </span>
+      ) : null}
     </span>
   );
 
