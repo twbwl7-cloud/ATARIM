@@ -3,10 +3,16 @@ import { nav, site, whatsappUrl } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-line bg-paper">
+    <footer className="relative z-10 border-t border-[#D4AF37]/25 bg-paper">
+      <div
+        aria-hidden
+        className="mx-auto h-px max-w-xs bg-gradient-to-l from-transparent via-[#D4AF37]/70 to-transparent"
+      />
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-14 sm:py-16 md:flex-row md:items-end md:justify-between md:px-8">
         <div className="max-w-md">
-          <p className="display text-2xl font-light text-ink md:text-3xl">{site.nameHe}</p>
+          <p className="logo-gold display-serif text-2xl font-light md:text-3xl">
+            {site.nameHe}
+          </p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
             {site.tagline}.
           </p>

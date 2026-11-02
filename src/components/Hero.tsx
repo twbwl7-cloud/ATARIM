@@ -40,9 +40,9 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(249,248,246,0.9)_0%,rgba(249,248,246,0.68)_38%,rgba(249,248,246,0.22)_62%,transparent_78%)]"
       />
 
-      {/* Guiding thread — tall whisper behind copy, never blocks clicks */}
+      {/* Guiding thread — desktop + phone */}
       <div
-        className="pointer-events-none absolute inset-y-[16%] start-1/2 z-[3] hidden w-px -translate-x-1/2 opacity-70 sm:block"
+        className="pointer-events-none absolute inset-y-[14%] start-1/2 z-[3] w-px -translate-x-1/2 opacity-60 sm:opacity-75"
         aria-hidden
       >
         <span className="guiding-thread guiding-thread--tall mx-auto" />
@@ -53,12 +53,19 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mb-6 text-[11px] font-medium tracking-[0.22em] text-[#A38A5F] sm:mb-8 sm:text-xs"
+          className="mb-4 text-[11px] font-medium tracking-[0.22em] text-[#D4AF37] sm:mb-5 sm:text-xs"
         >
           דוד טובול — סטודיו לחוויות רשת
         </motion.p>
+        <motion.span
+          aria-hidden
+          initial={reduce ? false : { opacity: 0, scaleX: 0.4 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
+          className="gold-rule gold-rule--wide mb-5 sm:mb-7"
+        />
 
-        <h1 className="display max-w-3xl text-[clamp(2.35rem,6.6vw,4.85rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#121212]">
+        <h1 className="display max-w-3xl text-[clamp(2.2rem,6.4vw,4.85rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#121212]">
           {TITLE_LINES.map((line, i) => (
             <span key={line} className="block overflow-hidden py-[0.04em]">
               <motion.span
@@ -71,17 +78,31 @@ export function Hero() {
                   ease: EASE,
                 }}
               >
-                {line}
+                {i === 1 ? (
+                  <span className="bg-gradient-to-l from-[#121212] via-[#121212] to-[#D4AF37] bg-clip-text text-transparent">
+                    {line}
+                  </span>
+                ) : (
+                  line
+                )}
               </motion.span>
             </span>
           ))}
         </h1>
 
+        <motion.span
+          aria-hidden
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.45 }}
+          className="gold-rule mt-6 sm:mt-7"
+        />
+
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
-          className="mx-auto mt-7 max-w-2xl text-[15px] font-normal leading-[1.85] tracking-wide text-[#5C5C5C] sm:mt-8 sm:text-base md:text-[17px] md:leading-[1.9]"
+          className="mx-auto mt-5 max-w-2xl text-[15px] font-normal leading-[1.85] tracking-wide text-[#5C5C5C] sm:mt-6 sm:text-base md:text-[17px] md:leading-[1.9]"
         >
           יצירת חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק בלתי מתפשר, ארכיטקטורה
           חכמה ותנועה מהפנטת שמשאירה חותם. תהליך אישי שלוקח את המותג שלכם לקצה
@@ -112,7 +133,7 @@ export function Hero() {
             </span>
             <Link
               href="/work"
-              className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-10 sm:text-sm"
+              className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full border-[#D4AF37]/40 px-9 py-3 text-[14px] font-medium tracking-wide hover:border-[#D4AF37] hover:text-[#D4AF37] sm:min-h-12 sm:px-10 sm:text-sm"
             >
               תיק עבודות
             </Link>

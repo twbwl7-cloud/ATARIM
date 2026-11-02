@@ -23,10 +23,10 @@
   --cyan-deep: #a38a5f;
   --teal: #5c5c5c;
 
-  --gold: #a38a5f;
-  --gold-bright: #b9a07a;
-  --gold-deep: #85704c;
-  --champagne: #b9a07a;
+  --gold: #d4af37;
+  --gold-bright: #e8d5a3;
+  --gold-deep: #a38a5f;
+  --champagne: #e8d5a3;
 
   --blush: var(--sky-deep);
   --sea: var(--ink-faint);
@@ -185,12 +185,49 @@ a {
 
 /* Floating header consultation CTA — soft gold glow on hover */
 .header-consult {
+  border-color: rgba(212, 175, 55, 0.45) !important;
+  color: #121212;
   box-shadow: none;
 }
 .header-consult:hover {
+  border-color: rgba(212, 175, 55, 0.85) !important;
+  color: #d4af37 !important;
   box-shadow:
-    0 0 0 1px rgba(163, 138, 95, 0.28),
-    0 0 22px rgba(163, 138, 95, 0.16);
+    0 0 0 1px rgba(212, 175, 55, 0.25),
+    0 0 22px rgba(212, 175, 55, 0.22);
+}
+
+.logo-gold {
+  background: linear-gradient(
+    118deg,
+    #f7ebc8 0%,
+    #e8d5a3 22%,
+    #d4af37 48%,
+    #8f7128 72%,
+    #e0c06a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-rule {
+  display: block;
+  width: 2.75rem;
+  height: 1px;
+  margin-inline: auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #d4af37 30%,
+    #a38a5f 70%,
+    transparent
+  );
+}
+
+.gold-rule--wide {
+  width: 4.5rem;
 }
 
 /* Soft pearl ambient for hero */
@@ -233,21 +270,38 @@ a {
 .ambient-orb--tr {
   top: -12%;
   right: -8%;
-  width: min(58vw, 34rem);
-  height: min(58vw, 34rem);
+  width: min(62vw, 36rem);
+  height: min(62vw, 36rem);
   background: #d4af37;
-  opacity: 0.055;
+  opacity: 0.11;
 }
 
 .ambient-orb--bl {
   bottom: -14%;
   left: -10%;
-  width: min(52vw, 30rem);
-  height: min(52vw, 30rem);
+  width: min(56vw, 32rem);
+  height: min(56vw, 32rem);
   background: #c5a059;
-  opacity: 0.045;
+  opacity: 0.09;
   animation-delay: -7.5s;
   animation-direction: alternate-reverse;
+}
+
+.ambient-orb--mid {
+  top: 42%;
+  left: 50%;
+  width: min(40vw, 22rem);
+  height: min(40vw, 22rem);
+  margin-left: -20vw;
+  background: #e8d5a3;
+  opacity: 0.05;
+  animation-delay: -3.5s;
+}
+
+@media (min-width: 768px) {
+  .ambient-orb--mid {
+    margin-left: -11rem;
+  }
 }
 
 @keyframes ambient-breathe {
@@ -333,14 +387,14 @@ a {
 /* —— Gold gradient border shells —— */
 .gold-border {
   position: relative;
-  padding: 1px;
+  padding: 1.5px;
   border-radius: 1.05rem;
   background: linear-gradient(
     145deg,
-    rgba(212, 175, 55, 0.55) 0%,
-    rgba(163, 138, 95, 0.18) 38%,
-    rgba(15, 23, 42, 0.08) 62%,
-    rgba(212, 175, 55, 0.4) 100%
+    rgba(232, 213, 163, 0.95) 0%,
+    rgba(212, 175, 55, 0.65) 28%,
+    rgba(18, 18, 18, 0.22) 55%,
+    rgba(212, 175, 55, 0.55) 100%
   );
   transition: filter 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 }
@@ -361,13 +415,14 @@ a {
 .btn-gold-shell {
   display: inline-flex;
   width: 100%;
-  padding: 1px;
+  padding: 1.5px;
   border-radius: 999px;
   background: linear-gradient(
     135deg,
-    rgba(212, 175, 55, 0.75) 0%,
-    rgba(163, 138, 95, 0.35) 45%,
-    rgba(15, 23, 42, 0.55) 100%
+    #f0d78c 0%,
+    #d4af37 35%,
+    #8f7128 68%,
+    #121212 100%
   );
   transition: filter 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
 }
@@ -618,7 +673,7 @@ a {
 .btn-gold {
   position: relative;
   overflow: hidden;
-  background: #0f172a;
+  background: #121212;
   color: #f9f8f6;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -632,7 +687,7 @@ a {
 
 .btn-gold:hover {
   filter: none;
-  background: #a38a5f;
+  background: linear-gradient(135deg, #d4af37 0%, #a38a5f 100%);
   color: #121212;
 }
 
@@ -684,9 +739,9 @@ a {
 }
 
 .btn-ghost {
-  border: 1px solid rgba(26, 26, 26, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.45);
   backdrop-filter: blur(12px);
   transition:
     border-color 0.5s ease-in-out,
@@ -695,9 +750,9 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(163, 138, 95, 0.55);
-  color: #0f172a;
-  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(212, 175, 55, 0.85);
+  color: #d4af37;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .section-void,

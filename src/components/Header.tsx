@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks, consultLink } from "@/lib/site";
 
-/** Floating light-glass pill — Old Money accents */
+/** Floating light-glass pill — black + champagne gold */
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -17,11 +17,11 @@ export function Header() {
   };
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[60] px-3 pt-4 sm:px-5 sm:pt-5 md:px-8">
-      <div className="pointer-events-auto mx-auto flex max-w-5xl items-center gap-3 rounded-full border border-black/5 bg-white/40 px-3 py-2 shadow-[0_8px_32px_rgba(15,23,42,0.06)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-2.5">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-[60] px-3 pt-3 sm:px-5 sm:pt-5 md:px-8">
+      <div className="pointer-events-auto mx-auto flex max-w-5xl items-center gap-2 rounded-full border border-[#D4AF37]/25 bg-white/50 px-3 py-2 shadow-[0_8px_32px_rgba(18,18,18,0.06)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-2.5">
         <Link
           href="/"
-          className="shrink-0 select-none px-2 py-1 font-[family-name:var(--font-frank)] text-[11px] font-light tracking-[0.28em] text-[#121212] uppercase transition-colors duration-500 ease-in-out hover:text-[#A38A5F] sm:text-xs md:text-sm md:tracking-[0.32em]"
+          className="logo-gold shrink-0 select-none px-1.5 py-1 font-[family-name:var(--font-frank)] text-[10px] font-light tracking-[0.22em] uppercase sm:px-2 sm:text-xs md:text-sm md:tracking-[0.32em]"
           onClick={() => setOpen(false)}
           aria-label="דוד טובול — דף הבית"
         >
@@ -40,8 +40,8 @@ export function Header() {
                 href={item.href}
                 className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium tracking-wide transition-colors duration-500 ease-in-out lg:px-4 ${
                   active
-                    ? "text-[#A38A5F]"
-                    : "text-[#5C5C5C] hover:text-[#0F172A]"
+                    ? "text-[#D4AF37]"
+                    : "text-[#5C5C5C] hover:text-[#D4AF37]"
                 }`}
               >
                 {item.label}
@@ -52,7 +52,7 @@ export function Header() {
 
         <Link
           href={consultLink.href}
-          className="header-consult hidden shrink-0 rounded-full border border-[#0F172A]/15 px-4 py-1.5 text-[12px] font-medium tracking-wide text-[#0F172A] transition-all duration-500 ease-in-out hover:border-[#A38A5F]/55 hover:text-[#A38A5F] md:inline-flex lg:px-5 lg:text-[13px]"
+          className="header-consult hidden shrink-0 rounded-full border px-4 py-1.5 text-[12px] font-medium tracking-wide md:inline-flex lg:px-5 lg:text-[13px]"
         >
           {consultLink.label}
         </Link>
@@ -61,7 +61,7 @@ export function Header() {
           type="button"
           aria-expanded={open}
           aria-label={open ? "סגור תפריט" : "פתח תפריט"}
-          className="ms-auto grid h-9 w-9 place-items-center rounded-full border border-black/10 text-[#121212] md:hidden"
+          className="ms-auto grid h-9 w-9 place-items-center rounded-full border border-[#D4AF37]/35 text-[#121212] md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
           <span className="flex w-3.5 flex-col gap-1">
@@ -69,7 +69,7 @@ export function Header() {
               className={`h-px w-full bg-[#121212] transition duration-500 ${open ? "translate-y-[2.5px] rotate-45" : ""}`}
             />
             <span
-              className={`h-px w-full bg-[#121212] transition duration-500 ${open ? "opacity-0" : ""}`}
+              className={`h-px w-full bg-[#D4AF37] transition duration-500 ${open ? "opacity-0" : ""}`}
             />
             <span
               className={`h-px w-full bg-[#121212] transition duration-500 ${open ? "-translate-y-[2.5px] -rotate-45" : ""}`}
@@ -85,7 +85,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-            className="pointer-events-auto mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-black/5 bg-white/70 p-3 backdrop-blur-md md:hidden"
+            className="pointer-events-auto mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-[#D4AF37]/25 bg-white/80 p-3 backdrop-blur-md md:hidden"
           >
             <div className="flex flex-col gap-1">
               {navLinks.map((item) => (
@@ -95,8 +95,8 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className={`rounded-2xl px-4 py-3 text-base font-medium ${
                     isActive(item.href)
-                      ? "text-[#A38A5F]"
-                      : "text-[#121212] hover:text-[#0F172A]"
+                      ? "text-[#D4AF37]"
+                      : "text-[#121212] hover:text-[#D4AF37]"
                   }`}
                 >
                   {item.label}
@@ -105,7 +105,7 @@ export function Header() {
               <Link
                 href={consultLink.href}
                 onClick={() => setOpen(false)}
-                className="header-consult mt-1 rounded-full border border-[#0F172A]/15 px-4 py-3 text-center text-sm font-medium text-[#0F172A]"
+                className="header-consult mt-1 rounded-full border px-4 py-3 text-center text-sm font-medium"
               >
                 {consultLink.label}
               </Link>

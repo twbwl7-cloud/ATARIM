@@ -57,9 +57,10 @@ export function NavigationPortals() {
           transition={{ duration: 0.8, ease: EASE }}
           className="mb-10 max-w-xl md:mb-14"
         >
-          <p className="text-[11px] font-medium tracking-[0.24em] text-[#A38A5F]">
+          <p className="text-[11px] font-medium tracking-[0.24em] text-[#D4AF37]">
             ניווט
           </p>
+          <span aria-hidden className="gold-rule mt-3 mb-1 ms-0 me-auto" />
           <h2
             id="portals-heading"
             className="display mt-3 text-3xl font-semibold tracking-wide text-[#121212] md:text-4xl"
@@ -107,7 +108,7 @@ export function NavigationPortals() {
                     }}
                     className="block"
                   >
-                    <span className="text-[11px] font-medium tracking-[0.2em] text-[#A38A5F]">
+                    <span className="text-[11px] font-medium tracking-[0.2em] text-[#D4AF37]">
                       {portal.eyebrow}
                     </span>
                     <span className="display mt-2 block text-2xl font-semibold tracking-wide text-[#121212] sm:text-3xl md:text-[2rem]">
