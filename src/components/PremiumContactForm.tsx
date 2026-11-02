@@ -73,13 +73,13 @@ export function PremiumContactForm() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-8 md:px-8 md:py-10"
+      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-6 md:px-8 md:py-8"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(197,160,89,0.1),transparent_55%)]"
       />
-      <div className="relative mx-auto max-w-lg">
+      <div className="relative mx-auto max-w-md">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,16 +92,16 @@ export function PremiumContactForm() {
           </p>
           <h2
             id="contact-heading"
-            className="display mt-2 text-2xl font-light tracking-wide text-[#FAF9F6] md:text-3xl"
+            className="display mt-1.5 text-xl font-light tracking-wide text-[#FAF9F6] md:text-2xl"
           >
             בואו נדבר על הפרויקט.
           </h2>
-          <p className="mx-auto mt-2 max-w-sm text-sm font-light leading-relaxed text-white/45">
+          <p className="mx-auto mt-1.5 max-w-sm text-xs font-light leading-relaxed text-white/45">
             שלושה שדות. בלי רעש. נחזור אליכם אישית.
           </p>
           <a
             href={`mailto:${site.email}`}
-            className="mt-3 inline-block text-xs font-light tracking-wide text-[#C5A059] transition-colors duration-500 hover:text-[#E0C992]"
+            className="mt-2 inline-block text-xs font-light tracking-wide text-[#C5A059] transition-colors duration-500 hover:text-[#E0C992]"
             dir="ltr"
           >
             {site.email}
@@ -114,7 +114,7 @@ export function PremiumContactForm() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.8, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-7 flex flex-col gap-5"
+          className="mt-5 flex flex-col gap-4"
           noValidate
         >
           <label className="block">

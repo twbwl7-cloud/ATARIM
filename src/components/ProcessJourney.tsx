@@ -141,7 +141,7 @@ export function ProcessJourney() {
 
   const dashOffset = useTransform(progress, (p) => pathLen * (1 - Math.min(1, Math.max(0, p))));
   const hintOpacity = useTransform(scrollYProgress, [0, 0.07, 0.14], [1, 0.6, 0]);
-  const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.96], [0, 1]);
+  const ctaOpacity = useTransform(scrollYProgress, [0.9, 0.98], [0, 1]);
   const orbX = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
@@ -367,10 +367,10 @@ export function ProcessJourney() {
                   transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
                   className="relative z-[1]"
                 >
-                  <p className="text-[10px] tracking-[0.16em] text-gold sm:text-[11px]">
+                  <p className="text-[10px] tracking-[0.16em] text-[#C5A059] sm:text-[11px]">
                     צעד <bdi>{current.n}</bdi> מתוך 05 · על המפה עכשיו
                   </p>
-                  <h3 className="display mt-2 text-xl text-ink sm:mt-3 sm:text-3xl md:text-4xl">
+                  <h3 className="display mt-2 text-xl text-[#121212] sm:mt-3 sm:text-3xl md:text-4xl">
                     {current.title}
                   </h3>
                   <p className="mt-2.5 text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-[15px]">

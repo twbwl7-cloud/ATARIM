@@ -10,15 +10,14 @@ import { site, whatsappUrl } from "@/lib/site";
 export function ContactSection() {
   return (
     <section
-      id="contact"
-      className="relative z-10 mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12"
+      className="relative z-10 mx-auto max-w-7xl px-5 py-6 md:px-8 md:py-8"
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="premium-panel relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-12 md:px-14 md:py-14"
+        className="premium-panel relative overflow-hidden rounded-2xl px-6 py-8 sm:px-10 sm:py-9 md:px-14 md:py-10"
       >
         <div
           aria-hidden

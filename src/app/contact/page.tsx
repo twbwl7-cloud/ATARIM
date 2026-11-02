@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="pt-20">
-      <div className="mx-auto max-w-3xl px-5 pb-2 pt-10 text-center md:px-8 md:pt-14">
-        <p className="text-[11px] font-light tracking-[0.22em] text-gold">
+      <div className="mx-auto max-w-3xl px-5 pb-0 pt-8 text-center md:px-8 md:pt-10">
+        <p className="text-[11px] font-light tracking-[0.22em] text-[#C5A059]">
           גישה בלעדית
         </p>
-        <h1 className="display mt-4 text-3xl font-light tracking-wide text-ink md:text-5xl">
+        <h1 className="display mt-3 text-3xl font-light tracking-wide text-[#121212] md:text-5xl">
           פנייה לפרויקט
         </h1>
-        <p className="mx-auto mt-5 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
+        <p className="mx-auto mt-4 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
           לא טופס המוני. שיחת ייעוץ למותגים שמחפשים תוצאה מדידה וחוויית אתר
           יוקרתית — לא עוד אתר מהמדף.
         </p>
