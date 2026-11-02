@@ -32,14 +32,21 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-[#F9F8F6]">
-      <div className="hero-mesh pointer-events-none absolute inset-0" aria-hidden />
+    <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-transparent">
+      <div className="hero-mesh pointer-events-none absolute inset-0 opacity-80" aria-hidden />
       {!reduce ? <HeroGlass /> : null}
-      {/* Strong center veil so grey 3D never fights the copy */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(249,248,246,0.92)_0%,rgba(249,248,246,0.72)_38%,rgba(249,248,246,0.25)_62%,transparent_78%)]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(249,248,246,0.9)_0%,rgba(249,248,246,0.68)_38%,rgba(249,248,246,0.22)_62%,transparent_78%)]"
       />
+
+      {/* Guiding thread — tall whisper behind copy, never blocks clicks */}
+      <div
+        className="pointer-events-none absolute inset-y-[16%] start-1/2 z-[3] hidden w-px -translate-x-1/2 opacity-70 sm:block"
+        aria-hidden
+      >
+        <span className="guiding-thread guiding-thread--tall mx-auto" />
+      </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-5 pb-24 pt-[calc(6.5rem+env(safe-area-inset-top))] text-center sm:px-8">
         <motion.p
@@ -85,22 +92,31 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.72, ease: EASE }}
-          className="mt-9 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-11 sm:max-w-none sm:flex-row sm:items-center sm:justify-center"
+          className="mt-8 flex flex-col items-center gap-4 sm:mt-10"
         >
-          <MagneticButton
-            href={introHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-gold min-h-11 justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-11 sm:text-sm"
-          >
-            בואו נדבר
-          </MagneticButton>
-          <Link
-            href="/work"
-            className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-10 sm:text-sm"
-          >
-            תיק עבודות
-          </Link>
+          <p className="avail-pulse">
+            <span className="avail-pulse__dot" aria-hidden />
+            פתוח לפרויקטים חדשים
+          </p>
+
+          <div className="flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
+            <span className="btn-gold-shell">
+              <MagneticButton
+                href={introHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-gold min-h-11 justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-11 sm:text-sm"
+              >
+                בואו נדבר
+              </MagneticButton>
+            </span>
+            <Link
+              href="/work"
+              className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-10 sm:text-sm"
+            >
+              תיק עבודות
+            </Link>
+          </div>
         </motion.div>
       </div>
 
@@ -111,7 +127,7 @@ export function Hero() {
         <span className="text-[10px] font-medium tracking-[0.22em] text-[#5C5C5C]/70">
           גללו
         </span>
-        <span className="hero-scroll-line" />
+        <span className="guiding-thread" />
       </div>
     </section>
   );

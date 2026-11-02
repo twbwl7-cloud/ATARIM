@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { AmbientGlow } from "@/components/AmbientGlow";
 import { Curtain } from "@/components/Curtain";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -19,11 +20,14 @@ export function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <AmbientGlow />
       <PremiumCursor />
       <Curtain />
       <Header />
       <main className="relative z-[1] flex-1">{children}</main>
-      <Footer />
+      <div className="relative z-[1]">
+        <Footer />
+      </div>
       <WhatsAppFloat />
     </>
   );

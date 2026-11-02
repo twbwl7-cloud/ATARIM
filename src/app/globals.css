@@ -213,6 +213,109 @@ a {
   }
 }
 
+/* —— Ambient Luxury Glow (global warmth) —— */
+.ambient-luxury {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(180px);
+  will-change: transform;
+  animation: ambient-breathe 15s ease-in-out infinite;
+}
+
+.ambient-orb--tr {
+  top: -12%;
+  right: -8%;
+  width: min(58vw, 34rem);
+  height: min(58vw, 34rem);
+  background: #d4af37;
+  opacity: 0.055;
+}
+
+.ambient-orb--bl {
+  bottom: -14%;
+  left: -10%;
+  width: min(52vw, 30rem);
+  height: min(52vw, 30rem);
+  background: #c5a059;
+  opacity: 0.045;
+  animation-delay: -7.5s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes ambient-breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.05);
+  }
+}
+
+/* —— Guiding Thread (scroll psychology) —— */
+.guiding-thread {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 72px;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(163, 138, 95, 0.12) 20%,
+    rgba(163, 138, 95, 0.08) 80%,
+    transparent 100%
+  );
+}
+
+.guiding-thread--tall {
+  height: 100%;
+}
+
+.guiding-thread::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -30%;
+  width: 1px;
+  height: 28%;
+  margin-left: -0.5px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #d4af37 40%,
+    rgba(212, 175, 55, 0.15)
+  );
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.35);
+  animation: guiding-drop 2.8s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes guiding-drop {
+  0% {
+    top: -35%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+/* Legacy alias */
 .hero-scroll-line {
   display: block;
   width: 1px;
@@ -225,6 +328,120 @@ a {
   );
   transform-origin: top center;
   animation: hero-scroll-pulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* —— Gold gradient border shells —— */
+.gold-border {
+  position: relative;
+  padding: 1px;
+  border-radius: 1.05rem;
+  background: linear-gradient(
+    145deg,
+    rgba(212, 175, 55, 0.55) 0%,
+    rgba(163, 138, 95, 0.18) 38%,
+    rgba(15, 23, 42, 0.08) 62%,
+    rgba(212, 175, 55, 0.4) 100%
+  );
+  transition: filter 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+.gold-border:hover {
+  filter: brightness(1.04);
+  box-shadow: 0 16px 48px rgba(163, 138, 95, 0.1);
+}
+
+.gold-border__inner {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(1.05rem - 1px);
+  background: #f9f8f6;
+}
+
+.btn-gold-shell {
+  display: inline-flex;
+  width: 100%;
+  padding: 1px;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.75) 0%,
+    rgba(163, 138, 95, 0.35) 45%,
+    rgba(15, 23, 42, 0.55) 100%
+  );
+  transition: filter 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
+}
+
+@media (min-width: 640px) {
+  .btn-gold-shell {
+    width: auto;
+  }
+}
+
+.btn-gold-shell:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.18);
+}
+
+.btn-gold-shell > .btn-gold,
+.btn-gold-shell > a {
+  width: 100%;
+  border-radius: 999px;
+}
+
+/* Pulsating availability cue */
+.avail-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: #5c5c5c;
+}
+
+.avail-pulse__dot {
+  position: relative;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #d4af37;
+  box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.45);
+  animation: avail-beat 2.2s ease-out infinite;
+}
+
+.avail-pulse__dot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  animation: avail-ring 2.2s ease-out infinite;
+}
+
+@keyframes avail-beat {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 5px rgba(212, 175, 55, 0);
+  }
+}
+
+@keyframes avail-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(1.65);
+    opacity: 0;
+  }
 }
 
 /* Small grey titanium orb — WebGL fallback, offset from text */
@@ -316,6 +533,10 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .hero-mesh,
   .hero-scroll-line,
+  .guiding-thread::after,
+  .ambient-orb,
+  .avail-pulse__dot,
+  .avail-pulse__dot::after,
   .hero-glass-fallback,
   .hero-glass-fallback-core {
     animation: none;
