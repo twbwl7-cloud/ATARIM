@@ -1,7 +1,5 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { useId } from "react";
 
 type BrandLogoProps = {
   /** Wordmark against cream (light) or black footer (dark) */
@@ -14,7 +12,7 @@ type BrandLogoProps = {
 
 /**
  * Official studio mark: rectilinear DT monogram + horizontal DAVID TUBUL.
- * Axis-aligned strokes only — no italics, slant, or ribbon effects.
+ * Uses static SVG asset for reliable gold rendering across browsers.
  */
 export function BrandLogo({
   tone = "light",
@@ -23,7 +21,7 @@ export function BrandLogo({
   className = "",
   onClick,
 }: BrandLogoProps) {
-  const iconClass = size === "md" ? "h-8 w-8" : "h-6 w-6";
+  const iconPx = size === "md" ? 32 : 24;
   const textClass = tone === "dark" ? "text-white" : "text-[#121212]";
 
   const mark = (
@@ -31,7 +29,15 @@ export function BrandLogo({
       className={`inline-flex items-center gap-2.5 sm:gap-3 ${className}`}
       dir="ltr"
     >
-      <DtMonogram className={`shrink-0 ${iconClass}`} />
+      <Image
+        src="/brand/dt-monogram.svg"
+        alt=""
+        width={iconPx}
+        height={Math.round(iconPx * (40 / 48))}
+        className="shrink-0"
+        priority={size === "sm"}
+        unoptimized
+      />
       <span
         className={`select-none text-[10px] font-medium uppercase leading-none tracking-[0.25em] sm:text-[11px] md:text-xs ${textClass}`}
         style={{
@@ -62,41 +68,5 @@ export function BrandLogo({
     >
       {mark}
     </Link>
-  );
-}
-
-/**
- * Side-by-side geometric D + T — every edge is horizontal or vertical.
- * Reads clearly at 24×24 (header) and 32×32 (footer).
- */
-function DtMonogram({ className = "" }: { className?: string }) {
-  const gid = useId().replace(/:/g, "");
-  const fill = `url(#dt-gold-${gid})`;
-  const w = 4.5;
-
-  return (
-    <svg
-      viewBox="0 0 48 40"
-      className={className}
-      aria-hidden
-      focusable="false"
-    >
-      <defs>
-        <linearGradient id={`dt-gold-${gid}`} x1="0" y1="0" x2="48" y2="40">
-          <stop offset="0%" stopColor="#C5A059" />
-          <stop offset="100%" stopColor="#E8D399" />
-        </linearGradient>
-      </defs>
-
-      {/* ——— D (squared) ——— */}
-      <rect x="2" y="4" width={w} height="32" fill={fill} />
-      <rect x="2" y="4" width="18" height={w} fill={fill} />
-      <rect x="15.5" y="4" width={w} height="32" fill={fill} />
-      <rect x="2" y="31.5" width="18" height={w} fill={fill} />
-
-      {/* ——— T ——— */}
-      <rect x="24" y="4" width="22" height={w} fill={fill} />
-      <rect x="32.75" y="4" width={w} height="32" fill={fill} />
-    </svg>
   );
 }
