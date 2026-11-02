@@ -8,10 +8,10 @@ export const metadata: Metadata = {
   description: `שיחת ייעוץ — דוד טובול, ${site.phoneDisplay}.`,
 };
 
-/** ייעוץ בלעדי + תהליך עבודה */
+/** ייעוץ בלעדי + תהליך עבודה — אותו שדה cream/grain כמו מפת 5 הצעדים */
 export default function ContactPage() {
   return (
-    <div className="pt-20">
+    <div className="bg-premium-texture pt-20">
       <div className="mx-auto max-w-3xl px-5 pb-0 pt-8 text-center md:px-8 md:pt-10">
         <p className="text-[11px] font-light tracking-[0.22em] text-[#C5A059]">
           גישה בלעדית

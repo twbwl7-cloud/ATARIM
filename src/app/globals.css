@@ -1746,10 +1746,50 @@ body {
   animation: process-shimmer 8s ease-in-out infinite;
 }
 
-.process-grain {
+/* Shared film-grain tile — used by process map + .bg-premium-texture */
+.process-grain,
+.bg-premium-texture::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: soft-light;
   opacity: 0.4;
+}
+
+/**
+ * Exact 5-steps process field:
+ * warm cream #FAF9F6 + dual gold radial wash + soft-light film grain.
+ * Apply as a single class — no duplicated gradient/grain markup.
+ */
+.bg-premium-texture {
+  position: relative;
+  isolation: isolate;
+  background-color: #faf9f6;
+}
+
+.bg-premium-texture::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(212, 175, 55, 0.2),
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 15% 70%,
+      rgba(201, 162, 74, 0.12),
+      transparent 46%
+    );
+}
+
+.bg-premium-texture::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
 }
 
 .hero-caption {
@@ -1936,4 +1976,5 @@ body {
     transition: none;
   }
 }
+
 
