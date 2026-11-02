@@ -6,10 +6,10 @@
   Pearl · Deep Charcoal · Muted Bronze · Deep Sapphire
 */
 :root {
-  --sky: #f9f8f6;
-  --sky-deep: #f3f1ed;
-  --paper: #ffffff;
-  --mist: #efece6;
+  --sky: #f5efe6;
+  --sky-deep: #efe8dc;
+  --paper: #f7f3eb;
+  --mist: #e8dfd2;
 
   --ink: #121212;
   --ink-soft: #2a2a2a;
@@ -132,18 +132,18 @@ body {
 
 /* Pearl luxury field */
 body {
-  background-color: #f3f1ed;
+  background-color: #f5efe6;
   background-image: radial-gradient(
       ellipse 70% 45% at 50% -8%,
-      rgba(163, 138, 95, 0.09),
+      rgba(163, 138, 95, 0.11),
       transparent 55%
     ),
     radial-gradient(
       ellipse 50% 35% at 90% 100%,
-      rgba(197, 160, 89, 0.05),
+      rgba(197, 160, 89, 0.07),
       transparent 50%
     ),
-    linear-gradient(180deg, #f3f1ed 0%, #efece6 48%, #f3f1ed 100%);
+    linear-gradient(180deg, #f5efe6 0%, #efe8dc 48%, #f5efe6 100%);
   background-attachment: fixed;
   font-family: var(--font-rubik), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
@@ -271,15 +271,24 @@ a {
   width: 4.5rem;
 }
 
-/* Soft warm cream ambient for hero — seamless with page cream */
+/* Warm cream hero field — continuous with portals (never plain white) */
 .hero-mesh {
   background:
-    radial-gradient(ellipse 50% 42% at 14% 74%, rgba(163, 138, 95, 0.12), transparent 58%),
-    radial-gradient(ellipse 44% 38% at 86% 28%, rgba(197, 160, 89, 0.08), transparent 55%),
-    radial-gradient(ellipse 55% 45% at 50% 0%, rgba(239, 236, 230, 0.9), transparent 62%),
-    linear-gradient(180deg, #f3f1ed 0%, #efece6 48%, #f3f1ed 100%);
+    radial-gradient(ellipse 50% 42% at 14% 74%, rgba(163, 138, 95, 0.14), transparent 58%),
+    radial-gradient(ellipse 44% 38% at 86% 28%, rgba(197, 160, 89, 0.1), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 50% 0%, rgba(239, 232, 220, 0.95), transparent 62%),
+    linear-gradient(180deg, #f5efe6 0%, #efe8dc 45%, #f5efe6 100%);
   background-size: 140% 140%;
   animation: hero-mesh-drift 28s ease-in-out infinite alternate;
+}
+
+.portal-section {
+  background-color: #f5efe6 !important;
+  background-image: radial-gradient(
+    ellipse 60% 40% at 50% 0%,
+    rgba(197, 160, 89, 0.08),
+    transparent 60%
+  );
 }
 
 @keyframes hero-mesh-drift {
@@ -481,7 +490,7 @@ a {
   height: 100%;
   overflow: hidden;
   border-radius: calc(1.05rem - 1px);
-  background: #f3f1ed;
+  background: #f5efe6;
 }
 
 /* Portal hypnotic backdrops — GPU-friendly continuous motion */
