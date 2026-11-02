@@ -2,22 +2,16 @@
 
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
+import { site } from "@/lib/site";
 
 /**
- * Boutique contact strip — dark, underline inputs, Formspree / Web3Forms ready.
- *
- * Connect submissions (no backend needed):
- * 1) Formspree — set NEXT_PUBLIC_FORMSPREE_ENDPOINT to the full action URL
- *    e.g. https://formspree.io/f/xxxxxxxx  (route to Twbwl7@gmail.com in Formspree)
- * 2) Web3Forms — set NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY to your access key
- *    (configure destination email Twbwl7@gmail.com in the Web3Forms dashboard)
- *
- * Until a key/URL is set, submit shows a local success state for design QA.
+ * Boutique contact strip — compact charcoal form.
+ * Formspree / Web3Forms ready (Twbwl7@gmail.com in provider dashboard).
  */
 type Status = "idle" | "loading" | "ok" | "error";
 
 const FIELD =
-  "w-full bg-transparent border-0 border-b border-neutral-700 px-0 py-3 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#C5A059] focus:outline-none transition-colors duration-500";
+  "w-full bg-transparent border-0 border-b border-neutral-700 px-0 py-2.5 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#C5A059] focus:outline-none transition-colors duration-500";
 
 export function PremiumContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -39,9 +33,7 @@ export function PremiumContactForm() {
 
     setStatus("loading");
 
-    // Formspree — paste full Action URL in .env as NEXT_PUBLIC_FORMSPREE_ENDPOINT
     const formspree = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
-    // Web3Forms — paste Access Key in .env as NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
     const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
     try {
@@ -55,7 +47,10 @@ export function PremiumContactForm() {
       } else if (web3Key) {
         const res = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
           body: JSON.stringify({
             access_key: web3Key,
             subject: "פנייה חדשה מהאתר — דוד טובול",
@@ -65,7 +60,6 @@ export function PremiumContactForm() {
         });
         if (!res.ok) throw new Error("web3forms");
       } else {
-        // Local mock — replace with Formspree/Web3Forms env vars above for live delivery
         await new Promise((r) => setTimeout(r, 650));
       }
       form.reset();
@@ -79,44 +73,52 @@ export function PremiumContactForm() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-10 md:px-8 md:py-12"
+      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-8 md:px-8 md:py-10"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(197,160,89,0.1),transparent_55%)]"
       />
-      <div className="relative mx-auto grid max-w-3xl gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-10 md:items-end">
+      <div className="relative mx-auto max-w-lg">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center"
         >
           <p className="text-[11px] font-medium tracking-[0.28em] text-[#C5A059]">
             צור קשר
           </p>
           <h2
             id="contact-heading"
-            className="display mt-3 text-3xl font-light tracking-wide text-[#FAF9F6] md:text-4xl"
+            className="display mt-2 text-2xl font-light tracking-wide text-[#FAF9F6] md:text-3xl"
           >
             בואו נדבר על הפרויקט.
           </h2>
-          <p className="mt-4 max-w-sm text-sm font-light leading-relaxed text-white/50">
-            שלושה שדות. בלי רעש. נחזור אליכם אישית — לא בוט, לא דיוור המוני.
+          <p className="mx-auto mt-2 max-w-sm text-sm font-light leading-relaxed text-white/45">
+            שלושה שדות. בלי רעש. נחזור אליכם אישית.
           </p>
+          <a
+            href={`mailto:${site.email}`}
+            className="mt-3 inline-block text-xs font-light tracking-wide text-[#C5A059] transition-colors duration-500 hover:text-[#E0C992]"
+            dir="ltr"
+          >
+            {site.email}
+          </a>
         </motion.div>
 
         <motion.form
           onSubmit={onSubmit}
-          initial={{ opacity: 0, y: 22 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-7"
+          transition={{ duration: 0.8, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-7 flex flex-col gap-5"
           noValidate
         >
           <label className="block">
-            <span className="mb-2 block text-[11px] tracking-[0.18em] text-white/45">
+            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-white/45">
               שם מלא
             </span>
             <input
@@ -130,7 +132,7 @@ export function PremiumContactForm() {
           </label>
 
           <label className="block">
-            <span className="mb-2 block text-[11px] tracking-[0.18em] text-white/45">
+            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-white/45">
               טלפון / וואטסאפ
             </span>
             <input
@@ -146,22 +148,22 @@ export function PremiumContactForm() {
           </label>
 
           <label className="block">
-            <span className="mb-2 block text-[11px] tracking-[0.18em] text-white/45">
+            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-white/45">
               על הפרויקט
             </span>
             <textarea
               name="message"
-              rows={4}
+              rows={3}
               placeholder="ספר לי קצת על הפרויקט..."
-              className={`${FIELD} h-24 resize-none`}
+              className={`${FIELD} h-20 resize-none`}
             />
           </label>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col items-center gap-2 pt-1 sm:flex-row sm:justify-between">
             <button
               type="submit"
               disabled={status === "loading"}
-              className="cursor-magnet inline-flex min-h-11 items-center justify-center border border-white/70 bg-transparent px-10 py-2.5 text-sm font-light tracking-[0.2em] text-[#F5EFE6] transition-all duration-500 hover:bg-white hover:text-black disabled:opacity-50"
+              className="cursor-magnet inline-flex min-h-10 items-center justify-center border border-[#C5A059]/70 bg-transparent px-8 py-2 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#C5A059] hover:bg-[#C5A059] hover:text-[#121212] disabled:opacity-50"
             >
               {status === "loading" ? "שולח…" : "שליחה"}
             </button>

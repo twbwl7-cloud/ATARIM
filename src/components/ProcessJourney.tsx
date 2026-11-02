@@ -97,8 +97,8 @@ export function ProcessJourney() {
     offset: ["start start", "end end"],
   });
 
-  /** One shared 0→1 progress drives blue bar + gold tip together */
-  const progressRaw = useTransform(scrollYProgress, [0.06, 0.86], [0, 1]);
+  /** One shared 0→1 progress drives path + gold tip; step 05 completes near end */
+  const progressRaw = useTransform(scrollYProgress, [0.02, 0.92], [0, 1]);
   const progress = useSpring(progressRaw, {
     stiffness: 64,
     damping: 26,
@@ -149,19 +149,19 @@ export function ProcessJourney() {
 
   if (reduce) {
     return (
-      <section id="process" className="relative z-10 px-5 py-24 md:px-8 md:py-32">
+      <section id="process" className="relative z-10 bg-[#FAF9F6] px-5 py-10 md:px-8 md:py-12">
         <div className="mx-auto max-w-3xl">
-          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">איך זה עובד</p>
-          <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
+          <p className="text-[11px] font-medium tracking-[0.22em] text-[#C5A059] uppercase">איך זה עובד</p>
+          <h2 className="display mt-3 text-3xl font-light text-[#121212] md:text-4xl">
             איך אתר עולה לאוויר בחמישה צעדים
           </h2>
-          <ol className="mt-10 space-y-10">
+          <ol className="mt-8 space-y-8">
             {STEPS.map((step) => (
               <li key={step.n} className="border-t border-line pt-5">
-                <p className="text-sm text-gold">
+                <p className="text-sm text-[#C5A059]">
                   <bdi>{step.n}</bdi>
                 </p>
-                <h3 className="display mt-1 text-2xl text-ink">{step.title}</h3>
+                <h3 className="display mt-1 text-2xl text-[#121212]">{step.title}</h3>
                 <p className="mt-3 text-sm text-muted">{step.body}</p>
                 <p className="mt-3 text-[11px] text-ink-soft">
                   תוצאה · {step.outcome}
@@ -178,10 +178,10 @@ export function ProcessJourney() {
     <section
       id="process"
       ref={ref}
-      className="relative z-10 h-[360vh] sm:h-[380vh]"
+      className="relative z-10 h-[400vh]"
     >
-      <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
-        {/* Living atmosphere */}
+      <div className="sticky top-0 flex h-screen flex-col overflow-hidden bg-[#FAF9F6]">
+        {/* Living atmosphere — cream + gold wash + film grain */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
@@ -195,14 +195,14 @@ export function ProcessJourney() {
           aria-hidden
           className="process-orb process-orb--b pointer-events-none absolute -end-8 bottom-28 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(201,162,74,0.22),transparent_72%)] blur-2xl"
         />
-        <div className="process-grain pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden />
+        <div className="process-grain pointer-events-none absolute inset-0" aria-hidden />
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl shrink-0 items-end justify-between gap-3 px-4 pt-14 sm:gap-4 sm:px-8 sm:pt-20">
           <div className="min-w-0">
-            <p className="text-[10px] tracking-[0.18em] text-gold sm:text-xs">
+            <p className="text-[10px] tracking-[0.18em] text-[#C5A059] sm:text-xs">
               איך זה עובד
             </p>
-            <h2 className="display mt-1.5 text-[1.35rem] leading-tight text-ink sm:mt-2 sm:text-3xl md:text-4xl">
+            <h2 className="display mt-1.5 text-[1.35rem] leading-tight text-[#121212] sm:mt-2 sm:text-3xl md:text-4xl">
               איך אתר עולה לאוויר בחמישה צעדים
             </h2>
             <p className="mt-1.5 max-w-md text-[12px] text-muted sm:mt-2 sm:text-sm">
@@ -210,7 +210,7 @@ export function ProcessJourney() {
             </p>
           </div>
           <div className="shrink-0 text-end">
-            <p className="display text-2xl font-light text-gold/30 sm:text-3xl md:text-4xl">
+            <p className="display text-2xl font-light text-[#C5A059] sm:text-3xl md:text-4xl">
               <bdi>{current.n}</bdi>
             </p>
             <p className="mt-0.5 text-[10px] tracking-[0.12em] text-muted sm:text-[11px]">

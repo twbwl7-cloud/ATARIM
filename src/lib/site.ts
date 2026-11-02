@@ -8,7 +8,7 @@ export const site = {
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
     "972523182032",
   phoneDisplay: "052-318-2032",
-  email: "hello@tobol.dev",
+  email: "Twbwl7@gmail.com",
   university: "האוניברסיטה הפתוחה",
   focus: "מדעי המחשב",
 } as const;

@@ -36,7 +36,7 @@ export function Testimonials() {
           תוצאה מדידה — במילים שלהם
         </h2>
 
-        <ul className="mt-14 grid gap-6 md:mt-16 md:grid-cols-3 md:items-start md:gap-8">
+        <ul className="mt-8 grid gap-6 md:mt-10 md:grid-cols-3 md:items-start md:gap-8">
           {testimonials.map((t, i) => (
             <motion.li
               key={t.projectId}

@@ -11,7 +11,7 @@ export function Footer() {
     <div className="relative z-10">
       <PremiumContactForm />
 
-      <div className="bg-transparent px-4 pb-8 pt-6 sm:px-5 md:px-8">
+      <div className="bg-transparent px-4 pb-6 pt-4 sm:px-5 md:px-8">
         <footer
           className="mx-auto mb-2 flex w-[calc(100%-0.5rem)] max-w-5xl flex-col gap-5 rounded-3xl border border-white/10 bg-black/95 px-8 py-6 shadow-2xl shadow-black/40 backdrop-blur-md sm:mb-4 sm:w-full sm:px-10 sm:py-7 md:flex-row md:items-center md:justify-between md:gap-8 md:px-12"
           aria-label="סיום עמוד"

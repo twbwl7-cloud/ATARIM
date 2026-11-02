@@ -48,7 +48,7 @@ export function WorkWheel() {
   return (
     <section
       id="work"
-      className="relative z-10 px-5 py-8 md:px-8 md:py-12"
+      className="relative z-10 px-5 py-6 md:px-8 md:py-10"
     >
       <div
         aria-hidden
