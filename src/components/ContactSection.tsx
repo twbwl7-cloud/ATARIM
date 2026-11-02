@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { CtaReassurance } from "@/components/CtaReassurance";
 import { MagneticButton } from "@/components/MagneticButton";
+import { PeaceOfMindBadges } from "@/components/PeaceOfMindBadges";
 import { site, whatsappUrl } from "@/lib/site";
 
 /** פנייה בלעדית — מסגרת ייעוץ, לא טופס המוני */
@@ -62,6 +63,7 @@ export function ContactSection() {
             מענה באותו יום עסקים · בלי דיוור בלי רשות · בלי לחץ מכירה
           </p>
           <CtaReassurance className="mt-3 !text-start !max-w-none" />
+          <PeaceOfMindBadges className="mt-3 !justify-start" />
         </div>
       </motion.div>
     </section>

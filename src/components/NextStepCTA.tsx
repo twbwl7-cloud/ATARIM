@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { CtaReassurance } from "@/components/CtaReassurance";
 import { MagneticButton } from "@/components/MagneticButton";
+import { PeaceOfMindBadges } from "@/components/PeaceOfMindBadges";
 import { TrustMetrics } from "@/components/TrustMetrics";
 import { whatsappUrl } from "@/lib/site";
 
@@ -44,7 +45,15 @@ export function NextStepCTA({
             {title}
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
-            {lead}
+            {lead.includes("סוכנות") ? (
+              <>
+                {lead.slice(0, lead.indexOf("סוכנות"))}
+                <span className="lux-word">סוכנות</span>
+                {lead.slice(lead.indexOf("סוכנות") + "סוכנות".length)}
+              </>
+            ) : (
+              lead
+            )}
           </p>
           <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <MagneticButton
@@ -64,6 +73,7 @@ export function NextStepCTA({
           </div>
           <div className="mt-5 flex flex-col items-center gap-3">
             <CtaReassurance />
+            <PeaceOfMindBadges />
             <TrustMetrics />
           </div>
         </div>

@@ -21,7 +21,7 @@ export function Header() {
       <div className="pointer-events-auto mx-auto flex max-w-5xl items-center gap-2 rounded-full border border-[#D4AF37]/25 bg-white/50 px-3 py-2 shadow-[0_8px_32px_rgba(18,18,18,0.06)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-2.5">
         <Link
           href="/"
-          className="logo-gold shrink-0 select-none px-1.5 py-1 font-[family-name:var(--font-frank)] text-[10px] font-light tracking-[0.22em] uppercase sm:px-2 sm:text-xs md:text-sm md:tracking-[0.32em]"
+          className="logo-gold logo-float shrink-0 select-none px-1.5 py-1 font-[family-name:var(--font-frank)] text-[10px] font-light tracking-[0.22em] uppercase sm:px-2 sm:text-xs md:text-sm md:tracking-[0.32em]"
           onClick={() => setOpen(false)}
           aria-label="דוד טובול — דף הבית"
         >

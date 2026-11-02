@@ -34,10 +34,12 @@ export function WhyRare() {
           למה הסטודיו הזה
         </p>
         <h2 className="display mt-4 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-5xl">
-          לא בונים אתרים. בונים נכסים דיגיטליים ששולטים בשוק.
+          לא בונים אתרים. בונים{" "}
+          <span className="lux-word">נכסים דיגיטליים</span> ששולטים בשוק.
         </h2>
         <p className="mt-5 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
-          סטודיו יוקרה נמדד במה שהוא מסרב לעשות — לא רק במה שהוא מוכר.
+          סטודיו <span className="lux-word">יוקרה</span> נמדד במה שהוא מסרב לעשות
+          — לא רק במה שהוא מוכר.
         </p>
 
         <ul className="mt-14 grid gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">
@@ -59,10 +61,25 @@ export function WhyRare() {
                 className="mb-4 block h-px w-10 bg-gradient-to-l from-gold to-transparent"
               />
               <h3 className="display text-xl font-light tracking-wide text-ink md:text-2xl">
-                {p.title}
+                {p.title.startsWith("בוטיק") ? (
+                  <>
+                    <span className="lux-word">בוטיק</span>
+                    {p.title.slice("בוטיק".length)}
+                  </>
+                ) : (
+                  p.title
+                )}
               </h3>
               <p className="mt-3 text-sm font-light leading-relaxed tracking-wide text-muted md:text-[15px]">
-                {p.body}
+                {p.body.includes("תוצאה") ? (
+                  <>
+                    {p.body.split("תוצאה")[0]}
+                    <span className="lux-word">תוצאה</span>
+                    {p.body.split("תוצאה")[1]}
+                  </>
+                ) : (
+                  p.body
+                )}
               </p>
             </motion.li>
           ))}

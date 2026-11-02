@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CtaReassurance } from "@/components/CtaReassurance";
+import { LiveAvailability } from "@/components/LiveAvailability";
 import { MagneticButton } from "@/components/MagneticButton";
+import { PeaceOfMindBadges } from "@/components/PeaceOfMindBadges";
 import { TrustBadges } from "@/components/TrustBadges";
 import { TrustMetrics } from "@/components/TrustMetrics";
 import { whatsappUrl } from "@/lib/site";
@@ -107,9 +109,11 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
           className="mx-auto mt-5 max-w-2xl text-[15px] font-normal leading-[1.85] tracking-wide text-[#5C5C5C] sm:mt-6 sm:text-base md:text-[17px] md:leading-[1.9]"
         >
-          יצירת חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק בלתי מתפשר, ארכיטקטורה
-          חכמה ותנועה מהפנטת שמשאירה חותם. תהליך אישי שלוקח את המותג שלכם לקצה
-          העליון של הרשת.
+          יצירת{" "}
+          <span className="lux-word">חוויות</span> דיגיטליות אקסקלוסיביות. עיצוב{" "}
+          <span className="lux-word">בוטיק</span> בלתי מתפשר, ארכיטקטורה חכמה
+          ותנועה מהפנטת שמשאירה חותם. תהליך אישי שלוקח את המותג שלכם לקצה העליון
+          של הרשת.
         </motion.p>
 
         <motion.div
@@ -118,6 +122,7 @@ export function Hero() {
           transition={{ duration: 0.85, delay: 0.72, ease: EASE }}
           className="mt-8 flex flex-col items-center gap-4 sm:mt-10"
         >
+          <LiveAvailability />
           <p className="avail-pulse">
             <span className="avail-pulse__dot" aria-hidden />
             פתוח לפרויקטים חדשים
@@ -143,6 +148,7 @@ export function Hero() {
           </div>
 
           <CtaReassurance className="mt-1" />
+          <PeaceOfMindBadges />
           <TrustBadges />
           <TrustMetrics />
         </motion.div>

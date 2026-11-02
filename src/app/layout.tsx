@@ -17,18 +17,46 @@ const frank = Frank_Ruhl_Libre({
   weight: ["300", "400", "500", "700"],
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://davidwebsitebuilder.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: `${site.name} · ${site.taglineHe}`,
+    default: `${site.nameHe} · נכסים דיגיטליים שאי אפשר להתעלם מהם`,
     template: `%s · ${site.nameHe}`,
   },
   description:
-    "דוד טובול — חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק, ארכיטקטורה חכמה, ותנועה מהפנטת. שיחת ייעוץ.",
+    "דוד טובול — חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק, ארכיטקטורה חכמה, ותנועה מהפנטת. שיחת ייעוץ ללא התחייבות.",
+  keywords: [
+    "דוד טובול",
+    "אתר תדמית",
+    "סטודיו בוטיק",
+    "נכס דיגיטלי",
+    "עיצוב יוקרה",
+    "Next.js",
+  ],
+  authors: [{ name: site.nameHe }],
+  creator: site.nameHe,
   openGraph: {
-    title: site.nameHe,
-    description: site.taglineHe,
+    title: `${site.nameHe} · סטודיו לחוויות רשת`,
+    description:
+      "חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק בלתי מתפשר — נכסים שנבנים מאפס, לא מתבניות.",
     locale: "he_IL",
     type: "website",
+    url: siteUrl,
+    siteName: site.nameHe,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.nameHe} · סטודיו לחוויות רשת`,
+    description:
+      "חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק בלתי מתפשר — שיחת ייעוץ.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

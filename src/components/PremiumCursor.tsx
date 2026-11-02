@@ -5,13 +5,18 @@ import { useEffect, useRef, useState } from "react";
 const ENABLE =
   "(pointer: fine) and (hover: hover) and (min-width: 768px)";
 
+const MAGNET =
+  "a, button, [role='button'], input, textarea, select, label, .cursor-magnet, .premium-panel, .gold-border";
+
 /**
  * Instant difference-blend cursor — 1:1 tracking, zero position lag.
+ * Additive magnetic pull + warm glow when near interactive targets.
  * Scale/border animate via CSS only; X/Y updates are direct DOM writes.
  */
 export function PremiumCursor() {
   const elRef = useRef<HTMLDivElement>(null);
   const hoveringRef = useRef(false);
+  const magnetRef = useRef<HTMLElement | null>(null);
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -30,18 +35,26 @@ export function PremiumCursor() {
 
     const isInteractive = (el: EventTarget | null) => {
       if (!(el instanceof Element)) return false;
-      return Boolean(
-        el.closest(
-          "a, button, [role='button'], input, textarea, select, label, .cursor-magnet, .premium-panel",
-        ),
-      );
+      return Boolean(el.closest(MAGNET));
     };
 
     const onMove = (e: MouseEvent) => {
       const node = elRef.current;
       if (!node) return;
-      // Instant 1:1 — no spring, no transition on transform
-      node.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+
+      let x = e.clientX;
+      let y = e.clientY;
+      const magnet = magnetRef.current;
+      if (magnet) {
+        const r = magnet.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        // Gentle magnetic pull — ~12% toward target center
+        x = e.clientX + (cx - e.clientX) * 0.12;
+        y = e.clientY + (cy - e.clientY) * 0.12;
+      }
+
+      node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       node.style.opacity = "1";
     };
 
@@ -53,15 +66,21 @@ export function PremiumCursor() {
       if (elRef.current) elRef.current.style.opacity = "1";
     };
 
-    const setHover = (next: boolean) => {
-      if (hoveringRef.current === next) return;
+    const setHover = (next: boolean, magnet: HTMLElement | null) => {
       hoveringRef.current = next;
+      magnetRef.current = next ? magnet : null;
       elRef.current?.classList.toggle("is-hover", next);
+      elRef.current?.classList.toggle("is-warm", next);
     };
 
-    const onOver = (e: MouseEvent) => setHover(isInteractive(e.target));
+    const onOver = (e: MouseEvent) => {
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      const magnet = target.closest(MAGNET) as HTMLElement | null;
+      setHover(Boolean(magnet), magnet);
+    };
     const onOut = (e: MouseEvent) => {
-      if (!isInteractive(e.relatedTarget)) setHover(false);
+      if (!isInteractive(e.relatedTarget)) setHover(false, null);
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });

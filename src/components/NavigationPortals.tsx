@@ -115,7 +115,14 @@ export function NavigationPortals() {
                       {portal.title}
                     </span>
                     <span className="mt-2 block max-w-sm text-sm font-normal leading-relaxed tracking-wide text-[#5C5C5C]">
-                      {portal.lead}
+                      {portal.lead.includes("בוטיק") ? (
+                        <>
+                          <span className="lux-word">בוטיק</span>
+                          {portal.lead.slice("בוטיק".length)}
+                        </>
+                      ) : (
+                        portal.lead
+                      )}
                     </span>
                     <span
                       className={`mt-5 inline-flex items-center gap-2 text-xs font-medium tracking-wide text-[#121212]/80 ${TRANS} group-hover:text-[#A38A5F]`}
