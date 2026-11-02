@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const ABOUT_BODY =
-  "בעולם שבו הרושם הראשוני קובע מי שולט בשוק, הנכס הדיגיטלי שלכם חייב להיות בלתי מתפשר. אני מחבר ארכיטקטורת קוד מדויקת לעיצוב יוקרה — בלי תבניות, בלי קיצורי דרך. ההתמחות: חוויות תלת־ממד יוקרתיות וממשקים שעוצרים גלישה וממירים לפנייה. החזון שלכם. הסטנדרט של סטודיו יוקרה.";
+  "בעולם שבו הרושם הראשוני קובע מי שולט בשוק, הנכס הדיגיטלי שלכם חייב להיות בלתי מתפשר. אני מחבר ארכיטקטורה מדויקת לעיצוב יוקרה — בלי קיצורי דרך. ההתמחות: חוויות דיגיטליות אקסקלוסיביות וממשקים שעוצרים גלישה וממירים לפנייה. החזון שלכם. הסטנדרט של סטודיו יוקרה.";
 
 export function AboutIntro() {
   return (
@@ -49,7 +49,7 @@ export function AboutIntro() {
             החזון שלנו
           </p>
           <h2 className="display mt-3 text-3xl font-light tracking-wide text-ink sm:text-4xl md:text-5xl">
-            אומנות. לא תבניות.
+            בוטיק. לא פשרות.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-[15px] font-light leading-[1.8] tracking-wide text-ink-soft md:mx-0 md:text-lg md:leading-[1.85]">
             {ABOUT_BODY}

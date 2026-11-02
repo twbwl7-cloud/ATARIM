@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Assistant, Frank_Ruhl_Libre } from "next/font/google";
+import { Frank_Ruhl_Libre, Heebo } from "next/font/google";
 import { LenisProvider } from "@/components/LenisProvider";
 import { SiteChrome } from "@/components/SiteChrome";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const assistant = Assistant({
+const heebo = Heebo({
   variable: "--font-rubik",
   subsets: ["hebrew", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const frank = Frank_Ruhl_Libre({
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.nameHe}`,
   },
   description:
-    "דוד טובול — נכסים דיגיטליים יוקרתיים בקוד. ארכיטקטורת המרה, חוויות תלת־ממד, ותוצאות מדידות. שיחת ייעוץ.",
+    "דוד טובול — חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק, ארכיטקטורה חכמה, ותנועה מהפנטת. שיחת ייעוץ.",
   openGraph: {
     title: site.nameHe,
     description: site.taglineHe,
@@ -38,9 +38,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="he"
       dir="rtl"
       data-scroll-behavior="smooth"
-      className={`${assistant.variable} ${frank.variable} h-full antialiased`}
+      className={`${heebo.variable} ${frank.variable} h-full antialiased`}
     >
-      <body className="relative isolate flex min-h-full flex-col overflow-x-hidden font-sans font-light text-ink">
+      <body className="relative isolate flex min-h-full flex-col overflow-x-hidden font-sans font-normal text-ink">
         <LenisProvider>
           <div className="noise" aria-hidden />
           <SiteChrome>{children}</SiteChrome>

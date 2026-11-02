@@ -39,7 +39,7 @@ export function FreeDemo() {
             </h2>
             <p className="mt-4 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:mt-5 md:text-base">
               בחרו נישה, ציינו מה חייב להופיע, שלחו פנייה. מקבלים כיוון מותאם —
-              לא תבנית מהמדף.
+              לא פתרון מהמדף.
             </p>
             <ul className="mt-5 space-y-2 text-sm text-ink-soft sm:mt-6">
               <li>· לא מתאים — עוצרים. בלי לחץ מכירה.</li>

@@ -24,12 +24,12 @@ export function AboutSection() {
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="mt-6 text-base leading-relaxed text-muted md:text-lg"
           >
-            {site.focus} · {site.university}. קוד נכתב כאן — בלי ״מישהו מהצוות
+            {site.focus} · {site.university}. הכל נבנה כאן — בלי ״מישהו מהצוות
             יחזור אליכם״ ובלי שרשרת פרילנסרים שמפרקת את המותג.
           </motion.p>
           <p className="mt-4 text-base leading-relaxed text-muted md:text-lg">
-            עובדים עם מותגים שלא מתפשרים על תבנית. המטרה: נכס דיגיטלי מותאם
-            שמביא תוצאה מדידה — שיחות, תורים, הזמנות.
+            עובדים עם מותגים שלא מתפשרים. המטרה: נכס דיגיטלי מותאם שמביא תוצאה
+            מדידה — שיחות, תורים, הזמנות.
           </p>
         </div>
 

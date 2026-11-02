@@ -13,7 +13,7 @@ import {
  * Screen stays; lines strike through as you scroll — then the promise lands.
  */
 const LINES = [
-  { plain: "תבנית שנראית כמו ", accent: "כולם" },
+  { plain: "אתר שנראה כמו ", accent: "כולם" },
   { plain: "אתר יפה שלא מביא ", accent: "הודעה" },
   { plain: "אנימציה כבדה שנתקעת ב", accent: "טלפון" },
   { plain: "עוד הבטחה של ״וואו״ בלי ", accent: "תוצאה" },

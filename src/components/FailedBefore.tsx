@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 const STRIKES = [
   {
-    plain: "תבנית שנראית כמו ",
+    plain: "אתר שנראה כמו ",
     accent: "כולם",
     ink: "ink-rose" as const,
   },

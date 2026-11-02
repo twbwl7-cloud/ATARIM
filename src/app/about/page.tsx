@@ -19,7 +19,7 @@ export default function AboutPage() {
           החזון שלנו
         </p>
         <h1 className="display mt-4 text-3xl font-light tracking-wide text-ink md:text-5xl">
-          מלאכה. לא תבניות. שליטה בשוק.
+          מלאכה. לא פשרות. שליטה בשוק.
         </h1>
       </div>
       <AboutIntro />

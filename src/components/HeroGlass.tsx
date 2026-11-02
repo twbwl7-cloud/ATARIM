@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, MeshTransmissionMaterial } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 import {
   Component,
   Suspense,
@@ -14,6 +14,9 @@ import {
 import * as THREE from "three";
 
 type Pointer = { x: number; y: number };
+
+/** ~40% of previous hero scale — quiet titanium presence */
+const BASE_SCALE = 0.42;
 
 function canUseWebGL() {
   if (typeof document === "undefined") return false;
@@ -29,7 +32,6 @@ function canUseWebGL() {
   }
 }
 
-/** Soft / software GPUs struggle with MeshTransmissionMaterial */
 function isWeakGpu() {
   if (typeof document === "undefined") return true;
   try {
@@ -49,11 +51,11 @@ function isWeakGpu() {
   }
 }
 
-/** Pearl frosted orb when WebGL is unavailable — keeps hero atmosphere */
+/** Small grey orb, offset away from headline */
 function GlassFallback() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
-      <div className="absolute left-1/2 top-[42%] h-[min(58vw,28rem)] w-[min(58vw,28rem)] -translate-x-1/2 -translate-y-1/2">
+    <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+      <div className="absolute start-[6%] bottom-[14%] h-[min(22vw,11rem)] w-[min(22vw,11rem)] sm:start-[10%] sm:bottom-[18%] sm:h-[min(18vw,10rem)] sm:w-[min(18vw,10rem)]">
         <div className="hero-glass-fallback absolute inset-0 rounded-full" />
         <div className="hero-glass-fallback-core absolute inset-[18%] rounded-full" />
       </div>
@@ -61,7 +63,7 @@ function GlassFallback() {
   );
 }
 
-function OrganicCrystal({
+function TitaniumKnot({
   pointer,
   lite,
 }: {
@@ -78,62 +80,41 @@ function OrganicCrystal({
     target.current.x = THREE.MathUtils.lerp(
       target.current.x,
       pointer.current.x,
-      0.06,
+      0.045,
     );
     target.current.y = THREE.MathUtils.lerp(
       target.current.y,
       pointer.current.y,
-      0.06,
+      0.045,
     );
 
-    g.rotation.y += delta * 0.18;
-    g.rotation.x += delta * 0.06;
-    g.rotation.z = target.current.x * 0.22;
-    g.position.x = target.current.x * 0.55;
-    g.position.y = target.current.y * 0.35;
+    g.rotation.y += delta * 0.12;
+    g.rotation.x += delta * 0.04;
+    // Soft parallax only — keep object parked bottom-start, clear of copy
+    g.position.x = -1.55 + target.current.x * 0.18;
+    g.position.y = -0.85 + target.current.y * 0.12;
+    g.position.z = -1.1;
   });
 
-  const segments = lite ? [96, 16] as const : [180, 32] as const;
+  const segments = lite ? ([72, 12] as const) : ([128, 24] as const);
 
   return (
-    <group ref={group} scale={lite ? 1.0 : 1.05}>
+    <group ref={group} scale={BASE_SCALE}>
       <mesh>
         <torusKnotGeometry
           args={[1.05, 0.34, segments[0], segments[1], 2, 3]}
         />
-        {lite ? (
-          <meshPhysicalMaterial
-            color="#f4efe6"
-            metalness={0.05}
-            roughness={0.22}
-            transmission={0.92}
-            thickness={1.2}
-            ior={1.4}
-            transparent
-            opacity={0.92}
-            envMapIntensity={0.9}
-            clearcoat={0.35}
-            clearcoatRoughness={0.25}
-          />
-        ) : (
-          <MeshTransmissionMaterial
-            backside
-            samples={6}
-            resolution={512}
-            transmission={1}
-            roughness={0.18}
-            thickness={1.55}
-            ior={1.42}
-            chromaticAberration={0.03}
-            anisotropy={0.1}
-            distortion={0.1}
-            distortionScale={0.3}
-            temporalDistortion={0.06}
-            color="#f7f4ef"
-            attenuationColor="#C5A059"
-            attenuationDistance={2.8}
-          />
-        )}
+        <meshPhysicalMaterial
+          color="#9a9ea6"
+          metalness={0.72}
+          roughness={0.38}
+          clearcoat={0.45}
+          clearcoatRoughness={0.28}
+          reflectivity={0.55}
+          envMapIntensity={lite ? 0.55 : 0.9}
+          transparent
+          opacity={0.78}
+        />
       </mesh>
     </group>
   );
@@ -142,12 +123,12 @@ function OrganicCrystal({
 function Lights({ lite }: { lite: boolean }) {
   return (
     <>
-      <ambientLight intensity={0.85} />
-      <directionalLight position={[4, 6, 3]} intensity={1.35} color="#fff8ef" />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[5, 6, 4]} intensity={1.1} color="#f5f5f5" />
       <directionalLight
-        position={[-3, 2, -4]}
-        intensity={0.55}
-        color="#c5a059"
+        position={[-4, 1, -3]}
+        intensity={0.35}
+        color="#a38a5f"
       />
       {!lite ? <Environment preset="studio" /> : null}
     </>
@@ -174,7 +155,7 @@ class GlassErrorBoundary extends Component<
   }
 }
 
-/** Slow-rotating frosted crystal — mouse parallax, safe WebGL fallback */
+/** Compact grey titanium knot — offset, never over the headline */
 export function HeroGlass() {
   const pointer = useRef<Pointer>({ x: 0, y: 0 });
   const reduce = useRef(false);
@@ -207,11 +188,11 @@ export function HeroGlass() {
   if (!ok) return <GlassFallback />;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
+    <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
       <GlassErrorBoundary onError={() => setOk(false)}>
         <Canvas
           dpr={lite ? [1, 1] : [1, 1.5]}
-          camera={{ position: [0, 0.15, 4.6], fov: 38, near: 0.1, far: 40 }}
+          camera={{ position: [0, 0.1, 5.2], fov: 36, near: 0.1, far: 40 }}
           gl={{
             alpha: true,
             antialias: !lite,
@@ -233,7 +214,7 @@ export function HeroGlass() {
         >
           <Suspense fallback={null}>
             <Lights lite={lite} />
-            <OrganicCrystal pointer={pointer} lite={lite} />
+            <TitaniumKnot pointer={pointer} lite={lite} />
           </Suspense>
         </Canvas>
       </GlassErrorBoundary>

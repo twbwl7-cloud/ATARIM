@@ -35,9 +35,10 @@ export function Hero() {
     <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-[#F9F8F6]">
       <div className="hero-mesh pointer-events-none absolute inset-0" aria-hidden />
       {!reduce ? <HeroGlass /> : null}
+      {/* Strong center veil so grey 3D never fights the copy */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-b from-[#F9F8F6]/35 via-transparent to-[#F9F8F6]/85"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(249,248,246,0.92)_0%,rgba(249,248,246,0.72)_38%,rgba(249,248,246,0.25)_62%,transparent_78%)]"
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-5 pb-24 pt-[calc(6.5rem+env(safe-area-inset-top))] text-center sm:px-8">
@@ -45,12 +46,12 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mb-6 text-[11px] font-light tracking-[0.22em] text-[#C5A059] sm:mb-8 sm:text-xs"
+          className="mb-6 text-[11px] font-medium tracking-[0.22em] text-[#A38A5F] sm:mb-8 sm:text-xs"
         >
           דוד טובול — סטודיו לחוויות רשת
         </motion.p>
 
-        <h1 className="display max-w-3xl text-[clamp(2.2rem,6.4vw,4.75rem)] font-light leading-[1.18] tracking-[0.01em] text-[#1A1A1A]">
+        <h1 className="display max-w-3xl text-[clamp(2.35rem,6.6vw,4.85rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#121212]">
           {TITLE_LINES.map((line, i) => (
             <span key={line} className="block overflow-hidden py-[0.04em]">
               <motion.span
@@ -73,11 +74,11 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
-          className="mx-auto mt-7 max-w-2xl text-[15px] font-light leading-[1.85] tracking-wide text-[#6B6B6B] sm:mt-8 sm:text-base md:text-[17px] md:leading-[1.9]"
+          className="mx-auto mt-7 max-w-2xl text-[15px] font-normal leading-[1.85] tracking-wide text-[#5C5C5C] sm:mt-8 sm:text-base md:text-[17px] md:leading-[1.9]"
         >
-          בלי תבניות מוכנות, בלי פשרות על איכות. אני מתכנן ובונה אתרים מאפס, עם
-          עיצוב נקי, אנימציות חלקות, וחוויית משתמש שפשוט עובדת. תהליך אישי בגובה
-          העיניים, מהשורת קוד הראשונה ועד לאוויר.
+          יצירת חוויות דיגיטליות אקסקלוסיביות. עיצוב בוטיק בלתי מתפשר, ארכיטקטורה
+          חכמה ותנועה מהפנטת שמשאירה חותם. תהליך אישי שלוקח את המותג שלכם לקצה
+          העליון של הרשת.
         </motion.p>
 
         <motion.div
@@ -90,13 +91,13 @@ export function Hero() {
             href={introHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-gold min-h-11 justify-center rounded-full px-9 py-3 text-[14px] font-light tracking-wide sm:min-h-12 sm:px-11 sm:text-sm"
+            className="btn-gold min-h-11 justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-11 sm:text-sm"
           >
             בואו נדבר
           </MagneticButton>
           <Link
             href="/work"
-            className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full px-9 py-3 text-[14px] font-light tracking-wide sm:min-h-12 sm:px-10 sm:text-sm"
+            className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-10 sm:text-sm"
           >
             תיק עבודות
           </Link>
@@ -107,7 +108,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-7 z-20 flex flex-col items-center gap-3 sm:bottom-9"
         aria-hidden
       >
-        <span className="text-[10px] font-light tracking-[0.22em] text-[#6B6B6B]/70">
+        <span className="text-[10px] font-medium tracking-[0.22em] text-[#5C5C5C]/70">
           גללו
         </span>
         <span className="hero-scroll-line" />

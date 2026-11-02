@@ -2,8 +2,8 @@
 @import "lenis/dist/lenis.css";
 
 /*
-  Light Luxury — boutique / minimalist architecture
-  Pearl off-white · Soft charcoal · Muted gold accents
+  Light Luxury — Old Money psychology
+  Pearl · Deep Charcoal · Muted Bronze · Deep Sapphire
 */
 :root {
   --sky: #f9f8f6;
@@ -11,38 +11,41 @@
   --paper: #ffffff;
   --mist: #efece6;
 
-  --ink: #1a1a1a;
-  --ink-soft: #2e2e2e;
-  --ink-faint: #6b6b6b;
+  --ink: #121212;
+  --ink-soft: #2a2a2a;
+  --ink-faint: #5c5c5c;
 
-  --cyan: #6b6b6b;
-  --cyan-bright: #2e2e2e;
-  --cyan-deep: #c5a059;
-  --teal: #6b6b6b;
+  --sapphire: #0f172a;
+  --sapphire-soft: #1e293b;
 
-  --gold: #c5a059;
-  --gold-bright: #d4b87a;
-  --gold-deep: #9a7a3e;
-  --champagne: #d4b87a;
+  --cyan: #5c5c5c;
+  --cyan-bright: #2a2a2a;
+  --cyan-deep: #a38a5f;
+  --teal: #5c5c5c;
+
+  --gold: #a38a5f;
+  --gold-bright: #b9a07a;
+  --gold-deep: #85704c;
+  --champagne: #b9a07a;
 
   --blush: var(--sky-deep);
   --sea: var(--ink-faint);
 
-  --line: rgba(26, 26, 26, 0.08);
-  --line-gold: rgba(197, 160, 89, 0.4);
-  --line-cyan: rgba(197, 160, 89, 0.22);
+  --line: rgba(18, 18, 18, 0.08);
+  --line-gold: rgba(163, 138, 95, 0.4);
+  --line-cyan: rgba(15, 23, 42, 0.18);
 
   --shadow-contact: none;
-  --shadow-soft: 0 12px 40px rgba(26, 26, 26, 0.06);
-  --shadow-elevated: 0 20px 60px rgba(26, 26, 26, 0.08);
+  --shadow-soft: 0 12px 40px rgba(15, 23, 42, 0.06);
+  --shadow-elevated: 0 20px 60px rgba(15, 23, 42, 0.08);
 
   --metal-gold: linear-gradient(
     118deg,
-    #e8d5a8 0%,
-    #d4b87a 24%,
-    #c5a059 52%,
-    #9a7a3e 78%,
-    #d4b87a 100%
+    #c9b48a 0%,
+    #b9a07a 24%,
+    #a38a5f 52%,
+    #85704c 78%,
+    #b9a07a 100%
   );
 
   --metal-cyan: var(--metal-gold);
@@ -55,7 +58,7 @@
   --void-night: #f9f8f6;
   --void-navy: #f3f1ed;
   --void-teal: #efece6;
-  --baby-pink-glow: rgba(197, 160, 89, 0.16);
+  --baby-pink-glow: rgba(163, 138, 95, 0.14);
 
   --rich-black: var(--sky);
   --rich-black-elevated: var(--paper);
@@ -64,7 +67,7 @@
   --rose-gold: var(--gold);
   --baby-pink: var(--gold-bright);
   --garnet: var(--gold-deep);
-  --violet: #6b6b6b;
+  --violet: #5c5c5c;
   --platinum: var(--ink-soft);
   --platinum-dim: var(--ink-faint);
   --ivory: var(--ink);
@@ -85,6 +88,8 @@
   --color-gold-dim: var(--gold-deep);
   --color-gold-deep: var(--gold-deep);
   --color-champagne: var(--champagne);
+  --color-sapphire: var(--sapphire);
+  --color-sapphire-soft: var(--sapphire-soft);
   --color-pink: var(--ink-faint);
   --color-blush: var(--sky-deep);
   --color-platinum: var(--ink-soft);
@@ -130,12 +135,12 @@ body {
   background-color: #f9f8f6;
   background-image: radial-gradient(
       ellipse 70% 45% at 50% -8%,
-      rgba(197, 160, 89, 0.08),
+      rgba(163, 138, 95, 0.07),
       transparent 55%
     ),
     radial-gradient(
       ellipse 50% 35% at 90% 100%,
-      rgba(197, 160, 89, 0.05),
+      rgba(15, 23, 42, 0.03),
       transparent 50%
     ),
     linear-gradient(180deg, #f9f8f6 0%, #f3f1ed 48%, #f9f8f6 100%);
@@ -153,8 +158,8 @@ body {
 }
 
 ::selection {
-  background: rgba(197, 160, 89, 0.28);
-  color: #1a1a1a;
+  background: rgba(163, 138, 95, 0.28);
+  color: #121212;
 }
 
 a {
@@ -163,11 +168,18 @@ a {
   transition: color 0.5s ease-in-out;
 }
 
-/* Refined display — light weight, subtle tracking */
+/* Commanding Hebrew display — Heebo, medium weight */
 .display {
+  font-family: var(--font-rubik), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.display-serif {
   font-family: var(--font-frank), Georgia, serif;
   letter-spacing: 0.02em;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.18;
 }
 
@@ -177,16 +189,16 @@ a {
 }
 .header-consult:hover {
   box-shadow:
-    0 0 0 1px rgba(197, 160, 89, 0.25),
-    0 0 22px rgba(197, 160, 89, 0.18);
+    0 0 0 1px rgba(163, 138, 95, 0.28),
+    0 0 22px rgba(163, 138, 95, 0.16);
 }
 
 /* Soft pearl ambient for hero */
 .hero-mesh {
   background:
-    radial-gradient(ellipse 55% 45% at 18% 28%, rgba(197, 160, 89, 0.1), transparent 62%),
-    radial-gradient(ellipse 50% 40% at 82% 22%, rgba(255, 255, 255, 0.7), transparent 58%),
-    radial-gradient(ellipse 60% 50% at 48% 78%, rgba(239, 236, 230, 0.9), transparent 65%),
+    radial-gradient(ellipse 45% 40% at 12% 72%, rgba(163, 138, 95, 0.08), transparent 58%),
+    radial-gradient(ellipse 40% 35% at 88% 30%, rgba(15, 23, 42, 0.04), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 0%, rgba(255, 255, 255, 0.75), transparent 60%),
     #f9f8f6;
   background-size: 140% 140%;
   animation: hero-mesh-drift 28s ease-in-out infinite alternate;
@@ -207,42 +219,42 @@ a {
   height: 50px;
   background: linear-gradient(
     to bottom,
-    rgba(197, 160, 89, 0.05),
-    #c5a059 45%,
-    rgba(197, 160, 89, 0.05)
+    rgba(163, 138, 95, 0.05),
+    #a38a5f 45%,
+    rgba(163, 138, 95, 0.05)
   );
   transform-origin: top center;
   animation: hero-scroll-pulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
 }
 
-/* CSS frosted orb — used when WebGL context cannot be created */
+/* Small grey titanium orb — WebGL fallback, offset from text */
 .hero-glass-fallback {
   background:
     radial-gradient(
-      circle at 32% 28%,
-      rgba(255, 255, 255, 0.85) 0%,
-      rgba(247, 244, 239, 0.35) 38%,
-      rgba(197, 160, 89, 0.12) 62%,
-      rgba(243, 241, 237, 0.15) 100%
+      circle at 30% 28%,
+      rgba(220, 220, 222, 0.9) 0%,
+      rgba(160, 162, 168, 0.45) 42%,
+      rgba(110, 114, 122, 0.35) 70%,
+      rgba(90, 94, 102, 0.2) 100%
     );
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
-    inset 0 0 40px rgba(255, 255, 255, 0.45),
-    0 30px 80px rgba(197, 160, 89, 0.12);
-  filter: blur(0.2px);
-  animation: hero-glass-spin 28s linear infinite;
+    inset 0 0 28px rgba(255, 255, 255, 0.35),
+    0 18px 48px rgba(15, 23, 42, 0.08);
+  filter: blur(0.3px);
+  opacity: 0.55;
+  animation: hero-glass-spin 32s linear infinite;
 }
 .hero-glass-fallback-core {
   background:
     radial-gradient(
       circle at 40% 35%,
-      rgba(255, 255, 255, 0.7),
-      rgba(197, 160, 89, 0.08) 55%,
+      rgba(230, 230, 232, 0.55),
+      rgba(140, 144, 152, 0.12) 55%,
       transparent 75%
     );
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  animation: hero-glass-spin 36s linear infinite reverse;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  animation: hero-glass-spin 40s linear infinite reverse;
 }
 @keyframes hero-glass-spin {
   from {
@@ -363,7 +375,7 @@ a {
 }
 
 .premium-panel:hover {
-  border-color: rgba(197, 160, 89, 0.35);
+  border-color: rgba(163, 138, 95, 0.4);
   background: rgba(255, 255, 255, 0.72);
   box-shadow: var(--shadow-elevated);
 }
@@ -385,21 +397,22 @@ a {
 .btn-gold {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 100%);
+  background: #0f172a;
   color: #f9f8f6;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.04em;
   box-shadow: none;
   transition:
     filter 0.5s ease-in-out,
     opacity 0.5s ease-in-out,
-    background 0.5s ease-in-out;
+    background 0.5s ease-in-out,
+    color 0.5s ease-in-out;
 }
 
 .btn-gold:hover {
-  filter: brightness(1.12);
-  background: linear-gradient(135deg, #c5a059 0%, #9a7a3e 100%);
-  color: #1a1a1a;
+  filter: none;
+  background: #a38a5f;
+  color: #121212;
 }
 
 .btn-shimmer::after {
@@ -461,16 +474,16 @@ a {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(197, 160, 89, 0.55);
-  color: var(--gold-deep);
-  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(163, 138, 95, 0.55);
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .section-void,
 .section-rose {
   background: radial-gradient(
     ellipse at 50% 0%,
-    rgba(197, 160, 89, 0.06),
+    rgba(163, 138, 95, 0.06),
     transparent 55%
   );
 }
