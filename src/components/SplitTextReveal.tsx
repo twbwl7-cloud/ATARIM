@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ElementType, ReactNode } from "react";
+import { useEffect, useState, type ElementType, type ReactNode } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -26,7 +26,7 @@ type Props = {
 
 /**
  * Premium split-text reveal — masked slide-up, staggered lines/words.
- * Uses overflow clip (mask line) so glyphs rise into view.
+ * Mounts static first (hydration-safe), then animates after client paint.
  */
 export function SplitTextReveal({
   as: Tag = "h2",
@@ -41,6 +41,11 @@ export function SplitTextReveal({
   children,
 }: Props) {
   const reduce = useReducedMotion();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
 
   const sourceLines =
     lines ??
@@ -63,13 +68,14 @@ export function SplitTextReveal({
       ? sourceLines.flatMap((line) => line.split(/\s+/).filter(Boolean))
       : sourceLines;
 
+  const animate = ready && !reduce;
   const isMount = trigger === "mount";
 
   return (
     <Tag id={id} className={className}>
       {units.map((unit, i) => {
-        const motionProps = reduce
-          ? {}
+        const motionProps = !animate
+          ? { initial: false as const }
           : isMount
             ? {
                 initial: { y: "110%" },
