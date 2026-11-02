@@ -12,10 +12,13 @@ type BrandLogoProps = {
 
 /** Icon width → height keeps the 56×40 monogram aspect */
 const SIZES = {
-  sm: { w: 28, text: "text-[10px] sm:text-[11px] md:text-xs" },
-  md: { w: 36, text: "text-xs sm:text-sm" },
-  lg: { w: 96, text: "text-xl sm:text-2xl md:text-3xl" },
+  sm: { w: 34, text: "text-[11px] sm:text-xs md:text-sm" },
+  md: { w: 44, text: "text-sm sm:text-base" },
+  lg: { w: 112, text: "text-2xl sm:text-3xl md:text-4xl" },
 } as const;
+
+/** Cache-bust so browsers pick up the latest SVG mark */
+const MONOGRAM_SRC = "/brand/dt-monogram.svg?v=3";
 
 /**
  * Official DT + DAVID TUBUL — always horizontal, vertically centered.
