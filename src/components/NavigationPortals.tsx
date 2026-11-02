@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
 const TRANS =
@@ -19,9 +19,9 @@ const portals = [
     span: "md:col-span-7 md:row-span-2 md:min-h-[28rem]",
     visual: "assets" as const,
     gradient:
-      "radial-gradient(ellipse at 70% 20%, rgba(212,175,55,0.16), transparent 45%), linear-gradient(160deg, #ffffff 0%, #f3f1ed 55%, #efece6 100%)",
+      "radial-gradient(ellipse at 70% 20%, rgba(212,175,55,0.22), transparent 45%), linear-gradient(160deg, #ffffff 0%, #f3f1ed 55%, #efece6 100%)",
     pattern:
-      "repeating-linear-gradient(-32deg, transparent, transparent 18px, rgba(18,18,18,0.025) 18px, rgba(18,18,18,0.025) 19px)",
+      "repeating-linear-gradient(-32deg, transparent, transparent 18px, rgba(18,18,18,0.03) 18px, rgba(18,18,18,0.03) 19px)",
   },
   {
     href: "/about",
@@ -31,9 +31,9 @@ const portals = [
     span: "md:col-span-5 md:min-h-[13.5rem]",
     visual: "precision" as const,
     gradient:
-      "radial-gradient(ellipse at 30% 80%, rgba(163,138,95,0.14), transparent 50%), linear-gradient(145deg, #f9f8f6 0%, #efece6 100%)",
+      "radial-gradient(ellipse at 30% 80%, rgba(163,138,95,0.18), transparent 50%), linear-gradient(145deg, #f9f8f6 0%, #efece6 100%)",
     pattern:
-      "repeating-linear-gradient(24deg, transparent, transparent 22px, rgba(212,175,55,0.05) 22px, rgba(212,175,55,0.05) 23px)",
+      "repeating-linear-gradient(24deg, transparent, transparent 22px, rgba(212,175,55,0.06) 22px, rgba(212,175,55,0.06) 23px)",
   },
   {
     href: "/contact",
@@ -43,13 +43,13 @@ const portals = [
     span: "md:col-span-5 md:min-h-[13.5rem]",
     visual: "flow" as const,
     gradient:
-      "radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.14), transparent 48%), linear-gradient(200deg, #ffffff 0%, #f3f1ed 70%)",
+      "radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.2), transparent 48%), linear-gradient(200deg, #ffffff 0%, #f3f1ed 70%)",
     pattern:
-      "repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(18,18,18,0.03) 28px, rgba(18,18,18,0.03) 29px)",
+      "repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(18,18,18,0.035) 28px, rgba(18,18,18,0.035) 29px)",
   },
 ] as const;
 
-/** Shared subtle 3D tilt — same physical family for all portal cards */
+/** Shared 3D tilt — desktop only; mobile keeps continuous backdrop motion */
 function TiltShell({
   className,
   children,
@@ -58,20 +58,30 @@ function TiltShell({
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [tiltOk, setTiltOk] = useState(false);
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
-  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [5.5, -5.5]), {
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), {
     stiffness: 220,
     damping: 22,
     mass: 0.35,
   });
-  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-6.5, 6.5]), {
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-7, 7]), {
     stiffness: 220,
     damping: 22,
     mass: 0.35,
   });
 
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const sync = () => setTiltOk(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   function onMove(e: MouseEvent<HTMLDivElement>) {
+    if (!tiltOk) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -79,17 +89,15 @@ function TiltShell({
     const ny = (e.clientY - r.top) / r.height;
     rawX.set(nx - 0.5);
     rawY.set(ny - 0.5);
-    el.style.setProperty("--portal-x", `${nx * 100}%`);
-    el.style.setProperty("--portal-y", `${ny * 100}%`);
   }
 
   function onLeave() {
     rawX.set(0);
     rawY.set(0);
-    const el = ref.current;
-    if (!el) return;
-    el.style.setProperty("--portal-x", "68%");
-    el.style.setProperty("--portal-y", "32%");
+  }
+
+  if (!tiltOk) {
+    return <div className={className}>{children}</div>;
   }
 
   return (
@@ -110,81 +118,129 @@ function TiltShell({
   );
 }
 
-/** Precision / code — architectural grid + mouse-tracking warm glow */
+/** Precision — bold moving grid + sweeping light (always-on) */
 function PrecisionBackdrop() {
   return (
     <span
       aria-hidden
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
     >
-      <span
-        className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          background:
-            "radial-gradient(280px circle at var(--portal-x, 68%) var(--portal-y, 32%), rgba(212,175,55,0.14), rgba(197,160,89,0.05) 42%, transparent 68%)",
-        }}
-      />
-      <span
-        className="absolute inset-[-8%] opacity-[0.07] transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform group-hover:scale-[1.04] group-hover:opacity-[0.11]"
+      <motion.span
+        className="portal-grid absolute inset-[-30%] will-change-transform"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(163,138,95,0.55) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(163,138,95,0.55) 1px, transparent 1px)
+            linear-gradient(rgba(163,138,95,0.55) 1.5px, transparent 1.5px),
+            linear-gradient(90deg, rgba(163,138,95,0.55) 1.5px, transparent 1.5px)
           `,
-          backgroundSize: "28px 28px",
-          maskImage:
-            "radial-gradient(ellipse 80% 70% at 30% 40%, #000 20%, transparent 75%)",
+          backgroundSize: "36px 36px",
+          opacity: 0.5,
         }}
+        animate={{ x: [0, 36, 0], y: [0, 18, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
       />
-      <span
-        className="absolute inset-0 opacity-[0.08] transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform group-hover:translate-x-1 group-hover:translate-y-0.5 group-hover:opacity-[0.12]"
+      <motion.span
+        className="absolute inset-[-20%] will-change-transform"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(163,138,95,0.7) 0.8px, transparent 0.9px)",
-          backgroundSize: "16px 16px",
-          maskImage:
-            "radial-gradient(ellipse 70% 65% at 70% 55%, #000 10%, transparent 72%)",
+            "radial-gradient(rgba(212,175,55,0.75) 1.35px, transparent 1.45px)",
+          backgroundSize: "18px 18px",
+          opacity: 0.42,
         }}
+        animate={{ x: [0, -18, 0], y: [0, 12, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.span
+        className="portal-sweep absolute inset-y-[-20%] w-[45%] will-change-transform"
+        style={{
+          background:
+            "linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.55) 42%, rgba(212,175,55,0.45) 50%, rgba(255,255,255,0.35) 58%, transparent 100%)",
+          mixBlendMode: "soft-light",
+        }}
+        animate={{ x: ["-60%", "160%"] }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
+      />
+      <span className="absolute -start-6 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full border-[3px] border-[#D4AF37]/55 opacity-60" />
+      <span className="absolute -start-2 top-1/2 h-16 w-16 -translate-y-1/2 rounded-full border-2 border-[#C5A059]/45 opacity-50" />
+    </span>
+  );
+}
+
+/** Flow — large rich floating orbs (always-on) */
+function FlowBackdrop() {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+    >
+      <motion.span
+        className="absolute -start-[18%] -top-[25%] h-[13rem] w-[13rem] rounded-full bg-[#D4AF37]/55 blur-3xl will-change-transform sm:h-[15rem] sm:w-[15rem]"
+        animate={{ x: [0, 28, 0], y: [0, 22, 0], scale: [1, 1.18, 1] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.span
+        className="absolute -end-[20%] -bottom-[30%] h-[14rem] w-[14rem] rounded-full bg-[#A38A5F]/50 blur-3xl will-change-transform sm:h-[16rem] sm:w-[16rem]"
+        animate={{ x: [0, -24, 0], y: [0, -28, 0], scale: [1.05, 0.92, 1.05] }}
+        transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+      />
+      <motion.span
+        className="absolute start-[28%] top-[18%] h-[8rem] w-[8rem] rounded-full bg-[#E8D5A3]/55 blur-2xl will-change-transform"
+        animate={{ opacity: [0.45, 0.85, 0.45], scale: [0.88, 1.2, 0.88], y: [0, -16, 0] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.span
+        className="absolute end-[18%] top-[35%] h-16 w-16 rounded-full border-2 border-[#D4AF37]/70 bg-[#D4AF37]/35 shadow-[0_0_28px_rgba(212,175,55,0.45)] will-change-transform"
+        animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+      />
+      <motion.span
+        className="absolute start-[12%] bottom-[22%] h-10 w-10 rounded-full border border-[#C5A059]/80 bg-[#C5A059]/40 will-change-transform"
+        animate={{ y: [0, 14, 0], scale: [1, 1.25, 1] }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
       />
     </span>
   );
 }
 
-/** Flow / conversation — soft pulsing warm orbs */
-function FlowBackdrop() {
+/** Assets — tangible translucent solids that rotate/scale continuously */
+function AssetsBackdrop() {
   return (
-    <span aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+    >
       <motion.span
-        className="absolute -start-[12%] top-[-18%] h-[9rem] w-[9rem] rounded-full bg-[#D4AF37]/15 blur-3xl"
-        animate={{ x: [0, 14, 0], y: [0, 10, 0], scale: [1, 1.08, 1] }}
+        className="portal-solid absolute end-[8%] top-[12%] h-28 w-28 rounded-2xl border-2 border-[#D4AF37]/65 bg-gradient-to-br from-[#D4AF37]/55 to-white/40 shadow-[0_18px_40px_rgba(18,18,18,0.14)] backdrop-blur-md will-change-transform sm:h-36 sm:w-36"
+        animate={{
+          rotate: [16, 28, 12, 16],
+          y: [0, -18, 8, 0],
+          scale: [1, 1.08, 0.96, 1],
+        }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.span
-        className="absolute -end-[8%] bottom-[-22%] h-[10rem] w-[10rem] rounded-full bg-[#C5A059]/12 blur-3xl"
-        animate={{ x: [0, -12, 0], y: [0, -14, 0], scale: [1, 1.1, 1] }}
-        transition={{
-          duration: 11,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.8,
+        className="portal-solid absolute end-[26%] top-[28%] h-24 w-24 rounded-2xl border-2 border-[#A38A5F]/55 bg-gradient-to-tr from-[#C5A059]/50 to-[#F9F8F6]/55 shadow-[0_14px_36px_rgba(18,18,18,0.12)] backdrop-blur-sm will-change-transform sm:h-32 sm:w-32"
+        animate={{
+          rotate: [8, -6, 14, 8],
+          y: [0, 16, -10, 0],
+          x: [0, -12, 6, 0],
+          scale: [1, 0.92, 1.1, 1],
         }}
+        transition={{ duration: 10.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       />
       <motion.span
-        className="absolute start-[35%] top-[30%] h-[6.5rem] w-[6.5rem] rounded-full bg-[#E8D5A3]/10 blur-3xl"
-        animate={{ opacity: [0.35, 0.7, 0.35], scale: [0.92, 1.06, 0.92] }}
-        transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
+        className="portal-solid absolute end-[4%] top-[46%] h-20 w-20 rounded-xl border-2 border-[#E8D5A3]/70 bg-gradient-to-b from-white/60 to-[#D4AF37]/45 shadow-[0_12px_30px_rgba(18,18,18,0.1)] backdrop-blur-[3px] will-change-transform sm:h-28 sm:w-28"
+        animate={{
+          rotate: [24, 40, 18, 24],
+          y: [0, -22, 6, 0],
+          scale: [0.95, 1.12, 1, 0.95],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
       />
-    </span>
-  );
-}
-
-/** Assets / growth — glass isometric squares that lift apart on hover */
-function AssetsBackdrop() {
-  return (
-    <span aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <span className="portal-glass portal-glass--a absolute end-[12%] top-[18%] h-24 w-24 rounded-2xl border border-[#D4AF37]/20 bg-white/20 shadow-[0_12px_40px_rgba(18,18,18,0.04)] backdrop-blur-[2px] will-change-transform sm:h-32 sm:w-32" />
-      <span className="portal-glass portal-glass--b absolute end-[22%] top-[32%] h-20 w-20 rounded-2xl border border-[#D4AF37]/15 bg-[#F9F8F6]/35 shadow-[0_10px_32px_rgba(18,18,18,0.03)] backdrop-blur-[1.5px] will-change-transform sm:h-28 sm:w-28" />
-      <span className="portal-glass portal-glass--c absolute end-[8%] top-[42%] h-16 w-16 rounded-xl border border-[#C5A059]/18 bg-white/15 shadow-[0_8px_28px_rgba(18,18,18,0.03)] backdrop-blur-[1px] will-change-transform sm:h-24 sm:w-24" />
+      <motion.span
+        className="absolute start-[10%] top-[20%] h-14 w-14 rotate-12 rounded-lg border border-[#D4AF37]/50 bg-[#D4AF37]/30 shadow-[0_8px_24px_rgba(212,175,55,0.25)] will-change-transform"
+        animate={{ y: [0, -14, 0], rotate: [12, 24, 12], opacity: [0.45, 0.7, 0.45] }}
+        transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
+      />
     </span>
   );
 }
@@ -237,7 +293,7 @@ export function NavigationPortals() {
               >
                 <span
                   aria-hidden
-                  className={`absolute inset-0 origin-center scale-100 will-change-transform ${TRANS} group-hover:scale-105`}
+                  className={`absolute inset-0 origin-center scale-100 will-change-transform ${TRANS}`}
                   style={{
                     backgroundImage: `${portal.pattern}, ${portal.gradient}`,
                   }}
@@ -245,13 +301,14 @@ export function NavigationPortals() {
 
                 <PortalVisualLayer visual={portal.visual} />
 
+                {/* Stronger bottom veil so bold backdrops never kill readability */}
                 <span
                   aria-hidden
-                  className={`absolute inset-0 z-[1] bg-gradient-to-t from-[#F9F8F6]/92 via-[#F9F8F6]/28 to-transparent ${TRANS}`}
+                  className="absolute inset-0 z-[1] bg-gradient-to-t from-[#F9F8F6] via-[#F9F8F6]/78 to-transparent"
                 />
 
                 <span
-                  className={`relative z-[2] flex h-full min-h-[16rem] flex-col justify-end p-6 sm:p-8 ${TRANS} group-hover:-translate-y-1`}
+                  className={`relative z-[2] flex h-full min-h-[16rem] flex-col justify-end p-6 sm:p-8 ${TRANS}`}
                 >
                   <motion.span
                     initial={{ opacity: 0, y: 14 }}
