@@ -68,9 +68,9 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mb-3 flex flex-col items-center gap-2 sm:mb-4"
+          className="mb-3 flex flex-col items-center gap-3 sm:mb-4"
         >
-          <BrandLogo tone="light" size="sm" href={false} />
+          <BrandLogo tone="light" size="md" href={false} />
           <p className="text-[11px] font-medium tracking-[0.22em] text-[#C5A059] sm:text-xs">
             הנדסת חוויות רשת בהזמנה אישית
           </p>

@@ -18,8 +18,8 @@ export function Footer() {
           aria-label="סיום עמוד"
         >
           <div className="min-w-0">
-            <BrandLogo tone="dark" size="md" href={false} />
-            <p className="mt-2 max-w-sm text-xs font-light leading-relaxed text-white/40 sm:text-[13px]">
+            <BrandLogo tone="dark" size="md" href="/" />
+            <p className="mt-3 max-w-sm text-xs font-light leading-relaxed text-white/40 sm:text-[13px]">
               {site.tagline}
             </p>
           </div>

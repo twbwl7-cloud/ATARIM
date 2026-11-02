@@ -214,16 +214,12 @@ a {
   -webkit-text-fill-color: transparent;
 }
 
-/* Logo easter-egg float — additive hover only */
+/* Logo stays grounded — no tilt / float (official straight mark) */
 .logo-float {
   display: inline-block;
-  transition:
-    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.55s ease;
 }
 .logo-float:hover {
-  transform: translateY(-2px) rotate(-1.5deg) scale(1.04);
-  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.45));
+  filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.35));
 }
 
 /* Luxury keyword gradient text */
