@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import { site } from "@/lib/site";
 
 /**
- * Boutique contact strip — compact charcoal form.
- * Formspree / Web3Forms ready (Twbwl7@gmail.com in provider dashboard).
+ * Boutique contact strip — posts to /api/contact (WhatsApp bot webhook
+ * stays server-side via WHATSAPP_BOT_URL).
  */
 type Status = "idle" | "loading" | "ok" | "error";
 
@@ -33,35 +33,24 @@ export function PremiumContactForm() {
 
     setStatus("loading");
 
-    const formspree = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
-    const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
     try {
-      if (formspree) {
-        const res = await fetch(formspree, {
-          method: "POST",
-          headers: { Accept: "application/json" },
-          body: data,
-        });
-        if (!res.ok) throw new Error("formspree");
-      } else if (web3Key) {
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: web3Key,
-            subject: "פנייה חדשה מהאתר — דוד טובול",
-            from_name: payload.name,
-            ...payload,
-          }),
-        });
-        if (!res.ok) throw new Error("web3forms");
-      } else {
-        await new Promise((r) => setTimeout(r, 650));
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const json = (await res.json().catch(() => null)) as {
+        success?: boolean;
+      } | null;
+
+      if (!res.ok || !json?.success) {
+        throw new Error("contact_api");
       }
+
       form.reset();
       setStatus("ok");
     } catch {
@@ -128,6 +117,7 @@ export function PremiumContactForm() {
               autoComplete="name"
               placeholder="שם מלא"
               className={FIELD}
+              disabled={status === "loading"}
             />
           </label>
 
@@ -144,6 +134,7 @@ export function PremiumContactForm() {
               placeholder="טלפון / וואטסאפ"
               className={FIELD}
               dir="ltr"
+              disabled={status === "loading"}
             />
           </label>
 
@@ -156,6 +147,7 @@ export function PremiumContactForm() {
               rows={3}
               placeholder="ספר לי קצת על הפרויקט..."
               className={`${FIELD} h-20 resize-none`}
+              disabled={status === "loading"}
             />
           </label>
 
@@ -165,7 +157,7 @@ export function PremiumContactForm() {
               disabled={status === "loading"}
               className="cursor-magnet inline-flex min-h-10 items-center justify-center border border-[#C5A059]/70 bg-transparent px-8 py-2 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#C5A059] hover:bg-[#C5A059] hover:text-[#121212] disabled:opacity-50"
             >
-              {status === "loading" ? "שולח…" : "שליחה"}
+              {status === "loading" ? "שולח..." : "שליחה"}
             </button>
             <p
               className="min-h-5 text-[11px] tracking-wide text-white/40"
@@ -173,9 +165,9 @@ export function PremiumContactForm() {
               aria-live="polite"
             >
               {status === "ok"
-                ? "ההודעה התקבלה. נחזור בהקדם."
+                ? "הפנייה נשלחה בהצלחה. נחזור אליך בקרוב."
                 : status === "error"
-                  ? "חסר שם או טלפון — נסו שוב."
+                  ? "לא הצלחנו לשלוח — בדקו את הפרטים ונסו שוב."
                   : "מענה אישי · ללא התחייבות"}
             </p>
           </div>
