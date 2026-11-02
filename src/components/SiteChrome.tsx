@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { AccessibilityWidget } from "@/components/AccessibilityWidget";
 import { AmbientGlow } from "@/components/AmbientGlow";
 import { CardSpotlight } from "@/components/CardSpotlight";
 import { Curtain } from "@/components/Curtain";
@@ -36,6 +37,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       </div>
       <WhatsAppFloat />
       <WhatsAppReassurance />
+      <AccessibilityWidget />
       <LuxuryModeToggle />
     </>
   );

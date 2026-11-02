@@ -5,18 +5,16 @@ import { useEffect, useRef, useState } from "react";
 const ENABLE =
   "(pointer: fine) and (hover: hover) and (min-width: 768px)";
 
-const MAGNET =
+const INTERACTIVE =
   "a, button, [role='button'], input, textarea, select, label, .cursor-magnet, .premium-panel, .gold-border";
 
 /**
- * Instant difference-blend cursor — 1:1 tracking, zero position lag.
- * Additive magnetic pull + warm glow when near interactive targets.
- * Scale/border animate via CSS only; X/Y updates are direct DOM writes.
+ * Ultra-clean 1:1 custom cursor — native pointer coords, zero transform lag.
+ * Disabled entirely on coarse/touch pointers.
  */
 export function PremiumCursor() {
   const elRef = useRef<HTMLDivElement>(null);
   const hoveringRef = useRef(false);
-  const magnetRef = useRef<HTMLElement | null>(null);
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
@@ -35,27 +33,15 @@ export function PremiumCursor() {
 
     const isInteractive = (el: EventTarget | null) => {
       if (!(el instanceof Element)) return false;
-      return Boolean(el.closest(MAGNET));
+      return Boolean(el.closest(INTERACTIVE));
     };
 
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e: PointerEvent) => {
       const node = elRef.current;
       if (!node) return;
-
-      let x = e.clientX;
-      let y = e.clientY;
-      const magnet = magnetRef.current;
-      if (magnet) {
-        const r = magnet.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
-        // Gentle magnetic pull — ~12% toward target center
-        x = e.clientX + (cx - e.clientX) * 0.12;
-        y = e.clientY + (cy - e.clientY) * 0.12;
-      }
-
-      node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      node.style.opacity = "1";
+      // Direct 1:1 — no lerp, no magnetic offset, no RAF queue
+      node.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      if (node.style.opacity !== "1") node.style.opacity = "1";
     };
 
     const onLeave = () => {
@@ -66,36 +52,30 @@ export function PremiumCursor() {
       if (elRef.current) elRef.current.style.opacity = "1";
     };
 
-    const setHover = (next: boolean, magnet: HTMLElement | null) => {
+    const setHover = (next: boolean) => {
+      if (hoveringRef.current === next) return;
       hoveringRef.current = next;
-      magnetRef.current = next ? magnet : null;
       elRef.current?.classList.toggle("is-hover", next);
-      elRef.current?.classList.toggle("is-warm", next);
     };
 
-    const onOver = (e: MouseEvent) => {
-      const target = e.target;
-      if (!(target instanceof Element)) return;
-      const magnet = target.closest(MAGNET) as HTMLElement | null;
-      setHover(Boolean(magnet), magnet);
-    };
-    const onOut = (e: MouseEvent) => {
-      if (!isInteractive(e.relatedTarget)) setHover(false, null);
+    const onOver = (e: PointerEvent) => setHover(isInteractive(e.target));
+    const onOut = (e: PointerEvent) => {
+      if (!isInteractive(e.relatedTarget)) setHover(false);
     };
 
-    window.addEventListener("mousemove", onMove, { passive: true });
-    document.addEventListener("mouseleave", onLeave);
-    document.addEventListener("mouseenter", onEnter);
-    document.addEventListener("mouseover", onOver);
-    document.addEventListener("mouseout", onOut);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.addEventListener("pointerleave", onLeave);
+    document.addEventListener("pointerenter", onEnter);
+    document.addEventListener("pointerover", onOver);
+    document.addEventListener("pointerout", onOut);
 
     return () => {
       root.classList.remove("has-premium-cursor");
-      window.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseleave", onLeave);
-      document.removeEventListener("mouseenter", onEnter);
-      document.removeEventListener("mouseover", onOver);
-      document.removeEventListener("mouseout", onOut);
+      window.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerleave", onLeave);
+      document.removeEventListener("pointerenter", onEnter);
+      document.removeEventListener("pointerover", onOver);
+      document.removeEventListener("pointerout", onOut);
     };
   }, [enabled]);
 

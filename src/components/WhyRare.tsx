@@ -6,19 +6,19 @@ import { motion } from "framer-motion";
 const POINTS = [
   {
     title: "בוטיק על פני המוני",
-    body: "כל נכס נבנה מאפס. פתרון מדף לא נושא מותג שרוצה לשלוט בקטגוריה שלו.",
+    body: "כל נכס נכתב מאפס. תבנית מדף לא בונה מותג שרוצה להוביל את הקטגוריה שלו.",
   },
   {
-    title: "ארכיטקטורה חכמה",
-    body: "המבנה משרת פנייה אחת ברורה — שיחה, תור או הזמנה. תוצאה מדידה, לא קישוט.",
+    title: "ארכיטקטורת המרה",
+    body: "המבנה משרת פעולה אחת ברורה — שיחה, תור או הזמנה. תוצאה מדידה, לא קישוט.",
   },
   {
-    title: "תנועה מהפנטת",
-    body: "תנועה ועומק כשהם משרתים את המותג. וואו עם מטרה — בלי רעש שמייגע את הנייד.",
+    title: "תנועה עם מטרה",
+    body: "עומק ואנימציה רק כשהם משרתים את המותג. וואו שנשאר בזיכרון — בלי להאט את הנייד.",
   },
   {
     title: "בעלות מלאה",
-    body: "הדומיין, הביצועים והנכס — שלכם. נשאר אצלכם, לא נעול אצלנו.",
+    body: "הדומיין, הקוד והביצועים — שלכם. הנכס נשאר אצלכם, לא נעול אצל ספק.",
   },
 ] as const;
 
@@ -31,15 +31,15 @@ export function WhyRare() {
       />
       <div className="relative mx-auto max-w-5xl">
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
-          למה הסטודיו הזה
+          עקרונות מובילים
         </p>
         <h2 className="display mt-4 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-5xl">
-          לא בונים אתרים. בונים{" "}
+          לא בונים עוד אתר. בונים{" "}
           <span className="lux-word">נכסים דיגיטליים</span> ששולטים בשוק.
         </h2>
         <p className="mt-5 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
-          סטודיו <span className="lux-word">יוקרה</span> נמדד במה שהוא מסרב לעשות
-          — לא רק במה שהוא מוכר.
+          סטודיו <span className="lux-word">יוקרה</span> נמדד במה שהוא מסרב
+          לעשות — לא רק במה שהוא מוכר. כאן כל שורה מכוונת לפנייה.
         </p>
 
         <ul className="mt-14 grid gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">
@@ -96,7 +96,7 @@ export function WhyRare() {
             href="/about"
             className="text-sm font-light tracking-wide text-muted transition-colors duration-500 ease-in-out hover:text-gold"
           >
-            לפילוסופיה ←
+            לסטנדרט העבודה ←
           </Link>
         </div>
       </div>

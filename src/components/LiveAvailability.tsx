@@ -3,7 +3,7 @@ export function LiveAvailability({ className = "" }: { className?: string }) {
   return (
     <p className={`live-avail ${className}`.trim()} role="status">
       <span className="live-avail__dot" aria-hidden />
-      זמין לפרויקטים חדשים לחודש הקרוב (מקומות מוגבלים)
+      זמין לפרויקטים חדשים החודש · מקומות מוגבלים
     </p>
   );
 }

@@ -11,8 +11,8 @@ const portals = [
   {
     href: "/work",
     eyebrow: "תיק עבודות",
-    title: "נכסים נבחרים",
-    lead: "פרויקטים חיים שנבנו מאפס — במיוחד בשבילכם.",
+    title: "נכסים חיים",
+    lead: "אתרים שנבנו מאפס לקצה העליון — מוכחים באוויר, לא במצגת.",
     span: "md:col-span-7 md:row-span-2 md:min-h-[28rem]",
     gradient:
       "radial-gradient(ellipse at 70% 20%, rgba(212,175,55,0.16), transparent 45%), linear-gradient(160deg, #ffffff 0%, #f3f1ed 55%, #efece6 100%)",
@@ -22,8 +22,8 @@ const portals = [
   {
     href: "/about",
     eyebrow: "החזון שלנו",
-    title: "פילוסופיה",
-    lead: "בוטיק על פני המוני. דיוק על פני רעש.",
+    title: "סטנדרט העבודה",
+    lead: "בוטיק על פני המוני. דיוק על פני רעש. קוד מותאם — בלי תבניות.",
     span: "md:col-span-5 md:min-h-[13.5rem]",
     gradient:
       "radial-gradient(ellipse at 30% 80%, rgba(163,138,95,0.14), transparent 50%), linear-gradient(145deg, #f9f8f6 0%, #efece6 100%)",
@@ -33,8 +33,8 @@ const portals = [
   {
     href: "/contact",
     eyebrow: "התחלת פרויקט",
-    title: "ייעוץ",
-    lead: "שיחה קצרה. בדיקת התאמה. כיוון ברור.",
+    title: "שיחת ייעוץ",
+    lead: "עשר דקות. בדיקת התאמה. כיוון ברור — בלי לחץ מכירה.",
     span: "md:col-span-5 md:min-h-[13.5rem]",
     gradient:
       "radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.14), transparent 48%), linear-gradient(200deg, #ffffff 0%, #f3f1ed 70%)",
@@ -65,10 +65,10 @@ export function NavigationPortals() {
             id="portals-heading"
             className="display mt-3 text-3xl font-semibold tracking-wide text-[#121212] md:text-4xl"
           >
-            לאן ממשיכים מכאן
+            שלושה מסלולים. בחירה אחת ברורה.
           </h2>
           <p className="mt-3 text-sm font-normal leading-relaxed tracking-wide text-[#5C5C5C] md:text-[15px]">
-            שלושה שערים — עבודות, חזון, וייעוץ. בחרו את המסלול שלכם.
+            עבודות שממירות · סטנדרט העבודה · שיחת ייעוץ שמתחילה פרויקט.
           </p>
         </motion.div>
 

@@ -29,12 +29,12 @@ export function ContactSection() {
             פנייה לפרויקט
           </p>
           <h2 className="display mt-4 text-3xl font-light tracking-wide text-ink md:text-5xl">
-            שיחת ייעוץ
+            שיחת ייעוץ — בלי השארת פרטים
           </h2>
           <p className="mt-5 text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
-            עובדים עם מספר מוגבל של מותגים בכל רבעון. שיחת ייעוץ קצרה — בודקים
-            התאמה, מגדירים ארכיטקטורת המרה, ורק אז בונים. זו לא ״השארת פרטים״.
-            זו הזמנה לעבוד ברמה של סטודיו יוקרה.
+            מספר מקומות מוגבל בכל רבעון. בשיחה קצרה בודקים התאמה, מגדירים
+            ארכיטקטורת המרה — ורק אז בונים. זו הזמנה לעבוד ברמת סטודיו יוקרה,
+            לא טופס המוני.
           </p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <MagneticButton

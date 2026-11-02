@@ -7,10 +7,10 @@ import { Testimonials } from "@/components/Testimonials";
 export const metadata: Metadata = {
   title: "עליי",
   description:
-    "אומנות על פני תבניות — פילוסופיית הסטודיו של דוד טובול. נכסים דיגיטליים מותאמים.",
+    "סטנדרט העבודה של דוד טובול — נכסים דיגיטליים מותאמים מאפס, בלי תבניות ובלי פשרות.",
 };
 
-/** פילוסופיה + הוכחה → ייעוץ */
+/** החזון + הוכחה → ייעוץ */
 export default function AboutPage() {
   return (
     <div className="pt-24">
@@ -26,8 +26,8 @@ export default function AboutPage() {
       <AboutSection />
       <Testimonials />
       <NextStepCTA
-        title="אם הפילוסופיה מדברת אליכם — בואו נדבר."
-        lead="עובדים רק עם מותגים שמוכנים לסטנדרט של נכס דיגיטלי שנבנה מאפס."
+        title="אם הסטנדרט מדבר אליכם — בואו נדבר."
+        lead="עובדים רק עם מותגים שמוכנים לנכס דיגיטלי שנבנה מאפס — לא מתבנית."
       />
     </div>
   );

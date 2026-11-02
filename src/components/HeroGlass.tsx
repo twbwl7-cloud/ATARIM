@@ -15,8 +15,8 @@ import * as THREE from "three";
 
 type Pointer = { x: number; y: number };
 
-/** ~40% of previous hero scale — quiet titanium presence */
-const BASE_SCALE = 0.42;
+/** Quiet titanium presence — sized to stay clear of copy */
+const BASE_SCALE = 0.4;
 
 function canUseWebGL() {
   if (typeof document === "undefined") return false;
@@ -51,11 +51,11 @@ function isWeakGpu() {
   }
 }
 
-/** Small grey orb, offset away from headline */
+/** Small grey orb — raised into above-the-fold view, away from headline */
 function GlassFallback() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
-      <div className="absolute start-[6%] bottom-[14%] h-[min(22vw,11rem)] w-[min(22vw,11rem)] sm:start-[10%] sm:bottom-[18%] sm:h-[min(18vw,10rem)] sm:w-[min(18vw,10rem)]">
+      <div className="hero-glass-slot absolute">
         <div className="hero-glass-fallback absolute inset-0 rounded-full" />
         <div className="hero-glass-fallback-core absolute inset-[18%] rounded-full" />
       </div>
@@ -77,30 +77,33 @@ function TitaniumKnot({
     const g = group.current;
     if (!g) return;
 
-    target.current.x = THREE.MathUtils.lerp(
+    const dt = Math.min(delta, 0.033);
+    target.current.x = THREE.MathUtils.damp(
       target.current.x,
       pointer.current.x,
-      0.045,
+      4.5,
+      dt,
     );
-    target.current.y = THREE.MathUtils.lerp(
+    target.current.y = THREE.MathUtils.damp(
       target.current.y,
       pointer.current.y,
-      0.045,
+      4.5,
+      dt,
     );
 
-    g.rotation.y += delta * 0.12;
-    g.rotation.x += delta * 0.04;
-    // Soft parallax only — keep object parked bottom-start, clear of copy
-    g.position.x = -1.55 + target.current.x * 0.18;
-    g.position.y = -0.85 + target.current.y * 0.12;
-    g.position.z = -1.1;
+    g.rotation.y += dt * 0.12;
+    g.rotation.x += dt * 0.04;
+    // Parked start-side, raised for first viewport — never over copy
+    g.position.x = -1.65 + target.current.x * 0.14;
+    g.position.y = -0.18 + target.current.y * 0.1;
+    g.position.z = -1.15;
   });
 
-  const segments = lite ? ([72, 12] as const) : ([128, 24] as const);
+  const segments = lite ? ([56, 10] as const) : ([96, 18] as const);
 
   return (
     <group ref={group} scale={BASE_SCALE}>
-      <mesh>
+      <mesh frustumCulled>
         <torusKnotGeometry
           args={[1.05, 0.34, segments[0], segments[1], 2, 3]}
         />
@@ -111,7 +114,7 @@ function TitaniumKnot({
           clearcoat={0.45}
           clearcoatRoughness={0.28}
           reflectivity={0.55}
-          envMapIntensity={lite ? 0.55 : 0.9}
+          envMapIntensity={lite ? 0.5 : 0.85}
           transparent
           opacity={0.78}
         />
@@ -155,12 +158,14 @@ class GlassErrorBoundary extends Component<
   }
 }
 
-/** Compact grey titanium knot — offset, never over the headline */
+/** Compact grey titanium knot — raised above the fold, never over the headline */
 export function HeroGlass() {
   const pointer = useRef<Pointer>({ x: 0, y: 0 });
   const reduce = useRef(false);
   const [ok, setOk] = useState(true);
   const [lite, setLite] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const hostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     reduce.current = window.matchMedia(
@@ -171,7 +176,9 @@ export function HeroGlass() {
       setOk(false);
       return;
     }
-    setLite(isWeakGpu());
+
+    const narrow = window.matchMedia("(max-width: 768px)").matches;
+    setLite(isWeakGpu() || narrow);
 
     const onMove = (e: PointerEvent) => {
       if (reduce.current) return;
@@ -182,25 +189,48 @@ export function HeroGlass() {
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
-    return () => window.removeEventListener("pointermove", onMove);
+
+    const host = hostRef.current;
+    let io: IntersectionObserver | undefined;
+    if (host && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(
+        ([entry]) => setVisible(entry.isIntersecting),
+        { rootMargin: "80px", threshold: 0.05 },
+      );
+      io.observe(host);
+    }
+
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      io?.disconnect();
+    };
   }, []);
 
   if (!ok) return <GlassFallback />;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+    <div
+      ref={hostRef}
+      className="pointer-events-none absolute inset-0 z-0 [contain:strict]"
+      aria-hidden
+    >
       <GlassErrorBoundary onError={() => setOk(false)}>
         <Canvas
-          dpr={lite ? [1, 1] : [1, 1.5]}
-          camera={{ position: [0, 0.1, 5.2], fov: 36, near: 0.1, far: 40 }}
+          dpr={lite ? [1, 1] : [1, 1.25]}
+          frameloop={visible ? "always" : "never"}
+          camera={{ position: [0, 0.22, 5.1], fov: 34, near: 0.1, far: 40 }}
           gl={{
             alpha: true,
             antialias: !lite,
             powerPreference: lite ? "low-power" : "high-performance",
             failIfMajorPerformanceCaveat: false,
+            stencil: false,
+            depth: true,
           }}
           onCreated={({ gl }) => {
             gl.setClearColor(0x000000, 0);
+            gl.domElement.style.touchAction = "none";
+            gl.domElement.style.pointerEvents = "none";
             gl.domElement.addEventListener(
               "webglcontextlost",
               (e) => {
@@ -210,7 +240,14 @@ export function HeroGlass() {
               { once: true },
             );
           }}
-          style={{ width: "100%", height: "100%", background: "transparent" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            background: "transparent",
+            pointerEvents: "none",
+            transform: "translateZ(0)",
+            willChange: "transform",
+          }}
         >
           <Suspense fallback={null}>
             <Lights lite={lite} />

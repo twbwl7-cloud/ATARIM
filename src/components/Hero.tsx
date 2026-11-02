@@ -18,7 +18,7 @@ const HeroGlass = dynamic(
 );
 
 const INTRO_MSG =
-  "היי דוד, מעוניין בשיחת ייעוץ. אשמח לפתיחת פנייה לפרויקט.";
+  "היי דוד, מעוניין בשיחת ייעוץ קצרה. אשמח לבדוק התאמה לפרויקט.";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -60,7 +60,7 @@ export function Hero() {
           transition={{ duration: 0.9, ease: EASE }}
           className="mb-4 text-[11px] font-medium tracking-[0.22em] text-[#D4AF37] sm:mb-5 sm:text-xs"
         >
-          דוד טובול — סטודיו לחוויות רשת
+          דוד טובול — הנדסת חוויות רשת בהזמנה אישית
         </motion.p>
         <motion.span
           aria-hidden
@@ -109,11 +109,10 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
           className="mx-auto mt-5 max-w-2xl text-[15px] font-normal leading-[1.85] tracking-wide text-[#5C5C5C] sm:mt-6 sm:text-base md:text-[17px] md:leading-[1.9]"
         >
-          יצירת{" "}
-          <span className="lux-word">חוויות</span> דיגיטליות אקסקלוסיביות. עיצוב{" "}
-          <span className="lux-word">בוטיק</span> בלתי מתפשר, ארכיטקטורה חכמה
-          ותנועה מהפנטת שמשאירה חותם. תהליך אישי שלוקח את המותג שלכם לקצה העליון
-          של הרשת.
+          לא עוד אתר תדמית גנרי. אנחנו בונים{" "}
+          <span className="lux-word">חוויות</span> דיגיטליות אקסקלוסיביות —
+          עיצוב <span className="lux-word">בוטיק</span>, ארכיטקטורת המרה וקוד
+          מותאם שממיר מבקרים לפנייה. תהליך אישי. סטנדרט של סוכנות עולמית.
         </motion.p>
 
         <motion.div
@@ -136,14 +135,14 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="btn-gold min-h-11 justify-center rounded-full px-9 py-3 text-[14px] font-medium tracking-wide sm:min-h-12 sm:px-11 sm:text-sm"
               >
-                בואו נדבר
+                לשיחת ייעוץ
               </MagneticButton>
             </span>
             <Link
               href="/work"
               className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full border-[#D4AF37]/40 px-9 py-3 text-[14px] font-medium tracking-wide hover:border-[#D4AF37] hover:text-[#D4AF37] sm:min-h-12 sm:px-10 sm:text-sm"
             >
-              תיק עבודות
+              לצפות בעבודות
             </Link>
           </div>
 

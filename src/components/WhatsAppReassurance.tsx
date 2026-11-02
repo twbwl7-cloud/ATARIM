@@ -2,7 +2,7 @@
 export function WhatsAppReassurance() {
   return (
     <p className="wa-reassurance" aria-hidden>
-      שיחת ייעוץ והתאמה ללא התחייבות | מענה אישי ומהיר
+      שיחת ייעוץ ללא התחייבות · מענה אישי ומהיר
     </p>
   );
 }

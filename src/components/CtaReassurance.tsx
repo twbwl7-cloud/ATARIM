@@ -6,7 +6,7 @@ export function CtaReassurance({
 }) {
   return (
     <p className={`cta-reassurance ${className}`.trim()}>
-      שיחת ייעוץ והתאמה ללא התחייבות | מענה אישי ומהיר
+      שיחת ייעוץ והתאמה ללא התחייבות · מענה אישי ומהיר
     </p>
   );
 }
