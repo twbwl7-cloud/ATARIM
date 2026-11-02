@@ -68,7 +68,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       className={`${heebo.variable} ${frank.variable} h-full antialiased`}
     >
-      <body className="relative isolate flex min-h-full flex-col overflow-x-hidden font-sans font-normal text-ink">
+      <body className="relative isolate flex min-h-full flex-col overflow-x-hidden bg-[#FAF9F6] font-sans font-light text-ink">
         <LenisProvider>
           <div className="noise" aria-hidden />
           <SiteChrome>{children}</SiteChrome>

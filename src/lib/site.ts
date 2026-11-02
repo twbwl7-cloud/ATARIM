@@ -280,12 +280,16 @@ export const navLinks = [
   { href: "/", label: "בית" },
   { href: "/work", label: "עבודות" },
   { href: "/about", label: "עליי" },
+  { href: "/#contact", label: "צור קשר" },
 ] as const;
 
 export const consultLink = { href: "/contact", label: "ייעוץ" } as const;
 
 /** Footer + shared nav (includes consultation) */
 export const nav = [
-  ...navLinks,
+  { href: "/", label: "בית" },
+  { href: "/work", label: "עבודות" },
+  { href: "/about", label: "עליי" },
+  { href: "/#contact", label: "צור קשר" },
   consultLink,
 ] as const;

@@ -2,35 +2,35 @@ import Link from "next/link";
 import { PremiumContactForm } from "@/components/PremiumContactForm";
 import { nav, site, whatsappUrl } from "@/lib/site";
 
-/** Dark closing band — contact form bleeds into footer */
+/**
+ * Contact band (charcoal) + floating black footer island.
+ * Footer is detached from edges — rounded card, not a full-bleed bar.
+ */
 export function Footer() {
   return (
-    <div className="relative z-10 bg-[#0a0a0b] text-[#F5EFE6]">
+    <div className="relative z-10">
       <PremiumContactForm />
 
-      <footer className="border-t border-white/10">
-        <div
-          aria-hidden
-          className="mx-auto h-px max-w-xs bg-gradient-to-l from-transparent via-[#D4AF37]/55 to-transparent"
-        />
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-10 sm:py-12 md:flex-row md:items-end md:justify-between md:px-8">
-          <div className="max-w-md">
-            <p className="display-serif text-2xl font-light tracking-wide text-[#D4AF37] md:text-3xl">
-              {site.nameHe}
+      <div className="bg-transparent px-4 pb-8 pt-6 sm:px-5 md:px-8">
+        <footer
+          className="mx-auto mb-2 flex w-[calc(100%-0.5rem)] max-w-5xl flex-col gap-5 rounded-3xl border border-white/10 bg-black/95 px-8 py-6 shadow-2xl shadow-black/40 backdrop-blur-md sm:mb-4 sm:w-full sm:px-10 sm:py-7 md:flex-row md:items-center md:justify-between md:gap-8 md:px-12"
+          aria-label="סיום עמוד"
+        >
+          <div className="min-w-0">
+            <p className="select-none text-sm font-light uppercase tracking-[0.28em] text-[#C5A059] sm:text-base md:tracking-[0.32em]">
+              DAVID TUBUL
             </p>
-            <p className="mt-2 text-sm font-light leading-relaxed text-white/45">
-              {site.tagline}.
-            </p>
-            <p className="mt-3 text-sm text-[#D4AF37]/90">
-              <bdi dir="ltr">{site.phoneDisplay}</bdi>
+            <p className="mt-2 max-w-sm text-xs font-light leading-relaxed text-white/40 sm:text-[13px]">
+              {site.tagline}
             </p>
           </div>
-          <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-white/45">
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-light text-white/45">
             {nav.map((item) => (
               <Link
-                key={item.href}
+                key={item.href + item.label}
                 href={item.href}
-                className="transition-colors duration-500 hover:text-[#D4AF37]"
+                className="transition-colors duration-500 hover:text-[#C5A059]"
               >
                 {item.label}
               </Link>
@@ -39,25 +39,24 @@ export function Footer() {
               href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-[#F5EFE6] transition-colors duration-500 hover:text-[#D4AF37]"
+              className="text-[#F5EFE6] transition-colors duration-500 hover:text-[#C5A059]"
             >
               וואטסאפ
             </a>
+            <a
+              href={`mailto:${site.email}`}
+              className="transition-colors duration-500 hover:text-[#C5A059]"
+              dir="ltr"
+            >
+              {site.email}
+            </a>
           </div>
-        </div>
-        <div className="space-y-2 border-t border-white/10 px-5 py-4 text-center text-[11px] leading-relaxed text-white/35 md:px-8">
-          <p>
-            © 2026 {site.nameHe} · {site.phoneDisplay}
+
+          <p className="text-[11px] font-light tracking-wide text-white/30 md:text-end">
+            © 2026 DAVID TUBUL
           </p>
-          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-            <span>מדיניות פרטיות</span>
-            <span aria-hidden>·</span>
-            <span>הצהרת נגישות</span>
-            <span aria-hidden>·</span>
-            <span>התכנים להמחשה. מחיר סופי אחרי שיחה.</span>
-          </p>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }

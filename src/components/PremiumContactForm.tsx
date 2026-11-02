@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 type Status = "idle" | "loading" | "ok" | "error";
 
 const FIELD =
-  "w-full bg-transparent border-0 border-b border-neutral-700 px-0 py-3 text-sm font-light tracking-wide text-[#F5EFE6] placeholder:text-white/35 focus:border-[#D4AF37] focus:outline-none transition-colors duration-500";
+  "w-full bg-transparent border-0 border-b border-neutral-700 px-0 py-3 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#C5A059] focus:outline-none transition-colors duration-500";
 
 export function PremiumContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -77,13 +77,13 @@ export function PremiumContactForm() {
 
   return (
     <section
-      id="contact-form"
-      aria-labelledby="contact-form-heading"
-      className="relative border-t border-white/10 bg-[#0a0a0b] px-5 py-10 md:px-8 md:py-12"
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-12 md:px-8 md:py-16"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(212,175,55,0.08),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(197,160,89,0.1),transparent_55%)]"
       />
       <div className="relative mx-auto grid max-w-5xl gap-10 md:grid-cols-[1fr_1.15fr] md:gap-16 md:items-end">
         <motion.div
@@ -92,12 +92,12 @@ export function PremiumContactForm() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="text-[11px] font-medium tracking-[0.28em] text-[#D4AF37]">
-            פנייה אישית
+          <p className="text-[11px] font-medium tracking-[0.28em] text-[#C5A059]">
+            צור קשר
           </p>
           <h2
-            id="contact-form-heading"
-            className="display mt-3 text-3xl font-light tracking-wide text-[#F5EFE6] md:text-4xl"
+            id="contact-heading"
+            className="display mt-3 text-3xl font-light tracking-wide text-[#FAF9F6] md:text-4xl"
           >
             בואו נדבר על הפרויקט.
           </h2>

@@ -38,12 +38,12 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#F5EFE6]">
+    <section className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#FAF9F6]">
       <div className="hero-mesh pointer-events-none absolute inset-0 opacity-100" aria-hidden />
       {!reduce ? <HeroGlass /> : null}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(245,239,230,0.9)_0%,rgba(239,232,220,0.7)_40%,rgba(245,239,230,0.25)_65%,transparent_80%)]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,249,246,0.92)_0%,rgba(250,249,246,0.72)_40%,rgba(250,249,246,0.28)_65%,transparent_80%)]"
       />
 
       {/* Guiding thread — desktop + phone */}
@@ -59,7 +59,7 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mb-4 text-[11px] font-medium tracking-[0.22em] text-[#D4AF37] sm:mb-5 sm:text-xs"
+          className="mb-4 text-[11px] font-medium tracking-[0.22em] text-[#C5A059] sm:mb-5 sm:text-xs"
         >
           דוד טובול — הנדסת חוויות רשת בהזמנה אישית
         </motion.p>
@@ -123,7 +123,7 @@ export function Hero() {
             </span>
             <Link
               href="/work"
-              className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full border-[#D4AF37]/40 px-9 py-3 text-[14px] font-medium tracking-wide hover:border-[#D4AF37] hover:text-[#D4AF37] sm:min-h-12 sm:px-10 sm:text-sm"
+              className="btn-ghost inline-flex min-h-11 items-center justify-center rounded-full border-[#C5A059]/40 px-9 py-3 text-[14px] font-medium tracking-wide hover:border-[#C5A059] hover:text-[#C5A059] sm:min-h-12 sm:px-10 sm:text-sm"
             >
               לצפות בעבודות
             </Link>

@@ -17,8 +17,8 @@ const TRANS =
   "transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]";
 
 /** Warm cream — never white */
-const CREAM = "#F5EFE6";
-const CREAM_DEEP = "#EFE8DC";
+const CREAM = "#FAF9F6";
+const CREAM_DEEP = "#F3EFE6";
 
 type PortalVisual = "precision" | "flow" | "assets";
 
@@ -123,7 +123,7 @@ export function NavigationPortals() {
   return (
     <section
       aria-labelledby="portals-heading"
-      className="portal-section relative z-10 border-t border-[#D4AF37]/15 px-5 py-8 md:px-8 md:py-12"
+      className="portal-section relative z-10 border-t border-[#C5A059]/15 px-5 py-8 md:px-8 md:py-12"
       style={{ perspective: 1200, backgroundColor: CREAM }}
     >
       <div className="mx-auto max-w-7xl">
@@ -134,7 +134,7 @@ export function NavigationPortals() {
           transition={{ duration: 0.8, ease: EASE }}
           className="mb-6 max-w-xl md:mb-8"
         >
-          <p className="text-[11px] font-medium tracking-[0.24em] text-[#D4AF37]">
+          <p className="text-[11px] font-medium tracking-[0.24em] text-[#C5A059]">
             ניווט
           </p>
           <span aria-hidden className="gold-rule mt-3 mb-1 ms-0 me-auto" />
@@ -177,7 +177,7 @@ export function NavigationPortals() {
                   className="absolute inset-0 z-[1]"
                   style={{
                     background:
-                      "linear-gradient(to top, #F5EFE6 0%, rgba(245,239,230,0.88) 38%, rgba(245,239,230,0.35) 62%, transparent 82%)",
+                      "linear-gradient(to top, #FAF9F6 0%, rgba(250,249,246,0.88) 38%, rgba(250,249,246,0.35) 62%, transparent 82%)",
                   }}
                 />
 
@@ -195,7 +195,7 @@ export function NavigationPortals() {
                     }}
                     className="block"
                   >
-                    <span className="text-[11px] font-medium tracking-[0.2em] text-[#D4AF37]">
+                    <span className="text-[11px] font-medium tracking-[0.2em] text-[#C5A059]">
                       {portal.eyebrow}
                     </span>
                     <span className="display mt-2 block text-2xl font-semibold tracking-wide text-[#121212] sm:text-3xl md:text-[2rem]">
@@ -215,7 +215,7 @@ export function NavigationPortals() {
                       className={`mt-5 inline-flex items-center gap-2 text-xs font-medium tracking-wide text-[#121212]/80 ${TRANS} group-hover:text-[#A38A5F]`}
                     >
                       כניסה
-                      <span aria-hidden className="text-[#D4AF37]">
+                      <span aria-hidden className="text-[#C5A059]">
                         ←
                       </span>
                     </span>

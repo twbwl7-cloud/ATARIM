@@ -6,10 +6,11 @@
   Pearl · Deep Charcoal · Muted Bronze · Deep Sapphire
 */
 :root {
-  --sky: #f5efe6;
-  --sky-deep: #efe8dc;
+  /* Boutique cream · black · premium gold */
+  --sky: #faf9f6;
+  --sky-deep: #f3efe6;
   --paper: #f7f3eb;
-  --mist: #e8dfd2;
+  --mist: #ebe6dc;
 
   --ink: #121212;
   --ink-soft: #2a2a2a;
@@ -23,10 +24,10 @@
   --cyan-deep: #a38a5f;
   --teal: #5c5c5c;
 
-  --gold: #d4af37;
-  --gold-bright: #e8d5a3;
+  --gold: #c5a059;
+  --gold-bright: #e0c992;
   --gold-deep: #a38a5f;
-  --champagne: #e8d5a3;
+  --champagne: #e0c992;
 
   --blush: var(--sky-deep);
   --sea: var(--ink-faint);
@@ -130,22 +131,23 @@ body {
   color: var(--ink);
 }
 
-/* Pearl luxury field */
+/* Warm cream luxury field */
 body {
-  background-color: #f5efe6;
+  background-color: #faf9f6;
   background-image: radial-gradient(
       ellipse 70% 45% at 50% -8%,
-      rgba(163, 138, 95, 0.11),
+      rgba(197, 160, 89, 0.1),
       transparent 55%
     ),
     radial-gradient(
       ellipse 50% 35% at 90% 100%,
-      rgba(197, 160, 89, 0.07),
+      rgba(197, 160, 89, 0.06),
       transparent 50%
     ),
-    linear-gradient(180deg, #f5efe6 0%, #efe8dc 48%, #f5efe6 100%);
+    linear-gradient(180deg, #faf9f6 0%, #f3efe6 48%, #faf9f6 100%);
   background-attachment: fixed;
   font-family: var(--font-rubik), system-ui, sans-serif;
+  font-weight: 300;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -168,11 +170,11 @@ a {
   transition: color 0.5s ease-in-out;
 }
 
-/* Commanding Hebrew display — Heebo, medium weight */
+/* Commanding Hebrew display — Heebo, light/regular boutique weight */
 .display {
   font-family: var(--font-rubik), system-ui, sans-serif;
   letter-spacing: -0.01em;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.15;
 }
 
@@ -185,26 +187,26 @@ a {
 
 /* Floating header consultation CTA — soft gold glow on hover */
 .header-consult {
-  border-color: rgba(212, 175, 55, 0.45) !important;
+  border-color: rgba(197, 160, 89, 0.45) !important;
   color: #121212;
   box-shadow: none;
 }
 .header-consult:hover {
-  border-color: rgba(212, 175, 55, 0.85) !important;
-  color: #d4af37 !important;
+  border-color: rgba(197, 160, 89, 0.9) !important;
+  color: #c5a059 !important;
   box-shadow:
-    0 0 0 1px rgba(212, 175, 55, 0.25),
-    0 0 22px rgba(212, 175, 55, 0.22);
+    0 0 0 1px rgba(197, 160, 89, 0.25),
+    0 0 22px rgba(197, 160, 89, 0.22);
 }
 
 .logo-gold {
   background: linear-gradient(
     118deg,
     #f7ebc8 0%,
-    #e8d5a3 22%,
-    #d4af37 48%,
+    #e0c992 22%,
+    #c5a059 48%,
     #8f7128 72%,
-    #e0c06a 100%
+    #d4b56a 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -274,16 +276,16 @@ a {
 /* Warm cream hero field — continuous with portals (never plain white) */
 .hero-mesh {
   background:
-    radial-gradient(ellipse 50% 42% at 14% 74%, rgba(163, 138, 95, 0.14), transparent 58%),
-    radial-gradient(ellipse 44% 38% at 86% 28%, rgba(197, 160, 89, 0.1), transparent 55%),
-    radial-gradient(ellipse 55% 45% at 50% 0%, rgba(239, 232, 220, 0.95), transparent 62%),
-    linear-gradient(180deg, #f5efe6 0%, #efe8dc 45%, #f5efe6 100%);
+    radial-gradient(ellipse 50% 42% at 14% 74%, rgba(197, 160, 89, 0.12), transparent 58%),
+    radial-gradient(ellipse 44% 38% at 86% 28%, rgba(197, 160, 89, 0.09), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 50% 0%, rgba(250, 249, 246, 0.95), transparent 62%),
+    linear-gradient(180deg, #faf9f6 0%, #f3efe6 45%, #faf9f6 100%);
   background-size: 140% 140%;
   animation: hero-mesh-drift 28s ease-in-out infinite alternate;
 }
 
 .portal-section {
-  background-color: #f5efe6 !important;
+  background-color: #faf9f6 !important;
   background-image: radial-gradient(
     ellipse 60% 40% at 50% 0%,
     rgba(197, 160, 89, 0.08),
