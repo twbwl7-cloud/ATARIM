@@ -152,7 +152,7 @@ export function DemoShell({ demo }: Props) {
       </section>
 
       {/* Pillars */}
-      <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
         <p
           className="mb-3 text-xs tracking-[0.22em]"
           style={{ color: palette.accent }}
@@ -226,7 +226,7 @@ export function DemoShell({ demo }: Props) {
       </section>
 
       {/* Mock CTA success */}
-      <section className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8 md:py-28">
+      <section className="mx-auto max-w-3xl px-5 py-14 text-center md:px-8 md:py-20">
         <h2
           className="font-[family-name:var(--font-secular)] text-3xl md:text-4xl"
           style={{ color: palette.ink }}

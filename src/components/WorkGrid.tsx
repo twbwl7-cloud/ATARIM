@@ -27,7 +27,7 @@ export function WorkGrid({
   const list = typeof limit === "number" ? items.slice(0, limit) : items;
 
   return (
-    <section id={id} className="section-void relative z-10 px-5 py-24 md:px-8 md:py-32">
+    <section id={id} className="section-void relative z-10 px-5 py-14 md:px-8 md:py-20">
       <div className="mx-auto max-w-5xl">
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
           {eyebrow}

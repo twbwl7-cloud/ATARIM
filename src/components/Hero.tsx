@@ -37,7 +37,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-[#F5EFE6]">
+    <section className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#F5EFE6]">
       <div className="hero-mesh pointer-events-none absolute inset-0 opacity-100" aria-hidden />
       {!reduce ? <HeroGlass /> : null}
       <div
@@ -47,13 +47,13 @@ export function Hero() {
 
       {/* Guiding thread — desktop + phone */}
       <div
-        className="pointer-events-none absolute inset-y-[14%] start-1/2 z-[3] w-px -translate-x-1/2 opacity-60 sm:opacity-75"
+        className="pointer-events-none absolute inset-y-[18%] start-1/2 z-[3] w-px -translate-x-1/2 opacity-50 sm:opacity-65"
         aria-hidden
       >
         <span className="guiding-thread guiding-thread--tall mx-auto" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-5 pb-24 pt-[calc(6.5rem+env(safe-area-inset-top))] text-center sm:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-12 pt-[calc(5.5rem+env(safe-area-inset-top))] text-center sm:px-8 sm:pb-14 md:pb-16">
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -154,7 +154,7 @@ export function Hero() {
       </div>
 
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-7 z-20 flex flex-col items-center gap-3 sm:bottom-9"
+        className="relative z-20 mx-auto flex flex-col items-center gap-2 pb-6 pt-2 sm:pb-8"
         aria-hidden
       >
         <span className="text-[10px] font-medium tracking-[0.22em] text-[#5C5C5C]/70">

@@ -12,7 +12,7 @@ export function AboutIntro() {
   return (
     <section
       id="about-intro"
-      className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-24 md:px-8 md:py-32"
+      className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-14 md:px-8 md:py-20"
     >
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-16 lg:gap-20">
         <motion.div

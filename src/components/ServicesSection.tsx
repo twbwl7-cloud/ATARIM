@@ -6,7 +6,7 @@ import { services } from "@/lib/site";
 export function ServicesSection() {
   return (
     <section className="section-void relative z-10 overflow-hidden border-y border-line">
-      <div className="relative mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div className="relative mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
         <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">מה עושים יחד</p>
         <h2 className="display mt-4 max-w-xl text-3xl font-light text-ink md:text-5xl">
           שלושה דברים שאני בונה

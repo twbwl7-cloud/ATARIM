@@ -85,7 +85,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
-            className="pointer-events-auto mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-[#D4AF37]/25 bg-white/80 p-3 backdrop-blur-md md:hidden"
+            className="pointer-events-auto mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-[#D4AF37]/25 bg-[#F5EFE6]/90 p-3 backdrop-blur-md md:hidden"
           >
             <div className="flex flex-col gap-1">
               {navLinks.map((item) => (

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 /** ייעוץ בלעדי + תהליך עבודה */
 export default function ContactPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-20">
       <div className="mx-auto max-w-3xl px-5 pb-2 pt-10 text-center md:px-8 md:pt-14">
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
           גישה בלעדית

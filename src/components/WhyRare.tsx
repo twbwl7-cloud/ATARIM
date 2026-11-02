@@ -24,25 +24,25 @@ const POINTS = [
 
 export function WhyRare() {
   return (
-    <section className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-24 md:px-8 md:py-32">
+    <section className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-14 md:px-8 md:py-20">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(ellipse_at_50%_0%,rgba(197,160,89,0.08),transparent_60%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(ellipse_at_50%_0%,rgba(197,160,89,0.08),transparent_60%)]"
       />
       <div className="relative mx-auto max-w-5xl">
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
           עקרונות מובילים
         </p>
-        <h2 className="display mt-4 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-5xl">
+        <h2 className="display mt-3 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-4xl">
           לא בונים עוד אתר. בונים{" "}
           <span className="lux-word">נכסים דיגיטליים</span> ששולטים בשוק.
         </h2>
-        <p className="mt-5 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
+        <p className="mt-4 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
           סטודיו <span className="lux-word">יוקרה</span> נמדד במה שהוא מסרב
           לעשות — לא רק במה שהוא מוכר. כאן כל שורה מכוונת לפנייה.
         </p>
 
-        <ul className="mt-14 grid gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-12">
+        <ul className="mt-10 grid gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-10">
           {POINTS.map((p, i) => (
             <motion.li
               key={p.title}
@@ -85,7 +85,7 @@ export function WhyRare() {
           ))}
         </ul>
 
-        <div className="mt-16 flex flex-wrap items-center gap-6">
+        <div className="mt-10 flex flex-wrap items-center gap-5 md:mt-12">
           <Link
             href="/work"
             className="btn-gold rounded-md px-8 py-3.5 text-sm font-light transition-all duration-500 ease-in-out"

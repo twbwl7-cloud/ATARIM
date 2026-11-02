@@ -1,11 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 /**
- * Stacking craft process — pinned scrub (A05) + effort illusion (P13) + authority (P15).
- * Cards stack into the viewport while the page background holds.
+ * Compact craft process — content-height only, no sticky multi-vh traps.
  */
 const STEPS = [
   {
@@ -32,109 +30,51 @@ const STEPS = [
     body: "כפתור ברור לוואטסאפ, תור או הזמנה. בלי הבטחות באוויר.",
     lever: "פעולה",
   },
-];
-
-function StepCard({
-  step,
-  progress,
-  index,
-}: {
-  step: (typeof STEPS)[number];
-  progress: MotionValue<number>;
-  index: number;
-}) {
-  // Keep all keyframe offsets strictly inside [0, 1]
-  const start = 0.06 + index * 0.18;
-  const mid = Math.min(start + 0.14, 0.92);
-  const hold = Math.min(mid + 0.08, 0.98);
-  const opacity = useTransform(progress, [start, mid, hold], [0, 1, 1]);
-  const y = useTransform(progress, [start, mid], [72 + index * 10, index * 12]);
-  const scale = useTransform(progress, [start, mid], [0.94, 1 - index * 0.012]);
-  const rotate = useTransform(progress, [start, mid], [index % 2 === 0 ? -2 : 2, 0]);
-
-  return (
-    <motion.article
-      style={{ opacity, y, scale, rotate, zIndex: index + 1 }}
-      className="premium-panel absolute inset-x-0 top-[28%] mx-auto w-full max-w-xl rounded-2xl p-7 backdrop-blur-md md:p-9"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <p className="text-[11px] tracking-[0.24em] text-gold">
-          {step.lever}
-        </p>
-        <span className="display text-4xl text-white/10 md:text-5xl">{step.n}</span>
-      </div>
-      <h3 className="display mt-4 text-3xl text-ivory md:text-4xl">{step.title}</h3>
-      <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">{step.body}</p>
-    </motion.article>
-  );
-}
+] as const;
 
 export function CraftProcess() {
-  const wrap = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: wrap,
-    offset: ["start start", "end end"],
-  });
-
-  const rail = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const headlineOpacity = useTransform(scrollYProgress, [0, 0.08, 0.9, 1], [1, 1, 0.5, 0.35]);
-
   return (
     <section
-      ref={wrap}
-      className="section-void relative z-10 h-[340vh] md:h-[320vh]"
+      className="section-void relative z-10 px-5 py-14 md:px-8 md:py-20"
       aria-label="תהליך העבודה"
     >
-      {/* Mobile */}
-      <div className="space-y-6 px-5 py-20 md:hidden">
-        <div>
-          <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
-          <h2 className="display mt-3 text-3xl text-ivory">איך נבנה אתר שמביא הודעות</h2>
-        </div>
-        {STEPS.map((s) => (
-          <div
-            key={s.n}
-            className="rounded-2xl border border-line bg-elevated/60 p-6"
-          >
-            <p className="text-[11px] tracking-[0.2em] text-gold">{s.lever}</p>
-            <h3 className="display mt-3 text-2xl text-ivory">
-              {s.n} · {s.title}
-            </h3>
-            <p className="mt-3 text-sm text-muted">{s.body}</p>
-          </div>
-        ))}
-      </div>
+      <div className="mx-auto max-w-3xl">
+        <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
+        <h2 className="display mt-3 text-3xl text-ink md:text-4xl">
+          ארבעה שלבים.{" "}
+          <span className="luxury-gradient-text">בלי קיצורי דרך.</span>
+        </h2>
+        <p className="mt-3 max-w-lg text-sm text-muted">
+          תהליך קצר וברור — משיחה ראשונה עד אתר שמביא הודעות.
+        </p>
 
-      {/* Desktop pinned stack */}
-      <div className="sticky top-0 hidden h-screen overflow-hidden md:block">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,161,91,0.08),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(122,46,58,0.08),transparent_50%)]" />
-
-        {/* Progress rail */}
-        <div className="absolute start-8 top-1/2 h-48 w-px -translate-y-1/2 overflow-hidden bg-white/10 lg:start-12">
-          <motion.div
-            style={{ scaleY: rail, originY: 0 }}
-            className="h-full w-full bg-gradient-to-b from-gold-bright via-gold to-gold-deep/60"
-          />
-        </div>
-
-        <div className="relative mx-auto h-full max-w-5xl px-8">
-          <motion.div style={{ opacity: headlineOpacity }} className="absolute top-[12%] start-0 end-0 text-center">
-            <p className="text-xs tracking-[0.28em] text-gold">המלאכה</p>
-            <h2 className="display mt-3 text-[clamp(28px,3.8vw,48px)] text-ivory">
-              ארבעה שלבים.{" "}
-              <span className="luxury-gradient-text">בלי קיצורי דרך.</span>
-            </h2>
-            <p className="mx-auto mt-3 max-w-lg text-sm text-white/45">
-              הגלילה נשארת. הכרטיסים נערמים — כמו תהליך אמיתי.
-            </p>
-          </motion.div>
-
-          <div className="relative h-full">
-            {STEPS.map((step, i) => (
-              <StepCard key={step.n} step={step} progress={scrollYProgress} index={i} />
-            ))}
-          </div>
-        </div>
+        <ol className="mt-8 space-y-6 md:mt-10">
+          {STEPS.map((step, i) => (
+            <motion.li
+              key={step.n}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{
+                duration: 0.55,
+                delay: i * 0.05,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="border-t border-line pt-5"
+            >
+              <div className="flex items-baseline justify-between gap-4">
+                <p className="text-[11px] tracking-[0.2em] text-gold">
+                  {step.lever}
+                </p>
+                <span className="text-sm text-gold">
+                  <bdi>{step.n}</bdi>
+                </span>
+              </div>
+              <h3 className="display mt-2 text-2xl text-ink">{step.title}</h3>
+              <p className="mt-3 text-sm text-muted">{step.body}</p>
+            </motion.li>
+          ))}
+        </ol>
       </div>
     </section>
   );

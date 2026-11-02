@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 /** החזון + הוכחה → ייעוץ */
 export default function AboutPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-20">
       <div className="mx-auto max-w-3xl px-5 pb-4 pt-10 text-center md:px-8 md:pt-14">
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
           החזון שלנו

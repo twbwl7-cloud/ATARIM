@@ -1468,14 +1468,14 @@ body {
   );
 }
 
-/* Massive breathing room between major sections */
+/* Tight section rhythm — content-led spacing, no dead mid-page voids */
 .section-lux {
-  padding-block: 6rem;
+  padding-block: 3.5rem;
 }
 
 @media (min-width: 768px) {
   .section-lux {
-    padding-block: 8rem;
+    padding-block: 5rem;
   }
 }
 

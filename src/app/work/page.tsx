@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 /** גלריית עבודות → סיפורי מקרה → ייעוץ */
 export default function WorkPage() {
   return (
-    <div className="pt-24">
+    <div className="pt-20">
       <div className="mx-auto max-w-3xl px-5 pb-6 pt-10 text-center md:px-8 md:pt-14">
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
           תיק עבודות

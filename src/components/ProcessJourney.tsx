@@ -1,22 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion } from "framer-motion";
+import { MagneticButton } from "@/components/MagneticButton";
 import { whatsappUrl } from "@/lib/site";
 
-/**
- * Luxury zigzag map · A05 pinned · continuous ambient motion
- * H01 process · V11 voice · X-filter clean
- * RTL: path starts on the right and snakes left/right down the map
- */
 const STEPS = [
   {
     n: "01",
@@ -50,404 +37,52 @@ const STEPS = [
   },
 ] as const;
 
-/** ViewBox 1000×640 — zigzag waypoints (RTL: start right) */
-const NODES = [
-  { x: 820, y: 70 },
-  { x: 220, y: 170 },
-  { x: 780, y: 300 },
-  { x: 240, y: 430 },
-  { x: 760, y: 560 },
-] as const;
-
-function buildZigzagPath(nodes: readonly { x: number; y: number }[]) {
-  if (nodes.length === 0) return "";
-  let d = `M ${nodes[0].x} ${nodes[0].y}`;
-  for (let i = 1; i < nodes.length; i++) {
-    const prev = nodes[i - 1];
-    const curr = nodes[i];
-    const midY = (prev.y + curr.y) / 2;
-    d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
-  }
-  return d;
-}
-
-const PATH_D = buildZigzagPath(NODES);
-const PATH_LEN_FALLBACK = 1680;
-
+/** Compact process — content-height only, no sticky viewport traps */
 export function ProcessJourney() {
-  const ref = useRef<HTMLElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
-  const [active, setActive] = useState(0);
-  const [reduce, setReduce] = useState(false);
-  const [pathLen, setPathLen] = useState(PATH_LEN_FALLBACK);
-
-  const tipX = useMotionValue<number>(NODES[0].x);
-  const tipY = useMotionValue<number>(NODES[0].y);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduce(mq.matches);
-    const onChange = () => setReduce(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  /** One shared 0→1 progress drives blue bar + gold tip together */
-  const progressRaw = useTransform(scrollYProgress, [0.06, 0.86], [0, 1]);
-  const progress = useSpring(progressRaw, {
-    stiffness: 64,
-    damping: 26,
-    mass: 0.42,
-  });
-
-  useEffect(() => {
-    if (reduce) return;
-    const syncLen = () => {
-      const path = pathRef.current;
-      if (!path) return;
-      const len = path.getTotalLength();
-      if (len > 0) {
-        setPathLen(len);
-        const p = progress.get();
-        const pt = path.getPointAtLength(Math.min(1, Math.max(0, p)) * len);
-        tipX.set(pt.x);
-        tipY.set(pt.y);
-      }
-    };
-    const id = requestAnimationFrame(syncLen);
-    return () => cancelAnimationFrame(id);
-  }, [reduce, progress, tipX, tipY]);
-
-  useMotionValueEvent(progress, "change", (p) => {
-    const clamped = Math.min(1, Math.max(0, p));
-    const next = Math.min(
-      STEPS.length - 1,
-      Math.max(0, Math.floor(clamped * (STEPS.length - 0.001))),
-    );
-    setActive((prev) => (prev === next ? prev : next));
-
-    const path = pathRef.current;
-    if (!path) return;
-    const len = path.getTotalLength() || pathLen;
-    const pt = path.getPointAtLength(clamped * len);
-    tipX.set(pt.x);
-    tipY.set(pt.y);
-  });
-
-  const dashOffset = useTransform(progress, (p) => pathLen * (1 - Math.min(1, Math.max(0, p))));
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.07, 0.14], [1, 0.6, 0]);
-  const ctaOpacity = useTransform(scrollYProgress, [0.88, 0.96], [0, 1]);
-  const orbX = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-
-  const current = STEPS[active] ?? STEPS[0];
-
-  if (reduce) {
-    return (
-      <section id="process" className="relative z-10 px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">איך זה עובד</p>
-          <h2 className="display mt-4 text-3xl font-light text-ink md:text-5xl">
-            איך אתר עולה לאוויר בחמישה צעדים
-          </h2>
-          <ol className="mt-10 space-y-10">
-            {STEPS.map((step) => (
-              <li key={step.n} className="border-t border-line pt-5">
-                <p className="text-sm text-gold">
-                  <bdi>{step.n}</bdi>
-                </p>
-                <h3 className="display mt-1 text-2xl text-ink">{step.title}</h3>
-                <p className="mt-3 text-sm text-muted">{step.body}</p>
-                <p className="mt-3 text-[11px] text-ink-soft">
-                  תוצאה · {step.outcome}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section
-      id="process"
-      ref={ref}
-      className="relative z-10 h-[360vh] sm:h-[380vh]"
-    >
-      <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden">
-        {/* Living atmosphere */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
-        />
-        <motion.div
-          aria-hidden
-          style={{ x: orbX, y: orbY }}
-          className="process-orb process-orb--a pointer-events-none absolute -start-10 top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.35),transparent_70%)] blur-2xl"
-        />
-        <motion.div
-          aria-hidden
-          className="process-orb process-orb--b pointer-events-none absolute -end-8 bottom-28 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(201,162,74,0.22),transparent_72%)] blur-2xl"
-        />
-        <div className="process-grain pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden />
-
-        <div className="relative z-10 mx-auto flex w-full max-w-6xl shrink-0 items-end justify-between gap-3 px-4 pt-14 sm:gap-4 sm:px-8 sm:pt-20">
-          <div className="min-w-0">
-            <p className="text-[10px] tracking-[0.18em] text-gold sm:text-xs">
-              איך זה עובד
-            </p>
-            <h2 className="display mt-1.5 text-[1.35rem] leading-tight text-ink sm:mt-2 sm:text-3xl md:text-4xl">
-              איך אתר עולה לאוויר בחמישה צעדים
-            </h2>
-            <p className="mt-1.5 max-w-md text-[12px] text-muted sm:mt-2 sm:text-sm">
-              המסך נשאר. גללו — המפה בזיגזג. תמיד יש מלל על היעד הנוכחי.
-            </p>
-          </div>
-          <div className="shrink-0 text-end">
-            <p className="display text-2xl font-light text-gold/30 sm:text-3xl md:text-4xl">
-              <bdi>{current.n}</bdi>
-            </p>
-            <p className="mt-0.5 text-[10px] tracking-[0.12em] text-muted sm:text-[11px]">
-              מתוך 05
-            </p>
-          </div>
+    <section id="process" className="relative z-10 px-5 py-14 md:px-8 md:py-20">
+      <div className="mx-auto max-w-3xl">
+        <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
+          איך זה עובד
+        </p>
+        <h2 className="display mt-3 text-3xl font-light text-ink md:text-4xl">
+          איך אתר עולה לאוויר בחמישה צעדים
+        </h2>
+        <ol className="mt-8 space-y-8 md:mt-10">
+          {STEPS.map((step, i) => (
+            <motion.li
+              key={step.n}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{
+                duration: 0.55,
+                delay: i * 0.05,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="border-t border-line pt-5"
+            >
+              <p className="text-sm text-gold">
+                <bdi>{step.n}</bdi>
+              </p>
+              <h3 className="display mt-1 text-2xl text-ink">{step.title}</h3>
+              <p className="mt-3 text-sm text-muted">{step.body}</p>
+              <p className="mt-3 text-[11px] text-ink-soft">
+                תוצאה · {step.outcome}
+              </p>
+            </motion.li>
+          ))}
+        </ol>
+        <div className="mt-10 flex justify-center md:mt-12">
+          <MagneticButton
+            href={whatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold justify-center rounded-md px-8 py-3.5 text-sm font-light"
+          >
+            שיחת ייעוץ בוואטסאפ
+          </MagneticButton>
         </div>
-
-        <div className="relative z-10 mx-auto grid min-h-0 w-full max-w-6xl flex-1 grid-cols-1 items-stretch gap-3 px-4 pb-[5.5rem] pt-3 sm:gap-4 sm:px-8 sm:pb-6 sm:py-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8 lg:py-5">
-          {/* Zigzag map */}
-          <div className="relative min-h-[34vh] overflow-hidden rounded-2xl border border-line/70 bg-paper/40  sm:min-h-[40vh] lg:min-h-0">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_20%,rgba(212,175,55,0.1),transparent_50%)]"
-            />
-
-            <svg
-              viewBox="0 0 1000 640"
-              className="absolute inset-0 h-full w-full"
-              preserveAspectRatio="xMidYMid meet"
-              aria-hidden
-            >
-              <defs>
-                <linearGradient id="mapStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#a8892a" />
-                  <stop offset="55%" stopColor="#d4af37" />
-                  <stop offset="100%" stopColor="#c9a24a" />
-                </linearGradient>
-                <filter id="mapGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="4" result="b" />
-                  <feMerge>
-                    <feMergeNode in="b" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {/* Soft base path */}
-              <path
-                d={PATH_D}
-                fill="none"
-                stroke="rgba(10,22,40,0.1)"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeDasharray="6 10"
-              />
-
-              {/* Drawn progress — same progress as gold tip */}
-              <motion.path
-                ref={pathRef}
-                d={PATH_D}
-                fill="none"
-                stroke="url(#mapStroke)"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeDasharray={pathLen}
-                style={{ strokeDashoffset: dashOffset }}
-                filter="url(#mapGlow)"
-              />
-
-              {/* Ambient flowing dashes — always moving */}
-              <path
-                d={PATH_D}
-                fill="none"
-                stroke="rgba(212,175,55,0.35)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeDasharray="10 28"
-                className="process-flow-dash"
-              />
-
-              {/* Gold tip — locked to the leading edge of the blue bar */}
-              <motion.circle
-                r="9"
-                style={{ cx: tipX, cy: tipY }}
-                fill="#c9a24a"
-                stroke="#f0e2c4"
-                strokeWidth="2"
-                filter="url(#mapGlow)"
-              />
-              <motion.circle
-                r="3.5"
-                style={{ cx: tipX, cy: tipY }}
-                fill="#fff8e8"
-              />
-            </svg>
-
-            {/* Waypoints */}
-            {STEPS.map((step, i) => {
-              const node = NODES[i];
-              const on = i <= active;
-              const isActive = i === active;
-              const side = i % 2 === 0 ? "end" : "start";
-              return (
-                <div
-                  key={step.n}
-                  className="absolute z-[2] -translate-x-1/2 -translate-y-1/2"
-                  style={{
-                    left: `${(node.x / 1000) * 100}%`,
-                    top: `${(node.y / 640) * 100}%`,
-                  }}
-                >
-                  <motion.div
-                    animate={
-                      isActive
-                        ? { scale: [1, 1.08, 1], boxShadow: [
-                            "0 0 0 0 rgba(201,162,74,0.0)",
-                            "0 0 0 14px rgba(201,162,74,0.18)",
-                            "0 0 0 0 rgba(201,162,74,0.0)",
-                          ] }
-                        : { scale: 1 }
-                    }
-                    transition={
-                      isActive
-                        ? { duration: 2.4, repeat: Infinity, ease: "easeInOut" }
-                        : { duration: 0.35 }
-                    }
-                    className={`relative grid h-8 w-8 place-items-center rounded-full border-2 text-[10px] font-semibold sm:h-12 sm:w-12 sm:text-sm ${
-                      isActive
-                        ? "border-gold bg-[linear-gradient(135deg,#e0c06a,#c9a24a)] text-ink"
-                        : on
-                          ? "border-gold bg-gold/20 text-gold"
-                          : "border-line bg-paper/90 text-muted"
-                    }`}
-                  >
-                    <bdi>{step.n}</bdi>
-                  </motion.div>
-                  <p
-                    className={`absolute top-full mt-1 whitespace-nowrap text-[9px] tracking-wide sm:mt-1.5 sm:text-[11px] ${
-                      side === "end" ? "end-0 text-end" : "start-0 text-start"
-                    } ${isActive ? "font-semibold text-ink" : "text-muted"}`}
-                  >
-                    {step.title}
-                  </p>
-                </div>
-              );
-            })}
-
-          </div>
-
-          {/* Always-on step copy */}
-          <div className="relative flex min-h-0 flex-col justify-center lg:min-h-0">
-            <div className="premium-panel relative overflow-hidden rounded-2xl p-4 sm:p-7 md:p-8">
-              <div
-                aria-hidden
-                className="process-shimmer pointer-events-none absolute inset-0 opacity-40"
-              />
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={current.n}
-                  initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -12, filter: "blur(6px)" }}
-                  transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative z-[1]"
-                >
-                  <p className="text-[10px] tracking-[0.16em] text-gold sm:text-[11px]">
-                    צעד <bdi>{current.n}</bdi> מתוך 05 · על המפה עכשיו
-                  </p>
-                  <h3 className="display mt-2 text-xl text-ink sm:mt-3 sm:text-3xl md:text-4xl">
-                    {current.title}
-                  </h3>
-                  <p className="mt-2.5 text-[13px] leading-relaxed text-muted sm:mt-4 sm:text-sm md:text-[15px]">
-                    {current.body}
-                  </p>
-                  <motion.p
-                    key={`${current.n}-out`}
-                    initial={{ opacity: 0, x: 8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.12, duration: 0.35 }}
-                    className="mt-4 inline-flex items-center gap-2 rounded-md border border-gold/30 bg-champagne/40 px-3 py-2 text-[11px] tracking-[0.06em] text-ink-soft sm:mt-6"
-                  >
-                    תוצאה
-                    <span className="font-semibold text-ink">{current.outcome}</span>
-                  </motion.p>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Mini progress chips — always visible */}
-              <div className="relative z-[1] mt-4 flex flex-wrap gap-1.5 sm:mt-7">
-                {STEPS.map((step, i) => (
-                  <span
-                    key={step.n}
-                    className={`rounded-md px-2 py-1 text-[10px] tracking-wide transition ${
-                      i === active
-                        ? "bg-gold/90 text-ink"
-                        : i < active
-                          ? "bg-gold/20 text-gold"
-                          : "bg-ink/5 text-muted"
-                    }`}
-                  >
-                    <bdi>{step.n}</bdi>
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <motion.div
-          style={{ opacity: ctaOpacity }}
-          className="relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-4 border-t border-line bg-sky/95 px-5 py-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-5"
-        >
-          <div>
-            <p className="display text-lg text-ink sm:text-xl">
-              מוכנים לשיחת היכרות?
-            </p>
-            <p className="mt-1 text-sm text-muted">
-              בלי משפך. פשוט נדבר על העסק שלכם.
-            </p>
-          </div>
-          <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
-            <a
-              href="/contact"
-              className="btn-gold rounded-md px-6 py-3 text-center text-sm"
-            >
-              לעמוד צור קשר
-            </a>
-            <a
-              href={whatsappUrl(
-                "היי דוד, ראיתי את אתר התדמית. בא לי לשיחת היכרות קצרה.",
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost rounded-md px-6 py-3 text-center text-sm"
-            >
-              לשיחה בוואטסאפ
-            </a>
-          </div>
-        </motion.div>
-
-        <motion.p
-          style={{ opacity: hintOpacity }}
-          className="pointer-events-none absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-[11px] tracking-[0.14em] text-muted"
-        >
-          גללו — היעד הבא על המפה
-        </motion.p>
       </div>
     </section>
   );

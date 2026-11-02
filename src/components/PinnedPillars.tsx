@@ -69,7 +69,7 @@ export function PinnedPillars() {
     <section
       ref={wrap}
       id="pillars"
-      className="section-void relative z-10 overflow-hidden px-5 py-24 md:px-8 md:py-32"
+      className="section-void relative z-10 overflow-hidden px-5 py-14 md:px-8 md:py-20"
       aria-label="חמש מילים"
     >
       <div

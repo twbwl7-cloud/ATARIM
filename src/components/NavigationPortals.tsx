@@ -33,7 +33,7 @@ const portals = [
     eyebrow: "תיק עבודות",
     title: "נכסים חיים",
     lead: "אתרים שנבנו מאפס לקצה העליון — מוכחים באוויר, לא במצגת.",
-    span: "md:col-span-7 md:row-span-2 md:min-h-[28rem]",
+    span: "md:col-span-7 md:row-span-2 md:min-h-[22rem]",
     visual: "assets" as const,
   },
   {
@@ -122,7 +122,7 @@ export function NavigationPortals() {
   return (
     <section
       aria-labelledby="portals-heading"
-      className="portal-section relative z-10 border-t border-[#D4AF37]/15 px-5 py-20 md:px-8 md:py-28"
+      className="portal-section relative z-10 border-t border-[#D4AF37]/15 px-5 py-12 md:px-8 md:py-16"
       style={{ perspective: 1200, backgroundColor: CREAM }}
     >
       <div className="mx-auto max-w-7xl">
@@ -152,11 +152,11 @@ export function NavigationPortals() {
           {portals.map((portal, index) => (
             <TiltShell
               key={portal.href}
-              className={`gold-border ${portal.span} min-h-[16rem]`}
+              className={`gold-border ${portal.span} min-h-[14rem]`}
             >
               <Link
                 href={portal.href}
-                className="group gold-border__inner relative block h-full min-h-[16rem] overflow-hidden"
+                className="group gold-border__inner relative block h-full min-h-[14rem] overflow-hidden"
                 style={{ backgroundColor: CREAM }}
               >
                 <span
@@ -180,7 +180,7 @@ export function NavigationPortals() {
                 />
 
                 <span
-                  className={`relative z-[2] flex h-full min-h-[16rem] flex-col justify-end p-6 sm:p-8 ${TRANS}`}
+                  className={`relative z-[2] flex h-full min-h-[14rem] flex-col justify-end p-6 sm:p-8 ${TRANS}`}
                 >
                   <motion.span
                     initial={{ opacity: 0, y: 14 }}
