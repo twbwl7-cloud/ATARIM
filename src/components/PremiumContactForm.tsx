@@ -79,7 +79,7 @@ export function PremiumContactForm() {
     <section
       id="contact-form"
       aria-labelledby="contact-form-heading"
-      className="relative border-t border-white/10 bg-[#0a0a0b] px-5 py-12 md:px-8 md:py-16"
+      className="relative border-t border-white/10 bg-[#0a0a0b] px-5 py-10 md:px-8 md:py-12"
     >
       <div
         aria-hidden

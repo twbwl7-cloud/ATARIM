@@ -7,7 +7,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 type Props = {
   /** Full heading/copy string — split into words for masked reveal */
-  text: string;
+  text?: string;
   /** Tailwind / layout classes applied to the semantic text element */
   className?: string;
   /** Semantic tag for the text (h1/h2/p…). Defaults to div. */
@@ -54,8 +54,17 @@ export function SplitTextReveal({
     setReady(true);
   }, []);
 
-  const words = text.trim().split(/\s+/).filter(Boolean);
+  const safe = typeof text === "string" ? text : "";
+  const words = safe.trim().split(/\s+/).filter(Boolean);
   const animate = ready && !reduce;
+
+  if (!words.length) {
+    return (
+      <Tag id={id} className={className}>
+        {safe}
+      </Tag>
+    );
+  }
 
   return (
     <motion.div

@@ -26,7 +26,7 @@ export function Testimonials() {
   return (
     <section
       id="reviews"
-      className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-10 md:px-8 md:py-14"
+      className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-8 md:px-8 md:py-12"
     >
       <div className="relative mx-auto max-w-6xl">
         <p className="text-center text-[11px] font-light tracking-[0.22em] text-gold">

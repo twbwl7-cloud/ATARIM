@@ -11,7 +11,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative z-10 mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14"
+      className="relative z-10 mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12"
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}

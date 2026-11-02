@@ -34,7 +34,7 @@ export function FormatsElements() {
   return (
     <section
       id="formats"
-      className="section-void relative z-10 overflow-hidden border-y border-line/30 px-5 py-10 md:px-8 md:py-14"
+      className="section-void relative z-10 overflow-hidden border-y border-line/30 px-5 py-8 md:px-8 md:py-12"
     >
       <div aria-hidden className="aurora" />
       <div

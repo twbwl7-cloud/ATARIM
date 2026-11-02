@@ -54,7 +54,7 @@ export function Hero() {
         <span className="guiding-thread guiding-thread--tall mx-auto" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-8 pt-[calc(5.5rem+env(safe-area-inset-top))] text-center sm:px-8 sm:pb-10 md:pb-12">
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-6 pt-[calc(5.5rem+env(safe-area-inset-top))] text-center sm:px-8 sm:pb-8 md:pb-10">
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ export function Hero() {
       </div>
 
       <div
-        className="relative z-20 mx-auto flex flex-col items-center gap-2 pb-4 pt-1 sm:pb-5"
+        className="relative z-20 mx-auto flex flex-col items-center gap-2 pb-3 pt-1 sm:pb-4"
         aria-hidden
       >
         <span className="text-[10px] font-medium tracking-[0.22em] text-[#5C5C5C]/70">

@@ -35,7 +35,7 @@ const STEPS = [
 export function CraftProcess() {
   return (
     <section
-      className="section-void relative z-10 px-5 py-10 md:px-8 md:py-14"
+      className="section-void relative z-10 px-5 py-8 md:px-8 md:py-12"
       aria-label="תהליך העבודה"
     >
       <div className="mx-auto max-w-3xl">

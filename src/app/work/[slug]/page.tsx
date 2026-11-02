@@ -83,7 +83,7 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-5xl px-5 py-10 md:px-8 md:py-14">
+      <section className="relative z-10 mx-auto max-w-5xl px-5 py-8 md:px-8 md:py-12">
         <p className="text-[11px] font-light tracking-[0.22em] text-muted">
           טכנולוגיה
         </p>

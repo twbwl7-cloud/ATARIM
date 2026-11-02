@@ -47,7 +47,7 @@ export function WorkWheel() {
   return (
     <section
       id="work"
-      className="relative z-10 px-5 py-10 md:px-8 md:py-14"
+      className="relative z-10 px-5 py-8 md:px-8 md:py-12"
     >
       <div
         aria-hidden
@@ -63,7 +63,7 @@ export function WorkWheel() {
           className="display mt-3 text-center text-3xl font-light tracking-wide text-ink md:text-4xl"
         />
 
-        <ul className="mt-8 space-y-8 md:mt-10 md:space-y-12">
+        <ul className="mt-7 space-y-7 md:mt-9 md:space-y-10">
           {projects.map((project, i) => (
             <motion.li
               key={project.id}

@@ -20,7 +20,7 @@ export function FreeDemo() {
   return (
     <section
       id="free-demo"
-      className="relative z-10 mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14"
+      className="relative z-10 mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12"
     >
       <motion.div
         initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}

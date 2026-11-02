@@ -123,7 +123,7 @@ export function NavigationPortals() {
   return (
     <section
       aria-labelledby="portals-heading"
-      className="portal-section relative z-10 border-t border-[#D4AF37]/15 px-5 py-10 md:px-8 md:py-14"
+      className="portal-section relative z-10 border-t border-[#D4AF37]/15 px-5 py-8 md:px-8 md:py-12"
       style={{ perspective: 1200, backgroundColor: CREAM }}
     >
       <div className="mx-auto max-w-7xl">

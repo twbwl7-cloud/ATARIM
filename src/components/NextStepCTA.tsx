@@ -26,13 +26,13 @@ export function NextStepCTA({
   secondaryLabel = "לעמוד הייעוץ",
 }: Props) {
   return (
-    <section className="relative z-10 border-t border-black/5 px-5 py-10 md:px-8 md:py-14">
+    <section className="relative z-10 border-t border-black/5 px-5 py-8 md:px-8 md:py-12">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="premium-panel relative mx-auto max-w-5xl overflow-hidden rounded-2xl px-6 py-8 text-center sm:px-10 sm:py-10 md:px-14 md:py-12"
+        className="premium-panel relative mx-auto max-w-5xl overflow-hidden rounded-2xl px-6 py-7 text-center sm:px-10 sm:py-9 md:px-12 md:py-10"
       >
         <div
           aria-hidden
@@ -44,7 +44,7 @@ export function NextStepCTA({
           </p>
           <SplitTextReveal
             as="h2"
-            text={title}
+            text={title ?? "מוכנים לפרויקט ברמת סוכנות?"}
             className="display mx-auto mt-5 max-w-3xl text-3xl font-light tracking-wide text-ink md:text-5xl"
           />
           <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
