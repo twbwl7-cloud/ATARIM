@@ -152,7 +152,7 @@ export function ProcessJourney() {
 
   if (reduce) {
     return (
-      <section id="process" className="bg-premium-texture relative z-10 px-5 py-10 md:px-8 md:py-12">
+      <section id="process" className="relative z-10 bg-[#FAF9F6] px-5 py-10 md:px-8 md:py-12">
         <div className="mx-auto max-w-3xl">
           <p className="text-[11px] font-medium tracking-[0.22em] text-[#C5A059] uppercase">איך זה עובד</p>
           <h2 className="display mt-3 text-3xl font-light text-[#121212] md:text-4xl">
@@ -183,17 +183,22 @@ export function ProcessJourney() {
       ref={ref}
       className="relative z-10 h-[400vh]"
     >
-      <div className="bg-premium-texture sticky top-0 flex h-screen flex-col overflow-hidden">
-        {/* Map-only ambient orbs — sit above the shared cream/grain field */}
+      <div className="sticky top-0 flex h-screen flex-col overflow-hidden bg-[#FAF9F6]">
+        {/* Living atmosphere — cream + gold wash + film grain */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
+        />
         <motion.div
           aria-hidden
           style={{ x: orbX, y: orbY }}
-          className="process-orb process-orb--a pointer-events-none absolute -start-10 top-24 z-[1] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.35),transparent_70%)] blur-2xl"
+          className="process-orb process-orb--a pointer-events-none absolute -start-10 top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.35),transparent_70%)] blur-2xl"
         />
         <motion.div
           aria-hidden
-          className="process-orb process-orb--b pointer-events-none absolute -end-8 bottom-28 z-[1] h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(201,162,74,0.22),transparent_72%)] blur-2xl"
+          className="process-orb process-orb--b pointer-events-none absolute -end-8 bottom-28 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(201,162,74,0.22),transparent_72%)] blur-2xl"
         />
+        <div className="process-grain pointer-events-none absolute inset-0" aria-hidden />
 
         <div className="relative z-10 mx-auto flex w-full max-w-6xl shrink-0 items-end justify-between gap-3 px-4 pt-14 sm:gap-4 sm:px-8 sm:pt-20">
           <div className="min-w-0">

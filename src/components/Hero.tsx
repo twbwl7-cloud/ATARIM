@@ -38,12 +38,20 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="bg-premium-texture relative z-10 flex min-h-0 flex-col overflow-hidden">
+    <section className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#FAF9F6]">
+      {/* Match process-map cream field: gold wash + process-grain */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
+      />
       {!reduce ? <HeroGlass /> : null}
-      {/* Soft veil so the crystal sits in the cream field without washing text */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,249,246,0.88)_0%,rgba(250,249,246,0.55)_45%,transparent_78%)]"
+      />
+      <div
+        aria-hidden
+        className="process-grain pointer-events-none absolute inset-0 z-[3]"
       />
 
       {/* Guiding thread — desktop + phone */}
