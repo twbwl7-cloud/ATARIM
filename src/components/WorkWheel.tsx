@@ -59,7 +59,7 @@ export function WorkWheel() {
         </p>
         <SplitTextReveal
           as="h2"
-          lines={["נכסים חיים — כבר באוויר."]}
+          text="נכסים חיים — כבר באוויר."
           className="display mt-3 text-center text-3xl font-light tracking-wide text-ink md:text-4xl"
         />
 

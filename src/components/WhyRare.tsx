@@ -36,7 +36,7 @@ export function WhyRare() {
         </p>
         <SplitTextReveal
           as="h2"
-          lines={["לא בונים עוד אתר.", "בונים נכסים דיגיטליים ששולטים בשוק."]}
+          text="לא בונים עוד אתר. בונים נכסים דיגיטליים ששולטים בשוק."
           className="display mt-3 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-4xl"
         />
         <p className="mt-4 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">

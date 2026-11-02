@@ -141,7 +141,7 @@ export function NavigationPortals() {
           <SplitTextReveal
             as="h2"
             id="portals-heading"
-            lines={["שלושה מסלולים.", "בחירה אחת ברורה."]}
+            text="שלושה מסלולים. בחירה אחת ברורה."
             className="display mt-3 text-3xl font-semibold tracking-wide text-[#121212] md:text-4xl"
           />
           <p className="mt-3 text-sm font-normal leading-relaxed tracking-wide text-[#5C5C5C] md:text-[15px]">

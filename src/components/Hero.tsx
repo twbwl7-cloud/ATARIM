@@ -73,13 +73,8 @@ export function Hero() {
 
         <SplitTextReveal
           as="h1"
-          trigger="mount"
-          delay={0.1}
-          lines={[...TITLE_LINES]}
-          lineClassNames={[
-            "",
-            "bg-gradient-to-l from-[#121212] via-[#121212] to-[#D4AF37] bg-clip-text text-transparent",
-          ]}
+          delay={0.12}
+          text={TITLE_LINES.join(" ")}
           className="display max-w-3xl text-[clamp(2.2rem,6.4vw,4.85rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#121212]"
         />
 

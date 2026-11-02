@@ -45,7 +45,6 @@ export function NextStepCTA({
           <SplitTextReveal
             as="h2"
             text={title}
-            mode="words"
             className="display mx-auto mt-5 max-w-3xl text-3xl font-light tracking-wide text-ink md:text-5xl"
           />
           <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
