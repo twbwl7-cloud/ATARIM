@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { caseStudyHref, projects, type Project } from "@/lib/site";
@@ -87,12 +88,12 @@ export function WorkWheel() {
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
                   {project.summary}
                 </p>
-                <a
+                <Link
                   href={caseStudyHref(project)}
                   className="btn-gold mt-5 inline-flex rounded-md px-5 py-2.5 text-sm"
                 >
                   סיפור מקרה — {project.title}
-                </a>
+                </Link>
               </div>
               <div className={i % 2 === 1 ? "md:order-1" : undefined}>
                 <DesktopPreview project={project} priority={i === 0} />

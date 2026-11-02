@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
-/** Free Demo section lives on /work */
-export default function FreeDemoRedirect() {
-  redirect("/work");
+/** Legacy path — also declared in next.config redirects */
+export default function FreeDemoRedirectPage() {
+  permanentRedirect("/work");
 }

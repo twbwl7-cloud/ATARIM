@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
-/** Legacy path — brand site uses /work */
-export default function PortfolioRedirect() {
-  redirect("/work");
+/** Legacy path — also declared in next.config redirects */
+export default function PortfolioRedirectPage() {
+  permanentRedirect("/work");
 }
