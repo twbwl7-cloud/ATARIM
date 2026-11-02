@@ -152,7 +152,7 @@ export function DemoShell({ demo }: Props) {
       </section>
 
       {/* Pillars */}
-      <section className="mx-auto max-w-6xl px-5 py-14 md:px-8 md:py-20">
+      <section className="mx-auto max-w-6xl px-5 py-10 md:px-8 md:py-14">
         <p
           className="mb-3 text-xs tracking-[0.22em]"
           style={{ color: palette.accent }}

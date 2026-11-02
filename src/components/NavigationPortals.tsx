@@ -33,7 +33,7 @@ const portals = [
     eyebrow: "תיק עבודות",
     title: "נכסים חיים",
     lead: "אתרים שנבנו מאפס לקצה העליון — מוכחים באוויר, לא במצגת.",
-    span: "md:col-span-7 md:row-span-2 md:min-h-[22rem]",
+    span: "md:col-span-7 md:row-span-2 md:min-h-[18rem]",
     visual: "assets" as const,
   },
   {
@@ -41,7 +41,7 @@ const portals = [
     eyebrow: "החזון שלנו",
     title: "סטנדרט העבודה",
     lead: "בוטיק על פני המוני. דיוק על פני רעש. קוד מותאם — בלי תבניות.",
-    span: "md:col-span-5 md:min-h-[13.5rem]",
+    span: "md:col-span-5 md:min-h-[11rem]",
     visual: "precision" as const,
   },
   {
@@ -49,7 +49,7 @@ const portals = [
     eyebrow: "התחלת פרויקט",
     title: "שיחת ייעוץ",
     lead: "עשר דקות. בדיקת התאמה. כיוון ברור — בלי לחץ מכירה.",
-    span: "md:col-span-5 md:min-h-[13.5rem]",
+    span: "md:col-span-5 md:min-h-[11rem]",
     visual: "flow" as const,
   },
 ] as const;
@@ -122,7 +122,7 @@ export function NavigationPortals() {
   return (
     <section
       aria-labelledby="portals-heading"
-      className="portal-section relative z-10 border-t border-[#D4AF37]/15 px-5 py-12 md:px-8 md:py-16"
+      className="portal-section relative z-10 border-t border-[#D4AF37]/15 px-5 py-10 md:px-8 md:py-14"
       style={{ perspective: 1200, backgroundColor: CREAM }}
     >
       <div className="mx-auto max-w-7xl">
@@ -131,7 +131,7 @@ export function NavigationPortals() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.8, ease: EASE }}
-          className="mb-10 max-w-xl md:mb-14"
+          className="mb-6 max-w-xl md:mb-8"
         >
           <p className="text-[11px] font-medium tracking-[0.24em] text-[#D4AF37]">
             ניווט
@@ -152,11 +152,11 @@ export function NavigationPortals() {
           {portals.map((portal, index) => (
             <TiltShell
               key={portal.href}
-              className={`gold-border ${portal.span} min-h-[14rem]`}
+              className={`gold-border ${portal.span} min-h-[12rem]`}
             >
               <Link
                 href={portal.href}
-                className="group gold-border__inner relative block h-full min-h-[14rem] overflow-hidden"
+                className="group gold-border__inner relative block h-full min-h-[12rem] overflow-hidden"
                 style={{ backgroundColor: CREAM }}
               >
                 <span
@@ -180,7 +180,7 @@ export function NavigationPortals() {
                 />
 
                 <span
-                  className={`relative z-[2] flex h-full min-h-[14rem] flex-col justify-end p-6 sm:p-8 ${TRANS}`}
+                  className={`relative z-[2] flex h-full min-h-[12rem] flex-col justify-end p-5 sm:p-7 ${TRANS}`}
                 >
                   <motion.span
                     initial={{ opacity: 0, y: 14 }}

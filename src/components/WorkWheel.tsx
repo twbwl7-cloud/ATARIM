@@ -46,7 +46,7 @@ export function WorkWheel() {
   return (
     <section
       id="work"
-      className="relative z-10 px-5 py-14 md:px-8 md:py-20"
+      className="relative z-10 px-5 py-10 md:px-8 md:py-14"
     >
       <div
         aria-hidden
@@ -60,7 +60,7 @@ export function WorkWheel() {
           נכסים חיים — כבר באוויר.
         </h2>
 
-        <ul className="mt-10 space-y-12 md:mt-14 md:space-y-16">
+        <ul className="mt-8 space-y-8 md:mt-10 md:space-y-12">
           {projects.map((project, i) => (
             <motion.li
               key={project.id}

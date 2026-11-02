@@ -7,7 +7,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="relative z-10 mx-auto max-w-7xl overflow-hidden px-5 py-14 md:px-8 md:py-20"
+      className="relative z-10 mx-auto max-w-7xl overflow-hidden px-5 py-10 md:px-8 md:py-14"
     >
       <div className="grid gap-12 md:grid-cols-[1.05fr_0.95fr] md:items-start md:gap-20">
         <div>

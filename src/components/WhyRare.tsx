@@ -24,7 +24,7 @@ const POINTS = [
 
 export function WhyRare() {
   return (
-    <section className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-14 md:px-8 md:py-20">
+    <section className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-10 md:px-8 md:py-14">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(ellipse_at_50%_0%,rgba(197,160,89,0.08),transparent_60%)]"

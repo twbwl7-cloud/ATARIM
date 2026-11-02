@@ -25,13 +25,13 @@ export function NextStepCTA({
   secondaryLabel = "לעמוד הייעוץ",
 }: Props) {
   return (
-    <section className="relative z-10 border-t border-black/5 px-5 py-14 md:px-8 md:py-20">
+    <section className="relative z-10 border-t border-black/5 px-5 py-10 md:px-8 md:py-14">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="premium-panel relative mx-auto max-w-5xl overflow-hidden rounded-2xl px-6 py-10 text-center sm:px-12 sm:py-12 md:px-16 md:py-16"
+        className="premium-panel relative mx-auto max-w-5xl overflow-hidden rounded-2xl px-6 py-8 text-center sm:px-10 sm:py-10 md:px-14 md:py-12"
       >
         <div
           aria-hidden

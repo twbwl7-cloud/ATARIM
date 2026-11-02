@@ -11,14 +11,14 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative z-10 mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20"
+      className="relative z-10 mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-14"
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="premium-panel relative overflow-hidden rounded-2xl px-6 py-14 sm:px-10 sm:py-16 md:px-16 md:py-20"
+        className="premium-panel relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-12 md:px-14 md:py-14"
       >
         <div
           aria-hidden

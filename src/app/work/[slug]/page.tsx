@@ -65,7 +65,7 @@ export default async function CaseStudyPage({ params }: Props) {
       </section>
 
       <section className="relative z-10 border-y border-black/5 bg-white/50">
-        <div className="mx-auto grid max-w-5xl gap-10 px-5 py-14 md:grid-cols-3 md:gap-8 md:px-8 md:py-20">
+        <div className="mx-auto grid max-w-5xl gap-8 px-5 py-10 md:grid-cols-3 md:gap-8 md:px-8 md:py-14">
           {[
             ["האתגר", project.challenge],
             ["הגישה", project.approach],
@@ -83,7 +83,7 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-20">
+      <section className="relative z-10 mx-auto max-w-5xl px-5 py-10 md:px-8 md:py-14">
         <p className="text-[11px] font-light tracking-[0.22em] text-muted">
           טכנולוגיה
         </p>

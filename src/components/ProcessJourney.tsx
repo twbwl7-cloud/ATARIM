@@ -40,7 +40,7 @@ const STEPS = [
 /** Compact process — content-height only, no sticky viewport traps */
 export function ProcessJourney() {
   return (
-    <section id="process" className="relative z-10 px-5 py-14 md:px-8 md:py-20">
+    <section id="process" className="relative z-10 px-5 py-10 md:px-8 md:py-14">
       <div className="mx-auto max-w-3xl">
         <p className="text-[11px] font-medium tracking-[0.22em] text-gold uppercase">
           איך זה עובד
