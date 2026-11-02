@@ -45,6 +45,11 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,249,246,0.92)_0%,rgba(250,249,246,0.72)_40%,rgba(250,249,246,0.28)_65%,transparent_80%)]"
       />
+      {/* Matte paper grain — hero only */}
+      <div
+        aria-hidden
+        className="hero-noise pointer-events-none absolute inset-0 z-[3]"
+      />
 
       {/* Guiding thread — desktop + phone */}
       <div

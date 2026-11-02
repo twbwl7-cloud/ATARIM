@@ -79,13 +79,13 @@ export function PremiumContactForm() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-12 md:px-8 md:py-16"
+      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-10 md:px-8 md:py-12"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(197,160,89,0.1),transparent_55%)]"
       />
-      <div className="relative mx-auto grid max-w-5xl gap-10 md:grid-cols-[1fr_1.15fr] md:gap-16 md:items-end">
+      <div className="relative mx-auto grid max-w-3xl gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-10 md:items-end">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
