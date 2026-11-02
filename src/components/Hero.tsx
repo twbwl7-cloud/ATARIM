@@ -37,12 +37,12 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-transparent">
-      <div className="hero-mesh pointer-events-none absolute inset-0 opacity-80" aria-hidden />
+    <section className="relative z-10 flex min-h-[100svh] flex-col overflow-hidden bg-[#f3f1ed]">
+      <div className="hero-mesh pointer-events-none absolute inset-0 opacity-95" aria-hidden />
       {!reduce ? <HeroGlass /> : null}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(249,248,246,0.9)_0%,rgba(249,248,246,0.68)_38%,rgba(249,248,246,0.22)_62%,transparent_78%)]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(243,241,237,0.92)_0%,rgba(239,236,230,0.72)_38%,rgba(243,241,237,0.28)_62%,transparent_78%)]"
       />
 
       {/* Guiding thread — desktop + phone */}

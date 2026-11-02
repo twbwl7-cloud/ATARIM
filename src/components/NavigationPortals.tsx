@@ -2,14 +2,22 @@
 
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type MouseEvent,
+  type ReactNode,
+} from "react";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
+const LUX = [0.22, 1, 0.36, 1] as const;
 const TRANS =
   "transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]";
 
 type PortalVisual = "precision" | "flow" | "assets";
 
+/** Unified cream/gold family base — no harsh white */
 const portals = [
   {
     href: "/work",
@@ -18,10 +26,7 @@ const portals = [
     lead: "אתרים שנבנו מאפס לקצה העליון — מוכחים באוויר, לא במצגת.",
     span: "md:col-span-7 md:row-span-2 md:min-h-[28rem]",
     visual: "assets" as const,
-    gradient:
-      "radial-gradient(ellipse at 70% 20%, rgba(212,175,55,0.22), transparent 45%), linear-gradient(160deg, #ffffff 0%, #f3f1ed 55%, #efece6 100%)",
-    pattern:
-      "repeating-linear-gradient(-32deg, transparent, transparent 18px, rgba(18,18,18,0.03) 18px, rgba(18,18,18,0.03) 19px)",
+    base: "linear-gradient(155deg, #f3f1ed 0%, #efece6 45%, #e8e2d8 100%)",
   },
   {
     href: "/about",
@@ -30,10 +35,7 @@ const portals = [
     lead: "בוטיק על פני המוני. דיוק על פני רעש. קוד מותאם — בלי תבניות.",
     span: "md:col-span-5 md:min-h-[13.5rem]",
     visual: "precision" as const,
-    gradient:
-      "radial-gradient(ellipse at 30% 80%, rgba(163,138,95,0.18), transparent 50%), linear-gradient(145deg, #f9f8f6 0%, #efece6 100%)",
-    pattern:
-      "repeating-linear-gradient(24deg, transparent, transparent 22px, rgba(212,175,55,0.06) 22px, rgba(212,175,55,0.06) 23px)",
+    base: "linear-gradient(145deg, #f3f1ed 0%, #efece6 50%, #eae4da 100%)",
   },
   {
     href: "/contact",
@@ -42,14 +44,10 @@ const portals = [
     lead: "עשר דקות. בדיקת התאמה. כיוון ברור — בלי לחץ מכירה.",
     span: "md:col-span-5 md:min-h-[13.5rem]",
     visual: "flow" as const,
-    gradient:
-      "radial-gradient(ellipse at 80% 30%, rgba(212,175,55,0.2), transparent 48%), linear-gradient(200deg, #ffffff 0%, #f3f1ed 70%)",
-    pattern:
-      "repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(18,18,18,0.035) 28px, rgba(18,18,18,0.035) 29px)",
+    base: "linear-gradient(200deg, #f3f1ed 0%, #efece6 55%, #e7e0d4 100%)",
   },
 ] as const;
 
-/** Shared 3D tilt — desktop only; mobile keeps continuous backdrop motion */
 function TiltShell({
   className,
   children,
@@ -61,15 +59,15 @@ function TiltShell({
   const [tiltOk, setTiltOk] = useState(false);
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
-  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), {
-    stiffness: 220,
-    damping: 22,
-    mass: 0.35,
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [5, -5]), {
+    stiffness: 200,
+    damping: 24,
+    mass: 0.4,
   });
-  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-7, 7]), {
-    stiffness: 220,
-    damping: 22,
-    mass: 0.35,
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-6, 6]), {
+    stiffness: 200,
+    damping: 24,
+    mass: 0.4,
   });
 
   useEffect(() => {
@@ -85,10 +83,8 @@ function TiltShell({
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const nx = (e.clientX - r.left) / r.width;
-    const ny = (e.clientY - r.top) / r.height;
-    rawX.set(nx - 0.5);
-    rawY.set(ny - 0.5);
+    rawX.set((e.clientX - r.left) / r.width - 0.5);
+    rawY.set((e.clientY - r.top) / r.height - 0.5);
   }
 
   function onLeave() {
@@ -96,9 +92,7 @@ function TiltShell({
     rawY.set(0);
   }
 
-  if (!tiltOk) {
-    return <div className={className}>{children}</div>;
-  }
+  if (!tiltOk) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
@@ -109,7 +103,7 @@ function TiltShell({
         rotateX,
         rotateY,
         transformStyle: "preserve-3d",
-        transformPerspective: 1100,
+        transformPerspective: 1200,
       }}
       className={className}
     >
@@ -118,54 +112,98 @@ function TiltShell({
   );
 }
 
-/** Precision — bold moving grid + sweeping light (always-on) */
+/**
+ * Infinity Grid — vanishing-point 3D mesh (precision / custom code)
+ * Continuous drift works on touch devices; no hover dependency.
+ */
 function PrecisionBackdrop() {
   return (
     <span
       aria-hidden
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
     >
-      <motion.span
-        className="portal-grid absolute inset-[-30%] will-change-transform"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(163,138,95,0.55) 1.5px, transparent 1.5px),
-            linear-gradient(90deg, rgba(163,138,95,0.55) 1.5px, transparent 1.5px)
-          `,
-          backgroundSize: "36px 36px",
-          opacity: 0.5,
-        }}
-        animate={{ x: [0, 36, 0], y: [0, 18, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.span
-        className="absolute inset-[-20%] will-change-transform"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(212,175,55,0.75) 1.35px, transparent 1.45px)",
-          backgroundSize: "18px 18px",
-          opacity: 0.42,
-        }}
-        animate={{ x: [0, -18, 0], y: [0, 12, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.span
-        className="portal-sweep absolute inset-y-[-20%] w-[45%] will-change-transform"
+      <span
+        className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.55) 42%, rgba(212,175,55,0.45) 50%, rgba(255,255,255,0.35) 58%, transparent 100%)",
+            "radial-gradient(ellipse 80% 60% at 50% 110%, rgba(212,175,55,0.35), transparent 55%)",
+        }}
+      />
+      <span
+        className="portal-infinity absolute inset-x-[-20%] bottom-[-40%] top-[8%] origin-bottom"
+        style={{
+          perspective: "520px",
+          perspectiveOrigin: "50% 100%",
+        }}
+      >
+        <motion.span
+          className="absolute inset-0 will-change-transform"
+          style={{
+            transformOrigin: "50% 100%",
+            transform: "rotateX(62deg)",
+            backgroundImage: `
+              linear-gradient(to right, rgba(212,175,55,0.55) 1.5px, transparent 1.5px),
+              linear-gradient(to bottom, rgba(163,138,95,0.5) 1.5px, transparent 1.5px)
+            `,
+            backgroundSize: "48px 48px",
+            maskImage:
+              "linear-gradient(to top, #000 15%, rgba(0,0,0,0.65) 55%, transparent 92%)",
+            WebkitMaskImage:
+              "linear-gradient(to top, #000 15%, rgba(0,0,0,0.65) 55%, transparent 92%)",
+          }}
+          animate={{ backgroundPosition: ["0px 0px", "0px 48px"] }}
+          transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }}
+        />
+      </span>
+      <motion.span
+        className="absolute inset-x-0 top-0 h-[55%] will-change-transform"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(212,175,55,0.28) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(212,175,55,0.28) 1px, transparent 1px)
+          `,
+          backgroundSize: "28px 28px",
+          opacity: 0.55,
+          maskImage:
+            "radial-gradient(ellipse 90% 80% at 50% 0%, #000 0%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 90% 80% at 50% 0%, #000 0%, transparent 75%)",
+        }}
+        animate={{ backgroundPosition: ["0px 0px", "28px 14px"] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.span
+        className="absolute start-1/2 top-[42%] h-40 w-40 -translate-x-1/2 rounded-full will-change-transform"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(212,175,55,0.55) 0%, rgba(212,175,55,0.15) 40%, transparent 70%)",
+          filter: "blur(8px)",
+        }}
+        animate={{ scale: [0.85, 1.25, 0.85], opacity: [0.45, 0.85, 0.45] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: LUX }}
+      />
+      <motion.span
+        className="absolute inset-y-0 w-1/3 will-change-transform"
+        style={{
+          background:
+            "linear-gradient(100deg, transparent, rgba(255,248,230,0.55), rgba(212,175,55,0.4), transparent)",
           mixBlendMode: "soft-light",
         }}
-        animate={{ x: ["-60%", "160%"] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.2 }}
+        animate={{ x: ["-40%", "140%"] }}
+        transition={{
+          duration: 5.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          repeatDelay: 1.4,
+        }}
       />
-      <span className="absolute -start-6 top-1/2 h-28 w-28 -translate-y-1/2 rounded-full border-[3px] border-[#D4AF37]/55 opacity-60" />
-      <span className="absolute -start-2 top-1/2 h-16 w-16 -translate-y-1/2 rounded-full border-2 border-[#C5A059]/45 opacity-50" />
     </span>
   );
 }
 
-/** Flow — large rich floating orbs (always-on) */
+/**
+ * Liquid Glass — morphing warm fluid under frosted veil (connection / flow)
+ */
 function FlowBackdrop() {
   return (
     <span
@@ -173,73 +211,190 @@ function FlowBackdrop() {
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
     >
       <motion.span
-        className="absolute -start-[18%] -top-[25%] h-[13rem] w-[13rem] rounded-full bg-[#D4AF37]/55 blur-3xl will-change-transform sm:h-[15rem] sm:w-[15rem]"
-        animate={{ x: [0, 28, 0], y: [0, 22, 0], scale: [1, 1.18, 1] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -start-[30%] -top-[40%] h-[18rem] w-[18rem] will-change-transform sm:h-[20rem] sm:w-[20rem]"
+        style={{
+          background:
+            "radial-gradient(circle at 35% 35%, #e8d5a3 0%, #d4af37 45%, transparent 70%)",
+          filter: "blur(40px)",
+          opacity: 0.7,
+          borderRadius: "42% 58% 55% 45% / 48% 42% 58% 52%",
+        }}
+        animate={{
+          x: [0, 36, -10, 0],
+          y: [0, 24, 12, 0],
+          borderRadius: [
+            "42% 58% 55% 45% / 48% 42% 58% 52%",
+            "58% 42% 45% 55% / 42% 58% 42% 58%",
+            "48% 52% 60% 40% / 55% 45% 55% 45%",
+            "42% 58% 55% 45% / 48% 42% 58% 52%",
+          ],
+          scale: [1, 1.15, 0.95, 1],
+        }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.span
-        className="absolute -end-[20%] -bottom-[30%] h-[14rem] w-[14rem] rounded-full bg-[#A38A5F]/50 blur-3xl will-change-transform sm:h-[16rem] sm:w-[16rem]"
-        animate={{ x: [0, -24, 0], y: [0, -28, 0], scale: [1.05, 0.92, 1.05] }}
-        transition={{ duration: 8.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+        className="absolute -end-[35%] -bottom-[45%] h-[20rem] w-[20rem] will-change-transform sm:h-[22rem] sm:w-[22rem]"
+        style={{
+          background:
+            "radial-gradient(circle at 60% 40%, #c5a059 0%, #a38a5f 40%, transparent 72%)",
+          filter: "blur(48px)",
+          opacity: 0.65,
+          borderRadius: "55% 45% 48% 52% / 42% 58% 42% 58%",
+        }}
+        animate={{
+          x: [0, -30, 16, 0],
+          y: [0, -28, -8, 0],
+          borderRadius: [
+            "55% 45% 48% 52% / 42% 58% 42% 58%",
+            "42% 58% 55% 45% / 58% 42% 58% 42%",
+            "50% 50% 42% 58% / 48% 52% 48% 52%",
+            "55% 45% 48% 52% / 42% 58% 42% 58%",
+          ],
+          scale: [1.05, 0.9, 1.12, 1.05],
+        }}
+        transition={{
+          duration: 13,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.6,
+        }}
       />
       <motion.span
-        className="absolute start-[28%] top-[18%] h-[8rem] w-[8rem] rounded-full bg-[#E8D5A3]/55 blur-2xl will-change-transform"
-        animate={{ opacity: [0.45, 0.85, 0.45], scale: [0.88, 1.2, 0.88], y: [0, -16, 0] }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute start-[25%] top-[20%] h-[10rem] w-[12rem] will-change-transform"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(232,213,163,0.9) 0%, rgba(212,175,55,0.45) 45%, transparent 70%)",
+          filter: "blur(28px)",
+          opacity: 0.75,
+          borderRadius: "60% 40% 55% 45% / 45% 55% 45% 55%",
+        }}
+        animate={{
+          x: [0, 20, -12, 0],
+          y: [0, -18, 10, 0],
+          scale: [0.9, 1.2, 1, 0.9],
+          opacity: [0.55, 0.85, 0.6, 0.55],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.span
-        className="absolute end-[18%] top-[35%] h-16 w-16 rounded-full border-2 border-[#D4AF37]/70 bg-[#D4AF37]/35 shadow-[0_0_28px_rgba(212,175,55,0.45)] will-change-transform"
-        animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-      />
-      <motion.span
-        className="absolute start-[12%] bottom-[22%] h-10 w-10 rounded-full border border-[#C5A059]/80 bg-[#C5A059]/40 will-change-transform"
-        animate={{ y: [0, 14, 0], scale: [1, 1.25, 1] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+      {/* Frosted glass overlay — family signature */}
+      <span
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(160deg, rgba(255,255,255,0.28) 0%, rgba(243,241,237,0.12) 40%, rgba(239,236,230,0.35) 100%)",
+          backdropFilter: "blur(10px) saturate(1.15)",
+          WebkitBackdropFilter: "blur(10px) saturate(1.15)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.45)",
+        }}
       />
     </span>
   );
 }
 
-/** Assets — tangible translucent solids that rotate/scale continuously */
+/**
+ * Levitating Parallax — premium 3D blocks with deep shadows (growth / assets)
+ */
 function AssetsBackdrop() {
+  const block =
+    "absolute rounded-2xl border border-[#D4AF37]/50 backdrop-blur-md will-change-transform";
+
   return (
     <span
       aria-hidden
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+      style={{ perspective: "900px" }}
     >
+      <span
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 55% at 75% 35%, rgba(212,175,55,0.22), transparent 60%)",
+        }}
+      />
       <motion.span
-        className="portal-solid absolute end-[8%] top-[12%] h-28 w-28 rounded-2xl border-2 border-[#D4AF37]/65 bg-gradient-to-br from-[#D4AF37]/55 to-white/40 shadow-[0_18px_40px_rgba(18,18,18,0.14)] backdrop-blur-md will-change-transform sm:h-36 sm:w-36"
+        className={`${block} end-[6%] top-[10%] h-32 w-32 sm:h-40 sm:w-40`}
+        style={{
+          background:
+            "linear-gradient(145deg, rgba(232,213,163,0.75) 0%, rgba(212,175,55,0.55) 48%, rgba(243,241,237,0.5) 100%)",
+          boxShadow:
+            "0 28px 50px rgba(18,18,18,0.18), 0 8px 18px rgba(212,175,55,0.25), inset 0 1px 0 rgba(255,255,255,0.55)",
+          transformStyle: "preserve-3d",
+        }}
         animate={{
-          rotate: [16, 28, 12, 16],
-          y: [0, -18, 8, 0],
-          scale: [1, 1.08, 0.96, 1],
+          y: [0, -22, 6, 0],
+          rotateX: [12, 18, 10, 12],
+          rotateY: [-18, -10, -22, -18],
+          scale: [1, 1.06, 0.98, 1],
         }}
         transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.span
-        className="portal-solid absolute end-[26%] top-[28%] h-24 w-24 rounded-2xl border-2 border-[#A38A5F]/55 bg-gradient-to-tr from-[#C5A059]/50 to-[#F9F8F6]/55 shadow-[0_14px_36px_rgba(18,18,18,0.12)] backdrop-blur-sm will-change-transform sm:h-32 sm:w-32"
-        animate={{
-          rotate: [8, -6, 14, 8],
-          y: [0, 16, -10, 0],
-          x: [0, -12, 6, 0],
-          scale: [1, 0.92, 1.1, 1],
+        className={`${block} end-[28%] top-[30%] h-24 w-28 sm:h-32 sm:w-36`}
+        style={{
+          background:
+            "linear-gradient(160deg, rgba(255,255,255,0.55) 0%, rgba(197,160,89,0.55) 55%, rgba(163,138,95,0.4) 100%)",
+          boxShadow:
+            "0 24px 44px rgba(18,18,18,0.16), 0 6px 14px rgba(163,138,95,0.3), inset 0 1px 0 rgba(255,255,255,0.5)",
         }}
-        transition={{ duration: 10.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        animate={{
+          y: [0, 18, -12, 0],
+          x: [0, -14, 8, 0],
+          rotateX: [8, 4, 14, 8],
+          rotateY: [14, 22, 8, 14],
+          scale: [1, 0.94, 1.08, 1],
+        }}
+        transition={{
+          duration: 11,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.4,
+        }}
       />
       <motion.span
-        className="portal-solid absolute end-[4%] top-[46%] h-20 w-20 rounded-xl border-2 border-[#E8D5A3]/70 bg-gradient-to-b from-white/60 to-[#D4AF37]/45 shadow-[0_12px_30px_rgba(18,18,18,0.1)] backdrop-blur-[3px] will-change-transform sm:h-28 sm:w-28"
-        animate={{
-          rotate: [24, 40, 18, 24],
-          y: [0, -22, 6, 0],
-          scale: [0.95, 1.12, 1, 0.95],
+        className={`${block} end-[2%] top-[48%] h-20 w-20 rounded-xl sm:h-28 sm:w-28`}
+        style={{
+          background:
+            "linear-gradient(200deg, rgba(249,248,246,0.7) 0%, rgba(212,175,55,0.5) 100%)",
+          boxShadow:
+            "0 20px 36px rgba(18,18,18,0.15), 0 4px 12px rgba(212,175,55,0.28), inset 0 1px 0 rgba(255,255,255,0.6)",
         }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+        animate={{
+          y: [0, -26, 8, 0],
+          rotateZ: [8, 18, 4, 8],
+          rotateY: [-12, -4, -16, -12],
+          scale: [0.96, 1.12, 1, 0.96],
+        }}
+        transition={{
+          duration: 8.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.8,
+        }}
       />
       <motion.span
-        className="absolute start-[10%] top-[20%] h-14 w-14 rotate-12 rounded-lg border border-[#D4AF37]/50 bg-[#D4AF37]/30 shadow-[0_8px_24px_rgba(212,175,55,0.25)] will-change-transform"
-        animate={{ y: [0, -14, 0], rotate: [12, 24, 12], opacity: [0.45, 0.7, 0.45] }}
-        transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute start-[8%] top-[16%] h-14 w-14 rounded-lg will-change-transform sm:h-16 sm:w-16"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(212,175,55,0.65), rgba(232,213,163,0.4))",
+          border: "1px solid rgba(212,175,55,0.55)",
+          boxShadow:
+            "0 16px 28px rgba(18,18,18,0.14), 0 0 20px rgba(212,175,55,0.3)",
+          backdropFilter: "blur(6px)",
+        }}
+        animate={{
+          y: [0, -16, 0],
+          rotate: [12, 28, 12],
+          opacity: [0.55, 0.85, 0.55],
+        }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <span
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(165deg, rgba(255,255,255,0.2) 0%, transparent 35%, rgba(243,241,237,0.25) 100%)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.35)",
+        }}
       />
     </span>
   );
@@ -255,7 +410,7 @@ export function NavigationPortals() {
   return (
     <section
       aria-labelledby="portals-heading"
-      className="relative z-10 border-t border-black/5 bg-transparent px-5 py-20 md:px-8 md:py-28"
+      className="relative z-10 border-t border-black/5 bg-[#f3f1ed] px-5 py-20 md:px-8 md:py-28"
       style={{ perspective: 1200 }}
     >
       <div className="mx-auto max-w-7xl">
@@ -293,18 +448,15 @@ export function NavigationPortals() {
               >
                 <span
                   aria-hidden
-                  className={`absolute inset-0 origin-center scale-100 will-change-transform ${TRANS}`}
-                  style={{
-                    backgroundImage: `${portal.pattern}, ${portal.gradient}`,
-                  }}
+                  className="absolute inset-0"
+                  style={{ background: portal.base }}
                 />
 
                 <PortalVisualLayer visual={portal.visual} />
 
-                {/* Stronger bottom veil so bold backdrops never kill readability */}
                 <span
                   aria-hidden
-                  className="absolute inset-0 z-[1] bg-gradient-to-t from-[#F9F8F6] via-[#F9F8F6]/78 to-transparent"
+                  className="absolute inset-0 z-[1] bg-gradient-to-t from-[#f3f1ed] via-[#f3f1ed]/80 to-transparent"
                 />
 
                 <span
