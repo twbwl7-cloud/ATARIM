@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { caseStudyHref, projects, type Project } from "@/lib/site";
 
 /** Same desktop browser frame on phone and desktop — one premium version */
@@ -56,9 +57,11 @@ export function WorkWheel() {
         <p className="text-center text-[11px] font-light tracking-[0.22em] text-gold">
           עבודות נבחרות
         </p>
-        <h2 className="display mt-3 text-center text-3xl font-light tracking-wide text-ink md:text-4xl">
-          נכסים חיים — כבר באוויר.
-        </h2>
+        <SplitTextReveal
+          as="h2"
+          lines={["נכסים חיים — כבר באוויר."]}
+          className="display mt-3 text-center text-3xl font-light tracking-wide text-ink md:text-4xl"
+        />
 
         <ul className="mt-8 space-y-8 md:mt-10 md:space-y-12">
           {projects.map((project, i) => (

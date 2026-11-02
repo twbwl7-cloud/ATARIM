@@ -10,6 +10,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
+import { SplitTextReveal } from "@/components/SplitTextReveal";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
 const TRANS =
@@ -137,12 +138,12 @@ export function NavigationPortals() {
             ניווט
           </p>
           <span aria-hidden className="gold-rule mt-3 mb-1 ms-0 me-auto" />
-          <h2
+          <SplitTextReveal
+            as="h2"
             id="portals-heading"
+            lines={["שלושה מסלולים.", "בחירה אחת ברורה."]}
             className="display mt-3 text-3xl font-semibold tracking-wide text-[#121212] md:text-4xl"
-          >
-            שלושה מסלולים. בחירה אחת ברורה.
-          </h2>
+          />
           <p className="mt-3 text-sm font-normal leading-relaxed tracking-wide text-[#5C5C5C] md:text-[15px]">
             עבודות שממירות · סטנדרט העבודה · שיחת ייעוץ שמתחילה פרויקט.
           </p>
@@ -152,11 +153,12 @@ export function NavigationPortals() {
           {portals.map((portal, index) => (
             <TiltShell
               key={portal.href}
-              className={`gold-border ${portal.span} min-h-[12rem]`}
+              className={`gold-border magnetic ${portal.span} min-h-[12rem]`}
             >
               <Link
                 href={portal.href}
-                className="group gold-border__inner relative block h-full min-h-[12rem] overflow-hidden"
+                data-cursor-text="לחץ כדי לגלות"
+                className="group gold-border__inner magnetic relative block h-full min-h-[12rem] overflow-hidden"
                 style={{ backgroundColor: CREAM }}
               >
                 <span

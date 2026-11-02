@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { SplitTextReveal } from "@/components/SplitTextReveal";
 
 const POINTS = [
   {
@@ -33,10 +34,11 @@ export function WhyRare() {
         <p className="text-[11px] font-light tracking-[0.22em] text-gold">
           עקרונות מובילים
         </p>
-        <h2 className="display mt-3 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-4xl">
-          לא בונים עוד אתר. בונים{" "}
-          <span className="lux-word">נכסים דיגיטליים</span> ששולטים בשוק.
-        </h2>
+        <SplitTextReveal
+          as="h2"
+          lines={["לא בונים עוד אתר.", "בונים נכסים דיגיטליים ששולטים בשוק."]}
+          className="display mt-3 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-4xl"
+        />
         <p className="mt-4 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
           סטודיו <span className="lux-word">יוקרה</span> נמדד במה שהוא מסרב
           לעשות — לא רק במה שהוא מוכר. כאן כל שורה מכוונת לפנייה.

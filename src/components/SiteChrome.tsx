@@ -9,7 +9,7 @@ import { Curtain } from "@/components/Curtain";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { LuxuryModeToggle } from "@/components/LuxuryModeToggle";
-import { PremiumCursor } from "@/components/PremiumCursor";
+import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { WhatsAppReassurance } from "@/components/WhatsAppReassurance";
@@ -28,7 +28,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <AmbientGlow />
       <CardSpotlight />
       <ScrollProgress />
-      <PremiumCursor />
+      <CustomCursor />
       <Curtain />
       <Header />
       <main className="relative z-[1] flex-1">{children}</main>

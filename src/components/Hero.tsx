@@ -8,6 +8,7 @@ import { CtaReassurance } from "@/components/CtaReassurance";
 import { LiveAvailability } from "@/components/LiveAvailability";
 import { MagneticButton } from "@/components/MagneticButton";
 import { PeaceOfMindBadges } from "@/components/PeaceOfMindBadges";
+import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { TrustBadges } from "@/components/TrustBadges";
 import { TrustMetrics } from "@/components/TrustMetrics";
 import { whatsappUrl } from "@/lib/site";
@@ -70,30 +71,17 @@ export function Hero() {
           className="gold-rule gold-rule--wide mb-5 sm:mb-7"
         />
 
-        <h1 className="display max-w-3xl text-[clamp(2.2rem,6.4vw,4.85rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#121212]">
-          {TITLE_LINES.map((line, i) => (
-            <span key={line} className="block overflow-hidden py-[0.04em]">
-              <motion.span
-                className="block"
-                initial={reduce ? false : { y: "100%" }}
-                animate={{ y: "0%" }}
-                transition={{
-                  duration: 1.05,
-                  delay: 0.1 + i * 0.14,
-                  ease: EASE,
-                }}
-              >
-                {i === 1 ? (
-                  <span className="bg-gradient-to-l from-[#121212] via-[#121212] to-[#D4AF37] bg-clip-text text-transparent">
-                    {line}
-                  </span>
-                ) : (
-                  line
-                )}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
+        <SplitTextReveal
+          as="h1"
+          trigger="mount"
+          delay={0.1}
+          lines={[...TITLE_LINES]}
+          lineClassNames={[
+            "",
+            "bg-gradient-to-l from-[#121212] via-[#121212] to-[#D4AF37] bg-clip-text text-transparent",
+          ]}
+          className="display max-w-3xl text-[clamp(2.2rem,6.4vw,4.85rem)] font-semibold leading-[1.12] tracking-[-0.02em] text-[#121212]"
+        />
 
         <motion.span
           aria-hidden

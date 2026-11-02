@@ -150,7 +150,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-@media (pointer: fine) and (hover: hover) and (min-width: 768px) {
+@media (pointer: fine) and (hover: hover) {
   html.has-premium-cursor,
   html.has-premium-cursor * {
     cursor: none !important;
@@ -1510,14 +1510,42 @@ body {
     radial-gradient(ellipse at 75% 70%, rgba(197, 160, 89, 0.05), transparent 48%);
 }
 
+/* Film grain — fixed, non-interactive, ~3% matte texture */
 .noise {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 50;
-  opacity: 0.018;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.032;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  animation: film-grain-shift 9s steps(8) infinite;
+}
+
+@keyframes film-grain-shift {
+  0% {
+    background-position: 0 0;
+  }
+  25% {
+    background-position: -18px 12px;
+  }
+  50% {
+    background-position: 12px -22px;
+  }
+  75% {
+    background-position: -8px -14px;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .noise {
+    animation: none;
+  }
 }
 
 .curtain-panel {

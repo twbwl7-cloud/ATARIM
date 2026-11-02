@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { CtaReassurance } from "@/components/CtaReassurance";
 import { MagneticButton } from "@/components/MagneticButton";
 import { PeaceOfMindBadges } from "@/components/PeaceOfMindBadges";
+import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { TrustMetrics } from "@/components/TrustMetrics";
 import { whatsappUrl } from "@/lib/site";
 
@@ -41,9 +42,12 @@ export function NextStepCTA({
           <p className="text-[11px] font-light tracking-[0.28em] text-gold">
             {eyebrow}
           </p>
-          <h2 className="display mx-auto mt-5 max-w-3xl text-3xl font-light tracking-wide text-ink md:text-5xl">
-            {title}
-          </h2>
+          <SplitTextReveal
+            as="h2"
+            text={title}
+            mode="words"
+            className="display mx-auto mt-5 max-w-3xl text-3xl font-light tracking-wide text-ink md:text-5xl"
+          />
           <p className="mx-auto mt-6 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
             {lead.includes("סוכנות") ? (
               <>
