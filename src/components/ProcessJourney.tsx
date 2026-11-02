@@ -97,8 +97,11 @@ export function ProcessJourney() {
     offset: ["start start", "end end"],
   });
 
-  /** One shared 0→1 progress drives path + gold tip; step 05 completes near end */
-  const progressRaw = useTransform(scrollYProgress, [0.02, 0.92], [0, 1]);
+  /**
+   * Sticky window is ~75% of the 400vh track (h-screen panel).
+   * Complete 01→05 before the panel unsticks; CTA fades in as it releases.
+   */
+  const progressRaw = useTransform(scrollYProgress, [0.02, 0.72], [0, 1]);
   const progress = useSpring(progressRaw, {
     stiffness: 64,
     damping: 26,
@@ -141,7 +144,7 @@ export function ProcessJourney() {
 
   const dashOffset = useTransform(progress, (p) => pathLen * (1 - Math.min(1, Math.max(0, p))));
   const hintOpacity = useTransform(scrollYProgress, [0, 0.07, 0.14], [1, 0.6, 0]);
-  const ctaOpacity = useTransform(scrollYProgress, [0.9, 0.98], [0, 1]);
+  const ctaOpacity = useTransform(scrollYProgress, [0.7, 0.82], [0, 1]);
   const orbX = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const orbY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 

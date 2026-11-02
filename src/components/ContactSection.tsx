@@ -9,33 +9,31 @@ import { site, whatsappUrl } from "@/lib/site";
 /** פנייה בלעדית — מסגרת ייעוץ, לא טופס המוני */
 export function ContactSection() {
   return (
-    <section
-      className="relative z-10 mx-auto max-w-7xl px-5 py-6 md:px-8 md:py-8"
-    >
+    <section className="relative z-10 mx-auto max-w-7xl px-5 py-4 md:px-8 md:py-5">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="premium-panel relative overflow-hidden rounded-2xl px-6 py-8 sm:px-10 sm:py-9 md:px-14 md:py-10"
+        className="premium-panel relative overflow-hidden rounded-2xl px-6 py-6 sm:px-10 sm:py-7 md:px-12 md:py-8"
       >
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(197,160,89,0.12),transparent_50%)]"
         />
         <div className="relative z-[1] max-w-2xl">
-          <p className="text-[11px] font-light tracking-[0.22em] text-gold">
+          <p className="text-[11px] font-light tracking-[0.22em] text-[#C5A059]">
             פנייה לפרויקט
           </p>
-          <h2 className="display mt-4 text-3xl font-light tracking-wide text-ink md:text-5xl">
+          <h2 className="display mt-3 text-3xl font-light tracking-wide text-[#121212] md:text-4xl">
             שיחת ייעוץ — בלי השארת פרטים
           </h2>
-          <p className="mt-5 text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
+          <p className="mt-3 text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
             מספר מקומות מוגבל בכל רבעון. בשיחה קצרה בודקים התאמה, מגדירים
             ארכיטקטורת המרה — ורק אז בונים. זו הזמנה לעבוד ברמת סטודיו יוקרה,
             לא טופס המוני.
           </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <MagneticButton
               href={whatsappUrl()}
               target="_blank"
@@ -58,11 +56,11 @@ export function ContactSection() {
               {site.email}
             </a>
           </div>
-          <p className="mt-6 text-[11px] font-light tracking-wide text-muted">
+          <p className="mt-4 text-[11px] font-light tracking-wide text-muted">
             מענה באותו יום עסקים · בלי דיוור בלי רשות · בלי לחץ מכירה
           </p>
-          <CtaReassurance className="mt-3 !text-start !max-w-none" />
-          <PeaceOfMindBadges className="mt-3 !justify-start" />
+          <CtaReassurance className="mt-2 !text-start !max-w-none" />
+          <PeaceOfMindBadges className="mt-2 !justify-start" />
         </div>
       </motion.div>
     </section>

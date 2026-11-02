@@ -48,23 +48,23 @@ export function WorkWheel() {
   return (
     <section
       id="work"
-      className="relative z-10 px-5 py-6 md:px-8 md:py-10"
+      className="relative z-10 px-5 py-5 md:px-8 md:py-8"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.08),transparent_48%)]"
       />
       <div className="relative mx-auto max-w-6xl">
-        <p className="text-center text-[11px] font-light tracking-[0.22em] text-gold">
+        <p className="text-center text-[11px] font-light tracking-[0.22em] text-[#C5A059]">
           עבודות נבחרות
         </p>
         <SplitTextReveal
           as="h2"
           text="נכסים חיים — כבר באוויר."
-          className="display mt-3 text-center text-3xl font-light tracking-wide text-ink md:text-4xl"
+          className="display mt-3 text-center text-3xl font-light tracking-wide text-[#121212] md:text-4xl"
         />
 
-        <ul className="mt-7 space-y-7 md:mt-9 md:space-y-10">
+        <ul className="mt-6 space-y-6 md:mt-8 md:space-y-8">
           {projects.map((project, i) => (
             <motion.li
               key={project.id}
@@ -76,7 +76,7 @@ export function WorkWheel() {
                 delay: i * 0.06,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="grid items-center gap-8 md:grid-cols-2 md:gap-12"
+              className="grid items-center gap-5 md:grid-cols-2 md:gap-10"
             >
               <div className={i % 2 === 1 ? "md:order-2" : undefined}>
                 <p className="text-[11px] tracking-[0.16em] text-gold">

@@ -62,12 +62,12 @@ export function Hero() {
         <span className="guiding-thread guiding-thread--tall mx-auto" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-6 pt-[calc(5.5rem+env(safe-area-inset-top))] text-center sm:px-8 sm:pb-8 md:pb-10">
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-4 pt-[calc(5rem+env(safe-area-inset-top))] text-center sm:px-8 sm:pb-6 md:pb-7">
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="mb-4 text-[11px] font-medium tracking-[0.22em] text-[#C5A059] sm:mb-5 sm:text-xs"
+          className="mb-3 text-[11px] font-medium tracking-[0.22em] text-[#C5A059] sm:mb-4 sm:text-xs"
         >
           דוד טובול — הנדסת חוויות רשת בהזמנה אישית
         </motion.p>
@@ -76,7 +76,7 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, scaleX: 0.4 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: EASE }}
-          className="gold-rule gold-rule--wide mb-5 sm:mb-7"
+          className="gold-rule gold-rule--wide mb-4 sm:mb-5"
         />
 
         <SplitTextReveal
@@ -91,14 +91,14 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.45 }}
-          className="gold-rule mt-6 sm:mt-7"
+          className="gold-rule mt-5 sm:mt-6"
         />
 
         <motion.p
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
-          className="mx-auto mt-5 max-w-2xl text-[15px] font-normal leading-[1.85] tracking-wide text-[#5C5C5C] sm:mt-6 sm:text-base md:text-[17px] md:leading-[1.9]"
+          className="mx-auto mt-4 max-w-2xl text-[15px] font-normal leading-[1.85] tracking-wide text-[#5C5C5C] sm:mt-5 sm:text-base md:text-[17px] md:leading-[1.9]"
         >
           לא עוד אתר תדמית גנרי. אנחנו בונים{" "}
           <span className="lux-word">חוויות</span> דיגיטליות אקסקלוסיביות —
@@ -110,7 +110,7 @@ export function Hero() {
           initial={reduce ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.72, ease: EASE }}
-          className="mt-8 flex flex-col items-center gap-4 sm:mt-10"
+          className="mt-6 flex flex-col items-center gap-3 sm:mt-8"
         >
           <LiveAvailability />
           <p className="avail-pulse">

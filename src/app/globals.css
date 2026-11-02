@@ -1212,10 +1212,10 @@ html.luxury-boost .ambient-dots {
   }
 }
 
-/* Mobile perfection — no horizontal bleed, solid touch targets */
+/* Clip X only — `hidden` forces overflow-y to auto and breaks position:sticky */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
@@ -1936,3 +1936,4 @@ body {
     transition: none;
   }
 }
+
