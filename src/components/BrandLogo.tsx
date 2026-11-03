@@ -12,31 +12,31 @@ type BrandLogoProps = {
   onClick?: () => void;
 };
 
-/** Vertical lockup — curtain / hero / footer */
+/** Vertical lockup — curtain / hero / footer (intrinsic aspect after safe-pad) */
 const FULL = {
-  sm: { w: 120, h: 113 },
-  md: { w: 200, h: 188 },
-  lg: { w: 280, h: 263 },
+  sm: { w: 132, h: 124 },
+  md: { w: 210, h: 197 },
+  lg: { w: 300, h: 282 },
 } as const;
 
 /** Horizontal lockup — header pill */
 const FULL_H = {
-  sm: { w: 168, h: 47 },
-  md: { w: 220, h: 61 },
-  lg: { w: 300, h: 83 },
+  sm: { w: 180, h: 56 },
+  md: { w: 230, h: 72 },
+  lg: { w: 310, h: 96 },
 } as const;
 
 const MARK = {
-  sm: { w: 36, h: 36 },
-  md: { w: 48, h: 48 },
-  lg: { w: 120, h: 120 },
+  sm: { w: 40, h: 40 },
+  md: { w: 56, h: 56 },
+  lg: { w: 128, h: 128 },
 } as const;
 
+const CACHE = "v=7";
+
 /**
- * Official brand mark from the client's gold DT seal.
- * full       → vertical diamond + DAVID TUBUL + tagline
- * full-wide  → horizontal (header)
- * mark       → diamond seal only
+ * Official brand mark — always object-contain, overflow-visible, padded safe area.
+ * Assets include transparent margins so diamond tips are never clipped.
  */
 export function BrandLogo({
   tone: _tone = "light",
@@ -54,14 +54,14 @@ export function BrandLogo({
         : FULL[size];
   const src =
     variant === "mark"
-      ? "/brand/dt-emblem.png?v=5"
+      ? `/brand/dt-emblem.png?${CACHE}`
       : variant === "full-wide"
-        ? "/brand/david-tubul-logo-horizontal.png?v=5"
-        : "/brand/david-tubul-logo.png?v=5";
+        ? `/brand/david-tubul-logo-horizontal.png?${CACHE}`
+        : `/brand/david-tubul-logo.png?${CACHE}`;
 
   const mark = (
     <span
-      className={`inline-flex items-center ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center overflow-visible p-2 sm:p-3 ${className}`}
       dir="ltr"
       style={{ transform: "none" }}
     >
@@ -70,10 +70,12 @@ export function BrandLogo({
         alt="David Tubul — Premium Web Creator"
         width={dims.w}
         height={dims.h}
-        className="block h-auto w-auto max-w-none shrink-0 object-contain"
+        className="block h-auto w-full max-w-full shrink-0 object-contain"
         style={{
           width: dims.w,
+          maxWidth: "100%",
           height: "auto",
+          objectFit: "contain",
           transform: "none",
         }}
         priority
@@ -84,7 +86,10 @@ export function BrandLogo({
 
   if (href === false) {
     return (
-      <span className="inline-flex shrink-0 items-center" aria-label="David Tubul">
+      <span
+        className="inline-flex shrink-0 items-center overflow-visible"
+        aria-label="David Tubul"
+      >
         {mark}
       </span>
     );
@@ -95,7 +100,7 @@ export function BrandLogo({
       href={href}
       onClick={onClick}
       aria-label="David Tubul — דף הבית"
-      className="inline-flex shrink-0 items-center no-underline"
+      className="inline-flex max-w-full shrink-0 items-center overflow-visible no-underline"
       style={{ transform: "none" }}
     >
       {mark}

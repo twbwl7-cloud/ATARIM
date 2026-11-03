@@ -20,13 +20,13 @@ export function Header() {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[60] px-3 pt-3 sm:px-5 sm:pt-5 md:px-8">
-      <div className="pointer-events-auto mx-auto flex max-w-5xl items-center gap-2 rounded-full border border-[#C5A059]/30 bg-[#FAF9F6]/80 px-3 py-2 shadow-[0_8px_32px_rgba(18,18,18,0.06)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-2.5">
+      <div className="pointer-events-auto mx-auto flex max-w-5xl items-center gap-2 overflow-visible rounded-full border border-[#C5A059]/30 bg-[#FAF9F6]/80 px-3 py-2 shadow-[0_8px_32px_rgba(18,18,18,0.06)] backdrop-blur-md sm:gap-4 sm:px-5 sm:py-2.5">
         <BrandLogo
           tone="light"
           size="sm"
           variant="full-wide"
           href="/"
-          className="px-0.5"
+          className="min-w-0 max-w-[min(100%,11.5rem)] overflow-visible sm:max-w-[13.5rem]"
           onClick={() => setOpen(false)}
         />
 

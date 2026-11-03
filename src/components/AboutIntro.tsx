@@ -19,34 +19,34 @@ export function AboutIntro() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.7, ease: luxEase }}
-          className="lux-reveal mx-auto"
+          className="lux-reveal mx-auto shrink-0"
         >
-          {/* +~20% vs prior h-48/64/72; strict padding keeps diamond clear of the rim */}
-          <div className="relative grid h-56 w-56 place-items-center sm:h-80 sm:w-80 md:h-[22rem] md:w-[22rem]">
+          {/* shrink-0 + fixed circle sizes — never squeezed on mobile flex/grid */}
+          <div className="relative mx-auto flex h-56 w-56 shrink-0 items-center justify-center sm:h-72 sm:w-72 md:h-80 md:w-80">
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]/50 p-[3px]">
-              <div className="relative h-full w-full overflow-hidden rounded-full bg-[#F3EEE4]">
+              <div className="relative flex h-full w-full shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#F3EEE4]">
                 <Image
                   src="/brand/dt-leather-circle.png?v=1"
                   alt=""
                   width={640}
                   height={640}
-                  sizes="(max-width: 640px) 224px, 352px"
+                  sizes="(max-width: 640px) 224px, 320px"
                   className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                   aria-hidden
                   unoptimized
                 />
-                <div className="relative box-border flex h-full w-full items-center justify-center p-8 sm:p-10 md:p-12">
-                  <Image
-                    src="/brand/dt-emblem.png?v=5"
-                    alt="David Tubul — סמל המותג"
-                    width={480}
-                    height={480}
-                    sizes="(max-width: 640px) 140px, 220px"
-                    className="h-full w-full max-h-full max-w-full object-contain"
-                    priority
-                    unoptimized
-                  />
-                </div>
+                {/* Rigid 75% emblem — object-contain on every breakpoint */}
+                <Image
+                  src="/brand/dt-emblem.png?v=7"
+                  alt="David Tubul — סמל המותג"
+                  width={480}
+                  height={480}
+                  sizes="(max-width: 640px) 168px, 240px"
+                  className="relative z-[1] h-[75%] w-[75%] shrink-0 object-contain"
+                  style={{ objectFit: "contain" }}
+                  priority
+                  unoptimized
+                />
               </div>
             </div>
           </div>
