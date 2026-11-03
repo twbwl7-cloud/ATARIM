@@ -52,7 +52,7 @@ export function Footer() {
           </div>
 
           <p className="text-[11px] font-light tracking-wide text-white/30 md:text-end">
-            © 2026 DAVID TOBUL
+            © 2026 DAVID TUBUL
           </p>
         </footer>
       </div>

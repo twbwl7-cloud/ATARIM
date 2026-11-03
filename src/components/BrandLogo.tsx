@@ -14,16 +14,16 @@ type BrandLogoProps = {
 
 /** Vertical lockup — curtain / hero / footer */
 const FULL = {
-  sm: { w: 120, h: 67 },
-  md: { w: 200, h: 112 },
-  lg: { w: 320, h: 179 },
+  sm: { w: 120, h: 113 },
+  md: { w: 200, h: 188 },
+  lg: { w: 280, h: 263 },
 } as const;
 
 /** Horizontal lockup — header pill */
 const FULL_H = {
-  sm: { w: 168, h: 40 },
-  md: { w: 220, h: 52 },
-  lg: { w: 300, h: 72 },
+  sm: { w: 168, h: 47 },
+  md: { w: 220, h: 61 },
+  lg: { w: 300, h: 83 },
 } as const;
 
 const MARK = {
@@ -34,7 +34,7 @@ const MARK = {
 
 /**
  * Official brand mark from the client's gold DT seal.
- * full       → vertical diamond + DAVID TOBUL + tagline
+ * full       → vertical diamond + DAVID TUBUL + tagline
  * full-wide  → horizontal (header)
  * mark       → diamond seal only
  */
@@ -54,10 +54,10 @@ export function BrandLogo({
         : FULL[size];
   const src =
     variant === "mark"
-      ? "/brand/dt-emblem.png?v=4"
+      ? "/brand/dt-emblem.png?v=5"
       : variant === "full-wide"
-        ? "/brand/david-tobul-logo-horizontal.png?v=4"
-        : "/brand/david-tobul-logo.png?v=4";
+        ? "/brand/david-tubul-logo-horizontal.png?v=5"
+        : "/brand/david-tubul-logo.png?v=5";
 
   const mark = (
     <span
@@ -67,7 +67,7 @@ export function BrandLogo({
     >
       <Image
         src={src}
-        alt="David Tobul — Premium Web Creator"
+        alt="David Tubul — Premium Web Creator"
         width={dims.w}
         height={dims.h}
         className="block h-auto w-auto max-w-none shrink-0 object-contain"
@@ -84,7 +84,7 @@ export function BrandLogo({
 
   if (href === false) {
     return (
-      <span className="inline-flex shrink-0 items-center" aria-label="David Tobul">
+      <span className="inline-flex shrink-0 items-center" aria-label="David Tubul">
         {mark}
       </span>
     );
@@ -94,7 +94,7 @@ export function BrandLogo({
     <Link
       href={href}
       onClick={onClick}
-      aria-label="David Tobul — דף הבית"
+      aria-label="David Tubul — דף הבית"
       className="inline-flex shrink-0 items-center no-underline"
       style={{ transform: "none" }}
     >
