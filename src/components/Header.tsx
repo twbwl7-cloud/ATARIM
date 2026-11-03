@@ -24,8 +24,9 @@ export function Header() {
         <BrandLogo
           tone="light"
           size="sm"
+          variant="full"
           href="/"
-          className="px-1"
+          className="px-0.5"
           onClick={() => setOpen(false)}
         />
 

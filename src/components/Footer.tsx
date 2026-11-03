@@ -18,7 +18,7 @@ export function Footer() {
           aria-label="סיום עמוד"
         >
           <div className="min-w-0">
-            <BrandLogo tone="dark" size="md" href="/" />
+            <BrandLogo tone="light" size="md" variant="full" href="/" />
             <p className="mt-3 max-w-sm text-xs font-light leading-relaxed text-white/40 sm:text-[13px]">
               {site.tagline}
             </p>
@@ -52,7 +52,7 @@ export function Footer() {
           </div>
 
           <p className="text-[11px] font-light tracking-wide text-white/30 md:text-end">
-            © 2026 DAVID TUBUL
+            © 2026 DAVID TOBUL
           </p>
         </footer>
       </div>

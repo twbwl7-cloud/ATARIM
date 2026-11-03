@@ -36,7 +36,7 @@ export function Curtain() {
             className="flex items-center justify-center"
             style={{ transform: "none" }}
           >
-            <BrandLogo tone="light" size="lg" href={false} />
+            <BrandLogo tone="light" size="lg" variant="full" href={false} />
           </motion.div>
         </motion.div>
       ) : null}
