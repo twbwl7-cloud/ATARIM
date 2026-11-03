@@ -11,7 +11,7 @@ import { site, whatsappUrl } from "@/lib/site";
 type Status = "idle" | "loading" | "error";
 
 const FIELD =
-  "w-full bg-transparent border-0 border-b border-neutral-700 px-0 py-2.5 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#C5A059] focus:outline-none transition-colors duration-500";
+  "w-full bg-transparent border-0 border-b border-[#D4AF37]/25 px-0 py-2.5 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#D4AF37]/70 focus:outline-none transition-colors duration-500";
 
 function buildWhatsAppMessage(name: string, phone: string, message: string) {
   const lines = [
@@ -48,11 +48,15 @@ export function PremiumContactForm() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative scroll-mt-28 border-t border-white/5 bg-[#1A1A1A] px-5 py-6 md:px-8 md:py-8"
+      className="relative scroll-mt-28 border-t border-[#D4AF37]/30 bg-gradient-to-b from-[#1C1C1C] via-[#121212] to-[#050505] px-5 py-6 md:px-8 md:py-8"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(197,160,89,0.1),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.14),transparent_52%),radial-gradient(ellipse_at_80%_100%,rgba(197,160,89,0.06),transparent_45%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/45 to-transparent"
       />
       <div className="relative mx-auto max-w-md">
         <motion.div
@@ -62,21 +66,21 @@ export function PremiumContactForm() {
           transition={{ duration: 0.7, ease: luxEase }}
           className="text-center"
         >
-          <p className="text-[11px] font-medium tracking-[0.28em] text-[#C5A059]">
+          <p className="text-[11px] font-medium tracking-[0.28em] text-[#D4AF37]">
             צור קשר
           </p>
           <h2
             id="contact-heading"
-            className="display mt-1.5 text-xl font-light tracking-wide text-[#FAF9F6] md:text-2xl"
+            className="display mt-1.5 text-xl font-light tracking-wide text-[#E8D5A3] md:text-2xl"
           >
             בואו נדבר על הפרויקט.
           </h2>
-          <p className="mx-auto mt-1.5 max-w-sm text-xs font-light leading-relaxed text-white/45">
+          <p className="mx-auto mt-1.5 max-w-sm text-xs font-light leading-relaxed text-white/55">
             שלושה שדות. בלי רעש. נחזור אליכם אישית.
           </p>
           <a
             href={`mailto:${site.email}`}
-            className="lux-link mt-2 inline-block text-xs font-light tracking-wide text-[#C5A059]"
+            className="lux-link mt-2 inline-block text-xs font-light tracking-wide text-[#D4AF37]"
             dir="ltr"
           >
             {site.email}
@@ -93,7 +97,7 @@ export function PremiumContactForm() {
           noValidate
         >
           <label className="block">
-            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-white/45">
+            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-[#D4AF37]/70">
               שם מלא
             </span>
             <input
@@ -108,7 +112,7 @@ export function PremiumContactForm() {
           </label>
 
           <label className="block">
-            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-white/45">
+            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-[#D4AF37]/70">
               טלפון / וואטסאפ
             </span>
             <input
@@ -125,7 +129,7 @@ export function PremiumContactForm() {
           </label>
 
           <label className="block">
-            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-white/45">
+            <span className="mb-1.5 block text-[11px] tracking-[0.18em] text-[#D4AF37]/70">
               על הפרויקט
             </span>
             <textarea
@@ -141,12 +145,12 @@ export function PremiumContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="lux-cta cursor-magnet inline-flex min-h-10 items-center justify-center border border-[#C5A059]/70 bg-transparent px-8 py-2 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#C5A059] hover:bg-[#C5A059] hover:text-[#121212] disabled:opacity-50"
+              className="lux-cta cursor-magnet inline-flex min-h-10 items-center justify-center border border-[#D4AF37]/70 bg-transparent px-8 py-2 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#121212] disabled:opacity-50"
             >
               {status === "loading" ? "פותח וואטסאפ..." : "שליחה"}
             </button>
             <p
-              className="min-h-5 text-[11px] tracking-wide text-white/40"
+              className="min-h-5 text-[11px] tracking-wide text-white/45"
               role="status"
               aria-live="polite"
             >

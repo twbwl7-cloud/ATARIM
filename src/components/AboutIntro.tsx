@@ -21,19 +21,32 @@ export function AboutIntro() {
           transition={{ duration: 0.7, ease: luxEase }}
           className="lux-reveal mx-auto"
         >
-          <div className="relative grid h-48 w-48 place-items-center sm:h-64 sm:w-64 md:h-72 md:w-72">
+          {/* +~18% vs prior h-48/64/72 — room for padding so diamond never clips */}
+          <div className="relative grid h-56 w-56 place-items-center sm:h-[19rem] sm:w-[19rem] md:h-[21.5rem] md:w-[21.5rem]">
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]/50 p-[3px]">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-[#F3EEE4]">
                 <Image
-                  src="/brand/dt-emblem-circle.png?v=6"
-                  alt="David Tubul — סמל המותג"
+                  src="/brand/dt-leather-circle.png?v=1"
+                  alt=""
                   width={640}
                   height={640}
-                  sizes="(max-width: 640px) 192px, 288px"
-                  className="h-full w-full object-contain"
-                  priority
+                  sizes="(max-width: 640px) 224px, 344px"
+                  className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+                  aria-hidden
                   unoptimized
                 />
+                <div className="relative box-border flex h-full w-full items-center justify-center p-6 sm:p-7 md:p-8">
+                  <Image
+                    src="/brand/dt-emblem.png?v=5"
+                    alt="David Tubul — סמל המותג"
+                    width={480}
+                    height={480}
+                    sizes="(max-width: 640px) 160px, 240px"
+                    className="h-full w-full object-contain"
+                    priority
+                    unoptimized
+                  />
+                </div>
               </div>
             </div>
           </div>
