@@ -21,8 +21,8 @@ export function AboutIntro() {
           transition={{ duration: 0.7, ease: luxEase }}
           className="lux-reveal mx-auto"
         >
-          {/* +~18% vs prior h-48/64/72 — room for padding so diamond never clips */}
-          <div className="relative grid h-56 w-56 place-items-center sm:h-[19rem] sm:w-[19rem] md:h-[21.5rem] md:w-[21.5rem]">
+          {/* +~20% vs prior h-48/64/72; strict padding keeps diamond clear of the rim */}
+          <div className="relative grid h-56 w-56 place-items-center sm:h-80 sm:w-80 md:h-[22rem] md:w-[22rem]">
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]/50 p-[3px]">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-[#F3EEE4]">
                 <Image
@@ -30,19 +30,19 @@ export function AboutIntro() {
                   alt=""
                   width={640}
                   height={640}
-                  sizes="(max-width: 640px) 224px, 344px"
+                  sizes="(max-width: 640px) 224px, 352px"
                   className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                   aria-hidden
                   unoptimized
                 />
-                <div className="relative box-border flex h-full w-full items-center justify-center p-6 sm:p-7 md:p-8">
+                <div className="relative box-border flex h-full w-full items-center justify-center p-8 sm:p-10 md:p-12">
                   <Image
                     src="/brand/dt-emblem.png?v=5"
                     alt="David Tubul — סמל המותג"
                     width={480}
                     height={480}
-                    sizes="(max-width: 640px) 160px, 240px"
-                    className="h-full w-full object-contain"
+                    sizes="(max-width: 640px) 140px, 220px"
+                    className="h-full w-full max-h-full max-w-full object-contain"
                     priority
                     unoptimized
                   />
