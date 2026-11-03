@@ -25,7 +25,7 @@ export function AboutIntro() {
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]/50 p-[3px]">
               <div className="relative h-full w-full overflow-hidden rounded-full bg-[#F3EEE4]">
                 <Image
-                  src="/brand/dt-emblem-circle.png?v=5"
+                  src="/brand/dt-emblem-circle.png?v=6"
                   alt="David Tubul — סמל המותג"
                   width={640}
                   height={640}
