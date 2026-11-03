@@ -45,12 +45,25 @@ export function Hero() {
       {/* Match process-map cream field: gold wash + process-grain */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
       />
-      {mounted && !reduce ? <HeroGlass /> : null}
+      {/* 3D knot — above wash, below copy; never captures clicks */}
+      {mounted ? (
+        reduce ? (
+          <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
+            <div className="hero-glass-slot absolute">
+              <div className="hero-glass-fallback absolute inset-0 rounded-full" />
+              <div className="hero-glass-fallback-core absolute inset-[18%] rounded-full" />
+            </div>
+          </div>
+        ) : (
+          <HeroGlass />
+        )
+      ) : null}
+      {/* Soft center veil — keeps start-side (3D park) readable */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,249,246,0.88)_0%,rgba(250,249,246,0.55)_45%,transparent_78%)]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,249,246,0.72)_0%,rgba(250,249,246,0.35)_42%,transparent_72%)]"
       />
       <div
         aria-hidden

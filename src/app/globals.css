@@ -208,16 +208,19 @@ a {
 
 /* Floating header consultation CTA — soft gold glow on hover */
 .header-consult {
-  border-color: rgba(197, 160, 89, 0.45) !important;
+  border-radius: 999px !important;
+  border-color: rgba(18, 18, 18, 0.1) !important;
   color: #121212;
   box-shadow: none;
+  min-height: 0;
+  line-height: 1.2;
 }
 .header-consult:hover {
-  border-color: rgba(197, 160, 89, 0.9) !important;
+  border-color: rgba(197, 160, 89, 0.7) !important;
   color: #c5a059 !important;
   box-shadow:
-    0 0 0 1px rgba(197, 160, 89, 0.25),
-    0 0 22px rgba(197, 160, 89, 0.22);
+    0 0 0 1px rgba(197, 160, 89, 0.18),
+    0 0 18px rgba(197, 160, 89, 0.18);
 }
 
 .logo-gold {
@@ -618,11 +621,14 @@ a {
   background:
     radial-gradient(
       circle at 30% 28%,
-      rgba(220, 220, 222, 0.9) 0%,
-      rgba(160, 162, 168, 0.45) 42%,
-      rgba(110, 114, 122, 0.35) 70%,
-      rgba(90, 94, 102, 0.2) 100%
+      rgba(230, 230, 234, 0.95) 0%,
+      rgba(168, 172, 180, 0.62) 42%,
+      rgba(120, 124, 132, 0.48) 70%,
+      rgba(96, 100, 108, 0.32) 100%
     );
+  box-shadow:
+    0 0 40px rgba(163, 138, 95, 0.18),
+    0 12px 32px rgba(18, 18, 18, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
     inset 0 0 28px rgba(255, 255, 255, 0.35),
@@ -840,7 +846,7 @@ a {
   position: fixed;
   bottom: max(1rem, env(safe-area-inset-bottom));
   right: 1rem;
-  z-index: 50;
+  z-index: 70;
   display: grid;
   place-items: center;
   width: 3.25rem;
@@ -886,7 +892,8 @@ a {
   position: fixed;
   bottom: max(1rem, env(safe-area-inset-bottom));
   left: 1rem;
-  z-index: 50;
+  z-index: 70;
+  pointer-events: auto;
 }
 .a11y-float__btn {
   display: grid;
@@ -1019,28 +1026,29 @@ html.a11y-readable body {
 
 /* Hero glass CSS fallback slot — raised into fold, clear of copy */
 .hero-glass-slot {
-  inset-inline-start: 4%;
-  top: 22%;
-  width: min(28vw, 9.5rem);
-  height: min(28vw, 9.5rem);
+  inset-inline-start: 3%;
+  top: 20%;
+  width: min(30vw, 10.5rem);
+  height: min(30vw, 10.5rem);
   will-change: transform;
   transform: translateZ(0);
   pointer-events: none;
+  opacity: 1;
 }
 @media (min-width: 640px) {
   .hero-glass-slot {
-    inset-inline-start: 8%;
-    top: 20%;
-    width: min(18vw, 10rem);
-    height: min(18vw, 10rem);
+    inset-inline-start: 7%;
+    top: 18%;
+    width: min(20vw, 11.5rem);
+    height: min(20vw, 11.5rem);
   }
 }
 @media (max-width: 430px) {
   .hero-glass-slot {
-    top: 18%;
-    width: min(26vw, 7.5rem);
-    height: min(26vw, 7.5rem);
-    opacity: 0.85;
+    top: 16%;
+    width: min(28vw, 8.25rem);
+    height: min(28vw, 8.25rem);
+    opacity: 0.95;
   }
 }
 
@@ -1049,14 +1057,15 @@ html.a11y-readable body {
   position: fixed;
   bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4.1rem);
   left: 1rem;
-  z-index: 49;
+  z-index: 70;
+  pointer-events: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   padding: 0.4rem 0.7rem;
   border-radius: 999px;
   border: 1px solid rgba(212, 175, 55, 0.4);
-  background: rgba(249, 248, 246, 0.9);
+  background: rgba(249, 248, 246, 0.94);
   box-shadow:
     0 0 18px rgba(212, 175, 55, 0.14),
     0 10px 24px rgba(18, 18, 18, 0.08);
@@ -2045,8 +2054,7 @@ body {
     line-height: 1.2;
   }
 
-  /* Touch targets ≥ 44px where interactive chrome lives */
-  .header-consult,
+  /* Touch targets ≥ 44px where interactive chrome lives (not the slim header CTA) */
   .lux-cta,
   .btn-gold,
   .btn-ghost,

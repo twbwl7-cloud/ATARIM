@@ -16,7 +16,7 @@ import * as THREE from "three";
 type Pointer = { x: number; y: number };
 
 /** Quiet titanium presence — sized to stay clear of copy */
-const BASE_SCALE = 0.4;
+const BASE_SCALE = 0.52;
 
 function canUseWebGL() {
   if (typeof document === "undefined") return false;
@@ -54,7 +54,7 @@ function isWeakGpu() {
 /** Small grey orb — raised into above-the-fold view, away from headline */
 function GlassFallback() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+    <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
       <div className="hero-glass-slot absolute">
         <div className="hero-glass-fallback absolute inset-0 rounded-full" />
         <div className="hero-glass-fallback-core absolute inset-[18%] rounded-full" />
@@ -91,12 +91,12 @@ function TitaniumKnot({
       dt,
     );
 
-    g.rotation.y += dt * 0.12;
-    g.rotation.x += dt * 0.04;
+    g.rotation.y += dt * 0.16;
+    g.rotation.x += dt * 0.05;
     // Parked start-side, raised for first viewport — never over copy
-    g.position.x = -1.65 + target.current.x * 0.14;
-    g.position.y = -0.18 + target.current.y * 0.1;
-    g.position.z = -1.15;
+    g.position.x = -1.55 + target.current.x * 0.16;
+    g.position.y = 0.05 + target.current.y * 0.12;
+    g.position.z = -0.85;
   });
 
   const segments = lite ? ([56, 10] as const) : ([96, 18] as const);
@@ -108,15 +108,15 @@ function TitaniumKnot({
           args={[1.05, 0.34, segments[0], segments[1], 2, 3]}
         />
         <meshPhysicalMaterial
-          color="#9a9ea6"
-          metalness={0.72}
-          roughness={0.38}
-          clearcoat={0.45}
-          clearcoatRoughness={0.28}
-          reflectivity={0.55}
-          envMapIntensity={lite ? 0.5 : 0.85}
+          color="#a4a8b0"
+          metalness={0.78}
+          roughness={0.32}
+          clearcoat={0.55}
+          clearcoatRoughness={0.22}
+          reflectivity={0.62}
+          envMapIntensity={lite ? 0.7 : 1.05}
           transparent
-          opacity={0.78}
+          opacity={0.92}
         />
       </mesh>
     </group>
@@ -211,12 +211,12 @@ export function HeroGlass() {
   return (
     <div
       ref={hostRef}
-      className="pointer-events-none absolute inset-0 z-0 [contain:strict]"
+      className="pointer-events-none absolute inset-0 z-[1]"
       aria-hidden
     >
       <GlassErrorBoundary onError={() => setOk(false)}>
         <Canvas
-          dpr={lite ? [1, 1.25] : [1, 2]}
+          dpr={lite ? [1, 1.5] : [1, 2]}
           frameloop={visible ? "always" : "never"}
           camera={{ position: [0, 0.22, 5.1], fov: 34, near: 0.1, far: 40 }}
           gl={{
@@ -228,7 +228,9 @@ export function HeroGlass() {
             depth: true,
           }}
           onCreated={({ gl }) => {
-            gl.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 2));
+            gl.setPixelRatio(
+              Math.min(window.devicePixelRatio || 1, lite ? 1.5 : 2),
+            );
             gl.setClearColor(0x000000, 0);
             gl.domElement.style.touchAction = "none";
             gl.domElement.style.pointerEvents = "none";
@@ -247,7 +249,6 @@ export function HeroGlass() {
             background: "transparent",
             pointerEvents: "none",
             transform: "translateZ(0)",
-            willChange: "transform",
           }}
         >
           <Suspense fallback={null}>

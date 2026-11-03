@@ -54,8 +54,14 @@ export function SiteChrome({ children }: { children: ReactNode }) {
     <>
       <ErrorBoundary fallback={null}>
         <AmbientGlow />
+      </ErrorBoundary>
+      <ErrorBoundary fallback={null}>
         <CardSpotlight />
+      </ErrorBoundary>
+      <ErrorBoundary fallback={null}>
         <ScrollProgress />
+      </ErrorBoundary>
+      <ErrorBoundary fallback={null}>
         <CustomCursor />
       </ErrorBoundary>
       <ErrorBoundary fallback={null}>
@@ -70,8 +76,11 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       </div>
       <WhatsAppFloat />
       <WhatsAppReassurance />
+      {/* Isolated boundaries — one float must never kill the other */}
       <ErrorBoundary fallback={null}>
         <AccessibilityWidget />
+      </ErrorBoundary>
+      <ErrorBoundary fallback={null}>
         <LuxuryModeToggle />
       </ErrorBoundary>
     </>
