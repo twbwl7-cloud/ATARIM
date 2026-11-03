@@ -24,14 +24,14 @@ export function AboutIntro() {
         >
           <div className="relative grid h-48 w-48 place-items-center sm:h-64 sm:w-64 md:h-72 md:w-72">
             <div className="absolute inset-0 rounded-full border border-[#D4AF37]/50 p-[3px]">
-              <div className="relative grid h-full w-full place-items-center overflow-hidden rounded-full bg-[#FAF9F6]">
+              <div className="relative h-full w-full overflow-hidden rounded-full bg-[#F3EEE4]">
                 <Image
-                  src="/brand/dt-emblem.png?v=1"
+                  src="/brand/dt-emblem-circle.png?v=4"
                   alt="David Tobul — סמל המותג"
-                  width={280}
-                  height={280}
+                  width={640}
+                  height={640}
                   sizes="(max-width: 640px) 192px, 288px"
-                  className="h-[78%] w-[78%] object-contain"
+                  className="h-full w-full object-cover"
                   priority
                   unoptimized
                 />

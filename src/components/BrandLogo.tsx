@@ -54,10 +54,10 @@ export function BrandLogo({
         : FULL[size];
   const src =
     variant === "mark"
-      ? "/brand/dt-emblem.png?v=1"
+      ? "/brand/dt-emblem.png?v=4"
       : variant === "full-wide"
-        ? "/brand/david-tobul-logo-horizontal.png?v=1"
-        : "/brand/david-tobul-logo.png?v=1";
+        ? "/brand/david-tobul-logo-horizontal.png?v=4"
+        : "/brand/david-tobul-logo.png?v=4";
 
   const mark = (
     <span
