@@ -216,7 +216,7 @@ export function HeroGlass() {
     >
       <GlassErrorBoundary onError={() => setOk(false)}>
         <Canvas
-          dpr={lite ? [1, 1] : [1, 1.25]}
+          dpr={lite ? [1, 1.25] : [1, 2]}
           frameloop={visible ? "always" : "never"}
           camera={{ position: [0, 0.22, 5.1], fov: 34, near: 0.1, far: 40 }}
           gl={{
@@ -228,6 +228,7 @@ export function HeroGlass() {
             depth: true,
           }}
           onCreated={({ gl }) => {
+            gl.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 2));
             gl.setClearColor(0x000000, 0);
             gl.domElement.style.touchAction = "none";
             gl.domElement.style.pointerEvents = "none";

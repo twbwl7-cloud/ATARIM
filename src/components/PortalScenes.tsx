@@ -314,7 +314,7 @@ export function PortalSceneCanvas({ kind }: { kind: SceneKind }) {
     >
       <PortalErrorBoundary fallback={<CssFallback kind={kind} />}>
         <Canvas
-          dpr={lite ? [1, 1] : [1, 1.25]}
+          dpr={lite ? [1, 1.25] : [1, 2]}
           frameloop={visible && !reduce ? "always" : "never"}
           camera={{ position: [0, 0.2, 4.2], fov: 38, near: 0.1, far: 30 }}
           gl={{
@@ -325,6 +325,7 @@ export function PortalSceneCanvas({ kind }: { kind: SceneKind }) {
             depth: true,
           }}
           onCreated={({ gl }) => {
+            gl.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 2));
             gl.setClearColor(0x000000, 0);
             gl.domElement.style.pointerEvents = "none";
             gl.domElement.addEventListener(

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 import type { ReactNode } from "react";
-import { luxEase } from "@/lib/motion";
+import { luxSpring } from "@/lib/motion";
 
 type RevealProps = {
   children: ReactNode;
@@ -11,7 +11,7 @@ type RevealProps = {
   y?: number;
 } & Omit<HTMLMotionProps<"div">, "children">;
 
-/** Soft upward reveal — opacity + translate only (no blur) for 60fps. */
+/** Soft upward reveal — spring physics, opacity + translate only. */
 export function Reveal({
   children,
   className = "",
@@ -31,7 +31,7 @@ export function Reveal({
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.7, delay, ease: luxEase }}
+      transition={{ ...luxSpring, delay }}
       style={{ willChange: "opacity, transform" }}
       {...rest}
     >

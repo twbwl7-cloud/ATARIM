@@ -3,3 +3,6 @@ Allow: /
 
 # Demo landings are sales POCs — keep them out of search indexes
 Disallow: /demo/
+
+Sitemap: https://davidwebsitebuilder.vercel.app/sitemap.xml
+

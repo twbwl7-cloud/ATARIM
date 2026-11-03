@@ -2,16 +2,23 @@
 
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
-import { luxEase } from "@/lib/motion";
-import { site, whatsappUrl } from "@/lib/site";
+import { luxSpring } from "@/lib/motion";
+import {
+  buildSafeWhatsAppUrl,
+  contactSchema,
+  sanitizeName,
+  sanitizePhone,
+  sanitizeText,
+} from "@/lib/sanitize";
+import { site } from "@/lib/site";
 
 /**
- * Boutique contact strip — three fields → WhatsApp (wa.me) with encoded body.
+ * Boutique contact strip — three fields → WhatsApp (wa.me) with sanitized body.
  */
 type Status = "idle" | "loading" | "error";
 
 const FIELD =
-  "w-full bg-transparent border-0 border-b border-[#D4AF37]/25 px-0 py-2.5 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#D4AF37]/70 focus:outline-none transition-colors duration-500";
+  "w-full bg-transparent border-0 border-b border-[#D4AF37]/25 px-0 py-2.5 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#D4AF37]/70 focus:outline-none focus-visible:border-[#D4AF37] focus-visible:shadow-[0_1px_0_0_rgba(212,175,55,0.7)] transition-colors duration-500";
 
 function buildWhatsAppMessage(name: string, phone: string, message: string) {
   const lines = [
@@ -30,17 +37,25 @@ export function PremiumContactForm() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = String(data.get("name") || "").trim();
-    const phone = String(data.get("phone") || "").trim();
-    const message = String(data.get("message") || "").trim();
 
-    if (!name || !phone) {
+    const candidate = {
+      name: sanitizeName(data.get("name")),
+      phone: sanitizePhone(data.get("phone")),
+      message: sanitizeText(data.get("message"), 2000),
+    };
+
+    const parsed = contactSchema.safeParse(candidate);
+    if (!parsed.success) {
       setStatus("error");
       return;
     }
 
     setStatus("loading");
-    const href = whatsappUrl(buildWhatsAppMessage(name, phone, message));
+    const { name, phone, message } = parsed.data;
+    const href = buildSafeWhatsAppUrl(
+      site.whatsapp,
+      buildWhatsAppMessage(name, phone, message || ""),
+    );
     window.location.assign(href);
   }
 
@@ -63,7 +78,7 @@ export function PremiumContactForm() {
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, ease: luxEase }}
+          transition={luxSpring}
           className="text-center"
         >
           <p className="text-[11px] font-medium tracking-[0.28em] text-[#D4AF37]">
@@ -80,7 +95,7 @@ export function PremiumContactForm() {
           </p>
           <a
             href={`mailto:${site.email}`}
-            className="lux-link mt-2 inline-block text-xs font-light tracking-wide text-[#D4AF37]"
+            className="lux-link mt-2 inline-block text-xs font-light tracking-wide text-[#D4AF37] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
             dir="ltr"
           >
             {site.email}
@@ -92,7 +107,7 @@ export function PremiumContactForm() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.75, delay: 0.06, ease: luxEase }}
+          transition={{ ...luxSpring, delay: 0.06 }}
           className="mt-5 flex flex-col gap-4"
           noValidate
         >
@@ -104,6 +119,7 @@ export function PremiumContactForm() {
               name="name"
               type="text"
               required
+              maxLength={80}
               autoComplete="name"
               placeholder="שם מלא"
               className={FIELD}
@@ -119,6 +135,7 @@ export function PremiumContactForm() {
               name="phone"
               type="tel"
               required
+              maxLength={40}
               autoComplete="tel"
               inputMode="tel"
               placeholder="טלפון / וואטסאפ"
@@ -135,6 +152,7 @@ export function PremiumContactForm() {
             <textarea
               name="message"
               rows={3}
+              maxLength={2000}
               placeholder="ספר לי קצת על הפרויקט..."
               className={`${FIELD} h-20 resize-none`}
               disabled={status === "loading"}
@@ -145,18 +163,18 @@ export function PremiumContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="lux-cta cursor-magnet inline-flex min-h-10 items-center justify-center border border-[#D4AF37]/70 bg-transparent px-8 py-2 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#121212] disabled:opacity-50"
+              className="lux-cta cursor-magnet inline-flex min-h-11 min-w-[8.5rem] items-center justify-center border border-[#D4AF37]/70 bg-transparent px-8 py-2.5 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#121212] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37] disabled:opacity-50"
             >
               {status === "loading" ? "פותח וואטסאפ..." : "שליחה"}
             </button>
             <p
-              className="min-h-5 text-[11px] tracking-wide text-white/45"
+              className="min-h-5 max-w-[16rem] text-center text-[10px] leading-relaxed tracking-wide text-white/40 sm:text-end"
               role="status"
               aria-live="polite"
             >
               {status === "error"
                 ? "לא הצלחנו לשלוח — בדקו את הפרטים ונסו שוב."
-                : "מענה אישי · ללא התחייבות"}
+                : "מענה אישי · ללא התחייבות · ללא דיוור שיווקי ללא הסכמה"}
             </p>
           </div>
         </motion.form>

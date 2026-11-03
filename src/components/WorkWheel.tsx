@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SplitTextReveal } from "@/components/SplitTextReveal";
+import { luxSpring } from "@/lib/motion";
 import { caseStudyHref, projects, type Project } from "@/lib/site";
 
 /** Same desktop browser frame on phone and desktop — one premium version */
@@ -36,7 +37,7 @@ function DesktopPreview({
           className="object-cover object-top"
           sizes="(max-width: 768px) 90vw, (max-width: 1024px) 55vw, 512px"
           priority={priority}
-          quality={90}
+          quality={100}
         />
       </div>
     </div>
@@ -72,9 +73,8 @@ export function WorkWheel() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{
-                duration: 0.65,
+                ...luxSpring,
                 delay: i * 0.06,
-                ease: [0.22, 1, 0.36, 1],
               }}
               className="grid items-center gap-5 md:grid-cols-2 md:gap-10"
             >

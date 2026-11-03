@@ -487,7 +487,7 @@ export function HeroScene({
       />
       <SceneErrorBoundary theme={theme} onError={() => setOk(false)}>
         <Canvas
-          dpr={[1, 1.5]}
+          dpr={[1, 2]}
           camera={{ position: [0, 1.35, 3.6], fov: 30 }}
           gl={{
             antialias: true,
@@ -496,6 +496,7 @@ export function HeroScene({
             failIfMajorPerformanceCaveat: false,
           }}
           onCreated={({ gl }) => {
+            gl.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
             gl.setClearColor(voidColor, 0);
             gl.toneMapping = THREE.ACESFilmicToneMapping;
             gl.toneMappingExposure = 1.14;

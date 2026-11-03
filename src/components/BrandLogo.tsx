@@ -79,6 +79,7 @@ export function BrandLogo({
           transform: "none",
         }}
         priority
+        quality={100}
         unoptimized
       />
     </span>

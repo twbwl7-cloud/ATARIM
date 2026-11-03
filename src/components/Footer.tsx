@@ -51,9 +51,22 @@ export function Footer() {
             </a>
           </div>
 
-          <p className="text-[11px] font-light tracking-wide text-white/30 md:text-end">
-            © 2026 DAVID TUBUL
-          </p>
+          <div className="space-y-2 md:text-end">
+            <p className="text-[11px] font-light tracking-wide text-white/30">
+              © 2026 DAVID TUBUL
+            </p>
+            <p className="max-w-xs text-[10px] font-light leading-relaxed text-white/25 md:ms-auto">
+              פנייה דרך האתר / וואטסאפ אינה יוצרת התחייבות חוזית. פרטים נשמרים
+              לטיפול בפנייה בלבד ·{" "}
+              <a
+                href={`tel:+${site.whatsapp}`}
+                className="underline-offset-2 hover:text-[#C5A059] hover:underline"
+                dir="ltr"
+              >
+                {site.phoneDisplay}
+              </a>
+            </p>
+          </div>
         </footer>
       </div>
     </div>

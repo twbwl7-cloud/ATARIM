@@ -123,6 +123,8 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html,
@@ -131,7 +133,7 @@ body {
   color: var(--ink);
 }
 
-/* Warm cream luxury field */
+/* Warm cream luxury field — crystal typography */
 body {
   background-color: #faf9f6;
   background-image: radial-gradient(
@@ -148,8 +150,27 @@ body {
   background-attachment: fixed;
   font-family: var(--font-rubik), system-ui, sans-serif;
   font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1.65;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: always;
+}
+
+/* Kill default browser focus rings — elegant gold focus only */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 1px solid rgba(197, 160, 89, 0.85);
+  outline-offset: 3px;
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: 0 1px 0 0 rgba(212, 175, 55, 0.7);
 }
 
 @media (pointer: fine) and (hover: hover) {
@@ -1292,12 +1313,27 @@ body {
   color: var(--gold);
 }
 
-/* Premium glass — light */
+/* Premium glass — light + dark luxury variants */
 .glass {
   background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(26, 26, 26, 0.06);
-  backdrop-filter: blur(20px) saturate(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
   box-shadow: var(--shadow-soft);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px) saturate(1.05);
+  -webkit-backdrop-filter: blur(12px) saturate(1.05);
+}
+
+.glass-lite {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .premium-panel {
@@ -1985,4 +2021,77 @@ body {
 .lux-reveal {
   will-change: opacity, transform;
 }
+
+/* —— Mobile: iPhone + Android shared polish —— */
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+@media (max-width: 767px) {
+  html {
+    /* Prevent iOS rubber-band horizontal scroll */
+    overflow-x: clip;
+  }
+
+  body {
+    background-attachment: scroll; /* fixed BG kills perf on mobile Safari */
+  }
+
+  .display {
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  /* Touch targets ≥ 44px where interactive chrome lives */
+  .header-consult,
+  .lux-cta,
+  .btn-gold,
+  .btn-ghost,
+  .btn-cyan,
+  .btn-hero {
+    min-height: 44px;
+  }
+
+  /* Portfolio previews — never stretch past native feel on phone */
+  .desktop-frame {
+    max-width: min(100%, 22rem);
+    margin-inline: auto;
+  }
+
+  .desktop-screen img,
+  .desktop-screen picture,
+  .desktop-screen span {
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+
+  /* Section rhythm — balanced whitespace on narrow screens */
+  section {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .display {
+    font-size: clamp(1.55rem, 7.2vw, 2rem);
+  }
+}
+
+/* Prefer reduced motion — kill parallax-heavy motion globally */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .lux-reveal,
+  .hero-glass-fallback,
+  .hero-glass-fallback-core {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 

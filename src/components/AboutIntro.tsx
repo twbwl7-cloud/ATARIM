@@ -1,15 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { luxEase } from "@/lib/motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { luxSpring } from "@/lib/motion";
 
+/** Script 6 Phase 2 — human expert voice, no AI blacklist openers. */
 const ABOUT_BODY =
-  "בעולם שבו הרושם הראשוני קובע מי שולט בשוק — הנכס הדיגיטלי שלכם חייב להיות בלתי מתפשר. אני מחבר ארכיטקטורת המרה לעיצוב יוקרה, בלי קיצורי דרך ובלי תבניות. ההתמחות: חוויות דיגיטליות אקסקלוסיביות וממשקים שעוצרים גלישה וממירים לפנייה. החזון שלכם. סטנדרט העבודה של סטודיו בוטיק.";
+  "הרושם הראשוני קובע מי נשאר בשוק. הנכס שלכם חייב להיות חד, ברור, ובנוי לסגור שיחה — לא להרשים את התיק של מעצב. אני מחבר ארכיטקטורת המרה לעיצוב יוקרה, בלי קיצורי דרך ובלי תבניות. ממשקים שעוצרים גלילה ומביאים פנייה. החזון שלכם. סטנדרט של סטודיו בוטיק.";
 
 export function AboutIntro() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [28, -28]);
+
   return (
     <section
+      ref={ref}
       id="about-intro"
       className="section-void relative z-10 overflow-hidden border-y border-line px-5 py-8 md:px-8 md:py-12"
     >
@@ -18,8 +28,9 @@ export function AboutIntro() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.7, ease: luxEase }}
-          className="lux-reveal mx-auto shrink-0"
+          transition={luxSpring}
+          style={{ y: parallaxY }}
+          className="lux-reveal mx-auto shrink-0 will-change-transform"
         >
           {/* shrink-0 + fixed circle sizes — never squeezed on mobile flex/grid */}
           <div className="relative mx-auto flex h-56 w-56 shrink-0 items-center justify-center sm:h-72 sm:w-72 md:h-80 md:w-80">
@@ -33,6 +44,7 @@ export function AboutIntro() {
                   sizes="(max-width: 640px) 224px, 320px"
                   className="pointer-events-none absolute inset-0 h-full w-full object-cover"
                   aria-hidden
+                  quality={100}
                   unoptimized
                 />
                 {/* Rigid 75% emblem — object-contain on every breakpoint */}
@@ -45,6 +57,7 @@ export function AboutIntro() {
                   className="relative z-[1] h-[75%] w-[75%] shrink-0 object-contain"
                   style={{ objectFit: "contain" }}
                   priority
+                  quality={100}
                   unoptimized
                 />
               </div>
@@ -56,7 +69,7 @@ export function AboutIntro() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.75, delay: 0.08, ease: luxEase }}
+          transition={{ ...luxSpring, delay: 0.08 }}
           className="lux-reveal text-center md:text-start"
         >
           <p className="text-[11px] font-light tracking-[0.22em] text-gold">

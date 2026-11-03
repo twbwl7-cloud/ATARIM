@@ -84,7 +84,8 @@ export function DemoShell({ demo }: Props) {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            quality={100}
+            className="object-cover object-center"
             style={{ opacity: 0.42 }}
           />
           <div

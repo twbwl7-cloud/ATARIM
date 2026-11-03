@@ -115,12 +115,15 @@ export function HeroOrb() {
   return (
     <div className="pointer-events-none absolute inset-0 opacity-85" aria-hidden>
       <Canvas
-        dpr={[1, 1.4]}
+        dpr={[1, 2]}
         camera={{ position: [0, 0, 4.2], fov: 42 }}
         gl={{
           antialias: true,
           alpha: true,
           powerPreference: "high-performance",
+        }}
+        onCreated={({ gl }) => {
+          gl.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         }}
         style={{ width: "100%", height: "100%" }}
       >

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { contactSchema, sanitizeText } from "@/lib/sanitize";
 
 /**
  * Contact → WhatsApp bot relay (server-side only).
@@ -14,38 +15,38 @@ import { NextResponse } from "next/server";
  */
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as {
-      name?: unknown;
-      phone?: unknown;
-      message?: unknown;
-    };
-
-    const name = String(body.name ?? "").trim();
-    const phone = String(body.phone ?? "").trim();
-    const message = String(body.message ?? "").trim();
-
-    if (!name || !phone) {
+    let raw: unknown;
+    try {
+      raw = await request.json();
+    } catch {
       return NextResponse.json(
-        { success: false, error: "missing_fields" },
+        { success: false, error: "invalid_json" },
         { status: 400 },
       );
     }
 
-    const text =
-      `✨ ליד חדש מהאתר! ✨\n\n` +
-      `שם: ${name}\n` +
-      `טלפון: ${phone}\n` +
-      `הודעה: ${message || "—"}`;
+    const parsed = contactSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { success: false, error: "validation_failed" },
+        { status: 400 },
+      );
+    }
+
+    const { name, phone, message } = parsed.data;
+
+    const text = sanitizeText(
+      `ליד חדש מהאתר\n\nשם: ${name}\nטלפון: ${phone}\nהודעה: ${message || "—"}`,
+      1800,
+    );
 
     const webhookUrl = process.env.WHATSAPP_BOT_URL?.trim();
     const botConfigured =
       Boolean(webhookUrl) && webhookUrl !== "PLACEHOLDER_URL";
 
     if (!botConfigured) {
-      // Lead accepted, but no bot is wired yet — configure WHATSAPP_BOT_URL in Vercel.
       console.warn(
-        "[contact] WHATSAPP_BOT_URL is PLACEHOLDER/missing — WhatsApp not sent. Payload:",
-        { name, phone, message },
+        "[contact] WHATSAPP_BOT_URL is PLACEHOLDER/missing — WhatsApp not sent.",
       );
       return NextResponse.json({
         success: true,
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
       text,
       name,
       phone,
-      message,
+      message: message || "",
     });
 
     if (!delivered) {

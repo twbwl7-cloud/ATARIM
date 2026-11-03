@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { AmbientGlow } from "@/components/AmbientGlow";
 import { Curtain } from "@/components/Curtain";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
@@ -51,20 +52,28 @@ export function SiteChrome({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <AmbientGlow />
-      <CardSpotlight />
-      <ScrollProgress />
-      <CustomCursor />
-      <Curtain />
+      <ErrorBoundary fallback={null}>
+        <AmbientGlow />
+        <CardSpotlight />
+        <ScrollProgress />
+        <CustomCursor />
+      </ErrorBoundary>
+      <ErrorBoundary fallback={null}>
+        <Curtain />
+      </ErrorBoundary>
       <Header />
-      <main className="relative z-[1] flex-1">{children}</main>
+      <ErrorBoundary>
+        <main className="relative z-[1] flex-1">{children}</main>
+      </ErrorBoundary>
       <div className="relative z-[1]">
         <Footer />
       </div>
       <WhatsAppFloat />
       <WhatsAppReassurance />
-      <AccessibilityWidget />
-      <LuxuryModeToggle />
+      <ErrorBoundary fallback={null}>
+        <AccessibilityWidget />
+        <LuxuryModeToggle />
+      </ErrorBoundary>
     </>
   );
 }
