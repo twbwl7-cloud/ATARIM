@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ContactSection } from "@/components/ContactSection";
-import { ProcessJourney } from "@/components/ProcessJourney";
+import { ProcessJourneyLazy } from "@/components/ProcessJourneyLazy";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function ContactPage() {
         </p>
       </div>
       <ContactSection />
-      <ProcessJourney />
+      <ProcessJourneyLazy />
     </div>
   );
 }

@@ -24,8 +24,8 @@ export function MagneticButton({
   const ref = useRef<HTMLAnchorElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 90, damping: 22, mass: 0.35 });
-  const sy = useSpring(y, { stiffness: 90, damping: 22, mass: 0.35 });
+  const sx = useSpring(x, { stiffness: 120, damping: 24, mass: 0.28 });
+  const sy = useSpring(y, { stiffness: 120, damping: 24, mass: 0.28 });
 
   const onMove = (e: MouseEvent<HTMLAnchorElement>) => {
     if (!ref.current) return;
@@ -58,10 +58,13 @@ export function MagneticButton({
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       style={{ x: sx, y: sy }}
-      whileHover={{ scale: 1.015 }}
+      whileHover={{
+        scale: 1.012,
+        boxShadow: "0 0 28px rgba(197, 160, 89, 0.28)",
+      }}
       whileTap={{ scale: 0.99 }}
-      transition={{ duration: 0.5, ease: "easeInOut" }}
-      className={`btn-shimmer cursor-magnet inline-flex ${className}`}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className={`btn-shimmer lux-cta cursor-magnet inline-flex ${className}`}
     >
       {children}
     </motion.a>

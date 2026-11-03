@@ -1931,5 +1931,58 @@ body {
   .phone-screen img {
     transition: none;
   }
+
+  .lux-cta,
+  .lux-link,
+  .btn-ghost,
+  .btn-gold {
+    transition: none !important;
+  }
+}
+
+/* ── Luxury interactive finishes (subtle; no layout change) ── */
+.lux-link {
+  transition:
+    color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    text-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lux-link:hover {
+  color: var(--gold-bright);
+  text-shadow: 0 0 18px rgba(197, 160, 89, 0.35);
+}
+
+.lux-cta {
+  transition:
+    color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (pointer: fine) and (hover: hover) {
+  .lux-cta:hover {
+    box-shadow:
+      0 0 0 1px rgba(197, 160, 89, 0.22),
+      0 0 26px rgba(197, 160, 89, 0.3);
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(197, 160, 89, 0.55);
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.16);
+  }
+
+  .btn-gold:hover {
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 55, 0.25),
+      0 0 28px rgba(197, 160, 89, 0.32);
+  }
+}
+
+.lux-reveal {
+  will-change: opacity, transform;
 }
 

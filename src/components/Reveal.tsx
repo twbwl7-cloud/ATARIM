@@ -1,9 +1,8 @@
 "use client";
 
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 import type { ReactNode } from "react";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { luxEase } from "@/lib/motion";
 
 type RevealProps = {
   children: ReactNode;
@@ -12,21 +11,28 @@ type RevealProps = {
   y?: number;
 } & Omit<HTMLMotionProps<"div">, "children">;
 
-/** Soft upward reveal with blur clear — luxury scroll entrance */
+/** Soft upward reveal — opacity + translate only (no blur) for 60fps. */
 export function Reveal({
   children,
   className = "",
   delay = 0,
-  y = 30,
+  y = 16,
   ...rest
 }: RevealProps) {
+  const reduce = useReducedMotion();
+
+  if (reduce) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.8, delay, ease: EASE }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25, margin: "0px 0px -8% 0px" }}
+      transition={{ duration: 0.7, delay, ease: luxEase }}
+      style={{ willChange: "opacity, transform" }}
       {...rest}
     >
       {children}

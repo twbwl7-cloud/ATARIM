@@ -11,11 +11,11 @@ export function ContactSection() {
   return (
     <section className="relative z-10 mx-auto max-w-7xl px-5 py-4 md:px-8 md:py-5">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="premium-panel relative overflow-hidden rounded-2xl px-6 py-6 sm:px-10 sm:py-7 md:px-12 md:py-8"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="lux-reveal premium-panel relative overflow-hidden rounded-2xl px-6 py-6 sm:px-10 sm:py-7 md:px-12 md:py-8"
       >
         <div
           aria-hidden
@@ -44,14 +44,14 @@ export function ContactSection() {
             </MagneticButton>
             <a
               href={`tel:+${site.whatsapp}`}
-              className="btn-ghost rounded-md px-8 py-3.5 text-center text-sm font-light"
+              className="btn-ghost lux-cta rounded-md px-8 py-3.5 text-center text-sm font-light"
               dir="ltr"
             >
               {site.phoneDisplay}
             </a>
             <a
               href={`mailto:${site.email}?subject=${encodeURIComponent("פנייה לפרויקט — דוד טובול")}`}
-              className="btn-ghost rounded-md px-8 py-3.5 text-center text-sm font-light"
+              className="btn-ghost lux-cta rounded-md px-8 py-3.5 text-center text-sm font-light"
             >
               {site.email}
             </a>

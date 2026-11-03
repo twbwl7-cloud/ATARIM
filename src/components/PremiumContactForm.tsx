@@ -2,60 +2,46 @@
 
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
-import { site } from "@/lib/site";
+import { luxEase } from "@/lib/motion";
+import { site, whatsappUrl } from "@/lib/site";
 
 /**
- * Boutique contact strip — posts to /api/contact (WhatsApp bot webhook
- * stays server-side via WHATSAPP_BOT_URL).
+ * Boutique contact strip — three fields → WhatsApp (wa.me) with encoded body.
  */
-type Status = "idle" | "loading" | "ok" | "error";
+type Status = "idle" | "loading" | "error";
 
 const FIELD =
   "w-full bg-transparent border-0 border-b border-neutral-700 px-0 py-2.5 text-sm font-light tracking-wide text-[#FAF9F6] placeholder:text-white/35 focus:border-[#C5A059] focus:outline-none transition-colors duration-500";
 
+function buildWhatsAppMessage(name: string, phone: string, message: string) {
+  const lines = [
+    "פנייה חדשה מהאתר:",
+    `שם: ${name}`,
+    `טלפון: ${phone}`,
+  ];
+  if (message) lines.push(`על הפרויקט: ${message}`);
+  return lines.join("\n");
+}
+
 export function PremiumContactForm() {
   const [status, setStatus] = useState<Status>("idle");
 
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const payload = {
-      name: String(data.get("name") || "").trim(),
-      phone: String(data.get("phone") || "").trim(),
-      message: String(data.get("message") || "").trim(),
-    };
+    const name = String(data.get("name") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
+    const message = String(data.get("message") || "").trim();
 
-    if (!payload.name || !payload.phone) {
+    if (!name || !phone) {
       setStatus("error");
       return;
     }
 
     setStatus("loading");
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const json = (await res.json().catch(() => null)) as {
-        success?: boolean;
-      } | null;
-
-      if (!res.ok || !json?.success) {
-        throw new Error("contact_api");
-      }
-
-      form.reset();
-      setStatus("ok");
-    } catch {
-      setStatus("error");
-    }
+    const href = whatsappUrl(buildWhatsAppMessage(name, phone, message));
+    window.location.assign(href);
   }
 
   return (
@@ -73,7 +59,7 @@ export function PremiumContactForm() {
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: luxEase }}
           className="text-center"
         >
           <p className="text-[11px] font-medium tracking-[0.28em] text-[#C5A059]">
@@ -90,7 +76,7 @@ export function PremiumContactForm() {
           </p>
           <a
             href={`mailto:${site.email}`}
-            className="mt-2 inline-block text-xs font-light tracking-wide text-[#C5A059] transition-colors duration-500 hover:text-[#E0C992]"
+            className="lux-link mt-2 inline-block text-xs font-light tracking-wide text-[#C5A059]"
             dir="ltr"
           >
             {site.email}
@@ -102,7 +88,7 @@ export function PremiumContactForm() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.8, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.75, delay: 0.06, ease: luxEase }}
           className="mt-5 flex flex-col gap-4"
           noValidate
         >
@@ -155,20 +141,18 @@ export function PremiumContactForm() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="cursor-magnet inline-flex min-h-10 items-center justify-center border border-[#C5A059]/70 bg-transparent px-8 py-2 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#C5A059] hover:bg-[#C5A059] hover:text-[#121212] disabled:opacity-50"
+              className="lux-cta cursor-magnet inline-flex min-h-10 items-center justify-center border border-[#C5A059]/70 bg-transparent px-8 py-2 text-sm font-light tracking-[0.2em] text-[#FAF9F6] transition-all duration-500 hover:border-[#C5A059] hover:bg-[#C5A059] hover:text-[#121212] disabled:opacity-50"
             >
-              {status === "loading" ? "שולח..." : "שליחה"}
+              {status === "loading" ? "פותח וואטסאפ..." : "שליחה"}
             </button>
             <p
               className="min-h-5 text-[11px] tracking-wide text-white/40"
               role="status"
               aria-live="polite"
             >
-              {status === "ok"
-                ? "הפנייה נשלחה בהצלחה. נחזור אליך בקרוב."
-                : status === "error"
-                  ? "לא הצלחנו לשלוח — בדקו את הפרטים ונסו שוב."
-                  : "מענה אישי · ללא התחייבות"}
+              {status === "error"
+                ? "לא הצלחנו לשלוח — בדקו את הפרטים ונסו שוב."
+                : "מענה אישי · ללא התחייבות"}
             </p>
           </div>
         </motion.form>

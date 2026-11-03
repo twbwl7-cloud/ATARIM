@@ -1,5 +1,5 @@
 import { Hero } from "@/components/Hero";
-import { NavigationPortals } from "@/components/NavigationPortals";
+import { NavigationPortalsLazy } from "@/components/NavigationPortalsLazy";
 import { NextStepCTA } from "@/components/NextStepCTA";
 import { WhyRare } from "@/components/WhyRare";
 import { WorkWheel } from "@/components/WorkWheel";
@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <NavigationPortals />
+      <NavigationPortalsLazy />
       <WorkWheel />
       <WhyRare />
       <NextStepCTA

@@ -315,13 +315,14 @@ export function PortalSceneCanvas({ kind }: { kind: SceneKind }) {
       <PortalErrorBoundary fallback={<CssFallback kind={kind} />}>
         <Canvas
           dpr={lite ? [1, 1] : [1, 1.25]}
-          frameloop={visible ? "always" : "never"}
+          frameloop={visible && !reduce ? "always" : "never"}
           camera={{ position: [0, 0.2, 4.2], fov: 38, near: 0.1, far: 30 }}
           gl={{
             alpha: true,
             antialias: !lite,
             powerPreference: "low-power",
             stencil: false,
+            depth: true,
           }}
           onCreated={({ gl }) => {
             gl.setClearColor(0x000000, 0);

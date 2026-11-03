@@ -29,7 +29,7 @@ export function Footer() {
               <Link
                 key={item.href + item.label}
                 href={item.href}
-                className="transition-colors duration-500 hover:text-[#C5A059]"
+                className="lux-link transition-colors duration-500 hover:text-[#C5A059]"
               >
                 {item.label}
               </Link>
@@ -38,13 +38,13 @@ export function Footer() {
               href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F5EFE6] transition-colors duration-500 hover:text-[#C5A059]"
+              className="lux-link text-[#F5EFE6] transition-colors duration-500 hover:text-[#C5A059]"
             >
               וואטסאפ
             </a>
             <a
               href={`mailto:${site.email}`}
-              className="transition-colors duration-500 hover:text-[#C5A059]"
+              className="lux-link transition-colors duration-500 hover:text-[#C5A059]"
               dir="ltr"
             >
               {site.email}

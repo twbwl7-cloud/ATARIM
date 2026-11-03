@@ -12,20 +12,37 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     if (reduce) return;
 
     const lenis = new Lenis({
-      lerp: 0.09,
+      lerp: 0.1,
       smoothWheel: true,
+      syncTouch: false,
     });
 
     (window as Window & { __lenis?: Lenis }).__lenis = lenis;
 
     let raf = 0;
+    let running = true;
+
     const loop = (time: number) => {
+      if (!running) return;
       lenis.raf(time);
       raf = requestAnimationFrame(loop);
     };
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        running = false;
+        cancelAnimationFrame(raf);
+      } else {
+        running = true;
+        raf = requestAnimationFrame(loop);
+      }
+    };
+
     raf = requestAnimationFrame(loop);
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(raf);
       delete (window as Window & { __lenis?: Lenis }).__lenis;
       lenis.destroy();

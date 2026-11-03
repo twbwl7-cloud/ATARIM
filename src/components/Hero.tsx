@@ -27,10 +27,12 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const TITLE_LINES = ["נכסים דיגיטליים", "שאי אפשר להתעלם מהם."] as const;
 
 export function Hero() {
+  const [mounted, setMounted] = useState(false);
   const [reduce, setReduce] = useState(false);
   const introHref = whatsappUrl(INTRO_MSG);
 
   useEffect(() => {
+    setMounted(true);
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReduce(mq.matches);
     const onChange = () => setReduce(mq.matches);
@@ -45,7 +47,7 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
       />
-      {!reduce ? <HeroGlass /> : null}
+      {mounted && !reduce ? <HeroGlass /> : null}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,249,246,0.88)_0%,rgba(250,249,246,0.55)_45%,transparent_78%)]"

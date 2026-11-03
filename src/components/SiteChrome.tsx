@@ -1,18 +1,44 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
-import { AccessibilityWidget } from "@/components/AccessibilityWidget";
 import { AmbientGlow } from "@/components/AmbientGlow";
-import { CardSpotlight } from "@/components/CardSpotlight";
 import { Curtain } from "@/components/Curtain";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { LuxuryModeToggle } from "@/components/LuxuryModeToggle";
-import { CustomCursor } from "@/components/CustomCursor";
-import { ScrollProgress } from "@/components/ScrollProgress";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { WhatsAppReassurance } from "@/components/WhatsAppReassurance";
+
+/** Pointer chrome — desktop only, never block first paint. */
+const CustomCursor = dynamic(
+  () => import("@/components/CustomCursor").then((m) => m.CustomCursor),
+  { ssr: false, loading: () => null },
+);
+
+const CardSpotlight = dynamic(
+  () => import("@/components/CardSpotlight").then((m) => m.CardSpotlight),
+  { ssr: false, loading: () => null },
+);
+
+const ScrollProgress = dynamic(
+  () => import("@/components/ScrollProgress").then((m) => m.ScrollProgress),
+  { ssr: false, loading: () => null },
+);
+
+const AccessibilityWidget = dynamic(
+  () =>
+    import("@/components/AccessibilityWidget").then(
+      (m) => m.AccessibilityWidget,
+    ),
+  { ssr: false, loading: () => null },
+);
+
+const LuxuryModeToggle = dynamic(
+  () =>
+    import("@/components/LuxuryModeToggle").then((m) => m.LuxuryModeToggle),
+  { ssr: false, loading: () => null },
+);
 
 /** Portfolio chrome stays off demo landings so each /demo/* feels like its own site. */
 export function SiteChrome({ children }: { children: ReactNode }) {

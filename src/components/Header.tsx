@@ -40,7 +40,7 @@ export function Header() {
               <Link
                 key={item.href + item.label}
                 href={item.href}
-                className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-light tracking-wide transition-colors duration-500 ease-in-out lg:px-4 ${
+                className={`lux-link whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-light tracking-wide transition-colors duration-500 ease-in-out lg:px-4 ${
                   active
                     ? "text-[#C5A059]"
                     : "text-[#5C5C5C] hover:text-[#C5A059]"
