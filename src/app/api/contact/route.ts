@@ -1,17 +1,19 @@
 import { NextResponse } from "next/server";
-import { contactSchema, sanitizeText } from "@/lib/sanitize";
+import { getServerEnv, isWhatsAppBotConfigured } from "@/lib/env";
+import { sendLeadEmail } from "@/lib/mail";
+import {
+  buildSafeWhatsAppUrl,
+  contactSchema,
+  sanitizeText,
+} from "@/lib/sanitize";
 
 /**
- * Contact → WhatsApp bot relay (server-side only).
- *
- * REQUIRED for live WhatsApp delivery:
- *   Set WHATSAPP_BOT_URL in Vercel Environment Variables to the client's
- *   real webhook / bot endpoint (not PLACEHOLDER_URL).
- *
- * Supported URL shapes:
- *  - POST JSON (Make, Zapier, n8n, custom): https://hook.make.com/...
- *  - GET with `{text}` (CallMeBot etc.):
- *      https://api.callmebot.com/whatsapp.php?phone=972523182032&apikey=KEY&text={text}
+ * Contact lead intake (Script 6 / landing):
+ *  1. Zod + sanitize
+ *  2. Honeypot reject
+ *  3. Email to CONTACT_TO_EMAIL via Resend
+ *  4. Optional WhatsApp bot webhook (WHATSAPP_BOT_URL)
+ *  5. Return safe wa.me deep-link for client handoff
  */
 export async function POST(request: Request) {
   try {
@@ -25,7 +27,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const parsed = contactSchema.safeParse(raw);
+    const body = raw as Record<string, unknown>;
+
+    // Honeypot — bots fill hidden fields; humans never see company_website
+    const honey = String(body.company_website ?? body.website ?? "").trim();
+    if (honey) {
+      return NextResponse.json({ success: true, delivered: true, bot: true });
+    }
+
+    const parsed = contactSchema.safeParse({
+      name: body.name,
+      phone: body.phone,
+      message: body.message,
+    });
     if (!parsed.success) {
       return NextResponse.json(
         { success: false, error: "validation_failed" },
@@ -34,42 +48,59 @@ export async function POST(request: Request) {
     }
 
     const { name, phone, message } = parsed.data;
+    const msg = message || "";
 
     const text = sanitizeText(
-      `ליד חדש מהאתר\n\nשם: ${name}\nטלפון: ${phone}\nהודעה: ${message || "—"}`,
+      `ליד חדש מהאתר\n\nשם: ${name}\nטלפון: ${phone}\nהודעה: ${msg || "—"}`,
       1800,
     );
 
-    const webhookUrl = process.env.WHATSAPP_BOT_URL?.trim();
-    const botConfigured =
-      Boolean(webhookUrl) && webhookUrl !== "PLACEHOLDER_URL";
+    const env = getServerEnv();
+    const mail = await sendLeadEmail({ name, phone, message: msg });
 
-    if (!botConfigured) {
-      console.warn(
-        "[contact] WHATSAPP_BOT_URL is PLACEHOLDER/missing — WhatsApp not sent.",
-      );
-      return NextResponse.json({
-        success: true,
-        delivered: false,
-        reason: "bot_not_configured",
+    let whatsappDelivered = false;
+    if (isWhatsAppBotConfigured(env.WHATSAPP_BOT_URL)) {
+      whatsappDelivered = await sendWhatsAppBot(env.WHATSAPP_BOT_URL!.trim(), {
+        text,
+        name,
+        phone,
+        message: msg,
       });
     }
 
-    const delivered = await sendWhatsAppBot(webhookUrl!, {
-      text,
-      name,
-      phone,
-      message: message || "",
+    const waDigits =
+      env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || "972523182032";
+    const clientWhatsApp = buildSafeWhatsAppUrl(
+      waDigits,
+      [
+        "פנייה חדשה מהאתר:",
+        `שם: ${name}`,
+        `טלפון: ${phone}`,
+        msg ? `על הפרויקט: ${msg}` : "",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    );
+
+    const anyDelivered = mail.ok || whatsappDelivered;
+
+    return NextResponse.json({
+      success: true,
+      delivered: anyDelivered,
+      channels: {
+        email: mail.ok,
+        whatsappBot: whatsappDelivered,
+      },
+      reasons: {
+        email: mail.reason ?? null,
+        whatsappBot: whatsappDelivered
+          ? null
+          : isWhatsAppBotConfigured(env.WHATSAPP_BOT_URL)
+            ? "webhook_failed"
+            : "bot_not_configured",
+      },
+      whatsappUrl: clientWhatsApp,
     });
-
-    if (!delivered) {
-      return NextResponse.json(
-        { success: false, error: "webhook_failed" },
-        { status: 502 },
-      );
-    }
-
-    return NextResponse.json({ success: true, delivered: true });
   } catch (err) {
     console.error("[contact] unexpected error", err);
     return NextResponse.json(
