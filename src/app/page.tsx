@@ -1,8 +1,14 @@
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
 import { NavigationPortalsLazy } from "@/components/NavigationPortalsLazy";
 import { NextStepCTA } from "@/components/NextStepCTA";
 import { WhyRare } from "@/components/WhyRare";
 import { WorkWheel } from "@/components/WorkWheel";
+
+/** Three.js / postprocessing must never SSR in Next.js */
+const GoldFlakes = dynamic(() => import("@/components/GoldFlakes"), {
+  ssr: false,
+});
 
 /**
  * דף הבית: הירו קולנועי → שערי ניווט → עבודות נבחרות → למה → ייעוץ
@@ -10,6 +16,7 @@ import { WorkWheel } from "@/components/WorkWheel";
 export default function HomePage() {
   return (
     <>
+      <GoldFlakes />
       <Hero />
       <NavigationPortalsLazy />
       <WorkWheel />

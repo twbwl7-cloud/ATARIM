@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float } from "@react-three/drei";
 import {
@@ -20,7 +20,6 @@ type Particle = {
 function PremiumFlakes({ count = 70 }: { count?: number }) {
   const groupRef = useRef<THREE.Group>(null);
 
-  // יצירת חלקיקים עם נתונים מורכבים יותר לתנועה אורגנית
   const particles = useMemo<Particle[]>(() => {
     return Array.from({ length: count }, () => ({
       position: [
@@ -34,18 +33,14 @@ function PremiumFlakes({ count = 70 }: { count?: number }) {
         Math.random() * Math.PI,
       ] as [number, number, number],
       scale: Math.random() * 0.05 + 0.015,
-      // מהירות אינדיבידואלית לכל פתית לתנועה טבעית יותר
       speed: Math.random() * 0.2 + 0.1,
     }));
   }, [count]);
 
   useFrame(() => {
     if (groupRef.current) {
-      // סיבוב אלגנטי ואיטי של כל הקבוצה
       groupRef.current.rotation.y += 0.0005;
-
-      // חיבור חלק לגלילה - גורם לפתיתים לרדת בהרמוניה עם האתר
-      const scrollY = window.scrollY;
+      const scrollY = typeof window !== "undefined" ? window.scrollY : 0;
       groupRef.current.position.y = THREE.MathUtils.lerp(
         groupRef.current.position.y,
         -(scrollY * 0.015),
@@ -68,15 +63,13 @@ function PremiumFlakes({ count = 70 }: { count?: number }) {
             rotation={data.rotation}
             scale={data.scale}
           >
-            {/* צורה מרובת פאות שיוצרת השתקפויות יוקרתיות (כמו יהלום חתוך) */}
             <icosahedronGeometry args={[1, 0]} />
-            {/* חומר פיזיקלי ברמה הגבוהה ביותר - מדמה זהב אמיתי */}
             <meshPhysicalMaterial
-              color="#D4AF37" // צבע זהב קלאסי
-              emissive="#3a2a00" // ברק פנימי עדין
+              color="#D4AF37"
+              emissive="#3a2a00"
               metalness={1}
               roughness={0.1}
-              clearcoat={1} // שכבת הברקה חיצונית (כמו לכה או זכוכית)
+              clearcoat={1}
               clearcoatRoughness={0.1}
               reflectivity={1}
             />
@@ -87,10 +80,49 @@ function PremiumFlakes({ count = 70 }: { count?: number }) {
   );
 }
 
+function Scene() {
+  return (
+    <>
+      <ambientLight intensity={0.5} />
+      <spotLight
+        position={[10, 10, 10]}
+        intensity={2}
+        angle={0.15}
+        penumbra={1}
+        color="#FFF2D8"
+      />
+      <spotLight
+        position={[-10, -10, -10]}
+        intensity={1}
+        angle={0.15}
+        penumbra={1}
+        color="#D4AF37"
+      />
+      <Suspense fallback={null}>
+        <Environment preset="city" />
+      </Suspense>
+      <PremiumFlakes />
+      <EffectComposer enableNormalPass={false} multisampling={4}>
+        <DepthOfField
+          focusDistance={0.01}
+          focalLength={0.2}
+          bokehScale={3}
+        />
+        <Bloom
+          luminanceThreshold={0.8}
+          luminanceSmoothing={0.9}
+          intensity={0.4}
+        />
+      </EffectComposer>
+    </>
+  );
+}
+
 /**
- * Premium fixed gold flakes — city env, DoF + Bloom, scroll-linked fall.
+ * Fixed full-viewport gold flakes.
+ * Load only via: dynamic(() => import('@/components/GoldFlakes'), { ssr: false })
  */
-export function GoldFlakes() {
+function GoldFlakes() {
   return (
     <div
       aria-hidden
@@ -102,59 +134,39 @@ export function GoldFlakes() {
         height: "100vh",
         pointerEvents: "none",
         zIndex: 50,
+        overflow: "hidden",
       }}
     >
       <Canvas
         camera={{ position: [0, 0, 5], fov: 60 }}
+        dpr={[1, 1.5]}
         gl={{
           alpha: true,
           antialias: true,
           powerPreference: "high-performance",
+          failIfMajorPerformanceCaveat: false,
         }}
-        style={{ width: "100%", height: "100%", pointerEvents: "none" }}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          pointerEvents: "none",
+          display: "block",
+        }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
           gl.domElement.style.pointerEvents = "none";
+          gl.domElement.style.width = "100%";
+          gl.domElement.style.height = "100%";
+          gl.domElement.style.display = "block";
         }}
       >
-        {/* תאורה מתקדמת */}
-        <ambientLight intensity={0.5} />
-        <spotLight
-          position={[10, 10, 10]}
-          intensity={2}
-          angle={0.15}
-          penumbra={1}
-          color="#FFF2D8"
-        />
-        <spotLight
-          position={[-10, -10, -10]}
-          intensity={1}
-          angle={0.15}
-          penumbra={1}
-          color="#D4AF37"
-        />
-
-        {/* השתקפויות סביבה (קריטי למראה מתכתי ריאליסטי) */}
-        <Environment preset="city" />
-
-        <PremiumFlakes />
-
-        {/* אפקטי מצלמה קולנועיים */}
-        <EffectComposer enableNormalPass={false} multisampling={4}>
-          <DepthOfField
-            focusDistance={0.01}
-            focalLength={0.2}
-            bokehScale={3} // מטשטש את הפתיתים הרחוקים/קרובים מדי למראה מקצועי
-          />
-          <Bloom
-            luminanceThreshold={0.8}
-            luminanceSmoothing={0.9}
-            intensity={0.4} // הילה עדינה מאוד מסביב לזהב
-          />
-        </EffectComposer>
+        <Scene />
       </Canvas>
     </div>
   );
 }
 
 export default GoldFlakes;
+export { GoldFlakes };
