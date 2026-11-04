@@ -28,11 +28,11 @@ export function NextStepCTA({
   return (
     <section className="relative z-10 border-t border-black/5 px-5 py-5 md:px-8 md:py-8">
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="premium-panel relative mx-auto max-w-4xl overflow-hidden rounded-2xl px-6 py-5 text-center sm:px-10 sm:py-7 md:px-12 md:py-8"
+        viewport={{ once: true, amount: 0.28, margin: "0px 0px -6% 0px" }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className="lux-reveal premium-panel relative mx-auto max-w-4xl overflow-hidden rounded-2xl px-6 py-5 text-center sm:px-10 sm:py-7 md:px-12 md:py-8"
       >
         <div
           aria-hidden

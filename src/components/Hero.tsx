@@ -2,8 +2,13 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { BrandLogo } from "@/components/BrandLogo";
 import { CtaReassurance } from "@/components/CtaReassurance";
 import { LiveAvailability } from "@/components/LiveAvailability";
@@ -31,28 +36,62 @@ const TITLE_LINES = ["נכסים דיגיטליים", "שאי אפשר להתע�
 
 export function Hero() {
   const [mounted, setMounted] = useState(false);
-  const [reduce, setReduce] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const reduce = Boolean(reduceMotion);
   const introHref = whatsappUrl(INTRO_MSG);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Typography rises faster; canvas lags — deep luxury parallax
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [0, -110],
+  );
+  const contentOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.55, 0.9],
+    reduce ? [1, 1, 1] : [1, 0.85, 0.4],
+  );
+  const canvasY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [0, -36],
+  );
+  const washY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [0, -20],
+  );
 
   useEffect(() => {
     setMounted(true);
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduce(mq.matches);
-    const onChange = () => setReduce(mq.matches);
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
   }, []);
 
   return (
-    <section className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#FAF9F6]">
+    <section
+      ref={sectionRef}
+      className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#FAF9F6]"
+    >
       {/* Cream field + soft gold wash — full-bleed luxury ground */}
-      <div
+      <motion.div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.22),transparent_52%),radial-gradient(ellipse_at_80%_60%,rgba(201,162,74,0.1),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.1),transparent_46%)]"
+        style={{ y: washY }}
+        className="pointer-events-none absolute inset-[-8%] z-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.22),transparent_52%),radial-gradient(ellipse_at_80%_60%,rgba(201,162,74,0.1),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.1),transparent_46%)] will-change-transform"
       />
 
-      {/* Full-screen crystal cascade — scroll-tied, never captures clicks */}
-      {mounted && !reduce ? <HeroDiamondCascade /> : null}
+      {/* Full-screen crystal cascade — slower parallax layer */}
+      <motion.div
+        aria-hidden
+        style={{ y: canvasY }}
+        className="pointer-events-none absolute inset-[-6%] z-[1] will-change-transform"
+      >
+        {mounted && !reduce ? <HeroDiamondCascade /> : null}
+      </motion.div>
 
       {/* Center veil — keeps typography crisp over particles */}
       <div
@@ -72,7 +111,10 @@ export function Hero() {
         <span className="guiding-thread guiding-thread--tall mx-auto" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-4 pt-[calc(5rem+env(safe-area-inset-top))] text-center sm:px-8 sm:pb-6 md:pb-7">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-5 pb-4 pt-[calc(5rem+env(safe-area-inset-top))] text-center will-change-transform sm:px-8 sm:pb-6 md:pb-7"
+      >
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -152,7 +194,7 @@ export function Hero() {
           <TrustBadges />
           <TrustMetrics />
         </motion.div>
-      </div>
+      </motion.div>
 
       <div
         className="relative z-20 mx-auto flex flex-col items-center gap-2 pb-3 pt-1 sm:pb-4"

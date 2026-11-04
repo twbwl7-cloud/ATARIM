@@ -2,21 +2,25 @@
 
 import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
 import type { ReactNode } from "react";
-import { luxSpring } from "@/lib/motion";
+import { luxRevealTween } from "@/lib/motion";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  /** Starting translateY — default 30px per boutique scroll brief */
   y?: number;
 } & Omit<HTMLMotionProps<"div">, "children">;
 
-/** Soft upward reveal — spring physics, opacity + translate only. */
+/**
+ * Elegant scroll-intersect reveal:
+ * opacity 0→1 + translateY(y→0) with cubic-bezier easing.
+ */
 export function Reveal({
   children,
   className = "",
   delay = 0,
-  y = 16,
+  y = 30,
   ...rest
 }: RevealProps) {
   const reduce = useReducedMotion();
@@ -27,11 +31,11 @@ export function Reveal({
 
   return (
     <motion.div
-      className={className}
+      className={`lux-reveal ${className}`.trim()}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25, margin: "0px 0px -8% 0px" }}
-      transition={{ ...luxSpring, delay }}
+      viewport={{ once: true, amount: 0.22, margin: "0px 0px -6% 0px" }}
+      transition={{ ...luxRevealTween, delay }}
       style={{ willChange: "opacity, transform" }}
       {...rest}
     >

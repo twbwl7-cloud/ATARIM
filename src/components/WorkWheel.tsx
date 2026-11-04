@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SplitTextReveal } from "@/components/SplitTextReveal";
-import { luxSpring } from "@/lib/motion";
 import { caseStudyHref, projects, type Project } from "@/lib/site";
 
 /** Same desktop browser frame on phone and desktop — one premium version */
@@ -56,27 +55,36 @@ export function WorkWheel() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.08),transparent_48%)]"
       />
       <div className="relative mx-auto max-w-6xl">
-        <p className="text-center text-[11px] font-light tracking-[0.22em] text-[#C5A059]">
-          עבודות נבחרות
-        </p>
-        <SplitTextReveal
-          as="h2"
-          text="נכסים חיים — כבר באוויר."
-          className="display mt-3 text-center text-3xl font-light tracking-wide text-[#121212] md:text-4xl"
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.28, margin: "0px 0px -6% 0px" }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="lux-reveal"
+        >
+          <p className="text-center text-[11px] font-light tracking-[0.22em] text-[#C5A059]">
+            עבודות נבחרות
+          </p>
+          <SplitTextReveal
+            as="h2"
+            text="נכסים חיים — כבר באוויר."
+            className="display mt-3 text-center text-3xl font-light tracking-wide text-[#121212] md:text-4xl"
+          />
+        </motion.div>
 
         <ul className="mt-6 space-y-6 md:mt-8 md:space-y-8">
           {projects.map((project, i) => (
             <motion.li
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
+              viewport={{ once: true, amount: 0.22, margin: "0px 0px -6% 0px" }}
               transition={{
-                ...luxSpring,
-                delay: i * 0.06,
+                duration: 0.9,
+                ease: [0.22, 1, 0.36, 1],
+                delay: i * 0.08,
               }}
-              className="grid items-center gap-5 md:grid-cols-2 md:gap-10"
+              className="lux-reveal grid items-center gap-5 md:grid-cols-2 md:gap-10"
             >
               <div className={i % 2 === 1 ? "md:order-2" : undefined}>
                 <p className="text-[11px] tracking-[0.16em] text-gold">

@@ -5,6 +5,46 @@
   Light Luxury — Old Money psychology
   Pearl · Deep Charcoal · Muted Bronze · Deep Sapphire
 */
+
+/* Ultra-thin boutique scrollbar — warm gold / pewter */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 160, 89, 0.45) transparent;
+}
+
+html::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 213, 163, 0.55),
+    rgba(197, 160, 89, 0.4)
+  );
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 213, 163, 0.75),
+    rgba(197, 160, 89, 0.6)
+  );
+  background-clip: padding-box;
+}
+
+html.lenis-smooth {
+  scroll-behavior: auto;
+}
+
 :root {
   /* Boutique cream · black · premium gold */
   --sky: #faf9f6;

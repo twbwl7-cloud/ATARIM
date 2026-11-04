@@ -4,6 +4,15 @@ import { ReactNode, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
+/** Expo-out — award-site default for Lenis programmatic ease */
+function easeOutExpo(t: number) {
+  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+}
+
+/**
+ * Site-wide buttery smooth scroll (Lenis).
+ * Respects prefers-reduced-motion; resets on route change.
+ */
 export function LenisProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
@@ -12,12 +21,21 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     if (reduce) return;
 
     const lenis = new Lenis({
-      lerp: 0.1,
+      // Slightly lower lerp = silkier inertia without feeling sluggish
+      lerp: 0.075,
+      duration: 1.15,
+      easing: easeOutExpo,
       smoothWheel: true,
       syncTouch: false,
+      touchMultiplier: 1.35,
+      wheelMultiplier: 0.92,
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      autoResize: true,
     });
 
     (window as Window & { __lenis?: Lenis }).__lenis = lenis;
+    document.documentElement.classList.add("lenis-smooth");
 
     let raf = 0;
     let running = true;
@@ -44,6 +62,7 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(raf);
+      document.documentElement.classList.remove("lenis-smooth");
       delete (window as Window & { __lenis?: Lenis }).__lenis;
       lenis.destroy();
     };

@@ -128,11 +128,11 @@ export function NavigationPortals() {
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="mb-6 max-w-xl md:mb-8"
+          viewport={{ once: true, amount: 0.28, margin: "0px 0px -6% 0px" }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="lux-reveal mb-6 max-w-xl md:mb-8"
         >
           <p className="text-[11px] font-medium tracking-[0.24em] text-[#C5A059]">
             ניווט

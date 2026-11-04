@@ -31,32 +31,40 @@ export function WhyRare() {
         className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(ellipse_at_50%_0%,rgba(197,160,89,0.08),transparent_60%)]"
       />
       <div className="relative mx-auto max-w-5xl">
-        <p className="text-[11px] font-light tracking-[0.22em] text-gold">
-          עקרונות מובילים
-        </p>
-        <SplitTextReveal
-          as="h2"
-          text="לא בונים עוד אתר. בונים נכסים דיגיטליים ששולטים בשוק."
-          className="display mt-3 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-4xl"
-        />
-        <p className="mt-4 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
-          סטודיו <span className="lux-word">יוקרה</span> נמדד במה שהוא מסרב
-          לעשות — לא רק במה שהוא מוכר. כאן כל שורה מכוונת לפנייה.
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.28, margin: "0px 0px -6% 0px" }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="lux-reveal"
+        >
+          <p className="text-[11px] font-light tracking-[0.22em] text-gold">
+            עקרונות מובילים
+          </p>
+          <SplitTextReveal
+            as="h2"
+            text="לא בונים עוד אתר. בונים נכסים דיגיטליים ששולטים בשוק."
+            className="display mt-3 max-w-2xl text-3xl font-light tracking-wide text-ink md:text-4xl"
+          />
+          <p className="mt-4 max-w-xl text-sm font-light leading-relaxed tracking-wide text-muted md:text-base">
+            סטודיו <span className="lux-word">יוקרה</span> נמדד במה שהוא מסרב
+            לעשות — לא רק במה שהוא מוכר. כאן כל שורה מכוונת לפנייה.
+          </p>
+        </motion.div>
 
         <ul className="mt-10 grid gap-8 sm:mt-12 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-10">
           {POINTS.map((p, i) => (
             <motion.li
               key={p.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
+              viewport={{ once: true, amount: 0.28, margin: "0px 0px -6% 0px" }}
               transition={{
-                delay: i * 0.08,
-                duration: 0.7,
+                delay: i * 0.09,
+                duration: 0.9,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="border-t border-black/5 pt-6"
+              className="lux-reveal border-t border-black/5 pt-6"
             >
               <span
                 aria-hidden
