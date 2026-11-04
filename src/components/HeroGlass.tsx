@@ -12,11 +12,12 @@ import {
   type ReactNode,
 } from "react";
 import * as THREE from "three";
+import { HeroGlassMark } from "@/components/HeroGlassMark";
 
 type Pointer = { x: number; y: number };
 
-/** Quiet titanium presence — sized to stay clear of copy */
-const BASE_SCALE = 0.52;
+/** Quiet glass knot — sized to stay clear of copy */
+const BASE_SCALE = 0.5;
 
 function canUseWebGL() {
   if (typeof document === "undefined") return false;
@@ -51,19 +52,15 @@ function isWeakGpu() {
   }
 }
 
-/** Small grey orb — raised into above-the-fold view, away from headline */
 function GlassFallback() {
   return (
     <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
-      <div className="hero-glass-slot absolute">
-        <div className="hero-glass-fallback absolute inset-0 rounded-full" />
-        <div className="hero-glass-fallback-core absolute inset-[18%] rounded-full" />
-      </div>
+      <HeroGlassMark />
     </div>
   );
 }
 
-function TitaniumKnot({
+function ChampagneKnot({
   pointer,
   lite,
 }: {
@@ -91,9 +88,9 @@ function TitaniumKnot({
       dt,
     );
 
-    g.rotation.y += dt * 0.16;
-    g.rotation.x += dt * 0.05;
-    // Parked start-side, raised for first viewport — never over copy
+    g.rotation.y += dt * 0.14;
+    g.rotation.x += dt * 0.045;
+    // Parked start-side (visual right in RTL), raised for first viewport
     g.position.x = -1.55 + target.current.x * 0.16;
     g.position.y = 0.05 + target.current.y * 0.12;
     g.position.z = -0.85;
@@ -105,18 +102,23 @@ function TitaniumKnot({
     <group ref={group} scale={BASE_SCALE}>
       <mesh frustumCulled>
         <torusKnotGeometry
-          args={[1.05, 0.34, segments[0], segments[1], 2, 3]}
+          args={[1.05, 0.32, segments[0], segments[1], 2, 3]}
         />
         <meshPhysicalMaterial
-          color="#a4a8b0"
-          metalness={0.78}
-          roughness={0.32}
-          clearcoat={0.55}
-          clearcoatRoughness={0.22}
-          reflectivity={0.62}
-          envMapIntensity={lite ? 0.7 : 1.05}
+          color="#e8d5a3"
+          metalness={0.42}
+          roughness={0.18}
+          clearcoat={1}
+          clearcoatRoughness={0.12}
+          reflectivity={0.85}
+          transmission={lite ? 0.28 : 0.48}
+          thickness={1.15}
+          ior={1.42}
           transparent
           opacity={0.92}
+          envMapIntensity={lite ? 0.85 : 1.25}
+          attenuationColor="#D4AF37"
+          attenuationDistance={2.2}
         />
       </mesh>
     </group>
@@ -126,12 +128,18 @@ function TitaniumKnot({
 function Lights({ lite }: { lite: boolean }) {
   return (
     <>
-      <ambientLight intensity={0.7} />
-      <directionalLight position={[5, 6, 4]} intensity={1.1} color="#f5f5f5" />
+      <ambientLight intensity={0.55} />
+      <directionalLight position={[5, 6, 4]} intensity={1.05} color="#fff8ec" />
       <directionalLight
-        position={[-4, 1, -3]}
-        intensity={0.35}
-        color="#a38a5f"
+        position={[-3.5, 2, -2]}
+        intensity={0.55}
+        color="#D4AF37"
+      />
+      <pointLight
+        position={[1.8, 1.2, 2.2]}
+        intensity={0.7}
+        color="#E8D5A3"
+        distance={10}
       />
       {!lite ? <Environment preset="studio" /> : null}
     </>
@@ -158,7 +166,10 @@ class GlassErrorBoundary extends Component<
   }
 }
 
-/** Compact grey titanium knot — raised above the fold, never over the headline */
+/**
+ * Champagne glass knot over a CSS glassmorphism mark.
+ * Mark always shows; WebGL adds depth when available.
+ */
 export function HeroGlass() {
   const pointer = useRef<Pointer>({ x: 0, y: 0 });
   const reduce = useRef(false);
@@ -214,6 +225,8 @@ export function HeroGlass() {
       className="pointer-events-none absolute inset-0 z-[1]"
       aria-hidden
     >
+      {/* Always-on glassmorphism base — never a flat white disc */}
+      <HeroGlassMark />
       <GlassErrorBoundary onError={() => setOk(false)}>
         <Canvas
           dpr={lite ? [1, 1.5] : [1, 2]}
@@ -234,6 +247,7 @@ export function HeroGlass() {
             gl.setClearColor(0x000000, 0);
             gl.domElement.style.touchAction = "none";
             gl.domElement.style.pointerEvents = "none";
+            gl.domElement.style.opacity = "0.72";
             gl.domElement.addEventListener(
               "webglcontextlost",
               (e) => {
@@ -244,6 +258,8 @@ export function HeroGlass() {
             );
           }}
           style={{
+            position: "absolute",
+            inset: 0,
             width: "100%",
             height: "100%",
             background: "transparent",
@@ -253,7 +269,7 @@ export function HeroGlass() {
         >
           <Suspense fallback={null}>
             <Lights lite={lite} />
-            <TitaniumKnot pointer={pointer} lite={lite} />
+            <ChampagneKnot pointer={pointer} lite={lite} />
           </Suspense>
         </Canvas>
       </GlassErrorBoundary>

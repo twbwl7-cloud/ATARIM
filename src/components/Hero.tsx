@@ -12,12 +12,21 @@ import { PeaceOfMindBadges } from "@/components/PeaceOfMindBadges";
 import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { TrustBadges } from "@/components/TrustBadges";
 import { TrustMetrics } from "@/components/TrustMetrics";
+import { HeroGlassMark } from "@/components/HeroGlassMark";
 import { whatsappUrl } from "@/lib/site";
 
 const HeroGlass = dynamic(
   () => import("@/components/HeroGlass").then((m) => m.HeroGlass),
-  { ssr: false, loading: () => null },
+  { ssr: false, loading: () => <HeroGlassMarkHost /> },
 );
+
+function HeroGlassMarkHost() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
+      <HeroGlassMark />
+    </div>
+  );
+}
 
 const INTRO_MSG =
   "היי דוד, מעוניין בשיחת ייעוץ קצרה. אשמח לבדוק התאמה לפרויקט.";
@@ -47,23 +56,20 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
       />
-      {/* 3D knot — above wash, below copy; never captures clicks */}
+      {/* Premium glass mark + optional 3D — above wash, below copy */}
       {mounted ? (
         reduce ? (
-          <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
-            <div className="hero-glass-slot absolute">
-              <div className="hero-glass-fallback absolute inset-0 rounded-full" />
-              <div className="hero-glass-fallback-core absolute inset-[18%] rounded-full" />
-            </div>
-          </div>
+          <HeroGlassMarkHost />
         ) : (
           <HeroGlass />
         )
-      ) : null}
-      {/* Soft center veil — keeps start-side (3D park) readable */}
+      ) : (
+        <HeroGlassMarkHost />
+      )}
+      {/* Soft center veil — lighter on start-side so the glass mark reads */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_42%,rgba(250,249,246,0.72)_0%,rgba(250,249,246,0.35)_42%,transparent_72%)]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_58%_42%,rgba(250,249,246,0.78)_0%,rgba(250,249,246,0.28)_40%,transparent_70%)]"
       />
       <div
         aria-hidden
