@@ -41,6 +41,11 @@ const LuxuryModeToggle = dynamic(
   { ssr: false, loading: () => null },
 );
 
+const GoldFlakes = dynamic(
+  () => import("@/components/GoldFlakes").then((m) => m.GoldFlakes),
+  { ssr: false, loading: () => null },
+);
+
 /** Portfolio chrome stays off demo landings so each /demo/* feels like its own site. */
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -74,6 +79,10 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <div className="relative z-[1]">
         <Footer />
       </div>
+      {/* Fixed gold-leaf cascade — z-50, pointer-events none; below header/WA */}
+      <ErrorBoundary fallback={null}>
+        <GoldFlakes />
+      </ErrorBoundary>
       <WhatsAppFloat />
       <WhatsAppReassurance />
       {/* Isolated boundaries — one float must never kill the other */}

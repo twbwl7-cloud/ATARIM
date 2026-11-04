@@ -12,18 +12,23 @@ import {
 } from "react";
 import * as THREE from "three";
 
-type Seed = {
+type FlakeSeed = {
   x: number;
   z: number;
-  scale: number;
-  /** Normalized delay 0–0.45 so cascade eases in staggered */
+  /** Base Y when progress = 0 (above / in upper hero) */
+  y0: number;
+  /** How far it falls across full progress */
+  fall: number;
+  sx: number;
+  sy: number;
+  sz: number;
   delay: number;
   rotAxis: THREE.Vector3;
   rotSpeed: number;
   driftAmp: number;
   driftFreq: number;
   phase: number;
-  fallSpan: number;
+  tumble: number;
 };
 
 function canUseWebGL() {
@@ -68,37 +73,43 @@ function mulberry32(a: number) {
   };
 }
 
-function makeSeeds(count: number): Seed[] {
-  const rnd = mulberry32(0xd1a70d);
-  const seeds: Seed[] = [];
+function makeSeeds(count: number): FlakeSeed[] {
+  const rnd = mulberry32(0xa01df1a);
+  const seeds: FlakeSeed[] = [];
   for (let i = 0; i < count; i++) {
+    const w = 0.06 + rnd() * 0.14;
+    const h = 0.008 + rnd() * 0.018;
+    const d = 0.045 + rnd() * 0.11;
     seeds.push({
-      x: (rnd() - 0.5) * 7.2,
-      z: (rnd() - 0.5) * 3.2,
-      scale: 0.045 + rnd() * 0.085,
-      delay: rnd() * 0.42,
+      x: (rnd() - 0.5) * 8.5,
+      z: (rnd() - 0.5) * 4.2,
+      y0: 2.2 + rnd() * 2.8,
+      fall: 5.5 + rnd() * 4.2,
+      sx: w,
+      sy: h,
+      sz: d,
+      delay: rnd() * 0.35,
       rotAxis: new THREE.Vector3(
         rnd() - 0.5,
         rnd() - 0.5,
         rnd() - 0.5,
       ).normalize(),
-      rotSpeed: 0.1 + rnd() * 0.22,
-      driftAmp: 0.1 + rnd() * 0.18,
-      driftFreq: 0.12 + rnd() * 0.22,
+      rotSpeed: 0.35 + rnd() * 0.85,
+      driftAmp: 0.15 + rnd() * 0.35,
+      driftFreq: 0.2 + rnd() * 0.35,
       phase: rnd() * Math.PI * 2,
-      fallSpan: 5.8 + rnd() * 2.4,
+      tumble: 0.4 + rnd() * 1.2,
     });
   }
   return seeds;
 }
 
-/** Smoothstep ease — no sudden drops */
 function easeInOutCubic(t: number) {
   const x = THREE.MathUtils.clamp(t, 0, 1);
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 }
 
-function DiamondField({
+function FlakeField({
   progress,
   lite,
 }: {
@@ -108,30 +119,21 @@ function DiamondField({
   const group = useRef<THREE.Group>(null);
   const damp = useRef(0);
   const time = useRef(0);
-  const count = lite ? 16 : 28;
+  const count = lite ? 22 : 48;
   const seeds = useMemo(() => makeSeeds(count), [count]);
 
-  const geom = useMemo(() => new THREE.OctahedronGeometry(1, 0), []);
+  const geom = useMemo(() => new THREE.BoxGeometry(1, 1, 1), []);
   const mats = useMemo(() => {
-    const base = {
-      color: new THREE.Color("#f0e6c8"),
-      metalness: 0.12,
-      roughness: 0.1,
-      transmission: 0.88,
-      thickness: 0.7,
-      ior: 1.48,
-      clearcoat: 1,
-      clearcoatRoughness: 0.08,
-      transparent: true,
-      opacity: 0.42,
-      envMapIntensity: lite ? 0.55 : 0.9,
-      attenuationColor: new THREE.Color("#D4AF37"),
-      attenuationDistance: 1.8,
-      depthWrite: false,
-    } as const;
-    return seeds.map(
-      () => new THREE.MeshPhysicalMaterial({ ...base }),
-    );
+    const tones = ["#D4AF37", "#C5A059", "#E0C992", "#B8963E"];
+    return seeds.map((_, i) => {
+      return new THREE.MeshStandardMaterial({
+        color: new THREE.Color(tones[i % tones.length]),
+        metalness: 0.95,
+        roughness: 0.22,
+        envMapIntensity: lite ? 0.85 : 1.35,
+        flatShading: true,
+      });
+    });
   }, [lite, seeds]);
 
   useEffect(() => {
@@ -147,11 +149,10 @@ function DiamondField({
     const dt = Math.min(delta, 0.033);
     time.current += dt;
 
-    // Slow graceful catch-up — never snaps
     damp.current = THREE.MathUtils.damp(
       damp.current,
       progress.current,
-      1.55,
+      1.8,
       dt,
     );
     const p = damp.current;
@@ -162,28 +163,31 @@ function DiamondField({
       const s = seeds[i];
       const local = easeInOutCubic(
         THREE.MathUtils.clamp(
-          (p - s.delay * 0.55) / (1 - s.delay * 0.35),
+          (p - s.delay * 0.5) / Math.max(0.001, 1 - s.delay * 0.35),
           0,
           1,
         ),
       );
 
-      // Start above frame; pour slowly downward
-      const y0 = 3.4 + (i % 5) * 0.12;
-      mesh.position.y = y0 - s.fallSpan * local;
+      mesh.position.y = s.y0 - s.fall * local;
       mesh.position.x =
         s.x +
         Math.sin(time.current * s.driftFreq + s.phase) *
           s.driftAmp *
-          (0.35 + local);
-      mesh.position.z = s.z;
+          (0.4 + local);
+      mesh.position.z = s.z + Math.cos(time.current * s.driftFreq * 0.7) * 0.08;
 
-      mesh.rotateOnAxis(s.rotAxis, dt * s.rotSpeed * (0.45 + local * 0.7));
+      mesh.rotateOnAxis(s.rotAxis, dt * s.rotSpeed * (0.55 + local * 0.9));
+      mesh.rotation.x += dt * s.tumble * 0.15 * (0.3 + local);
 
-      const m = mesh.material as THREE.MeshPhysicalMaterial;
-      m.opacity = THREE.MathUtils.lerp(0, 0.42, easeInOutCubic(local * 1.15));
-      mesh.visible = local > 0.02;
-      mesh.scale.setScalar(s.scale * (0.85 + local * 0.15));
+      // Thin gold-leaf scale
+      mesh.scale.set(s.sx, s.sy, s.sz);
+
+      // Soft presence — denser as they enter mid-scroll
+      const mat = mesh.material as THREE.MeshStandardMaterial;
+      mat.opacity = THREE.MathUtils.lerp(0.15, 0.92, easeInOutCubic(local * 1.1));
+      mat.transparent = true;
+      mesh.visible = local > 0.01 || p > 0.02;
     }
   });
 
@@ -194,8 +198,8 @@ function DiamondField({
           key={i}
           geometry={geom}
           material={mats[i]}
-          scale={s.scale}
-          position={[s.x, 4, s.z]}
+          position={[s.x, s.y0, s.z]}
+          scale={[s.sx, s.sy, s.sz]}
           frustumCulled
         />
       ))}
@@ -203,33 +207,33 @@ function DiamondField({
   );
 }
 
-function CascadeLights({ lite }: { lite: boolean }) {
+function FlakeLights({ lite }: { lite: boolean }) {
   return (
     <>
-      <ambientLight intensity={0.55} color="#fff6e8" />
+      <ambientLight intensity={0.45} color="#fff8ec" />
       <directionalLight
-        position={[4.5, 2.5, 3]}
-        intensity={0.55}
-        color="#E8D5A3"
+        position={[5, 4, 3]}
+        intensity={1.15}
+        color="#FFE9B8"
       />
       <directionalLight
-        position={[-3.8, 1.2, -2]}
-        intensity={0.35}
+        position={[-4, 2, -2]}
+        intensity={0.55}
         color="#D4AF37"
       />
       <pointLight
-        position={[2.2, 1.5, 2.5]}
-        intensity={lite ? 0.45 : 0.7}
-        color="#D4AF37"
-        distance={14}
+        position={[2.5, 1.5, 3]}
+        intensity={lite ? 0.6 : 1.0}
+        color="#E8D5A3"
+        distance={16}
         decay={2}
       />
       {!lite ? (
         <pointLight
-          position={[-2.4, 0.8, 1.6]}
-          intensity={0.35}
-          color="#F5E6C0"
-          distance={12}
+          position={[-2.8, 0.5, 2]}
+          intensity={0.45}
+          color="#D4AF37"
+          distance={14}
           decay={2}
         />
       ) : null}
@@ -237,7 +241,7 @@ function CascadeLights({ lite }: { lite: boolean }) {
   );
 }
 
-class CascadeErrorBoundary extends Component<
+class FlakeErrorBoundary extends Component<
   { children: ReactNode; onError: () => void },
   { failed: boolean }
 > {
@@ -258,12 +262,12 @@ class CascadeErrorBoundary extends Component<
 }
 
 /**
- * Full-hero scroll-tied crystal diamond cascade.
- * pointer-events: none — never blocks CTAs / nav.
+ * Fixed full-viewport gold-leaf flakes.
+ * Scroll progress: page top → deep into the second section.
+ * pointer-events: none — never blocks UI.
  */
-export function HeroDiamondCascade() {
+export function GoldFlakes() {
   const progress = useRef(0);
-  const hostRef = useRef<HTMLDivElement>(null);
   const [ok, setOk] = useState(true);
   const [lite, setLite] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -274,24 +278,21 @@ export function HeroDiamondCascade() {
       return;
     }
     const narrow = window.matchMedia("(max-width: 768px)").matches;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setOk(false);
+      return;
+    }
     setLite(isWeakGpu() || narrow);
 
     const update = () => {
-      const host = hostRef.current;
-      const section = host?.closest("section");
-      if (!section) {
-        const y = window.scrollY || 0;
-        progress.current = THREE.MathUtils.clamp(
-          y / (window.innerHeight * 0.72),
-          0,
-          1,
-        );
-        return;
-      }
-      const rect = section.getBoundingClientRect();
-      const scrolled = Math.max(0, -rect.top);
-      const range = Math.max(rect.height * 0.85, window.innerHeight * 0.55);
-      progress.current = THREE.MathUtils.clamp(scrolled / range, 0, 1);
+      // Hero → second section continuous fall
+      // ~1.35–1.6 viewports covers hero exit + portals entry
+      const range = Math.max(window.innerHeight * 1.45, 720);
+      const y = window.scrollY || 0;
+      progress.current = THREE.MathUtils.clamp(y / range, 0, 1);
+      // Pause render work far below the cascade range
+      setVisible(y < range * 1.85);
     };
 
     update();
@@ -305,21 +306,10 @@ export function HeroDiamondCascade() {
     const lenis = (window as Window & { __lenis?: LenisLike }).__lenis;
     lenis?.on("scroll", update);
 
-    const host = hostRef.current;
-    let io: IntersectionObserver | undefined;
-    if (host && "IntersectionObserver" in window) {
-      io = new IntersectionObserver(
-        ([entry]) => setVisible(entry.isIntersecting),
-        { rootMargin: "120px", threshold: 0.02 },
-      );
-      io.observe(host);
-    }
-
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
       lenis?.off("scroll", update);
-      io?.disconnect();
     };
   }, []);
 
@@ -327,16 +317,23 @@ export function HeroDiamondCascade() {
 
   return (
     <div
-      ref={hostRef}
-      className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
       aria-hidden
-      style={{ pointerEvents: "none" }}
+      className="gold-flakes-layer"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        pointerEvents: "none",
+        zIndex: 50,
+      }}
     >
-      <CascadeErrorBoundary onError={() => setOk(false)}>
+      <FlakeErrorBoundary onError={() => setOk(false)}>
         <Canvas
           dpr={lite ? [1, 1.25] : [1, 1.75]}
           frameloop={visible ? "always" : "never"}
-          camera={{ position: [0, 0.2, 6.2], fov: 38, near: 0.1, far: 40 }}
+          camera={{ position: [0, 0.15, 6.4], fov: 40, near: 0.1, far: 50 }}
           gl={{
             alpha: true,
             antialias: !lite,
@@ -366,11 +363,11 @@ export function HeroDiamondCascade() {
           }}
         >
           <Suspense fallback={null}>
-            <CascadeLights lite={lite} />
-            <DiamondField progress={progress} lite={lite} />
+            <FlakeLights lite={lite} />
+            <FlakeField progress={progress} lite={lite} />
           </Suspense>
         </Canvas>
-      </CascadeErrorBoundary>
+      </FlakeErrorBoundary>
     </div>
   );
 }

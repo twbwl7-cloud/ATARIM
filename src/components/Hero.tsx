@@ -1,8 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import {
   motion,
   useReducedMotion,
@@ -19,14 +18,6 @@ import { TrustBadges } from "@/components/TrustBadges";
 import { TrustMetrics } from "@/components/TrustMetrics";
 import { whatsappUrl } from "@/lib/site";
 
-const HeroDiamondCascade = dynamic(
-  () =>
-    import("@/components/HeroDiamondCascade").then(
-      (m) => m.HeroDiamondCascade,
-    ),
-  { ssr: false, loading: () => null },
-);
-
 const INTRO_MSG =
   "היי דוד, מעוניין בשיחת ייעוץ קצרה. אשמח לבדוק התאמה לפרויקט.";
 
@@ -35,7 +26,6 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const TITLE_LINES = ["נכסים דיגיטליים", "שאי אפשר להתעלם מהם."] as const;
 
 export function Hero() {
-  const [mounted, setMounted] = useState(false);
   const reduceMotion = useReducedMotion();
   const reduce = Boolean(reduceMotion);
   const introHref = whatsappUrl(INTRO_MSG);
@@ -46,66 +36,51 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Typography rises faster; canvas lags — deep luxury parallax
   const contentY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduce ? [0, 0] : [0, -110],
+    reduce ? [0, 0] : [0, -100],
   );
   const contentOpacity = useTransform(
     scrollYProgress,
     [0, 0.55, 0.9],
-    reduce ? [1, 1, 1] : [1, 0.85, 0.4],
+    reduce ? [1, 1, 1] : [1, 0.88, 0.45],
   );
-  const canvasY = useTransform(
+  const silkY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduce ? [0, 0] : [0, -36],
+    reduce ? [0, 0] : [0, -28],
   );
-  const washY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduce ? [0, 0] : [0, -20],
-  );
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <section
       ref={sectionRef}
       className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#FAF9F6]"
     >
-      {/* Cream field + soft gold wash — full-bleed luxury ground */}
+      {/* Ultra-premium silk / champagne frosted ground — frames type, never competes */}
       <motion.div
         aria-hidden
-        style={{ y: washY }}
-        className="pointer-events-none absolute inset-[-8%] z-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.22),transparent_52%),radial-gradient(ellipse_at_80%_60%,rgba(201,162,74,0.1),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.1),transparent_46%)] will-change-transform"
-      />
-
-      {/* Full-screen crystal cascade — slower parallax layer */}
-      <motion.div
-        aria-hidden
-        style={{ y: canvasY }}
-        className="pointer-events-none absolute inset-[-6%] z-[1] will-change-transform"
+        style={{ y: silkY }}
+        className="hero-silk pointer-events-none absolute inset-[-10%] z-0 will-change-transform"
       >
-        {mounted && !reduce ? <HeroDiamondCascade /> : null}
+        <div className="hero-silk__base" />
+        <div className="hero-silk__liquid" />
+        <div className="hero-silk__frost" />
+        <div className="hero-silk__sheen" />
       </motion.div>
 
-      {/* Center veil — keeps typography crisp over particles */}
+      {/* Soft center veil — typography stays crisp */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_38%,rgba(250,249,246,0.88)_0%,rgba(250,249,246,0.55)_36%,rgba(250,249,246,0.18)_62%,transparent_78%)]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_36%,rgba(250,249,246,0.82)_0%,rgba(250,249,246,0.42)_40%,rgba(250,249,246,0.12)_64%,transparent_78%)]"
       />
       <div
         aria-hidden
-        className="process-grain pointer-events-none absolute inset-0 z-[3]"
+        className="process-grain pointer-events-none absolute inset-0 z-[3] opacity-60"
       />
 
-      {/* Guiding thread — desktop + phone */}
       <div
-        className="pointer-events-none absolute inset-y-[18%] start-1/2 z-[3] w-px -translate-x-1/2 opacity-50 sm:opacity-65"
+        className="pointer-events-none absolute inset-y-[18%] start-1/2 z-[3] w-px -translate-x-1/2 opacity-45 sm:opacity-60"
         aria-hidden
       >
         <span className="guiding-thread guiding-thread--tall mx-auto" />
