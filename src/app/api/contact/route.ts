@@ -51,7 +51,13 @@ export async function POST(request: Request) {
     const msg = message || "";
 
     const text = sanitizeText(
-      `ליד חדש מהאתר\n\nשם: ${name}\nטלפון: ${phone}\nהודעה: ${msg || "—"}`,
+      [
+        "פנייה חדשה מהאתר של דוד טובול",
+        "",
+        `שם: ${name}`,
+        `טלפון: ${phone}`,
+        `על הפרויקט: ${msg || "—"}`,
+      ].join("\n"),
       1800,
     );
 
@@ -73,13 +79,11 @@ export async function POST(request: Request) {
     const clientWhatsApp = buildSafeWhatsAppUrl(
       waDigits,
       [
-        "פנייה חדשה מהאתר:",
+        "שלום דוד, פנייה חדשה מהאתר:",
         `שם: ${name}`,
         `טלפון: ${phone}`,
-        msg ? `על הפרויקט: ${msg}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n"),
+        msg ? `על הפרויקט: ${msg}` : "על הפרויקט: —",
+      ].join("\n"),
     );
 
     const anyDelivered = mail.ok || whatsappDelivered;
