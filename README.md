@@ -24,21 +24,22 @@ npm run dev -- --port 43128 --hostname 127.0.0.1
 
 ## מפתחות ומייל (לפי הסקריפטים)
 
-הטופס שולח ל־`POST /api/contact` (Zod + honeypot + rate-limit), ואז:
+הטופס שולח ל־`POST /api/contact` (Zod + honeypot + rate-limit) — **בלי הפניה לוואטסאפ**:
 
-1. **מייל** → `CONTACT_TO_EMAIL` דרך **Resend** (`RESEND_API_KEY`)
-2. **וואטסאפ בוט** (אופציונלי) → `WHATSAPP_BOT_URL`
-3. **פתיחת wa.me** אצל הלקוח להמשך שיחה
+1. **מייל RTL** → `Twbwl7@gmail.com` (+ `CONTACT_TO_EMAIL`) דרך Resend, עם קובץ **CSV לאקסל** מצורף
+2. **טבלת אקסל / Google Sheets** → שורה חדשה בכל פנייה (`GOOGLE_SHEETS_WEBHOOK_URL`)
+3. **וואטסאפ בוט** (אופציונלי בלבד, בצד שרת) → `WHATSAPP_BOT_URL`
 
 | משתנה | ציבורי? | חובה | תיאור |
 |---|---|---|---|
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | כן | כן | `972523182032` |
 | `CONTACT_TO_EMAIL` | לא | מומלץ | ברירת מחדל `Twbwl7@gmail.com` |
 | `RESEND_API_KEY` | לא | **כן למייל** | מפתח מ־https://resend.com/api-keys |
-| `CONTACT_FROM_EMAIL` | לא | לא | שולח מאומת ב־Resend (אחרי דומיין) |
-| `WHATSAPP_BOT_URL` | לא | לא | Make / Zapier / CallMeBot webhook |
+| `CONTACT_FROM_EMAIL` | לא | לא | שולח מאומת ב־Resend |
+| `GOOGLE_SHEETS_WEBHOOK_URL` | לא | **כן לטבלה מצטברת** | Apps Script Web App — ראו `scripts/google-sheets-leads.gs` |
+| `WHATSAPP_BOT_URL` | לא | לא | Make / Zapier / CallMeBot |
 
-הגדירו את אותם משתנים גם ב־**Vercel → Project → Settings → Environment Variables** (Production).
+הגדירו את אותם משתנים גם ב־**Vercel → Project → Settings → Environment Variables** (Production), ואז Redeploy.
 
 ## וואטסאפ / מייל גלויים באתר
 

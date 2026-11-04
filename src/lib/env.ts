@@ -14,6 +14,7 @@ const serverEnvSchema = z.object({
   CONTACT_FROM_EMAIL: z.string().min(3).optional(),
   RESEND_API_KEY: z.string().min(1).optional(),
   WHATSAPP_BOT_URL: z.string().optional(),
+  GOOGLE_SHEETS_WEBHOOK_URL: z.string().optional(),
   NEXT_PUBLIC_WHATSAPP_NUMBER: z.string().optional(),
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
 });
@@ -26,6 +27,8 @@ export function getServerEnv(): ServerEnv {
     CONTACT_FROM_EMAIL: process.env.CONTACT_FROM_EMAIL || undefined,
     RESEND_API_KEY: process.env.RESEND_API_KEY || undefined,
     WHATSAPP_BOT_URL: process.env.WHATSAPP_BOT_URL || undefined,
+    GOOGLE_SHEETS_WEBHOOK_URL:
+      process.env.GOOGLE_SHEETS_WEBHOOK_URL || undefined,
     NEXT_PUBLIC_WHATSAPP_NUMBER:
       process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || undefined,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || undefined,
@@ -38,6 +41,7 @@ export function getServerEnv(): ServerEnv {
       CONTACT_FROM_EMAIL: undefined,
       RESEND_API_KEY: undefined,
       WHATSAPP_BOT_URL: undefined,
+      GOOGLE_SHEETS_WEBHOOK_URL: undefined,
       NEXT_PUBLIC_WHATSAPP_NUMBER: undefined,
       NEXT_PUBLIC_SITE_URL: undefined,
     };

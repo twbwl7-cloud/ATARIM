@@ -12,8 +12,8 @@ import {
 import { site } from "@/lib/site";
 
 /**
- * Boutique contact — Zod client check → POST /api/contact (email + bot)
- * → open sanitized WhatsApp deep-link.
+ * Boutique contact — Zod → POST /api/contact (email + Excel sheet).
+ * No automatic WhatsApp redirect.
  */
 type Status = "idle" | "loading" | "error" | "sent";
 
@@ -45,19 +45,18 @@ export function PremiumContactForm() {
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
           ...parsed.data,
-          // honeypot — must stay empty
           company_website: String(data.get("company_website") || ""),
         }),
       });
 
       const json = (await res.json().catch(() => null)) as {
         success?: boolean;
-        delivered?: boolean;
-        channels?: { email?: boolean };
-        whatsappUrl?: string;
       } | null;
 
       if (!res.ok || !json?.success) {
@@ -67,11 +66,6 @@ export function PremiumContactForm() {
 
       setStatus("sent");
       form.reset();
-
-      // Keep the user on-site so they see "נשלח למייל"; WhatsApp opens beside
-      if (json.whatsappUrl) {
-        window.open(json.whatsappUrl, "_blank", "noopener,noreferrer");
-      }
     } catch {
       setStatus("error");
     }
@@ -109,7 +103,7 @@ export function PremiumContactForm() {
             בואו נדבר על הפרויקט.
           </h2>
           <p className="mx-auto mt-1.5 max-w-sm text-xs font-light leading-relaxed text-white/55">
-            שלושה שדות. בלי רעש. נחזור אליכם אישית — במייל ובוואטסאפ.
+            שלושה שדות. בלי רעש. הפנייה מגיעה למייל ולטבלת אקסל מסודרת.
           </p>
           <a
             href={`mailto:${site.email}`}
@@ -129,7 +123,6 @@ export function PremiumContactForm() {
           className="mt-5 flex flex-col gap-4"
           noValidate
         >
-          {/* Honeypot — invisible to humans */}
           <div
             aria-hidden
             className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
@@ -209,8 +202,8 @@ export function PremiumContactForm() {
               {status === "error"
                 ? "לא הצלחנו לשלוח — בדקו את הפרטים ונסו שוב."
                 : status === "sent"
-                  ? "נשלח למייל שלך · נפתח גם וואטסאפ להמשך."
-                  : "כל פנייה נשלחת למייל · מענה אישי · ללא התחייבות"}
+                  ? "תודה — הפנייה נשלחה למייל ולטבלת האקסל."
+                  : "בלי הפניה לוואטסאפ · מענה אישי · ללא התחייבות"}
             </p>
           </div>
         </motion.form>

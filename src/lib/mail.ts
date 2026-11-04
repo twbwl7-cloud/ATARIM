@@ -1,6 +1,7 @@
 import "server-only";
 import { Resend } from "resend";
 import { getServerEnv } from "@/lib/env";
+import { buildLeadCsv } from "@/lib/sheets";
 import { sanitizeText } from "@/lib/sanitize";
 
 export type LeadMail = {
@@ -184,6 +185,13 @@ export async function sendLeadEmail(
 
   const { subject, bodyText, bodyHtml } = buildLeadEmailContent(lead);
 
+  const csv = buildLeadCsv(lead);
+  const csvBase64 = Buffer.from(csv, "utf8").toString("base64");
+  const stampFile = new Date()
+    .toISOString()
+    .slice(0, 16)
+    .replace(/[:T]/g, "-");
+
   try {
     const resend = new Resend(key);
     const { data, error } = await resend.emails.send({
@@ -192,6 +200,13 @@ export async function sendLeadEmail(
       subject,
       text: bodyText,
       html: bodyHtml,
+      attachments: [
+        {
+          filename: `lead-${stampFile}.csv`,
+          content: csvBase64,
+          contentType: "text/csv; charset=utf-8",
+        },
+      ],
       tags: [{ name: "type", value: "site-lead" }],
     });
 

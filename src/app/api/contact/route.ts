@@ -1,19 +1,16 @@
 import { NextResponse } from "next/server";
 import { getServerEnv, isWhatsAppBotConfigured } from "@/lib/env";
 import { sendLeadEmail } from "@/lib/mail";
-import {
-  buildSafeWhatsAppUrl,
-  contactSchema,
-  sanitizeText,
-} from "@/lib/sanitize";
+import { sanitizeText } from "@/lib/sanitize";
+import { appendLeadToSheet } from "@/lib/sheets";
+import { contactSchema } from "@/lib/sanitize";
 
 /**
- * Contact lead intake (Script 6 / landing):
- *  1. Zod + sanitize
- *  2. Honeypot reject
- *  3. Email to CONTACT_TO_EMAIL via Resend
- *  4. Optional WhatsApp bot webhook (WHATSAPP_BOT_URL)
- *  5. Return safe wa.me deep-link for client handoff
+ * Contact lead intake:
+ *  1. Zod + honeypot
+ *  2. Email (RTL + CSV Excel attachment)
+ *  3. Google Sheets / Excel table row (GOOGLE_SHEETS_WEBHOOK_URL)
+ *  4. Optional WhatsApp bot webhook (no client redirect)
  */
 export async function POST(request: Request) {
   try {
@@ -29,7 +26,6 @@ export async function POST(request: Request) {
 
     const body = raw as Record<string, unknown>;
 
-    // Honeypot — bots fill hidden fields; humans never see company_website
     const honey = String(body.company_website ?? body.website ?? "").trim();
     if (honey) {
       return NextResponse.json({ success: true, delivered: true, bot: true });
@@ -49,6 +45,7 @@ export async function POST(request: Request) {
 
     const { name, phone, message } = parsed.data;
     const msg = message || "";
+    const lead = { name, phone, message: msg };
 
     const text = sanitizeText(
       [
@@ -62,7 +59,11 @@ export async function POST(request: Request) {
     );
 
     const env = getServerEnv();
-    const mail = await sendLeadEmail({ name, phone, message: msg });
+
+    const [mail, sheet] = await Promise.all([
+      sendLeadEmail(lead),
+      appendLeadToSheet(lead),
+    ]);
 
     let whatsappDelivered = false;
     if (isWhatsAppBotConfigured(env.WHATSAPP_BOT_URL)) {
@@ -74,38 +75,26 @@ export async function POST(request: Request) {
       });
     }
 
-    const waDigits =
-      env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || "972523182032";
-    const clientWhatsApp = buildSafeWhatsAppUrl(
-      waDigits,
-      [
-        "שלום דוד, פנייה חדשה מהאתר:",
-        `שם: ${name}`,
-        `טלפון: ${phone}`,
-        msg ? `על הפרויקט: ${msg}` : "על הפרויקט: —",
-      ].join("\n"),
-    );
-
-    const anyDelivered = mail.ok || whatsappDelivered;
+    const delivered = mail.ok || sheet.ok || whatsappDelivered;
 
     return NextResponse.json({
       success: true,
-      // Email is the source of truth for "got the lead"
-      delivered: mail.ok || anyDelivered,
+      delivered,
       channels: {
         email: mail.ok,
+        excel: sheet.ok,
         whatsappBot: whatsappDelivered,
       },
       emailTo: mail.to ?? null,
       reasons: {
         email: mail.reason ?? null,
+        excel: sheet.reason ?? null,
         whatsappBot: whatsappDelivered
           ? null
           : isWhatsAppBotConfigured(env.WHATSAPP_BOT_URL)
             ? "webhook_failed"
             : "bot_not_configured",
       },
-      whatsappUrl: clientWhatsApp,
     });
   } catch (err) {
     console.error("[contact] unexpected error", err);
