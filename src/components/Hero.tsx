@@ -12,21 +12,15 @@ import { PeaceOfMindBadges } from "@/components/PeaceOfMindBadges";
 import { SplitTextReveal } from "@/components/SplitTextReveal";
 import { TrustBadges } from "@/components/TrustBadges";
 import { TrustMetrics } from "@/components/TrustMetrics";
-import { HeroGlassMark } from "@/components/HeroGlassMark";
 import { whatsappUrl } from "@/lib/site";
 
-const HeroGlass = dynamic(
-  () => import("@/components/HeroGlass").then((m) => m.HeroGlass),
-  { ssr: false, loading: () => <HeroGlassMarkHost /> },
+const HeroDiamondCascade = dynamic(
+  () =>
+    import("@/components/HeroDiamondCascade").then(
+      (m) => m.HeroDiamondCascade,
+    ),
+  { ssr: false, loading: () => null },
 );
-
-function HeroGlassMarkHost() {
-  return (
-    <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
-      <HeroGlassMark />
-    </div>
-  );
-}
 
 const INTRO_MSG =
   "היי דוד, מעוניין בשיחת ייעוץ קצרה. אשמח לבדוק התאמה לפרויקט.";
@@ -51,25 +45,19 @@ export function Hero() {
 
   return (
     <section className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#FAF9F6]">
-      {/* Match process-map cream field: gold wash + process-grain */}
+      {/* Cream field + soft gold wash — full-bleed luxury ground */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.2),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.12),transparent_46%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,175,55,0.22),transparent_52%),radial-gradient(ellipse_at_80%_60%,rgba(201,162,74,0.1),transparent_48%),radial-gradient(ellipse_at_15%_70%,rgba(201,162,74,0.1),transparent_46%)]"
       />
-      {/* Premium glass mark + optional 3D — above wash, below copy */}
-      {mounted ? (
-        reduce ? (
-          <HeroGlassMarkHost />
-        ) : (
-          <HeroGlass />
-        )
-      ) : (
-        <HeroGlassMarkHost />
-      )}
-      {/* Soft center veil — lighter on start-side so the glass mark reads */}
+
+      {/* Full-screen crystal cascade — scroll-tied, never captures clicks */}
+      {mounted && !reduce ? <HeroDiamondCascade /> : null}
+
+      {/* Center veil — keeps typography crisp over particles */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_58%_42%,rgba(250,249,246,0.78)_0%,rgba(250,249,246,0.28)_40%,transparent_70%)]"
+        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_38%,rgba(250,249,246,0.88)_0%,rgba(250,249,246,0.55)_36%,rgba(250,249,246,0.18)_62%,transparent_78%)]"
       />
       <div
         aria-hidden
