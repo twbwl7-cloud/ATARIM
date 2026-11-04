@@ -22,12 +22,14 @@ const INTRO_MSG =
   "היי דוד, מעוניין בשיחת ייעוץ קצרה. אשמח לבדוק התאמה לפרויקט.";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
 const TITLE_LINES = ["נכסים דיגיטליים", "שאי אפשר להתעלם מהם."] as const;
 
+/**
+ * Hero — champagne / frosted-glass ground only.
+ * Gold flakes live in the global fixed <GoldFlakes /> canvas (SiteChrome).
+ */
 export function Hero() {
-  const reduceMotion = useReducedMotion();
-  const reduce = Boolean(reduceMotion);
+  const reduce = Boolean(useReducedMotion());
   const introHref = whatsappUrl(INTRO_MSG);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -39,48 +41,53 @@ export function Hero() {
   const contentY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduce ? [0, 0] : [0, -100],
+    reduce ? [0, 0] : [0, -90],
   );
   const contentOpacity = useTransform(
     scrollYProgress,
-    [0, 0.55, 0.9],
-    reduce ? [1, 1, 1] : [1, 0.88, 0.45],
-  );
-  const silkY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduce ? [0, 0] : [0, -28],
+    [0, 0.6, 1],
+    reduce ? [1, 1, 1] : [1, 0.9, 0.5],
   );
 
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 flex min-h-0 flex-col overflow-hidden bg-[#FAF9F6]"
+      className="relative z-10 flex min-h-0 flex-col overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(165deg, #FAF9F6 0%, #F5F0E6 35%, #EFE6D4 68%, #FAF9F6 100%)",
+      }}
     >
-      {/* Ultra-premium silk / champagne frosted ground — frames type, never competes */}
-      <motion.div
-        aria-hidden
-        style={{ y: silkY }}
-        className="hero-silk pointer-events-none absolute inset-[-10%] z-0 will-change-transform"
-      >
-        <div className="hero-silk__base" />
-        <div className="hero-silk__liquid" />
-        <div className="hero-silk__frost" />
-        <div className="hero-silk__sheen" />
-      </motion.div>
-
-      {/* Soft center veil — typography stays crisp */}
+      {/* Premium soft champagne / frosted glass atmosphere — no 3D graphic */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_at_50%_36%,rgba(250,249,246,0.82)_0%,rgba(250,249,246,0.42)_40%,rgba(250,249,246,0.12)_64%,transparent_78%)]"
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background: [
+            "radial-gradient(ellipse 70% 55% at 20% 25%, rgba(232,213,163,0.38), transparent 58%)",
+            "radial-gradient(ellipse 55% 45% at 85% 20%, rgba(212,175,55,0.16), transparent 55%)",
+            "radial-gradient(ellipse 75% 50% at 50% 90%, rgba(197,160,89,0.14), transparent 60%)",
+            "linear-gradient(125deg, rgba(255,255,255,0.28), transparent 42%, rgba(255,255,255,0.12))",
+          ].join(","),
+        }}
       />
       <div
         aria-hidden
-        className="process-grain pointer-events-none absolute inset-0 z-[3] opacity-60"
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          backdropFilter: "blur(0.6px)",
+          WebkitBackdropFilter: "blur(0.6px)",
+          background:
+            "radial-gradient(ellipse at 50% 38%, rgba(250,249,246,0.78) 0%, rgba(250,249,246,0.35) 42%, transparent 72%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="process-grain pointer-events-none absolute inset-0 z-[2] opacity-50"
       />
 
       <div
-        className="pointer-events-none absolute inset-y-[18%] start-1/2 z-[3] w-px -translate-x-1/2 opacity-45 sm:opacity-60"
+        className="pointer-events-none absolute inset-y-[18%] start-1/2 z-[3] w-px -translate-x-1/2 opacity-45 sm:opacity-55"
         aria-hidden
       >
         <span className="guiding-thread guiding-thread--tall mx-auto" />
