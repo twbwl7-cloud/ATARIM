@@ -57,9 +57,10 @@ export function PremiumContactForm() {
 
       const json = (await res.json().catch(() => null)) as {
         success?: boolean;
+        delivered?: boolean;
       } | null;
 
-      if (!res.ok || !json?.success) {
+      if (!res.ok || !json?.success || json.delivered === false) {
         setStatus("error");
         return;
       }
