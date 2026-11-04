@@ -10,10 +10,8 @@ const serverEnvSchema = z.object({
     .string()
     .email()
     .default("Twbwl7@gmail.com"),
-  CONTACT_FROM_EMAIL: z
-    .string()
-    .email()
-    .optional(),
+  // Allow "Name <email@x.com>" or bare email
+  CONTACT_FROM_EMAIL: z.string().min(3).optional(),
   RESEND_API_KEY: z.string().min(1).optional(),
   WHATSAPP_BOT_URL: z.string().optional(),
   NEXT_PUBLIC_WHATSAPP_NUMBER: z.string().optional(),

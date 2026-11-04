@@ -9,7 +9,9 @@ export type LeadMail = {
   message: string;
 };
 
-/** Strip CR/LF from header-bound values (Script AppSec — header injection). */
+const OWNER_INBOX = "Twbwl7@gmail.com";
+
+/** Strip CR/LF from header-bound values (header injection). */
 function headerSafe(value: string) {
   return sanitizeText(value, 200).replace(/[\r\n]+/g, " ").trim();
 }
@@ -22,20 +24,22 @@ function escapeHtml(s: string) {
     .replace(/"/g, "&quot;");
 }
 
-/** Israel-local Hebrew datetime for the inbox. */
 function formatIsraelTime(d = new Date()) {
   try {
     return new Intl.DateTimeFormat("he-IL", {
       timeZone: "Asia/Jerusalem",
-      dateStyle: "full",
-      timeStyle: "short",
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     }).format(d);
   } catch {
     return d.toISOString();
   }
 }
 
-/** Normalize IL phone → digits for wa.me */
 function toWaDigits(phone: string) {
   let d = phone.replace(/\D/g, "");
   if (d.startsWith("0")) d = `972${d.slice(1)}`;
@@ -43,90 +47,112 @@ function toWaDigits(phone: string) {
   return d.slice(0, 15);
 }
 
-/** Build a clean RTL Hebrew lead email (HTML + plain text). */
+/** Recipients: always owner inbox + CONTACT_TO_EMAIL if different. */
+export function resolveLeadRecipients(configured?: string): string[] {
+  const set = new Set<string>();
+  set.add(OWNER_INBOX.toLowerCase());
+  const extra = (configured || "").trim().toLowerCase();
+  if (extra && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(extra)) set.add(extra);
+  return [...set];
+}
+
+/** Gmail-safe RTL Hebrew lead email. */
 export function buildLeadEmailContent(lead: LeadMail) {
   const name = lead.name.trim();
   const phone = lead.phone.trim();
   const message = (lead.message || "").trim() || "—";
   const when = formatIsraelTime();
+  const wa = toWaDigits(phone);
+  const waHref = `https://wa.me/${wa}?text=${encodeURIComponent(`היי ${name}, קיבלתי את הפנייה מהאתר. נדבר?`)}`;
 
   const subject = headerSafe(`פנייה חדשה מהאתר · ${name}`);
 
-  // Plain text — RTL marks help Gmail/Outlook Hebrew rendering
+  // RLM (\u200F) + LRM (\u200E) keep Gmail plain-text RTL
   const bodyText = [
-    "\u200Fפנייה חדשה מהאתר של דוד טובול",
+    "\u200F════════════════════════════════",
+    "\u200Fפנייה חדשה מהאתר — דוד טובול",
+    "\u200F════════════════════════════════",
     "",
-    `\u200Fשם: ${name}`,
-    `\u200Fטלפון: \u200E${phone}\u200F`,
-    `\u200Fעל הפרויקט:`,
+    `\u200Fשם מלא: ${name}`,
+    `\u200Fטלפון / וואטסאפ: \u200E${phone}\u200F`,
+    "",
+    "\u200Fעל הפרויקט:",
     `\u200F${message}`,
     "",
     `\u200Fהתקבל: ${when}`,
+    `\u200Fלשיחה: \u200E${waHref}\u200F`,
   ].join("\n");
 
+  // Table + align=right on every cell — Gmail ignores many CSS dir rules
   const bodyHtml = `<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light" />
-  <title>${escapeHtml(subject)}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>${escapeHtml(subject)}</title>
 </head>
-<body style="margin:0;padding:0;background:#f3efe6;direction:rtl;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="direction:rtl;background:#f3efe6;">
-    <tr>
-      <td align="center" style="padding:28px 16px;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="direction:rtl;max-width:560px;background:#faf9f6;border:1px solid rgba(197,160,89,0.35);border-radius:16px;">
-          <tr>
-            <td style="padding:22px 24px 10px;text-align:right;direction:rtl;font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;">
-              <p style="margin:0;font-size:11px;letter-spacing:0.18em;color:#c5a059;">דוד טובול · פנייה חדשה</p>
-              <h1 style="margin:10px 0 0;font-size:22px;font-weight:600;line-height:1.35;color:#121212;">התקבלה פנייה מהאתר</h1>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:8px 24px 4px;text-align:right;direction:rtl;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="direction:rtl;border-top:1px solid rgba(197,160,89,0.28);">
-                <tr>
-                  <td style="padding:16px 0 8px;font-family:Arial,sans-serif;font-size:13px;color:#5c5c5c;text-align:right;">שם מלא</td>
-                </tr>
-                <tr>
-                  <td style="padding:0 0 14px;font-family:Arial,sans-serif;font-size:17px;font-weight:600;color:#121212;text-align:right;direction:rtl;">${escapeHtml(name)}</td>
-                </tr>
-                <tr>
-                  <td style="padding:0 0 8px;font-family:Arial,sans-serif;font-size:13px;color:#5c5c5c;text-align:right;">טלפון / וואטסאפ</td>
-                </tr>
-                <tr>
-                  <td style="padding:0 0 14px;font-family:Arial,sans-serif;font-size:17px;font-weight:600;color:#121212;text-align:right;">
-                    <a href="tel:${escapeHtml(phone.replace(/\s/g, ""))}" dir="ltr" style="color:#121212;text-decoration:none;unicode-bidi:isolate;">${escapeHtml(phone)}</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding:0 0 8px;font-family:Arial,sans-serif;font-size:13px;color:#5c5c5c;text-align:right;">על הפרויקט</td>
-                </tr>
-                <tr>
-                  <td style="padding:12px 14px;font-family:Arial,sans-serif;font-size:15px;line-height:1.7;color:#2a2a2a;text-align:right;direction:rtl;background:#fff;border:1px solid rgba(18,18,18,0.08);border-radius:10px;">
-                    ${escapeHtml(message).replace(/\n/g, "<br/>")}
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:18px 24px 22px;text-align:right;direction:rtl;font-family:Arial,sans-serif;">
-              <p style="margin:0 0 14px;font-size:12px;color:#8a8a8a;">התקבל: ${escapeHtml(when)}</p>
-              <a href="https://wa.me/${toWaDigits(phone)}?text=${encodeURIComponent(`היי ${name}, קיבלתי את הפנייה מהאתר. נדבר?`)}"
-                 style="display:inline-block;padding:11px 18px;border-radius:999px;background:#121212;color:#faf9f6;font-size:13px;font-weight:500;text-decoration:none;border:1px solid #c5a059;">
-                פתיחת שיחה בוואטסאפ
-              </a>
-            </td>
-          </tr>
-        </table>
-        <p style="margin:14px 0 0;font-family:Arial,sans-serif;font-size:11px;color:#9a9a9a;text-align:center;direction:rtl;">
-          נשלח אוטומטית מאתר דוד טובול
-        </p>
-      </td>
-    </tr>
-  </table>
+<body dir="rtl" bgcolor="#F3EFE6" style="margin:0;padding:0;background-color:#F3EFE6;direction:rtl !important;text-align:right !important;">
+<!--[if mso]><div dir="rtl"><![endif]-->
+<table role="presentation" dir="rtl" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#F3EFE6" style="direction:rtl;width:100%;background-color:#F3EFE6;">
+  <tr>
+    <td dir="rtl" align="center" style="direction:rtl;text-align:center;padding:28px 12px;">
+      <table role="presentation" dir="rtl" width="560" border="0" cellpadding="0" cellspacing="0" bgcolor="#FAF9F6" style="direction:rtl;width:100%;max-width:560px;background-color:#FAF9F6;border:1px solid #E0C992;border-radius:14px;">
+        <tr>
+          <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:24px 24px 8px;font-family:Arial,Helvetica,sans-serif;">
+            <p dir="rtl" style="margin:0;direction:rtl;text-align:right;font-size:12px;color:#C5A059;letter-spacing:0.12em;">&#x200F;דוד טובול · האתר</p>
+            <h1 dir="rtl" style="margin:10px 0 0;direction:rtl;text-align:right;font-size:22px;line-height:1.4;font-weight:700;color:#121212;">&#x200F;התקבלה פנייה חדשה</h1>
+          </td>
+        </tr>
+        <tr>
+          <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:8px 24px 0;">
+            <table role="presentation" dir="rtl" width="100%" border="0" cellpadding="0" cellspacing="0" style="direction:rtl;border-top:1px solid #E8D5A3;">
+              <tr>
+                <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:16px 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#7A7A7A;">&#x200F;שם מלא</td>
+              </tr>
+              <tr>
+                <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:0 0 14px;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:700;color:#121212;">&#x200F;${escapeHtml(name)}</td>
+              </tr>
+              <tr>
+                <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#7A7A7A;">&#x200F;טלפון / וואטסאפ</td>
+              </tr>
+              <tr>
+                <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:0 0 14px;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:700;color:#121212;">
+                  <a href="tel:${escapeHtml(phone.replace(/\s/g, ""))}" dir="ltr" style="color:#121212;text-decoration:none;unicode-bidi:isolate;direction:ltr;">${escapeHtml(phone)}</a>
+                </td>
+              </tr>
+              <tr>
+                <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#7A7A7A;">&#x200F;על הפרויקט</td>
+              </tr>
+              <tr>
+                <td dir="rtl" align="right" bgcolor="#FFFFFF" style="direction:rtl;text-align:right;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.75;color:#2A2A2A;background-color:#FFFFFF;border:1px solid #EBE6DC;border-radius:10px;">
+                  &#x200F;${escapeHtml(message).replace(/\n/g, "<br/>")}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td dir="rtl" align="right" style="direction:rtl;text-align:right;padding:20px 24px 24px;font-family:Arial,Helvetica,sans-serif;">
+            <p dir="rtl" style="margin:0 0 16px;direction:rtl;text-align:right;font-size:12px;color:#8A8A8A;">&#x200F;התקבל: ${escapeHtml(when)}</p>
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" dir="rtl" style="direction:rtl;">
+              <tr>
+                <td align="center" bgcolor="#121212" style="border-radius:999px;border:1px solid #C5A059;">
+                  <a href="${waHref}" dir="rtl" style="display:inline-block;padding:12px 20px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:600;color:#FAF9F6;text-decoration:none;direction:rtl;">
+                    &#x200F;פתיחת שיחה בוואטסאפ עם הפונה
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <p dir="rtl" style="margin:16px 0 0;direction:rtl;text-align:center;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#9A9A9A;">
+        &#x200F;נשלח אוטומטית מכל פנייה באתר · davidwebsitebuilder.vercel.app
+      </p>
+    </td>
+  </tr>
+</table>
+<!--[if mso]></div><![endif]-->
 </body>
 </html>`;
 
@@ -134,12 +160,11 @@ export function buildLeadEmailContent(lead: LeadMail) {
 }
 
 /**
- * Deliver lead to inbox (Resend).
- * Requires RESEND_API_KEY in env (local + Vercel).
+ * Send EVERY lead to the owner inbox via Resend.
  */
 export async function sendLeadEmail(
   lead: LeadMail,
-): Promise<{ ok: boolean; reason?: string }> {
+): Promise<{ ok: boolean; reason?: string; to?: string[] }> {
   const env = getServerEnv();
   const key = env.RESEND_API_KEY?.trim();
 
@@ -151,33 +176,34 @@ export async function sendLeadEmail(
     return { ok: false, reason: "mail_not_configured" };
   }
 
-  const to = env.CONTACT_TO_EMAIL;
+  const to = resolveLeadRecipients(env.CONTACT_TO_EMAIL);
+  // ASCII from-name — Hebrew here breaks some clients / Resend parsing
   const from =
     env.CONTACT_FROM_EMAIL?.trim() ||
-    "דוד טובול · האתר <onboarding@resend.dev>";
+    "David Tubul Website <onboarding@resend.dev>";
 
   const { subject, bodyText, bodyHtml } = buildLeadEmailContent(lead);
 
   try {
     const resend = new Resend(key);
-    const { error } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from,
-      to: [to],
+      to,
       subject,
       text: bodyText,
       html: bodyHtml,
-      headers: {
-        "X-Entity-Ref-ID": `lead-${Date.now()}`,
-      },
+      tags: [{ name: "type", value: "site-lead" }],
     });
 
     if (error) {
       console.error("[mail] Resend error", error);
-      return { ok: false, reason: "mail_send_failed" };
+      return { ok: false, reason: "mail_send_failed", to };
     }
-    return { ok: true };
+
+    console.info("[mail] lead emailed", { id: data?.id, to });
+    return { ok: true, to };
   } catch (err) {
     console.error("[mail] unexpected", err);
-    return { ok: false, reason: "mail_send_failed" };
+    return { ok: false, reason: "mail_send_failed", to };
   }
 }

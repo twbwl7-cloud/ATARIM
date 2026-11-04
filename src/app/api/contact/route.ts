@@ -90,11 +90,13 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      delivered: anyDelivered,
+      // Email is the source of truth for "got the lead"
+      delivered: mail.ok || anyDelivered,
       channels: {
         email: mail.ok,
         whatsappBot: whatsappDelivered,
       },
+      emailTo: mail.to ?? null,
       reasons: {
         email: mail.reason ?? null,
         whatsappBot: whatsappDelivered

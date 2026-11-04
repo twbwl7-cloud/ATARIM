@@ -55,6 +55,8 @@ export function PremiumContactForm() {
 
       const json = (await res.json().catch(() => null)) as {
         success?: boolean;
+        delivered?: boolean;
+        channels?: { email?: boolean };
         whatsappUrl?: string;
       } | null;
 
@@ -66,8 +68,9 @@ export function PremiumContactForm() {
       setStatus("sent");
       form.reset();
 
+      // Keep the user on-site so they see "נשלח למייל"; WhatsApp opens beside
       if (json.whatsappUrl) {
-        window.location.assign(json.whatsappUrl);
+        window.open(json.whatsappUrl, "_blank", "noopener,noreferrer");
       }
     } catch {
       setStatus("error");
@@ -206,8 +209,8 @@ export function PremiumContactForm() {
               {status === "error"
                 ? "לא הצלחנו לשלוח — בדקו את הפרטים ונסו שוב."
                 : status === "sent"
-                  ? "הפנייה התקבלה — נפתח וואטסאפ להמשך."
-                  : "מענה אישי · ללא התחייבות · ללא דיוור שיווקי ללא הסכמה"}
+                  ? "נשלח למייל שלך · נפתח גם וואטסאפ להמשך."
+                  : "כל פנייה נשלחת למייל · מענה אישי · ללא התחייבות"}
             </p>
           </div>
         </motion.form>
