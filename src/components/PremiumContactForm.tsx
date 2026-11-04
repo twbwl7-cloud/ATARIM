@@ -104,7 +104,7 @@ export function PremiumContactForm() {
             בואו נדבר על הפרויקט.
           </h2>
           <p className="mx-auto mt-1.5 max-w-sm text-xs font-light leading-relaxed text-white/55">
-            שלושה שדות. בלי רעש. הפנייה מגיעה למייל ולטבלת אקסל מסודרת.
+            שלושה שדות. בלי רעש. הפנייה מגיעה למייל עם קובץ אקסל מסודר.
           </p>
           <a
             href={`mailto:${site.email}`}
@@ -203,7 +203,7 @@ export function PremiumContactForm() {
               {status === "error"
                 ? "לא הצלחנו לשלוח — בדקו את הפרטים ונסו שוב."
                 : status === "sent"
-                  ? "תודה — הפנייה נשלחה למייל ולטבלת האקסל."
+                  ? "תודה — הפנייה נשלחה למייל (עם קובץ אקסל)."
                   : "בלי הפניה לוואטסאפ · מענה אישי · ללא התחייבות"}
             </p>
           </div>
